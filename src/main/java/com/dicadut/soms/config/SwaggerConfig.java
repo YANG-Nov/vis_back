@@ -26,23 +26,23 @@ public class SwaggerConfig {
     public Docket createSomsHealthApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .groupName("健康监测系统API")
+                .groupName("智慧运维系统API")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.dicadut.soms.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
-    @Bean("SomsOmApi")
-    public Docket createSomsOmApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .groupName("运维养护系统API")
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.dicadut.soms.controller"))
-                .paths(PathSelectors.any())
-                .build();
-    }
+//    @Bean("SomsOmApi")
+//    public Docket createSomsOmApi() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .apiInfo(apiInfo())
+//                .groupName("运维养护系统API")
+//                .select()
+//                .apis(RequestHandlerSelectors.basePackage("com.dicadut.soms.controller"))
+//                .paths(PathSelectors.any())
+//                .build();
+//    }
 
 
     private ApiInfo apiInfo() {
