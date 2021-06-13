@@ -6,14 +6,14 @@ if [ "$git_branch"x = "develop"x ]; then
     mode="dev"
 elif [ "$git_branch"x = "test"x ]; then
     mode="test"
-elif [ "$git_branch"x = "master"x ]; then
+elif [ "$git_branch"x = "main"x ]; then
     mode="prod"
 else
     echo "分支 $git_branch 发布到develop"
     mode="dev"
 fi
 
-if [ "$git_branch"x = "master"x ]; then
+if [ "$git_branch"x = "main"x ]; then
     read -p "请注意你正在发布"$git_branch"分支, 请确认(y/n): " choice
     if [ "$choice"x = "y"x ]; then
        echo "3s 后开始发布 $git_branch 分支"
