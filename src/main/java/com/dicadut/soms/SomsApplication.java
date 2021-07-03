@@ -14,16 +14,21 @@ public class SomsApplication {
         SpringApplication.run(SomsApplication.class, args);
 
         int orderNumber = 11;
-        System.out.println("第" +  orderNumber + "个数是：" + fibonacci( orderNumber-1));
+        System.out.println("第" +  orderNumber + "个数是：" + fibonacci( orderNumber));
 
 
     }
 
-    public static int fibonacci(int orderNumber) {
+    public static int fibonacci1(int orderNumber) {
         if ((0 == orderNumber ) || (1 == orderNumber))
             return orderNumber;
         else
-            return fibonacci(orderNumber - 1) + fibonacci(orderNumber - 2);
+            return fibonacci1(orderNumber - 1) + fibonacci1(orderNumber - 2);
+    }
+
+    public static int fibonacci(int orderNumber){
+        orderNumber--;
+        return fibonacci1(orderNumber);
     }
 
 }
