@@ -12,6 +12,18 @@ public class SomsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SomsApplication.class, args);
+
+        int orderNumber = 11;
+        System.out.println("第" +  orderNumber + "个数是：" + fibonacci( orderNumber-1));
+
+
+    }
+
+    public static int fibonacci(int orderNumber) {
+        if ((0 == orderNumber ) || (1 == orderNumber))
+            return orderNumber;
+        else
+            return fibonacci(orderNumber - 1) + fibonacci(orderNumber - 2);
     }
 
 }
