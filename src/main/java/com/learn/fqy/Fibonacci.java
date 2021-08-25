@@ -15,7 +15,7 @@ public class Fibonacci {
     }
 
     public static void main(String[] args) {
-        int orderNumber = 11;
+        int orderNumber = 3;
         System.out.println("第" + orderNumber + "个数是：" + fibonacci(orderNumber));
     }
 
