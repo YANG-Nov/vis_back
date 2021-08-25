@@ -8,7 +8,7 @@ import lombok.Data;
  * @create 2021-08-25 16:55
  */
 @Data
-public class WyResDTO_qly {
+public class WyResDTO {
 
         // private Integer id;
         private String serial;
