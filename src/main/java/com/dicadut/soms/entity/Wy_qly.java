@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @create 2021-08-25 16:59
  */
 @Data
-public class Wy {
+public class Wy_qly {
     @TableId
     private Integer id;
     private Integer serial;
