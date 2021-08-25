@@ -9,7 +9,6 @@ import com.dicadut.soms.dto.WyResDTO;
 import com.dicadut.soms.entity.Wy;
 import com.dicadut.soms.mapper.WyMapper;
 import com.dicadut.soms.service.WyService;
-
 import com.dicadut.soms.util.WyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,9 +16,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author Radium
- * @version 1.0
- * @date 2021-04-14 15:39:13
+ * @author Yang
+ * @Description TODO
+ * @create 2021-08-25 17:05
  */
 @Slf4j
 @Service
