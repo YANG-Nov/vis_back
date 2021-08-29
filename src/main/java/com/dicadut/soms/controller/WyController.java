@@ -19,7 +19,7 @@ import java.util.List;
  * @Description TODO
  * @create 2021-08-25 16:47
  */
-@Api(tags = "大连湾大桥应力传感器接口")
+@Api(tags = "大连湾大桥位移传感器接口")
 @Slf4j
 @RestController
 @RequestMapping("/api")
