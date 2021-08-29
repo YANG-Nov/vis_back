@@ -33,7 +33,7 @@ public class WyController {
         return ResponseViewModel.ok(wyService.getWyLatest(pageSize));
     }
 
-    @ApiOperation("根据时间范围查询应力传感器数据")
+    @ApiOperation("根据时间范围查询位移传感器数据")
     @GetMapping("/Wy")
     public ResponseViewModel<List<WyResDTO>> getWyList(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(wyService.getWyList(startTime, endTime));
