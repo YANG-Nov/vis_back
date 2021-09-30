@@ -1,0 +1,111 @@
+package com.dicadut.soms.controller;
+
+
+import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.dto.UserDTO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Radium
+ * @version 1.0.0
+ * @date 2021-09-30 18:13:41
+ */
+@Api(tags = "用户管理接口")
+@Slf4j
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+    @ApiOperation("用户注册")
+    @PostMapping("/register")
+    public ResponseViewModel<UserDTO> register(@RequestBody UserDTO userDTO) {
+        log.info("用户注册 {}", userDTO);
+
+        // TODO 实现用户注册逻辑
+
+        return ResponseViewModel.ok(userDTO);
+    }
+
+    @ApiOperation("重置密码")
+    @PutMapping("/reset_password/{userId}/{password}")
+    public ResponseViewModel<Integer> resetPassword(@PathVariable("userId") String userId,
+                                                    @PathVariable("password") String password) {
+        log.info("重置密码 {} {}", userId, password);
+
+        // TODO 实现重置密码
+
+        return ResponseViewModel.ok(1);
+    }
+
+    @ApiOperation("头像更新")
+    @PutMapping("/update_head_img/{userId}/{head_img}")
+    public ResponseViewModel<Integer> updateHeadImg(@PathVariable("userId") String userId,
+                                                    @PathVariable("headImg") String headImg) {
+        log.info("头像更新 {} {}", userId, headImg);
+
+        // TODO 实现头像更新
+
+        return ResponseViewModel.ok(1);
+    }
+
+    @ApiOperation("账号登陆")
+    @PostMapping("/login/username")
+    public ResponseViewModel<Integer> loginUserName(@RequestBody UserDTO userDTO) {
+        log.info("用户登陆 {}", userDTO);
+
+        // TODO 实现登陆
+
+        return ResponseViewModel.ok(1);
+    }
+
+    @ApiOperation("手机号登陆")
+    @PostMapping("/login/phone")
+    public ResponseViewModel<Integer> loginPhone(@RequestBody UserDTO userDTO) {
+        log.info("用户登陆 {}", userDTO);
+
+        // TODO 实现登陆
+
+        return ResponseViewModel.ok(1);
+    }
+
+    @ApiOperation(value = "用户登出")
+    @GetMapping("/logout")
+    public ResponseViewModel<Void> logout() {
+
+        // TODO 实现用户登出
+
+        return ResponseViewModel.ok();
+    }
+
+    @ApiOperation(value = "用户删除")
+    @DeleteMapping("/delete/{userId}")
+    public ResponseViewModel<Void> delete(@PathVariable("userId") String userId) {
+
+        // TODO 实现用户删除，并退出系统
+
+        return ResponseViewModel.ok();
+    }
+
+    @ApiOperation("用户多条件组合查询接口")
+    @PostMapping("/list")
+    public ResponseViewModel<List<UserDTO>> listUsers() {
+        List<UserDTO> userDTOList = new ArrayList<>();
+
+        // TODO 实现用户多条件组合查询逻辑
+
+        return ResponseViewModel.ok(userDTOList);
+    }
+}
