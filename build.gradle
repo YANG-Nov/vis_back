@@ -26,7 +26,6 @@ dependencies {
     implementation 'com.github.xiaoymin:swagger-bootstrap-ui:1.9.6'
     implementation 'cn.hutool:hutool-all:5.3.10'
     implementation 'org.testng:testng:7.1.0'
-    implementation 'org.testng:testng:7.1.0'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
     compileOnly 'org.projectlombok:lombok:1.18.10'
