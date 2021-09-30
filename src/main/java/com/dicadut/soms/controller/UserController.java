@@ -101,7 +101,7 @@ public class UserController {
 
     @ApiOperation("用户多条件组合查询接口")
     @PostMapping("/list")
-    public ResponseViewModel<List<UserDTO>> listUsers() {
+    public ResponseViewModel<List<UserDTO>> listUsers(@RequestBody UserDTO userDTO) {
         List<UserDTO> userDTOList = new ArrayList<>();
 
         // TODO 实现用户多条件组合查询逻辑
