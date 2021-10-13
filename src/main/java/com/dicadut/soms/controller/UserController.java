@@ -3,17 +3,12 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.UserDTO;
+import com.dicadut.soms.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +22,19 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/user")
+
 public class UserController {
+
+    @Autowired
+    private UserService userService;
 
     @ApiOperation("用户注册")
     @PostMapping("/register")
     public ResponseViewModel<UserDTO> register(@RequestBody UserDTO userDTO) {
         log.info("用户注册 {}", userDTO);
-
         // TODO 实现用户注册逻辑
-
+        ResponseViewModel responseViewModel = new ResponseViewModel();
+        userService.save(userDTO);
         return ResponseViewModel.ok(userDTO);
     }
 

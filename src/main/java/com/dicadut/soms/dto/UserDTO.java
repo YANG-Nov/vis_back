@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author Radium
  * @version 1.0.0
@@ -13,8 +15,8 @@ import lombok.Data;
 @ApiModel("系统用户")
 @Data
 public class UserDTO {
-//    @ApiModelProperty(value = "用户id", example = "23863422-8b51-4084-80b7-e419483f82b9")
-//    private String id;
+    @ApiModelProperty(value = "用户id", example = "23863422-8b51-4084-80b7-e419483f82b9")
+    private String id;
     @ApiModelProperty(value = "账户名", example = "breeze")
     private String username;
     @ApiModelProperty(value = "用户姓名", example = "风清扬")
@@ -35,10 +37,10 @@ public class UserDTO {
     private Integer isInspector = 0;
     @ApiModelProperty(value = "是否是维护员", example = "1", allowableValues = "0,1")
     private Integer isMaintainer = 0;
-//    @ApiModelProperty(value = "创建时间", example = "2021-09-30 13:00:00")
-//    private Date createTime;
-//    @ApiModelProperty(value = "更新时间", example = "2021-09-30 14:00:00")
-//    private Date updateTime;
-//    @ApiModelProperty(value = "是否已删除", example = "0", allowableValues = "0,1")
-//    private Integer isDelete = 0;
+    @ApiModelProperty(value = "创建时间", example = "2021-09-30 13:00:00")
+    private Date createTime;
+    @ApiModelProperty(value = "更新时间", example = "2021-09-30 14:00:00")
+    private Date updateTime;
+    @ApiModelProperty(value = "是否已删除", example = "0", allowableValues = "0,1")
+    private Integer isDelete = 0;
 }
