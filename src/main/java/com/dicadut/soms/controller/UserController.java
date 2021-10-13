@@ -1,8 +1,10 @@
 package com.dicadut.soms.controller;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.UserDTO;
+import com.dicadut.soms.entity.User;
 import com.dicadut.soms.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,7 +36,9 @@ public class UserController {
         log.info("用户注册 {}", userDTO);
         // TODO 实现用户注册逻辑
         ResponseViewModel responseViewModel = new ResponseViewModel();
-        userService.save(userDTO);
+        User user = new User();
+        BeanUtil.copyProperties(userDTO, user);
+        userService.save(user);
         return ResponseViewModel.ok(userDTO);
     }
 

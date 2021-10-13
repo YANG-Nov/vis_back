@@ -37,9 +37,9 @@ public class UserDTO {
     private Integer isInspector = 0;
     @ApiModelProperty(value = "是否是维护员", example = "1", allowableValues = "0,1")
     private Integer isMaintainer = 0;
-    @ApiModelProperty(value = "创建时间", example = "2021-09-30 13:00:00")
+    @ApiModelProperty(value = "创建时间")   //, example = "2021-09-30 13:00:00")
     private Date createTime;
-    @ApiModelProperty(value = "更新时间", example = "2021-09-30 14:00:00")
+    @ApiModelProperty(value = "更新时间")   //, example = "2021-09-30 14:00:00")
     private Date updateTime;
     @ApiModelProperty(value = "是否已删除", example = "0", allowableValues = "0,1")
     private Integer isDelete = 0;
