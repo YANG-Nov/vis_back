@@ -2,6 +2,7 @@ package com.dicadut.soms.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.UserDTO;
 import com.dicadut.soms.entity.User;
@@ -34,13 +35,26 @@ public class UserController {
     @PostMapping("/register")
     public ResponseViewModel<UserDTO> register(@RequestBody UserDTO userDTO) {
         log.info("用户注册 {}", userDTO);
-        // TODO 实现用户注册逻辑
-        ResponseViewModel responseViewModel = new ResponseViewModel();
+
+        ResponseViewModel<UserDTO> responseViewModel = new ResponseViewModel<>();
         User user = new User();
         BeanUtil.copyProperties(userDTO, user);
         userService.save(user);
         return ResponseViewModel.ok(userDTO);
+
     }
+    @ApiOperation("用户名是否已存在")
+    @PostMapping("/isExist")
+    public ResponseViewModel<UserDTO> iSExist(@RequestBody UserDTO userDTO) {
+        User one = userService.getOne(new QueryWrapper<User>().eq("username", userDTO.getUsername()));
+
+        if (one == null) {
+            return ResponseViewModel.ok(userDTO);
+        }else {
+            return ResponseViewModel.fail("用户名已存在");
+        }
+    }
+
 
     @ApiOperation("重置密码")
     @PutMapping("/reset_password/{userId}/{password}")
@@ -66,12 +80,25 @@ public class UserController {
 
     @ApiOperation("账号登陆")
     @PostMapping("/login/username")
-    public ResponseViewModel<Integer> loginUserName(@RequestBody UserDTO userDTO) {
+    public ResponseViewModel<String> loginUserName(@RequestBody UserDTO userDTO) {
         log.info("用户登陆 {}", userDTO);
 
         // TODO 实现登陆
+        ResponseViewModel<UserDTO> responseViewModel = new ResponseViewModel<>();
+        User user = new User();
+        BeanUtil.copyProperties(userDTO, user);
 
-        return ResponseViewModel.ok(1);
+        User one = userService.getOne(new QueryWrapper<User>()
+                .eq("username", user.getUsername())
+                .eq("username", user.getUsername())
+        );
+        if(one!=null){
+            return ResponseViewModel.ok("success");
+        }else {
+            return ResponseViewModel.ok("fail");
+        }
+
+
     }
 
     @ApiOperation("手机号登陆")
