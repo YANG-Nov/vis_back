@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
  * @date 2021-04-14 16:15:58
  */
 public class StrainUtil {
-
     public static List<StrainResDTO> convert(List<Strain> strains) {
         return strains.stream().map(e -> {
             StrainResDTO dto = new StrainResDTO();
@@ -28,5 +27,6 @@ public class StrainUtil {
             return dto;
         }).collect(Collectors.toList());
     }
-
 }
+
+
