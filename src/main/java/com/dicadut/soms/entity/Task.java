@@ -18,10 +18,10 @@ import java.util.Date;
 public class Task {
     @ApiModelProperty(value = "任务id")
     private String id;
-    @ApiModelProperty(value = "任务类型")
-    private String taskType;
-    @ApiModelProperty(value = "任务状态")
-    private String taskStatus;
+    @ApiModelProperty(value = "任务类型: 1001000001 日常巡检, 1001000002 定期检查,1001000003 特殊检查 1001000004 养护任务  ")
+    private Integer taskType;
+    @ApiModelProperty(value = "任务状态:1002000001 待领取 1002000002 进行中 1002000003 待审核 10020000004 待分配 10020000004巡检完成")
+    private Integer taskStatus;
     @ApiModelProperty(value = "创建人id")//看看课程chapter这块corseid是怎么做的，需要同一吗
     private String creatorId;
     @ApiModelProperty(value = "创建时间")
@@ -35,7 +35,7 @@ public class Task {
     @ApiModelProperty(value = "结束时间", example = "2021-09-30 14:00:00")
     private Date endTime;
     @ApiModelProperty(value = "是否是临时任务", example = "1", allowableValues = "0,1")
-    private Integer isMaintainer = 0;
+    private Integer isTemporary = 0;
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
     @TableLogic
     private Integer isDeleted;

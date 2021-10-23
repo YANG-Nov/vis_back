@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface TaskService extends IService<Task> {
 
-    List<TaskDTO> getTaskNumberLatestList();
+    List<TaskDTO> getTaskStatusLatestList();
 }

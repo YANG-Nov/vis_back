@@ -8,6 +8,6 @@ import lombok.Data;
  */
 @Data
 public class TaskDTO {
-    private String TaskStatus;
-    private int TaskStatusNumber;
+    private int name;
+    private int value;
 }
