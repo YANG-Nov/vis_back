@@ -4,6 +4,7 @@ import com.dicadut.soms.entity.User;
 import com.dicadut.soms.service.UserService;
 import com.dicadut.soms.token.JwtToken;
 import com.dicadut.soms.util.JwtUtil;
+import io.jsonwebtoken.Claims;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -30,11 +31,14 @@ public class MyRealm extends AuthorizingRealm {
         return token instanceof JwtToken;
     }
 
+    //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+
         return null;
     }
 
+    //验证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         JwtToken jwtToken = (JwtToken) token;
