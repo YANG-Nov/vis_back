@@ -42,4 +42,6 @@ public class User {
     private Date updateTime;
     @ApiModelProperty(value = "是否已删除", example = "0", allowableValues = "0,1")
     private Integer isDelete = 0;
+    @ApiModelProperty("加密的盐")
+    private String salt;
 }

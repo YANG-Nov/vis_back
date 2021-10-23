@@ -9,5 +9,5 @@ import com.dicadut.soms.entity.User;
  * @create 2021-10-12 13:52
  */
 public interface UserService extends IService<User> {
-
+    User getUserByUsername(String username);
 }
