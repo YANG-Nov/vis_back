@@ -83,14 +83,13 @@ public class UserController {
     public ResponseViewModel<String> loginUserName(@RequestBody UserDTO userDTO) {
         log.info("用户登陆 {}", userDTO);
 
-        // TODO 实现登陆
         ResponseViewModel<UserDTO> responseViewModel = new ResponseViewModel<>();
         User user = new User();
         BeanUtil.copyProperties(userDTO, user);
 
         User one = userService.getOne(new QueryWrapper<User>()
                 .eq("username", user.getUsername())
-                .eq("username", user.getUsername())
+                .eq("password", user.getPassword())
         );
         if(one!=null){
             return ResponseViewModel.ok("success");
@@ -103,12 +102,24 @@ public class UserController {
 
     @ApiOperation("手机号登陆")
     @PostMapping("/login/phone")
-    public ResponseViewModel<Integer> loginPhone(@RequestBody UserDTO userDTO) {
+    public ResponseViewModel<String> loginPhone(@RequestBody UserDTO userDTO) {
         log.info("用户登陆 {}", userDTO);
 
         // TODO 实现登陆
+        ResponseViewModel<UserDTO> responseViewModel = new ResponseViewModel<>();
+        User user = new User();
+        BeanUtil.copyProperties(userDTO, user);
 
-        return ResponseViewModel.ok(1);
+        User one = userService.getOne(new QueryWrapper<User>()
+                .eq("phone", user.getPhone())
+                .eq("password", user.getPassword())
+        );
+        if(one!=null){
+            return ResponseViewModel.ok("success");
+        }else {
+            return ResponseViewModel.ok("fail");
+        }
+
     }
 
     @ApiOperation(value = "用户登出")
