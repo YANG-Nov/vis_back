@@ -2,9 +2,9 @@ package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.WyResDTO;
+import com.dicadut.soms.dto.TaskNumDTO;
+import com.dicadut.soms.dto.TaskDisplayDTO;
 import com.dicadut.soms.entity.Task;
-import com.dicadut.soms.entity.User;
 
 import java.util.List;
 
@@ -15,4 +15,14 @@ import java.util.List;
 public interface TaskService extends IService<Task> {
 
     List<TaskDTO> getTaskStatusLatestList();
+
+    List<TaskNumDTO> getTaskNumList();
+
+    List<TaskDisplayDTO> getTotalTaskList();
+
+    List<TaskDisplayDTO> getUnclaimedTaskList();
+
+    List<TaskDisplayDTO> getAreInspectionTaskList();
+
+    List<TaskDisplayDTO> getCompletedTaskList();
 }
