@@ -153,7 +153,7 @@ public class UserController {
         return ResponseViewModel.ok(userDTOList);
     }
 
-    @ApiOperation("巡检人员工作状态")
+    @ApiOperation("巡检员工作状态")
     @PostMapping("/status/inspector")
     public ResponseViewModel<Long> statusInspector(@RequestBody UserStatus userStatus) {
         Page<User> pageUser = new Page<>();
@@ -164,7 +164,7 @@ public class UserController {
         Integer status = userStatus.getStatus();
         //判断条件值是否为空，如果不为空拼接条件
         if(!ObjectUtils.isEmpty(duty)) {
-            wrapper.eq("duty", 1);
+            wrapper.eq("duty", 2);
         }
         if(!ObjectUtils.isEmpty(status)){
             wrapper.eq("status",1);
@@ -174,7 +174,7 @@ public class UserController {
         return ResponseViewModel.ok(total);
     }
 
-    @ApiOperation("维护人员工作状态")
+    @ApiOperation("维修员工作状态")
     @PostMapping("/status/maintainer")
     public ResponseViewModel<Long> statusMaintainer(@RequestBody UserStatus userStatus) {
         Page<User> pageUser = new Page<>();
@@ -185,7 +185,7 @@ public class UserController {
         Integer status = userStatus.getStatus();
         //判断条件值是否为空，如果不为空拼接条件
         if(!ObjectUtils.isEmpty(duty)) {
-            wrapper.eq("duty", 2);
+            wrapper.eq("duty", 3);
         }
         if(!ObjectUtils.isEmpty(status)){
             wrapper.eq("status",1);

@@ -31,7 +31,7 @@ public class UserDTO {
     private String headImg;
     @ApiModelProperty(value = "所属部门", example = "检测公司")
     private String department;
-    @ApiModelProperty(value = "职务", example = "0管理员1巡检员2维护员", allowableValues = "0,1,2")
+    @ApiModelProperty(value = "职务", example = "0管理员1养护工程师2巡检员3维修员", allowableValues = "0,1,2")
     private Integer duty = 0;
     @ApiModelProperty(value = "创建时间")   //, example = "2021-09-30 13:00:00")
     private Date createTime;
