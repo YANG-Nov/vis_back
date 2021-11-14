@@ -153,9 +153,11 @@ public class UserController {
         return ResponseViewModel.ok(userDTOList);
     }
 
-    @ApiOperation("巡检员工作状态")
+    @ApiOperation("巡检员工作状态（扇形图）")
     @PostMapping("/status/inspector")
-    public ResponseViewModel<Long> statusInspector(@RequestBody UserStatusDTO userStatusDTO) {
+    public ResponseViewModel<List<UserStatusDTO>> statusInspector(@RequestBody UserStatusDTO userStatusDTO) {
+        List<UserStatusDTO> statusInspectorList = userService.getStatusInspectorList();
+        return ResponseViewModel.ok(statusInspectorList);
   /*      Page<User> pageUser = new Page<>();
         //构建条件
         QueryWrapper<User> wrapper = new QueryWrapper<>();
@@ -172,35 +174,14 @@ public class UserController {
         userService.page(pageUser, wrapper);
         long total = pageUser.getTotal();//总数
         return ResponseViewModel.ok(total);*/
-        return null;
     }
 
-    @ApiOperation("维修员工作状态")
+    @ApiOperation("维修员工作状态（扇形图）")
     @PostMapping("/status/maintainer")
     public ResponseViewModel<List<UserStatusDTO>> statusMaintainer(@RequestBody UserStatusDTO userStatusDTO) {
         List<UserStatusDTO> statusMaintainerList = userService.getStatusMaintainerList();
         return ResponseViewModel.ok(statusMaintainerList);
-        /*
-
-        Page<User> pageUser = new Page<>();
-        //构建条件
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        //多条件组合查询
-        Integer duty = userStatus.getDuty();
-        Integer status = userStatus.getStatus();
-        //判断条件值是否为空，如果不为空拼接条件
-        if(!ObjectUtils.isEmpty(duty)) {
-            wrapper.eq("duty", 3);
-        }
-        if(!ObjectUtils.isEmpty(status)){
-            wrapper.eq("status",1);
-        }
-        userService.page(pageUser, wrapper);
-        long total = pageUser.getTotal();//总数
-        return ResponseViewModel.ok(total);*/
 
     }
-
-
-    }
+}
 
