@@ -156,7 +156,7 @@ public class UserController {
     @ApiOperation("巡检员工作状态")
     @PostMapping("/status/inspector")
     public ResponseViewModel<Long> statusInspector(@RequestBody UserStatusDTO userStatusDTO) {
-        Page<User> pageUser = new Page<>();
+  /*      Page<User> pageUser = new Page<>();
         //构建条件
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         //多条件组合查询
@@ -171,7 +171,8 @@ public class UserController {
         }
         userService.page(pageUser, wrapper);
         long total = pageUser.getTotal();//总数
-        return ResponseViewModel.ok(total);
+        return ResponseViewModel.ok(total);*/
+        return null;
     }
 
     @ApiOperation("维修员工作状态")

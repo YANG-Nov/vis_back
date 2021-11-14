@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class UserStatusDTO {
-    private Integer duty;
-    private Integer status;
+    private Integer name;
+    private Integer value;
 }
