@@ -2,22 +2,17 @@ package com.dicadut.soms.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.common.ResponseViewModel;
-import com.dicadut.soms.common.Result;
 import com.dicadut.soms.dto.UserDTO;
 import com.dicadut.soms.entity.User;
+import com.dicadut.soms.entity.vo.UserStatus;
 import com.dicadut.soms.service.UserService;
-import com.dicadut.soms.token.JwtToken;
-import com.dicadut.soms.util.JwtUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,35 +83,47 @@ public class UserController {
 
     @ApiOperation("账号登陆")
     @PostMapping("/login/username")
-    public String loginUserName(@RequestBody UserDTO userDTO) {
+    public ResponseViewModel<String> loginUserName(@RequestBody UserDTO userDTO) {
         log.info("用户登陆 {}", userDTO);
 
-        // TODO 实现登陆
-        Subject subject = SecurityUtils.getSubject();
-        String jwt = JwtUtil.createJWT(userDTO.getUsername(),"back","user",1000*60*30);
+        ResponseViewModel<UserDTO> responseViewModel = new ResponseViewModel<>();
+        User user = new User();
+        BeanUtil.copyProperties(userDTO, user);
 
-        JwtToken jwtToken = new JwtToken(jwt, userDTO.getPassword());
-        try {
-            subject.login(jwtToken);
-        } catch(UnknownAccountException e){
-            return JSON.toJSONString(new Result().setCode(401).setMessage("账号不存在"));
-        }catch (IncorrectCredentialsException e){
-            return JSON.toJSONString(new Result().setCode(401).setMessage("密码错误"));
+        User one = userService.getOne(new QueryWrapper<User>()
+                .eq("username", user.getUsername())
+                .eq("password", user.getPassword())
+        );
+        if(one!=null){
+            return ResponseViewModel.ok("success");
+        }else {
+            return ResponseViewModel.ok("fail");
         }
-        return JSON.toJSONString(new Result().setCode(200).setMessage("登陆成功"));
 
 
     }
 
     @ApiOperation("手机号登陆")
     @PostMapping("/login/phone")
-    public ResponseViewModel<Integer> loginPhone(@RequestBody UserDTO userDTO) {
+    public ResponseViewModel<String> loginPhone(@RequestBody UserDTO userDTO) {
         log.info("用户登陆 {}", userDTO);
 
-        // TODO 实现登陆
+        ResponseViewModel<UserDTO> responseViewModel = new ResponseViewModel<>();
+        User user = new User();
+        BeanUtil.copyProperties(userDTO, user);
 
-        return ResponseViewModel.ok(1);
+        User one = userService.getOne(new QueryWrapper<User>()
+                .eq("phone", user.getPhone())
+                .eq("password", user.getPassword())
+        );
+        if(one!=null){
+            return ResponseViewModel.ok("success");
+        }else {
+            return ResponseViewModel.ok("fail");
+        }
+
     }
+
 
     @ApiOperation(value = "用户登出")
     @GetMapping("/logout")
@@ -146,16 +153,45 @@ public class UserController {
         return ResponseViewModel.ok(userDTOList);
     }
 
-
-    //测试
-    @CrossOrigin
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public String test(){
-        return "你好";
+    @ApiOperation("巡检员工作状态")
+    @PostMapping("/status/inspector")
+    public ResponseViewModel<Long> statusInspector(@RequestBody UserStatus userStatus) {
+        Page<User> pageUser = new Page<>();
+        //构建条件
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        //多条件组合查询
+        Integer duty = userStatus.getDuty();
+        Integer status = userStatus.getStatus();
+        //判断条件值是否为空，如果不为空拼接条件
+        if(!ObjectUtils.isEmpty(duty)) {
+            wrapper.eq("duty", 2);
+        }
+        if(!ObjectUtils.isEmpty(status)){
+            wrapper.eq("status",1);
+        }
+        userService.page(pageUser, wrapper);
+        long total = pageUser.getTotal();//总数
+        return ResponseViewModel.ok(total);
     }
-    @CrossOrigin
-    @RequestMapping(value = "/test2",method = RequestMethod.GET)
-    public String test2(){
-        return "我好";
+
+    @ApiOperation("维修员工作状态")
+    @PostMapping("/status/maintainer")
+    public ResponseViewModel<Long> statusMaintainer(@RequestBody UserStatus userStatus) {
+        Page<User> pageUser = new Page<>();
+        //构建条件
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        //多条件组合查询
+        Integer duty = userStatus.getDuty();
+        Integer status = userStatus.getStatus();
+        //判断条件值是否为空，如果不为空拼接条件
+        if(!ObjectUtils.isEmpty(duty)) {
+            wrapper.eq("duty", 3);
+        }
+        if(!ObjectUtils.isEmpty(status)){
+            wrapper.eq("status",1);
+        }
+        userService.page(pageUser, wrapper);
+        long total = pageUser.getTotal();//总数
+        return ResponseViewModel.ok(total);
     }
 }

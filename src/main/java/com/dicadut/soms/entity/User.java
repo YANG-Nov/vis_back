@@ -30,18 +30,14 @@ public class User {
     private String headImg;
     @ApiModelProperty(value = "所属部门", example = "检测公司")
     private String department;
-    @ApiModelProperty(value = "是否是管理员", example = "1", allowableValues = "0,1")
-    private Integer isAdministrator = 0;
-    @ApiModelProperty(value = "是否是巡检员", example = "1", allowableValues = "0,1")
-    private Integer isInspector = 0;
-    @ApiModelProperty(value = "是否是维护员", example = "1", allowableValues = "0,1")
-    private Integer isMaintainer = 0;
+    @ApiModelProperty(value = "职务", example = "0管理员1养护工程师2巡检员3维修员", allowableValues = "0,1,2,3")
+    private Integer duty = 0;
     @ApiModelProperty(value = "创建时间", example = "2021-09-30 13:00:00")
     private Date createTime;
     @ApiModelProperty(value = "更新时间", example = "2021-09-30 14:00:00")
     private Date updateTime;
     @ApiModelProperty(value = "是否已删除", example = "0", allowableValues = "0,1")
     private Integer isDelete = 0;
-    @ApiModelProperty("加密的盐")
-    private String salt;
+    @ApiModelProperty(value = "工作状态", example = "0", allowableValues = "0,1")
+    private Integer status = 0;
 }
