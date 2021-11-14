@@ -3,13 +3,18 @@ package com.dicadut.soms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.TaskDTO;
+import com.dicadut.soms.dto.TaskNumDTO;
+import com.dicadut.soms.dto.TaskDisplayDTO;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,5 +60,283 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return list;
 
 
+    }
+
+    @Override
+    public List<TaskNumDTO> getTaskNumList() {
+        //查询巡检次数
+        List<TaskNumDTO> taskNum = new ArrayList<>();
+        TaskNumDTO patrolTaskDTO = new TaskNumDTO();
+        int[] taskNumArray = new int[12];
+        patrolTaskDTO.setName("巡检次数");
+        QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("task_type", 1001000001);
+        List<Task> tasks = baseMapper.selectList(queryWrapper);
+        for (int i = 0; i <tasks.size(); i++) {
+            Task task = tasks.get(i);
+            Date createTime = task.getCreateTime();
+            Calendar c = Calendar.getInstance();
+            c.setTime(createTime);
+            int month = c.get(Calendar.MONTH);
+            switch (month){
+                case 0 :
+                    taskNumArray[0]++;
+                    break;
+                case 1 :
+                    taskNumArray[1]++;
+                    break;
+                case 2 :
+                    taskNumArray[2]++;
+                    break;
+                case 3 :
+                    taskNumArray[3]++;
+                    break;
+                case 4 :
+                    taskNumArray[4]++;
+                    break;
+                case 5 :
+                    taskNumArray[5]++;
+                    break;
+                case 6 :
+                    taskNumArray[6]++;
+                    break;
+                case 7 :
+                    taskNumArray[7]++;
+                    break;
+                case 8 :
+                    taskNumArray[8]++;
+                    break;
+                case 9 :
+                    taskNumArray[9]++;
+                    break;
+                case 10 :
+                    taskNumArray[10]++;
+                    break;
+                case 11 :
+                    taskNumArray[11]++;
+                    break;
+            }
+        }
+        patrolTaskDTO.setData(taskNumArray);
+        taskNum.add(patrolTaskDTO);
+      /*  QueryWrapper<Task> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("task_type", 1001000001 ).between("create_time","2021-01-01","2021-01-31");
+        numList.add(count(queryWrapper1));
+        QueryWrapper<Task> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("task_type", 1001000001 ).between("create_time","2021-02-01","2021-02-31" );
+        numList.add(count(queryWrapper2));
+        QueryWrapper<Task> queryWrapper3 = new QueryWrapper<>();
+        queryWrapper3.eq("task_type", 1001000001 ).between("create_time","2021-03-01","2021-03-31" );
+        numList.add(count(queryWrapper3));
+        QueryWrapper<Task> queryWrapper4 = new QueryWrapper<>();
+        queryWrapper4.eq("task_type", 1001000001 ).between("create_time","2021-04-01","2021-04-31" );
+        numList.add(count(queryWrapper4));
+        QueryWrapper<Task> queryWrapper5 = new QueryWrapper<>();
+        queryWrapper5.eq("task_type", 1001000001 ).between("create_time","2021-05-01","2021-05-31" );
+        numList.add(count(queryWrapper5));
+        QueryWrapper<Task> queryWrapper6 = new QueryWrapper<>();
+        queryWrapper6.eq("task_type", 1001000001 ).between("create_time","2021-06-01","2021-06-31" );
+        numList.add(count(queryWrapper6));
+        QueryWrapper<Task> queryWrapper7 = new QueryWrapper<>();
+        queryWrapper7.eq("task_type", 1001000001 ).between("create_time","2021-07-01","2021-07-31" );
+        numList.add(count(queryWrapper7));
+        QueryWrapper<Task> queryWrapper8 = new QueryWrapper<>();
+        queryWrapper8.eq("task_type", 1001000001 ).between("create_time","2021-08-01","2021-8-31" );
+        numList.add(count(queryWrapper8));
+        QueryWrapper<Task> queryWrapper9 = new QueryWrapper<>();
+        queryWrapper9.eq("task_type", 1001000001 ).between("create_time","2021-9-01","2021-9-31" );
+        numList.add(count(queryWrapper9));
+        QueryWrapper<Task> queryWrapper10 = new QueryWrapper<>();
+        queryWrapper10.eq("task_type", 1001000001 ).between("create_time","2021-10-01","2021-10-31" );
+        numList.add(count(queryWrapper10));
+        QueryWrapper<Task> queryWrapper11 = new QueryWrapper<>();
+        queryWrapper11.eq("task_type", 1001000001 ).between("create_time","2021-11-01","2021-11-31" );
+        numList.add(count(queryWrapper11));
+        QueryWrapper<Task> queryWrapper12 = new QueryWrapper<>();
+        queryWrapper12.eq("task_type", 1001000001 ).between("create_time","2021-12-01","2021-12-31" );
+        numList.add(count(queryWrapper12));
+        patrolTaskDTO.setData(numList);*/
+
+
+
+
+
+
+        //查询维修次数
+
+        TaskNumDTO maintenanceTaskDTO = new TaskNumDTO();
+        int[] maintenanceTaskNumArray = new int[12];
+        maintenanceTaskDTO.setName("维修次数");
+        QueryWrapper<Task>  wrapper = new QueryWrapper<>();
+        wrapper.eq("task_type", 1001000003);
+        List<Task> maintenanceTasks = baseMapper.selectList(wrapper);
+        for (int i = 0; i <tasks.size(); i++) {
+            Task maintenanceTask = maintenanceTasks.get(i);
+            Date createTime = maintenanceTask.getCreateTime();
+            Calendar c = Calendar.getInstance();
+            c.setTime(createTime);
+            int month = c.get(Calendar.MONTH);
+            switch (month){
+                case 0 :
+                    maintenanceTaskNumArray[0]++;
+                    break;
+                case 1 :
+                    maintenanceTaskNumArray[1]++;
+                    break;
+                case 2 :
+                    maintenanceTaskNumArray[2]++;
+                    break;
+                case 3 :
+                    maintenanceTaskNumArray[3]++;
+                    break;
+                case 4 :
+                    maintenanceTaskNumArray[4]++;
+                    break;
+                case 5 :
+                    maintenanceTaskNumArray[5]++;
+                    break;
+                case 6 :
+                    maintenanceTaskNumArray[6]++;
+                    break;
+                case 7 :
+                    maintenanceTaskNumArray[7]++;
+                    break;
+                case 8 :
+                    maintenanceTaskNumArray[8]++;
+                    break;
+                case 9 :
+                    maintenanceTaskNumArray[9]++;
+                    break;
+                case 10 :
+                    maintenanceTaskNumArray[10]++;
+                    break;
+                case 11 :
+                    maintenanceTaskNumArray[11]++;
+                    break;
+            }
+        }
+        maintenanceTaskDTO.setData(maintenanceTaskNumArray);
+        taskNum.add(maintenanceTaskDTO);
+        return taskNum;
+
+ /*       TaskNumDTO maintenanceTaskDTO = new TaskNumDTO();
+        List<Integer> maintenanceNumList = new ArrayList<>();
+        maintenanceTaskDTO.setName("维修次数");
+        QueryWrapper<Task> queryWrapper21 = new QueryWrapper<>();
+        queryWrapper21.eq("task_type", 1001000004 ).between("create_time","2021-01-01","2021-01-31" );
+        maintenanceNumList .add(count(queryWrapper11));
+        QueryWrapper<Task> queryWrapper22 = new QueryWrapper<>();
+        queryWrapper22.eq("task_type", 1001000004 ).between("create_time","2021-02-01","2021-02-31" );
+        maintenanceNumList.add(count(queryWrapper22));
+        QueryWrapper<Task> queryWrapper23 = new QueryWrapper<>();
+        queryWrapper23.eq("task_type", 1001000004 ).between("create_time","2021-03-01","2021-03-31" );
+        maintenanceNumList.add(count(queryWrapper23));
+        QueryWrapper<Task> queryWrapper24 = new QueryWrapper<>();
+        queryWrapper24.eq("task_type", 1001000004 ).between("create_time","2021-04-01","2021-04-31" );
+        maintenanceNumList.add(count(queryWrapper24));
+        QueryWrapper<Task> queryWrapper25 = new QueryWrapper<>();
+        queryWrapper25.eq("task_type", 1001000004 ).between("create_time","2021-05-01","2021-05-31" );
+        maintenanceNumList.add(count(queryWrapper25));
+        QueryWrapper<Task> queryWrapper26 = new QueryWrapper<>();
+        queryWrapper26.eq("task_type", 1001000004 ).between("create_time","2021-06-01","2021-06-31" );
+        maintenanceNumList.add(count(queryWrapper26));
+        QueryWrapper<Task> queryWrapper27 = new QueryWrapper<>();
+        queryWrapper27.eq("task_type", 1001000004 ).between("create_time","2021-07-01","2021-07-31" );
+        maintenanceNumList.add(count(queryWrapper27));
+        QueryWrapper<Task> queryWrapper28 = new QueryWrapper<>();
+        queryWrapper28.eq("task_type", 1001000004 ).between("create_time","2021-8-01","2021-8-31" );
+        maintenanceNumList.add(count(queryWrapper28));
+        QueryWrapper<Task> queryWrapper29 = new QueryWrapper<>();
+        queryWrapper29.eq("task_type", 1001000004 ).between("create_time","2021-9-01","2021-9-31" );
+        maintenanceNumList.add(count(queryWrapper29));
+        QueryWrapper<Task> queryWrapper30 = new QueryWrapper<>();
+        queryWrapper30.eq("task_type", 1001000004 ).between("create_time","2021-10-01","2021-10-31" );
+        maintenanceNumList.add(count(queryWrapper30));
+        QueryWrapper<Task> queryWrapper31 = new QueryWrapper<>();
+        queryWrapper31.eq("task_type", 1001000004 ).between("create_time","2021-11-01","2021-11-31" );
+        maintenanceNumList.add(count(queryWrapper31));
+        QueryWrapper<Task> queryWrapper32 = new QueryWrapper<>();
+        queryWrapper32.eq("task_type", 1001000004 ).between("create_time","2021-12-01","2021-12-31" );
+        maintenanceNumList.add(count(queryWrapper32));
+        maintenanceTaskDTO.setData(maintenanceNumList);
+        taskNum.add(maintenanceTaskDTO);
+        return taskNum;*/
+    }
+
+    @Override
+    public List<TaskDisplayDTO> getTotalTaskList() {
+        List<Task> tasks = baseMapper.selectList(null);
+        List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
+            BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
+            taskDisplayDTOS.add(taskDisplayDTO);
+
+
+
+        }
+        return taskDisplayDTOS;
+    }
+
+    @Override
+    public List<TaskDisplayDTO> getUnclaimedTaskList() {
+        QueryWrapper<Task> wrapper = new QueryWrapper<>();
+        wrapper.eq("task_status",1002000001);
+
+        List<Task> tasks = baseMapper.selectList(wrapper);
+        List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
+            BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
+            taskDisplayDTOS.add(taskDisplayDTO);
+
+
+
+        }
+        return taskDisplayDTOS;
+    }
+
+    @Override
+    public List<TaskDisplayDTO> getAreInspectionTaskList() {
+        QueryWrapper<Task> wrapper = new QueryWrapper<>();
+        wrapper.eq("task_status",1002000002);
+
+        List<Task> tasks = baseMapper.selectList(wrapper);
+        List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
+            BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
+            taskDisplayDTOS.add(taskDisplayDTO);
+
+
+
+        }
+        return taskDisplayDTOS;
+    }
+
+    @Override
+    public List<TaskDisplayDTO> getCompletedTaskList() {
+        QueryWrapper<Task> wrapper = new QueryWrapper<>();
+        wrapper.eq("task_status",1002000003 );
+
+        List<Task> tasks = baseMapper.selectList(wrapper);
+        List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
+            BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
+            taskDisplayDTOS.add(taskDisplayDTO);
+
+
+
+        }
+        return taskDisplayDTOS;
     }
 }

@@ -3,6 +3,8 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.TaskDTO;
+import com.dicadut.soms.dto.TaskNumDTO;
+import com.dicadut.soms.dto.TaskDisplayDTO;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.service.TaskService;
 import io.swagger.annotations.Api;
@@ -43,6 +45,45 @@ public class TaskController {
     public ResponseViewModel<List<TaskDTO>> getTaskStatusLatestList() {
         List<TaskDTO> taskStatusLatestList = taskService.getTaskStatusLatestList();
         return ResponseViewModel.ok(taskStatusLatestList);
+
+    }
+
+    @ApiOperation(("查询任务次数"))
+    @GetMapping("getTaskNum")
+    public ResponseViewModel<List<TaskNumDTO>> getTaskNumList(){
+        List<TaskNumDTO> taskNumList = taskService.getTaskNumList();
+        return ResponseViewModel.ok(taskNumList);
+    }
+
+    @ApiOperation("总任务列表")
+    @GetMapping("getTotalTaskList")
+    public ResponseViewModel<List<TaskDisplayDTO>> getTotalTaskList(){
+        List<TaskDisplayDTO> totalTaskList = taskService.getTotalTaskList();
+        return ResponseViewModel.ok(totalTaskList);
+
+    }
+
+    @ApiOperation("待领取任务列表")
+    @GetMapping("getUnclaimedTaskList")
+    public ResponseViewModel<List<TaskDisplayDTO>> getUnclaimedTaskList(){
+        List<TaskDisplayDTO> unclaimedTaskList = taskService.getUnclaimedTaskList();
+        return ResponseViewModel.ok(unclaimedTaskList);
+
+    }
+
+    @ApiOperation("正在巡检")
+    @GetMapping("getAreInspectionTaskList")
+    public ResponseViewModel<List<TaskDisplayDTO>> getAreInspectionTaskList(){
+        List<TaskDisplayDTO> areInspectionTaskList = taskService.getAreInspectionTaskList();
+        return ResponseViewModel.ok(areInspectionTaskList);
+
+    }
+
+    @ApiOperation("巡检完成")
+    @GetMapping("getCompletedTaskList")
+    public ResponseViewModel<List<TaskDisplayDTO>> getCompletedTaskList(){
+        List<TaskDisplayDTO> completedTaskList = taskService.getCompletedTaskList();
+        return ResponseViewModel.ok(completedTaskList);
 
     }
 }

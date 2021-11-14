@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -15,15 +17,21 @@ import java.util.Date;
  */
 @Data
 @TableName("system.task")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
     @ApiModelProperty(value = "任务id")
     private String id;
-    @ApiModelProperty(value = "任务类型: 1001000001 日常巡检, 1001000002 定期检查,1001000003 特殊检查 1001000004 养护任务  ")
+    @ApiModelProperty(value = "任务类型: 1001000001 日常巡检, 1001000002 定期检查,1001000003 特殊检查 1001000004 养护维修  ")
     private Integer taskType;
     @ApiModelProperty(value = "任务状态:1002000001 待领取 1002000002 进行中 1002000003 待审核 10020000004 待分配 10020000004巡检完成")
     private Integer taskStatus;
-    @ApiModelProperty(value = "创建人id")//看看课程chapter这块corseid是怎么做的，需要同一吗
+    @ApiModelProperty(value = "创建人id")
     private String creatorId;
+    @ApiModelProperty(value = "检查人id")
+    private String userId;
+    @ApiModelProperty(value = "构件id")
+    private String componentId;
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
