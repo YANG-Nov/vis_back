@@ -1,7 +1,10 @@
 package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dicadut.soms.dto.UserStatusDTO;
 import com.dicadut.soms.entity.User;
+
+import java.util.List;
 
 /**
  * @author Yang
@@ -9,5 +12,8 @@ import com.dicadut.soms.entity.User;
  * @create 2021-10-12 13:52
  */
 public interface UserService extends IService<User> {
+
+    List<UserStatusDTO> getStatusMaintainerList();
+    List<UserStatusDTO> getStatusInspectorList();
 
 }
