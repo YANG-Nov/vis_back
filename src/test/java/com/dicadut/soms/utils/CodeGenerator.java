@@ -34,7 +34,7 @@ public class CodeGenerator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir("D:\\workspace_ideal\\soms" + "/src/main/java");//生成路径，写成绝对路径
-        gc.setAuthor("fqy");
+        gc.setAuthor("testjava");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
         gc.setServiceName("%sService");	//去掉Service接口的首字母I

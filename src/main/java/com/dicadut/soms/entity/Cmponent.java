@@ -1,9 +1,6 @@
 package com.dicadut.soms.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,6 +14,7 @@ import java.util.Date;
 @TableName("system.component")
 public class Cmponent {
     @ApiModelProperty(value = "构件id")
+    @TableId
     private String id;
     @ApiModelProperty(value = "构件名称")
     private String name;
