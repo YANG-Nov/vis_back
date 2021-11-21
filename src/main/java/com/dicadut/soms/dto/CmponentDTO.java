@@ -8,6 +8,7 @@ import lombok.Data;
  */
 @Data
 public class CmponentDTO {
+    private Integer value;
     private String name;
     private String componentLevel;
 }

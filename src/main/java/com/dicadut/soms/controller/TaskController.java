@@ -41,7 +41,7 @@ public class TaskController {
 
 
 
-    @ApiOperation("查询任务状态数量")
+    @ApiOperation("查询任务状态数量，扇形图")
     @GetMapping("getTaskStatus")
     public ResponseViewModel<List<TaskDTO>> getTaskStatusLatestList() {
         List<TaskDTO> taskStatusLatestList = taskService.getTaskStatusLatestList();
@@ -49,7 +49,7 @@ public class TaskController {
 
     }
 
-    @ApiOperation(("查询任务次数"))
+    @ApiOperation(("查询任务次数，柱状图"))
     @GetMapping("getTaskNum")
     public ResponseViewModel<List<TaskNumDTO>> getTaskNumList(){
         List<TaskNumDTO> taskNumList = taskService.getTaskNumList();
@@ -72,7 +72,7 @@ public class TaskController {
 
     }
 
-    @ApiOperation("正在巡检")
+    @ApiOperation("正在巡检任务列表")
     @GetMapping("getAreInspectionTaskList")
     public ResponseViewModel<List<TaskDisplayDTO>> getAreInspectionTaskList(){
         List<TaskDisplayDTO> areInspectionTaskList = taskService.getAreInspectionTaskList();
@@ -80,7 +80,7 @@ public class TaskController {
 
     }
 
-    @ApiOperation("巡检完成")
+    @ApiOperation("巡检完成任务列表")
     @GetMapping("getCompletedTaskList")
     public ResponseViewModel<List<TaskDisplayDTO>> getCompletedTaskList(){
         List<TaskDisplayDTO> completedTaskList = taskService.getCompletedTaskList();
