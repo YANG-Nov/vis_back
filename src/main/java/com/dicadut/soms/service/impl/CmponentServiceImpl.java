@@ -26,11 +26,14 @@ public class CmponentServiceImpl extends ServiceImpl<CmponentMapper, Cmponent> i
     public List<CmponentDTO> getFrequencyList() {
 
         List<Cmponent> cmponents = baseMapper.selectList(null);
+        int value = 0;
         ArrayList<CmponentDTO> cmponentsDTO = new ArrayList<>();
         for (int i = 0; i < cmponents.size(); i++) {
             CmponentDTO cmponentDTO = new CmponentDTO();
 
             BeanUtils.copyProperties( cmponents.get(i), cmponentDTO);
+
+            cmponentDTO.setValue(++value);
 
             cmponentsDTO.add(cmponentDTO);
         }
