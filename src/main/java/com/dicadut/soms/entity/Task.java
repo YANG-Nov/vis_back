@@ -24,7 +24,7 @@ public class Task {
     private String id;
     @ApiModelProperty(value = "任务类型: 1001000001 日常巡检, 1001000002 定期检查,1001000003 特殊检查 1001000004 养护维修  ")
     private Integer taskType;
-    @ApiModelProperty(value = "任务状态:1002000001 待领取 1002000002 进行中 1002000003 待审核 10020000004 待分配 10020000004巡检完成")
+    @ApiModelProperty(value = "任务状态:1002000001 待领取 1002000002 进行中 1002000003 待审核 10020000004 待分配 10020000005巡检完成")
     private Integer taskStatus;
     @ApiModelProperty(value = "创建人id")
     private String creatorId;

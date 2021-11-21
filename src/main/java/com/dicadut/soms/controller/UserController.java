@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.UserDTO;
 import com.dicadut.soms.entity.User;
-import com.dicadut.soms.entity.vo.UserStatus;
+import com.dicadut.soms.dto.UserStatusDTO;
 import com.dicadut.soms.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -153,15 +153,17 @@ public class UserController {
         return ResponseViewModel.ok(userDTOList);
     }
 
-    @ApiOperation("巡检员工作状态")
-    @PostMapping("/status/inspector")
-    public ResponseViewModel<Long> statusInspector(@RequestBody UserStatus userStatus) {
-        Page<User> pageUser = new Page<>();
+    @ApiOperation("巡检员工作状态（扇形图）")
+    @GetMapping("/status/inspector")
+    public ResponseViewModel<List<UserStatusDTO>> statusInspector() {
+        List<UserStatusDTO> statusInspectorList = userService.getStatusInspectorList();
+        return ResponseViewModel.ok(statusInspectorList);
+  /*      Page<User> pageUser = new Page<>();
         //构建条件
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         //多条件组合查询
-        Integer duty = userStatus.getDuty();
-        Integer status = userStatus.getStatus();
+        Integer duty = userStatusDTO.getDuty();
+        Integer status = userStatusDTO.getStatus();
         //判断条件值是否为空，如果不为空拼接条件
         if(!ObjectUtils.isEmpty(duty)) {
             wrapper.eq("duty", 2);
@@ -171,27 +173,15 @@ public class UserController {
         }
         userService.page(pageUser, wrapper);
         long total = pageUser.getTotal();//总数
-        return ResponseViewModel.ok(total);
+        return ResponseViewModel.ok(total);*/
     }
 
-    @ApiOperation("维修员工作状态")
-    @PostMapping("/status/maintainer")
-    public ResponseViewModel<Long> statusMaintainer(@RequestBody UserStatus userStatus) {
-        Page<User> pageUser = new Page<>();
-        //构建条件
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        //多条件组合查询
-        Integer duty = userStatus.getDuty();
-        Integer status = userStatus.getStatus();
-        //判断条件值是否为空，如果不为空拼接条件
-        if(!ObjectUtils.isEmpty(duty)) {
-            wrapper.eq("duty", 3);
-        }
-        if(!ObjectUtils.isEmpty(status)){
-            wrapper.eq("status",1);
-        }
-        userService.page(pageUser, wrapper);
-        long total = pageUser.getTotal();//总数
-        return ResponseViewModel.ok(total);
+    @ApiOperation("维修员工作状态（扇形图）")
+    @GetMapping("/status/maintainer")
+    public ResponseViewModel<List<UserStatusDTO>> statusMaintainer() {
+        List<UserStatusDTO> statusMaintainerList = userService.getStatusMaintainerList();
+        return ResponseViewModel.ok(statusMaintainerList);
+
     }
 }
+

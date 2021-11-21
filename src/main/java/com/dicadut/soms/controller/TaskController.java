@@ -1,6 +1,7 @@
 package com.dicadut.soms.controller;
 
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.TaskDTO;
 import com.dicadut.soms.dto.TaskNumDTO;
@@ -84,6 +85,18 @@ public class TaskController {
     public ResponseViewModel<List<TaskDisplayDTO>> getCompletedTaskList(){
         List<TaskDisplayDTO> completedTaskList = taskService.getCompletedTaskList();
         return ResponseViewModel.ok(completedTaskList);
+
+    }
+
+    @ApiOperation("添加任务")
+    @PostMapping("addTask")
+    public ResponseViewModel addTask(@RequestBody Task task){
+        boolean save = taskService.save(task);
+        if (save){
+            return ResponseViewModel.ok();
+        }else{
+            return ResponseViewModel.fail("添加失败");
+        }
 
     }
 }

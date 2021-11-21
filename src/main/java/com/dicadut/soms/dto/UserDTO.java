@@ -39,6 +39,6 @@ public class UserDTO {
     private Date updateTime;
     @ApiModelProperty(value = "是否已删除", example = "0", allowableValues = "0,1")
     private Integer isDelete = 0;
-    @ApiModelProperty(value = "工作状态", example = "1", allowableValues = "0,1")
-    private Integer status = 0;
+    @ApiModelProperty(value = "工作状态:工作中2001000001 空闲中2001000002", example = "2001000002", allowableValues = "2001000002,2001000001")
+    private Integer status = 2001000002;
 }
