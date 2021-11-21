@@ -168,7 +168,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         int[] maintenanceTaskNumArray = new int[12];
         maintenanceTaskDTO.setName("维修次数");
         QueryWrapper<Task>  wrapper = new QueryWrapper<>();
-        wrapper.eq("task_type", 1001000003);
+        wrapper.eq("task_type", 1001000004);
         List<Task> maintenanceTasks = baseMapper.selectList(wrapper);
         for (int i = 0; i <tasks.size(); i++) {
             Task maintenanceTask = maintenanceTasks.get(i);
