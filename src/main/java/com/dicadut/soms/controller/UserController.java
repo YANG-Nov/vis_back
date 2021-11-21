@@ -154,8 +154,8 @@ public class UserController {
     }
 
     @ApiOperation("巡检员工作状态（扇形图）")
-    @PostMapping("/status/inspector")
-    public ResponseViewModel<List<UserStatusDTO>> statusInspector(@RequestBody UserStatusDTO userStatusDTO) {
+    @GetMapping("/status/inspector")
+    public ResponseViewModel<List<UserStatusDTO>> statusInspector() {
         List<UserStatusDTO> statusInspectorList = userService.getStatusInspectorList();
         return ResponseViewModel.ok(statusInspectorList);
   /*      Page<User> pageUser = new Page<>();
@@ -177,8 +177,8 @@ public class UserController {
     }
 
     @ApiOperation("维修员工作状态（扇形图）")
-    @PostMapping("/status/maintainer")
-    public ResponseViewModel<List<UserStatusDTO>> statusMaintainer(@RequestBody UserStatusDTO userStatusDTO) {
+    @GetMapping("/status/maintainer")
+    public ResponseViewModel<List<UserStatusDTO>> statusMaintainer() {
         List<UserStatusDTO> statusMaintainerList = userService.getStatusMaintainerList();
         return ResponseViewModel.ok(statusMaintainerList);
 
