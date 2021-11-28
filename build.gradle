@@ -26,20 +26,19 @@ dependencies {
     implementation 'com.github.xiaoymin:swagger-bootstrap-ui:1.9.6'
     implementation 'cn.hutool:hutool-all:5.3.10'
     implementation 'org.testng:testng:7.1.0'
-    implementation 'org.apache.shiro:shiro-spring:1.4.1'
-    implementation 'io.jsonwebtoken:jjwt:0.9.1'
-    implementation 'com.alibaba:fastjson:1.2.75'
-    implementation 'org.apache.commons:commons-lang3:3.9'
-
+    implementation 'org.apache.velocity:velocity-engine-core:2.0'
+    implementation 'com.baomidou:mybatis-plus-generator:3.0.5'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
     compileOnly 'org.projectlombok:lombok:1.18.10'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
     testCompileOnly 'org.projectlombok:lombok:1.18.10'
 
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.projectlombok:lombok:1.18.10'
+
 }
 
 test {

@@ -24,6 +24,8 @@ import java.util.List;
 @Slf4j
 @Service
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements TaskService {
+
+    //查询任务状态数量，扇形图
     @Override
     public List<TaskDTO> getTaskStatusLatestList() {
         //查询task_status中最大值
@@ -62,6 +64,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     }
 
+    //查询任务次数，柱状图
     @Override
     public List<TaskNumDTO> getTaskNumList() {
         //查询巡检次数
