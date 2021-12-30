@@ -81,47 +81,47 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("task_type", 1001000001);
         List<Task> tasks = baseMapper.selectList(queryWrapper);
-        for (int i = 0; i <tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             Date createTime = task.getCreateTime();
             Calendar c = Calendar.getInstance();
             c.setTime(createTime);
             int month = c.get(Calendar.MONTH);
-            switch (month){
-                case 0 :
+            switch (month) {
+                case 0:
                     taskNumArray[0]++;
                     break;
-                case 1 :
+                case 1:
                     taskNumArray[1]++;
                     break;
-                case 2 :
+                case 2:
                     taskNumArray[2]++;
                     break;
-                case 3 :
+                case 3:
                     taskNumArray[3]++;
                     break;
-                case 4 :
+                case 4:
                     taskNumArray[4]++;
                     break;
-                case 5 :
+                case 5:
                     taskNumArray[5]++;
                     break;
-                case 6 :
+                case 6:
                     taskNumArray[6]++;
                     break;
-                case 7 :
+                case 7:
                     taskNumArray[7]++;
                     break;
-                case 8 :
+                case 8:
                     taskNumArray[8]++;
                     break;
-                case 9 :
+                case 9:
                     taskNumArray[9]++;
                     break;
-                case 10 :
+                case 10:
                     taskNumArray[10]++;
                     break;
-                case 11 :
+                case 11:
                     taskNumArray[11]++;
                     break;
             }
@@ -167,59 +167,55 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         patrolTaskDTO.setData(numList);*/
 
 
-
-
-
-
         //查询维修次数
 
         TaskNumDTO maintenanceTaskDTO = new TaskNumDTO();
         int[] maintenanceTaskNumArray = new int[12];
         maintenanceTaskDTO.setName("维修次数");
-        QueryWrapper<Task>  wrapper = new QueryWrapper<>();
+        QueryWrapper<Task> wrapper = new QueryWrapper<>();
         wrapper.eq("task_type", 1001000004);
         List<Task> maintenanceTasks = baseMapper.selectList(wrapper);
-        for (int i = 0; i <tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task maintenanceTask = maintenanceTasks.get(i);
             Date createTime = maintenanceTask.getCreateTime();
             Calendar c = Calendar.getInstance();
             c.setTime(createTime);
             int month = c.get(Calendar.MONTH);
-            switch (month){
-                case 0 :
+            switch (month) {
+                case 0:
                     maintenanceTaskNumArray[0]++;
                     break;
-                case 1 :
+                case 1:
                     maintenanceTaskNumArray[1]++;
                     break;
-                case 2 :
+                case 2:
                     maintenanceTaskNumArray[2]++;
                     break;
-                case 3 :
+                case 3:
                     maintenanceTaskNumArray[3]++;
                     break;
-                case 4 :
+                case 4:
                     maintenanceTaskNumArray[4]++;
                     break;
-                case 5 :
+                case 5:
                     maintenanceTaskNumArray[5]++;
                     break;
-                case 6 :
+                case 6:
                     maintenanceTaskNumArray[6]++;
                     break;
-                case 7 :
+                case 7:
                     maintenanceTaskNumArray[7]++;
                     break;
-                case 8 :
+                case 8:
                     maintenanceTaskNumArray[8]++;
                     break;
-                case 9 :
+                case 9:
                     maintenanceTaskNumArray[9]++;
                     break;
-                case 10 :
+                case 10:
                     maintenanceTaskNumArray[10]++;
                     break;
-                case 11 :
+                case 11:
                     maintenanceTaskNumArray[11]++;
                     break;
             }
@@ -284,7 +280,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             taskDisplayDTOS.add(taskDisplayDTO);
 
 
-
         }
         return taskDisplayDTOS;
     }
@@ -292,7 +287,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public List<TaskDisplayDTO> getUnclaimedTaskList() {
         QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_status",1002000001);
+        wrapper.eq("task_status", 1002000001);
 
         List<Task> tasks = baseMapper.selectList(wrapper);
         List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
@@ -302,7 +297,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
             BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
             taskDisplayDTOS.add(taskDisplayDTO);
-
 
 
         }
@@ -312,7 +306,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public List<TaskDisplayDTO> getAreInspectionTaskList() {
         QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_status",1002000002);
+        wrapper.eq("task_status", 1002000002);
 
         List<Task> tasks = baseMapper.selectList(wrapper);
         List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
@@ -322,7 +316,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
             BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
             taskDisplayDTOS.add(taskDisplayDTO);
-
 
 
         }
@@ -332,7 +325,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public List<TaskDisplayDTO> getCompletedTaskList() {
         QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_status",1002000003 );
+        wrapper.eq("task_status", 1002000003);
 
         List<Task> tasks = baseMapper.selectList(wrapper);
         List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
@@ -344,29 +337,47 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             taskDisplayDTOS.add(taskDisplayDTO);
 
 
-
         }
         return taskDisplayDTOS;
     }
 
     @Override
-    public List<TaskDisplayDTO> getThisYearTaskList(String startTime, String endTime) {
+    public List<TaskDTO> getThisYearTaskList(String startTime, String endTime) {
+        //查询本年度所有的任务
         startTime = startTime == null ? "2020-01-01 00:00:00" : startTime;
         endTime = endTime == null ? DateTime.now().toString("yyyy-MM-dd HH:mm:ss") : endTime;
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.between("create_time", startTime, endTime);
+        int value = count(queryWrapper);
 
-        List<Task> tasks = baseMapper.selectList(queryWrapper);
-        List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
+        //把任务数量和任务名称封装到对象里
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setValue(value);
+        taskDTO.setName(2021);
+        //创建taskDTOS集合
+        List<TaskDTO> taskDTOS = new ArrayList<>();
+        //把对象封装到集合里
+        taskDTOS.add(taskDTO);
 
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
-            BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
-            taskDisplayDTOS.add(taskDisplayDTO);
-        }
-        return taskDisplayDTOS;
 
+        //查询本年度正在进行的任务
+        //创建taskStatusDTOS集合
+//        List<TaskDTO> taskStatusDTOS = new ArrayList<>();
+//        taskStatusDTOS.equals(1002000002);
+
+        QueryWrapper<Task> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("task_status", 1002000002);
+        int value1 = count(queryWrapper1);
+
+        //把任务数量和任务名称封装到对象里
+        TaskDTO taskstatusDTO = new TaskDTO();
+        taskstatusDTO.setValue(value1);
+        taskstatusDTO.setName(1002000002);
+
+        //把对象封装到集合里
+        taskDTOS.add(taskstatusDTO);
+
+        return taskDTOS;
     }
 
 }
