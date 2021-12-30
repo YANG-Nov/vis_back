@@ -17,5 +17,5 @@ import java.util.List;
  */
 public interface DiseaseService extends IService<Disease> {
 
-    List<DieaseDTO> getDieaseList();
+    List<DieaseDTO> getDiseaseList();
 }

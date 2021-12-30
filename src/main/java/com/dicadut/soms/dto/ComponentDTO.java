@@ -7,7 +7,7 @@ import lombok.Data;
  * @create 2021-11-2021/11/21 13:56
  */
 @Data
-public class CmponentDTO {
+public class ComponentDTO {
     private Integer value;
     private String name;
     private String componentLevel;

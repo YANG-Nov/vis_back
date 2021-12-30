@@ -1,11 +1,8 @@
 package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
-import com.dicadut.soms.dto.CmponentDTO;
-import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.entity.Cmponent;
-import com.dicadut.soms.service.CmponentService;
-import com.dicadut.soms.service.TaskService;
+import com.dicadut.soms.dto.ComponentDTO;
+import com.dicadut.soms.service.ComponentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -18,20 +15,20 @@ import java.util.List;
 
 /**
  * @author fan_jennifer
- * @create 2021-11-2021/11/21 13:59
+ * @create 21/11/21 13:59
  */
 @Api(tags = "构件管理接口")
 @Slf4j
 @RestController
 @RequestMapping("/component")
-public class CmponentController {
+public class ComponentController {
     @Autowired
-    private CmponentService cmponentService;
+    private ComponentService componentService;
 
     @ApiOperation("查询构件巡检频率")
     @GetMapping("getFrequency")
-    public ResponseViewModel<List<CmponentDTO>> getFrequencyList() {
-        List<CmponentDTO> frequencyLatestList = cmponentService.getFrequencyList();
+    public ResponseViewModel<List<ComponentDTO>> getFrequencyList() {
+        List<ComponentDTO> frequencyLatestList = componentService.getFrequencyList();
         return ResponseViewModel.ok(frequencyLatestList);
 
     }
