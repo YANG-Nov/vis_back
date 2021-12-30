@@ -3,6 +3,7 @@ package com.dicadut.soms.controller;
 
 import com.baomidou.mybatisplus.extension.api.R;
 import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.dto.StrainResDTO;
 import com.dicadut.soms.dto.TaskDTO;
 import com.dicadut.soms.dto.TaskNumDTO;
 import com.dicadut.soms.dto.TaskDisplayDTO;
@@ -98,5 +99,13 @@ public class TaskController {
             return ResponseViewModel.fail("添加失败");
         }
 
+    }
+
+    // TODO 实现本年度巡检任务总数查询
+    @ApiOperation("本年度巡检任务列表")
+    @GetMapping("getThisYearTaskList")
+    public ResponseViewModel<List<TaskDisplayDTO>> getThisYearTaskList(@RequestParam String startTime, @RequestParam String endTime) {
+//        List<TaskDisplayDTO> completedTaskList = taskService.getCompletedTaskList();
+        return ResponseViewModel.ok(taskService.getThisYearTaskList(startTime, endTime));
     }
 }

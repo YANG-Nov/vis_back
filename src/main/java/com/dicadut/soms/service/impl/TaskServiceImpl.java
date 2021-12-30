@@ -1,17 +1,23 @@
 package com.dicadut.soms.service.impl;
 
+import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dicadut.soms.dto.StrainResDTO;
 import com.dicadut.soms.dto.TaskDTO;
 import com.dicadut.soms.dto.TaskNumDTO;
 import com.dicadut.soms.dto.TaskDisplayDTO;
+import com.dicadut.soms.entity.Strain;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.TaskService;
+import com.dicadut.soms.util.StrainUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -342,4 +348,25 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         }
         return taskDisplayDTOS;
     }
+
+    @Override
+    public List<TaskDisplayDTO> getThisYearTaskList(String startTime, String endTime) {
+        startTime = startTime == null ? "2020-01-01 00:00:00" : startTime;
+        endTime = endTime == null ? DateTime.now().toString("yyyy-MM-dd HH:mm:ss") : endTime;
+        QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
+        queryWrapper.between("create_time", startTime, endTime);
+
+        List<Task> tasks = baseMapper.selectList(queryWrapper);
+        List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
+            BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
+            taskDisplayDTOS.add(taskDisplayDTO);
+        }
+        return taskDisplayDTOS;
+
+    }
+
 }

@@ -25,4 +25,6 @@ public interface TaskService extends IService<Task> {
     List<TaskDisplayDTO> getAreInspectionTaskList();
 
     List<TaskDisplayDTO> getCompletedTaskList();
+
+    List<TaskDisplayDTO> getThisYearTaskList(String startTime, String endTime);
 }
