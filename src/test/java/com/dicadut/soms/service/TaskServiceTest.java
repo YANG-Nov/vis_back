@@ -23,7 +23,12 @@ public class TaskServiceTest {
     private TaskService taskService;
 
     @Test
-    public void test() {
-        System.out.println(taskService.getThisYearTaskListByMultiSql("2021-01-01 00:00:00", "2021-12=31 23:59:59"));
+    public void getThisYearTaskList() {
+        System.out.println(taskService.getThisYearTaskList("2021-01-01 00:00:00", "2021-12-31 23:59:59"));
+    }
+
+    @Test
+    public void getThisYearTaskListByMultiSql() {
+        System.out.println(taskService.getThisYearTaskListByMultiSql("2021-01-01 00:00:00", "2021-12-31 23:59:59"));
     }
 }
