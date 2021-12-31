@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dicadut.soms.mapper.ComponentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.Component">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="serial_number" property="serialNumber"/>
+        <result column="component_level" property="componentLevel"/>
+        <result column="is_scan" property="isScan"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="component_status" property="componentStatus"/>
+        <result column="material" property="material"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from system.component;
+    </select>
+
+</mapper>

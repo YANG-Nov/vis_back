@@ -9,4 +9,7 @@ import com.dicadut.soms.entity.Component;
  * @create 2021-11-2021/11/21 14:03
  */
 public interface ComponentMapper extends BaseMapper<Component> {
+
+    Integer selectCount();
+
 }
