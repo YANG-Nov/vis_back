@@ -381,4 +381,17 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         taskStatisticDTO.setInspectingCount(baseMapper.selectCountByTaskStatus(startTime, endTime, "1002000002"));
         return taskStatisticDTO;
     }
+
+    /**
+     * 法三：
+     * 该方法直接通过查数据库进行统计，总共查数据库1次，性能最优。
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public TaskStatisticDTO getThisYearTaskListBySingleSql(String startTime, String endTime) {
+        return baseMapper.selectTaskStatisticByTaskStatus(startTime,endTime);
+    }
 }

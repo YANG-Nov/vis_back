@@ -32,4 +32,15 @@
         </if>
     </select>
 
+    <select id="selectTaskStatisticByTaskStatus" resultType="com.dicadut.soms.dto.TaskStatisticDTO">
+        select
+        count(*) total_count,
+        sum(if(t.task_status = 1002000001,1,0)) wait_4_received_count,
+        sum(if(t.task_status = 1002000003,1,0)) wait_4_reviewed_count,
+        sum(if(t.task_status = 1002000005,1,0)) wait_4_retransmitted_count,
+        sum(if(t.task_status = 1002000002,1,0)) inspecting_count
+        from system.task t
+        where t.create_time between #{startTime} and #{endTime}
+    </select>
+
 </mapper>

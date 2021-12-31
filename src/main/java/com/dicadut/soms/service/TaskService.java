@@ -30,4 +30,6 @@ public interface TaskService extends IService<Task> {
     TaskStatisticDTO getThisYearTaskList(String startTime, String endTime);
 
     TaskStatisticDTO getThisYearTaskListByMultiSql(String startTime, String endTime);
+
+    TaskStatisticDTO getThisYearTaskListBySingleSql(String startTime, String endTime);
 }
