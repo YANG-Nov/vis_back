@@ -47,7 +47,7 @@ public class Disease{
     private String damagePosition;
 
     @ApiModelProperty(value = "注释")
-    private String Note;
+    private String note;
 
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
     @TableLogic

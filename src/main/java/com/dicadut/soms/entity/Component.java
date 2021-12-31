@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Data
 @TableName("system.component")
-public class Cmponent {
+public class Component {
     @ApiModelProperty(value = "构件id")
     @TableId
     private String id;

@@ -28,13 +28,13 @@ public class WyController {
     private WyService wyService;
 
     @ApiOperation("获取最新的传感器数据")
-    @GetMapping("/Wy_latest")
+    @GetMapping("/wy_latest")
     public ResponseViewModel<List<WyResDTO>> getWyLatest(@RequestParam Integer pageSize) {
         return ResponseViewModel.ok(wyService.getWyLatest(pageSize));
     }
 
     @ApiOperation("根据时间范围查询位移传感器数据")
-    @GetMapping("/Wy")
+    @GetMapping("/wy")
     public ResponseViewModel<List<WyResDTO>> getWyList(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(wyService.getWyList(startTime, endTime));
     }
