@@ -338,6 +338,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     /**
+     * 法一：
      * 该方法首先将所有本年度的任务都从数据库中读取到内存，然后再在内存中统计各类状态的任务数，对于小数据场景可行，但大数据场景会导致性能很低下，甚至不可用，后续我再提供一个新的方法做参考
      *
      * @param startTime
@@ -362,4 +363,22 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskStatisticDTO;
     }
 
+    /**
+     * 法二：
+     * 该方法直接通过查数据库进行统计，总共查数据库5次，实现时引入xml配置文件，通过在xml中写sql实现查询功能，请跟进理解和学习。
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public TaskStatisticDTO getThisYearTaskListByMultiSql(String startTime, String endTime) {
+        TaskStatisticDTO taskStatisticDTO = new TaskStatisticDTO();
+        taskStatisticDTO.setTotalCount(baseMapper.selectCountByTaskStatus(startTime, endTime, null));
+        taskStatisticDTO.setWait4ReceivedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, "1002000001"));  // TODO 后续想办法移除魔法值
+        taskStatisticDTO.setWait4ReviewedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, "1002000003"));
+        taskStatisticDTO.setWait4RetransmittedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, "1002000005"));
+        taskStatisticDTO.setInspectingCount(baseMapper.selectCountByTaskStatus(startTime, endTime, "1002000002"));
+        return taskStatisticDTO;
+    }
 }

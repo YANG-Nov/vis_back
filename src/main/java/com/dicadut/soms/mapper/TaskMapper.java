@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.entity.Wy;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author fan_jennifer
@@ -12,5 +13,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TaskMapper extends BaseMapper<Task> {
 
+    Integer selectCountByTaskStatus(@Param("startTime") String startTime,
+                                    @Param("endTime") String endTime,
+                                    @Param("taskStatus") String taskStatus);
 
 }

@@ -10,7 +10,7 @@ import lombok.Data;
  * @version 1.0.0
  * @date 2021-12-31 16:04:43
  */
-@ApiModel
+@ApiModel("任务统计")
 @Data
 public class TaskStatisticDTO {
     @ApiModelProperty("总取任务数")
