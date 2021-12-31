@@ -7,6 +7,7 @@ import com.dicadut.soms.dto.StrainResDTO;
 import com.dicadut.soms.dto.TaskDTO;
 import com.dicadut.soms.dto.TaskNumDTO;
 import com.dicadut.soms.dto.TaskDisplayDTO;
+import com.dicadut.soms.dto.TaskStatisticDTO;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.service.TaskService;
 import io.swagger.annotations.Api;
@@ -104,7 +105,7 @@ public class  TaskController {
     // TODO 实现本年度巡检任务总数查询
     @ApiOperation("本年度巡检任务列表")
     @GetMapping("getThisYearTaskList")
-    public ResponseViewModel<List<TaskDTO>> getThisYearTaskList(@RequestParam String startTime, @RequestParam String endTime) {
+    public ResponseViewModel<TaskStatisticDTO> getThisYearTaskList(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisYearTaskList(startTime, endTime));
     }
 }

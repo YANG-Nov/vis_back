@@ -1,11 +1,12 @@
 package com.dicadut.soms.service.impl;
 
-import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskNumDTO;
 import com.dicadut.soms.dto.TaskDisplayDTO;
+import com.dicadut.soms.dto.TaskNumDTO;
+import com.dicadut.soms.dto.TaskStatisticDTO;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.TaskService;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author fan_jennifer
@@ -337,47 +337,29 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskDisplayDTOS;
     }
 
+    /**
+     * 该方法首先将所有本年度的任务都从数据库中读取到内存，然后再在内存中统计各类状态的任务数，对于小数据场景可行，但大数据场景会导致性能很低下，甚至不可用，后续我再提供一个新的方法做参考
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
     @Override
-    public List<TaskDTO> getThisYearTaskList(String startTime, String endTime) {
-        //查询本年度所有的任务
-        startTime = startTime == null ? "2020-01-01 00:00:00" : startTime;
-        endTime = endTime == null ? DateTime.now().toString("yyyy-MM-dd HH:mm:ss") : endTime;
+    public TaskStatisticDTO getThisYearTaskList(String startTime, String endTime) {
+        startTime = startTime == null ? String.format("%s-01-01 00:00:00", DateUtil.thisYear()) : startTime;
+        endTime = endTime == null ? DateUtil.now() : endTime;
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.between("create_time", startTime, endTime);
-
-
-        int value = count(queryWrapper);
-        //把任务数量和任务名称封装到对象里
-        TaskDTO taskDTO = new TaskDTO();
-        taskDTO.setValue(value);
-        taskDTO.setName(2021);
-        //创建taskDTOS集合
-        List<TaskDTO> taskDTOS = new ArrayList<>();
-        //把对象封装到集合里
-        taskDTOS.add(taskDTO);
-
-
         List<Task> tasks = baseMapper.selectList(queryWrapper);
 
+        TaskStatisticDTO taskStatisticDTO = new TaskStatisticDTO();
+        taskStatisticDTO.setTotalCount(tasks.size());
+        taskStatisticDTO.setWait4ReceivedCount((int) tasks.stream().filter(e -> 1002000001 == e.getTaskStatus()).count());  // TODO 后续想办法移除魔法值
+        taskStatisticDTO.setWait4ReviewedCount((int) tasks.stream().filter(e -> 1002000003 == e.getTaskStatus()).count());
+        taskStatisticDTO.setWait4RetransmittedCount((int) tasks.stream().filter(e -> 1002000005 == e.getTaskStatus()).count());
+        taskStatisticDTO.setInspectingCount((int) tasks.stream().filter(e -> 1002000002 == e.getTaskStatus()).count());
 
-//        for (int i = 0;i < tasks.size();i++){
-//            System.out.println(tasks.get(i));
-//        }
-
-
-
-        //查询本年度正在进行的任务
-//        QueryWrapper<Task> queryWrapper1 = new QueryWrapper<>();
-//        queryWrapper1.eq("task_status", 1002000002);
-//        int value1 = count(queryWrapper1);
-//        //把任务数量和任务名称封装到对象里
-//        TaskDTO taskstatusDTO = new TaskDTO();
-//        taskstatusDTO.setValue(value1);
-//        taskstatusDTO.setName(1002000002);
-//        //把对象封装到集合里
-//        taskDTOS.add(taskstatusDTO);
-
-        return taskDTOS;
+        return taskStatisticDTO;
     }
 
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.TaskDTO;
 import com.dicadut.soms.dto.TaskNumDTO;
 import com.dicadut.soms.dto.TaskDisplayDTO;
+import com.dicadut.soms.dto.TaskStatisticDTO;
 import com.dicadut.soms.entity.Task;
 
 import java.util.List;
@@ -26,5 +27,5 @@ public interface TaskService extends IService<Task> {
 
     List<TaskDisplayDTO> getCompletedTaskList();
 
-    List<TaskDTO> getThisYearTaskList(String startTime, String endTime);
+    TaskStatisticDTO getThisYearTaskList(String startTime, String endTime);
 }
