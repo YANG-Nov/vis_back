@@ -25,7 +25,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/task")
-public class TaskController {
+public class  TaskController {
     //访问地址 ：http://localhost:8089/task/findAll
     //注入service
     @Autowired

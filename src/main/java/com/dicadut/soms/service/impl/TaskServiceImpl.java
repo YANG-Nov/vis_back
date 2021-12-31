@@ -3,25 +3,21 @@ package com.dicadut.soms.service.impl;
 import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.dto.StrainResDTO;
 import com.dicadut.soms.dto.TaskDTO;
 import com.dicadut.soms.dto.TaskNumDTO;
 import com.dicadut.soms.dto.TaskDisplayDTO;
-import com.dicadut.soms.entity.Strain;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.TaskService;
-import com.dicadut.soms.util.StrainUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author fan_jennifer
@@ -348,8 +344,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         endTime = endTime == null ? DateTime.now().toString("yyyy-MM-dd HH:mm:ss") : endTime;
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.between("create_time", startTime, endTime);
-        int value = count(queryWrapper);
 
+
+        int value = count(queryWrapper);
         //把任务数量和任务名称封装到对象里
         TaskDTO taskDTO = new TaskDTO();
         taskDTO.setValue(value);
@@ -360,22 +357,25 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         taskDTOS.add(taskDTO);
 
 
+        List<Task> tasks = baseMapper.selectList(queryWrapper);
+
+
+//        for (int i = 0;i < tasks.size();i++){
+//            System.out.println(tasks.get(i));
+//        }
+
+
+
         //查询本年度正在进行的任务
-        //创建taskStatusDTOS集合
-//        List<TaskDTO> taskStatusDTOS = new ArrayList<>();
-//        taskStatusDTOS.equals(1002000002);
-
-        QueryWrapper<Task> queryWrapper1 = new QueryWrapper<>();
-        queryWrapper1.eq("task_status", 1002000002);
-        int value1 = count(queryWrapper1);
-
-        //把任务数量和任务名称封装到对象里
-        TaskDTO taskstatusDTO = new TaskDTO();
-        taskstatusDTO.setValue(value1);
-        taskstatusDTO.setName(1002000002);
-
-        //把对象封装到集合里
-        taskDTOS.add(taskstatusDTO);
+//        QueryWrapper<Task> queryWrapper1 = new QueryWrapper<>();
+//        queryWrapper1.eq("task_status", 1002000002);
+//        int value1 = count(queryWrapper1);
+//        //把任务数量和任务名称封装到对象里
+//        TaskDTO taskstatusDTO = new TaskDTO();
+//        taskstatusDTO.setValue(value1);
+//        taskstatusDTO.setName(1002000002);
+//        //把对象封装到集合里
+//        taskDTOS.add(taskstatusDTO);
 
         return taskDTOS;
     }
