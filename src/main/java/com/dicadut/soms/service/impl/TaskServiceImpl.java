@@ -1,6 +1,7 @@
 package com.dicadut.soms.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.TaskDTO;
@@ -265,9 +266,19 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskNum;*/
     }
 
-    @Override
-    public List<TaskDisplayDTO> getTotalTaskList() {
-        List<Task> tasks = baseMapper.selectList(null);
+    /**
+     * 根据taskStatus获取任务列表， 如taskStatus为null或空串，则获取所有任务列表
+     *
+     * @param taskStatus 参考 TaskStatusEnum 的定义
+     * @return
+     */
+    private List<TaskDisplayDTO> getTaskDisplayList(String taskStatus) {
+        QueryWrapper<Task> wrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(taskStatus)) {
+            wrapper.eq("task_status", taskStatus);
+        }
+
+        List<Task> tasks = baseMapper.selectList(wrapper);
         List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
 
         for (int i = 0; i < tasks.size(); i++) {
@@ -279,63 +290,26 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
         }
         return taskDisplayDTOS;
+    }
+
+    @Override
+    public List<TaskDisplayDTO> getTotalTaskList() {
+        return getTaskDisplayList(null);
     }
 
     @Override
     public List<TaskDisplayDTO> getUnclaimedTaskList() {
-        QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_status", 1002000001);
-
-        List<Task> tasks = baseMapper.selectList(wrapper);
-        List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
-
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
-            BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
-            taskDisplayDTOS.add(taskDisplayDTO);
-
-
-        }
-        return taskDisplayDTOS;
+        return getTaskDisplayList(TaskStatusEnum.WAIT_RECEIVE.getValue());
     }
 
     @Override
     public List<TaskDisplayDTO> getAreInspectionTaskList() {
-        QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_status", 1002000002);
-
-        List<Task> tasks = baseMapper.selectList(wrapper);
-        List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
-
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
-            BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
-            taskDisplayDTOS.add(taskDisplayDTO);
-
-
-        }
-        return taskDisplayDTOS;
+        return getTaskDisplayList(TaskStatusEnum.INSPECTING.getValue());
     }
 
     @Override
     public List<TaskDisplayDTO> getCompletedTaskList() {
-        QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_status", 1002000003);
-
-        List<Task> tasks = baseMapper.selectList(wrapper);
-        List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
-
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
-            BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
-            taskDisplayDTOS.add(taskDisplayDTO);
-
-
-        }
-        return taskDisplayDTOS;
+        return getTaskDisplayList(TaskStatusEnum.WAIT_REVIEW.getValue());
     }
 
     /**
