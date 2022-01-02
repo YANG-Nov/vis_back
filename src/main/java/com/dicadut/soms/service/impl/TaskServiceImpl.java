@@ -8,6 +8,7 @@ import com.dicadut.soms.dto.TaskDisplayDTO;
 import com.dicadut.soms.dto.TaskNumDTO;
 import com.dicadut.soms.dto.TaskStatisticDTO;
 import com.dicadut.soms.entity.Task;
+import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +35,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         QueryWrapper<Task> queryWrapper1 = new QueryWrapper<>();
         queryWrapper1.orderByAsc("task_status").last("limit 1");
         Task task1 = baseMapper.selectOne(queryWrapper1);
-        Integer taskStatusMinimum = task1.getTaskStatus();
+        Integer taskStatusMinimum = Integer.valueOf(task1.getTaskStatus());
 
         //查询task_status中最小值
         QueryWrapper<Task> queryWrapper2 = new QueryWrapper<>();
         queryWrapper2.orderByDesc("task_status").last("limit 1");
         Task task2 = baseMapper.selectOne(queryWrapper2);
-        Integer taskStatusMaximum = task2.getTaskStatus();
+        Integer taskStatusMaximum = Integer.valueOf(task2.getTaskStatus());
         //创建list集合
         List<TaskDTO> list = new ArrayList<>();
 
@@ -355,10 +356,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
         TaskStatisticDTO taskStatisticDTO = new TaskStatisticDTO();
         taskStatisticDTO.setTotalCount(tasks.size());
-        taskStatisticDTO.setWait4ReceivedCount((int) tasks.stream().filter(e -> 1002000001 == e.getTaskStatus()).count());  // TODO 后续想办法移除魔法值
-        taskStatisticDTO.setWait4ReviewedCount((int) tasks.stream().filter(e -> 1002000003 == e.getTaskStatus()).count());
-        taskStatisticDTO.setWait4RetransmittedCount((int) tasks.stream().filter(e -> 1002000005 == e.getTaskStatus()).count());
-        taskStatisticDTO.setInspectingCount((int) tasks.stream().filter(e -> 1002000002 == e.getTaskStatus()).count());
+        taskStatisticDTO.setWait4ReceivedCount((int) tasks.stream().filter(e -> TaskStatusEnum.WAIT_RECEIVE.getValue().equalsIgnoreCase(e.getTaskStatus())).count());
+        taskStatisticDTO.setWait4ReviewedCount((int) tasks.stream().filter(e -> TaskStatusEnum.WAIT_REVIEW.getValue().equalsIgnoreCase(e.getTaskStatus())).count());
+        taskStatisticDTO.setWait4RetransmittedCount((int) tasks.stream().filter(e -> TaskStatusEnum.WAIT_RETRANSMIT.getValue().equalsIgnoreCase(e.getTaskStatus())).count());
+        taskStatisticDTO.setInspectingCount((int) tasks.stream().filter(e -> TaskStatusEnum.INSPECTING.getValue().equalsIgnoreCase(e.getTaskStatus())).count());
 
         return taskStatisticDTO;
     }
@@ -375,10 +376,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public TaskStatisticDTO getThisYearTaskListByMultiSql(String startTime, String endTime) {
         TaskStatisticDTO taskStatisticDTO = new TaskStatisticDTO();
         taskStatisticDTO.setTotalCount(baseMapper.selectCountByTaskStatus(startTime, endTime, null));
-        taskStatisticDTO.setWait4ReceivedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, "1002000001"));  // TODO 后续想办法移除魔法值
-        taskStatisticDTO.setWait4ReviewedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, "1002000003"));
-        taskStatisticDTO.setWait4RetransmittedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, "1002000005"));
-        taskStatisticDTO.setInspectingCount(baseMapper.selectCountByTaskStatus(startTime, endTime, "1002000002"));
+        taskStatisticDTO.setWait4ReceivedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, TaskStatusEnum.WAIT_RECEIVE.getValue()));
+        taskStatisticDTO.setWait4ReviewedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, TaskStatusEnum.WAIT_REVIEW.getValue()));
+        taskStatisticDTO.setWait4RetransmittedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, TaskStatusEnum.WAIT_RETRANSMIT.getValue()));
+        taskStatisticDTO.setInspectingCount(baseMapper.selectCountByTaskStatus(startTime, endTime, TaskStatusEnum.INSPECTING.getValue()));
         return taskStatisticDTO;
     }
 
@@ -392,6 +393,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     @Override
     public TaskStatisticDTO getThisYearTaskListBySingleSql(String startTime, String endTime) {
-        return baseMapper.selectTaskStatisticByTaskStatus(startTime,endTime);
+        return baseMapper.selectTaskStatisticByTaskStatus(startTime, endTime);
     }
 }
