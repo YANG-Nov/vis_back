@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * @author fan_jennifer
- * @create 2021-11-2021/11/21 16:59
+ * @date 2021-11-2021/11/21 16:59
  */
 @Data
 public class DieaseDTO {
