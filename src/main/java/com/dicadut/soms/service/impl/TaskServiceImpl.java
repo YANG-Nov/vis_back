@@ -1,11 +1,14 @@
 package com.dicadut.soms.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskNumDTO;
 import com.dicadut.soms.dto.TaskDisplayDTO;
+import com.dicadut.soms.dto.TaskNumDTO;
+import com.dicadut.soms.dto.TaskStatisticDTO;
 import com.dicadut.soms.entity.Task;
+import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,13 +35,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         QueryWrapper<Task> queryWrapper1 = new QueryWrapper<>();
         queryWrapper1.orderByAsc("task_status").last("limit 1");
         Task task1 = baseMapper.selectOne(queryWrapper1);
-        Integer taskStatusMinimum = task1.getTaskStatus();
+        Integer taskStatusMinimum = Integer.valueOf(task1.getTaskStatus());
 
         //查询task_status中最小值
         QueryWrapper<Task> queryWrapper2 = new QueryWrapper<>();
         queryWrapper2.orderByDesc("task_status").last("limit 1");
         Task task2 = baseMapper.selectOne(queryWrapper2);
-        Integer taskStatusMaximum = task2.getTaskStatus();
+        Integer taskStatusMaximum = Integer.valueOf(task2.getTaskStatus());
         //创建list集合
         List<TaskDTO> list = new ArrayList<>();
 
@@ -75,47 +78,47 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("task_type", 1001000001);
         List<Task> tasks = baseMapper.selectList(queryWrapper);
-        for (int i = 0; i <tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             Date createTime = task.getCreateTime();
             Calendar c = Calendar.getInstance();
             c.setTime(createTime);
             int month = c.get(Calendar.MONTH);
-            switch (month){
-                case 0 :
+            switch (month) {
+                case 0:
                     taskNumArray[0]++;
                     break;
-                case 1 :
+                case 1:
                     taskNumArray[1]++;
                     break;
-                case 2 :
+                case 2:
                     taskNumArray[2]++;
                     break;
-                case 3 :
+                case 3:
                     taskNumArray[3]++;
                     break;
-                case 4 :
+                case 4:
                     taskNumArray[4]++;
                     break;
-                case 5 :
+                case 5:
                     taskNumArray[5]++;
                     break;
-                case 6 :
+                case 6:
                     taskNumArray[6]++;
                     break;
-                case 7 :
+                case 7:
                     taskNumArray[7]++;
                     break;
-                case 8 :
+                case 8:
                     taskNumArray[8]++;
                     break;
-                case 9 :
+                case 9:
                     taskNumArray[9]++;
                     break;
-                case 10 :
+                case 10:
                     taskNumArray[10]++;
                     break;
-                case 11 :
+                case 11:
                     taskNumArray[11]++;
                     break;
             }
@@ -161,59 +164,55 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         patrolTaskDTO.setData(numList);*/
 
 
-
-
-
-
         //查询维修次数
 
         TaskNumDTO maintenanceTaskDTO = new TaskNumDTO();
         int[] maintenanceTaskNumArray = new int[12];
         maintenanceTaskDTO.setName("维修次数");
-        QueryWrapper<Task>  wrapper = new QueryWrapper<>();
+        QueryWrapper<Task> wrapper = new QueryWrapper<>();
         wrapper.eq("task_type", 1001000004);
         List<Task> maintenanceTasks = baseMapper.selectList(wrapper);
-        for (int i = 0; i <tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task maintenanceTask = maintenanceTasks.get(i);
             Date createTime = maintenanceTask.getCreateTime();
             Calendar c = Calendar.getInstance();
             c.setTime(createTime);
             int month = c.get(Calendar.MONTH);
-            switch (month){
-                case 0 :
+            switch (month) {
+                case 0:
                     maintenanceTaskNumArray[0]++;
                     break;
-                case 1 :
+                case 1:
                     maintenanceTaskNumArray[1]++;
                     break;
-                case 2 :
+                case 2:
                     maintenanceTaskNumArray[2]++;
                     break;
-                case 3 :
+                case 3:
                     maintenanceTaskNumArray[3]++;
                     break;
-                case 4 :
+                case 4:
                     maintenanceTaskNumArray[4]++;
                     break;
-                case 5 :
+                case 5:
                     maintenanceTaskNumArray[5]++;
                     break;
-                case 6 :
+                case 6:
                     maintenanceTaskNumArray[6]++;
                     break;
-                case 7 :
+                case 7:
                     maintenanceTaskNumArray[7]++;
                     break;
-                case 8 :
+                case 8:
                     maintenanceTaskNumArray[8]++;
                     break;
-                case 9 :
+                case 9:
                     maintenanceTaskNumArray[9]++;
                     break;
-                case 10 :
+                case 10:
                     maintenanceTaskNumArray[10]++;
                     break;
-                case 11 :
+                case 11:
                     maintenanceTaskNumArray[11]++;
                     break;
             }
@@ -278,7 +277,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             taskDisplayDTOS.add(taskDisplayDTO);
 
 
-
         }
         return taskDisplayDTOS;
     }
@@ -286,7 +284,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public List<TaskDisplayDTO> getUnclaimedTaskList() {
         QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_status",1002000001);
+        wrapper.eq("task_status", 1002000001);
 
         List<Task> tasks = baseMapper.selectList(wrapper);
         List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
@@ -296,7 +294,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
             BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
             taskDisplayDTOS.add(taskDisplayDTO);
-
 
 
         }
@@ -306,7 +303,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public List<TaskDisplayDTO> getAreInspectionTaskList() {
         QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_status",1002000002);
+        wrapper.eq("task_status", 1002000002);
 
         List<Task> tasks = baseMapper.selectList(wrapper);
         List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
@@ -316,7 +313,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
             BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
             taskDisplayDTOS.add(taskDisplayDTO);
-
 
 
         }
@@ -326,7 +322,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public List<TaskDisplayDTO> getCompletedTaskList() {
         QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_status",1002000003 );
+        wrapper.eq("task_status", 1002000003);
 
         List<Task> tasks = baseMapper.selectList(wrapper);
         List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
@@ -338,8 +334,65 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             taskDisplayDTOS.add(taskDisplayDTO);
 
 
-
         }
         return taskDisplayDTOS;
+    }
+
+    /**
+     * 法一：
+     * 该方法首先将所有本年度的任务都从数据库中读取到内存，然后再在内存中统计各类状态的任务数，对于小数据场景可行，但大数据场景会导致性能很低下，甚至不可用，后续我再提供一个新的方法做参考
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public TaskStatisticDTO getThisYearTaskList(String startTime, String endTime) {
+        startTime = startTime == null ? String.format("%s-01-01 00:00:00", DateUtil.thisYear()) : startTime;
+        endTime = endTime == null ? DateUtil.now() : endTime;
+        QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
+        queryWrapper.between("create_time", startTime, endTime);
+        List<Task> tasks = baseMapper.selectList(queryWrapper);
+
+        TaskStatisticDTO taskStatisticDTO = new TaskStatisticDTO();
+        taskStatisticDTO.setTotalCount(tasks.size());
+        taskStatisticDTO.setWait4ReceivedCount((int) tasks.stream().filter(e -> TaskStatusEnum.WAIT_RECEIVE.getValue().equalsIgnoreCase(e.getTaskStatus())).count());
+        taskStatisticDTO.setWait4ReviewedCount((int) tasks.stream().filter(e -> TaskStatusEnum.WAIT_REVIEW.getValue().equalsIgnoreCase(e.getTaskStatus())).count());
+        taskStatisticDTO.setWait4RetransmittedCount((int) tasks.stream().filter(e -> TaskStatusEnum.WAIT_RETRANSMIT.getValue().equalsIgnoreCase(e.getTaskStatus())).count());
+        taskStatisticDTO.setInspectingCount((int) tasks.stream().filter(e -> TaskStatusEnum.INSPECTING.getValue().equalsIgnoreCase(e.getTaskStatus())).count());
+
+        return taskStatisticDTO;
+    }
+
+    /**
+     * 法二：
+     * 该方法直接通过查数据库进行统计，总共查数据库5次，实现时引入xml配置文件，通过在xml中写sql实现查询功能，请跟进理解和学习。
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public TaskStatisticDTO getThisYearTaskListByMultiSql(String startTime, String endTime) {
+        TaskStatisticDTO taskStatisticDTO = new TaskStatisticDTO();
+        taskStatisticDTO.setTotalCount(baseMapper.selectCountByTaskStatus(startTime, endTime, null));
+        taskStatisticDTO.setWait4ReceivedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, TaskStatusEnum.WAIT_RECEIVE.getValue()));
+        taskStatisticDTO.setWait4ReviewedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, TaskStatusEnum.WAIT_REVIEW.getValue()));
+        taskStatisticDTO.setWait4RetransmittedCount(baseMapper.selectCountByTaskStatus(startTime, endTime, TaskStatusEnum.WAIT_RETRANSMIT.getValue()));
+        taskStatisticDTO.setInspectingCount(baseMapper.selectCountByTaskStatus(startTime, endTime, TaskStatusEnum.INSPECTING.getValue()));
+        return taskStatisticDTO;
+    }
+
+    /**
+     * 法三：
+     * 该方法直接通过查数据库进行统计，总共查数据库1次，性能最优。
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public TaskStatisticDTO getThisYearTaskListBySingleSql(String startTime, String endTime) {
+        return baseMapper.selectTaskStatisticByTaskStatus(startTime, endTime);
     }
 }

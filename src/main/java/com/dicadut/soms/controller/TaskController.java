@@ -3,9 +3,11 @@ package com.dicadut.soms.controller;
 
 import com.baomidou.mybatisplus.extension.api.R;
 import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.dto.StrainResDTO;
 import com.dicadut.soms.dto.TaskDTO;
 import com.dicadut.soms.dto.TaskNumDTO;
 import com.dicadut.soms.dto.TaskDisplayDTO;
+import com.dicadut.soms.dto.TaskStatisticDTO;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.service.TaskService;
 import io.swagger.annotations.Api;
@@ -24,7 +26,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/task")
-public class TaskController {
+public class  TaskController {
     //访问地址 ：http://localhost:8089/task/findAll
     //注入service
     @Autowired
@@ -98,5 +100,12 @@ public class TaskController {
             return ResponseViewModel.fail("添加失败");
         }
 
+    }
+
+    // TODO 实现本年度巡检任务总数查询
+    @ApiOperation("本年度巡检任务列表")
+    @GetMapping("getThisYearTaskList")
+    public ResponseViewModel<TaskStatisticDTO> getThisYearTaskList(@RequestParam String startTime, @RequestParam String endTime) {
+        return ResponseViewModel.ok(taskService.getThisYearTaskList(startTime, endTime));
     }
 }

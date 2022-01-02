@@ -2,7 +2,6 @@ package com.dicadut.soms.controller;
 
 
 import com.dicadut.soms.common.ResponseViewModel;
-import com.dicadut.soms.dto.CmponentDTO;
 import com.dicadut.soms.dto.DieaseDTO;
 import com.dicadut.soms.service.DiseaseService;
 import io.swagger.annotations.Api;
@@ -36,7 +35,7 @@ public class DiseaseController {
     @ApiOperation("查询病害")
     @GetMapping("getFrequency")
     public ResponseViewModel<List<DieaseDTO>> getDiease() {
-        List<DieaseDTO> dieaseLatestList = diseaseService.getDieaseList();
+        List<DieaseDTO> dieaseLatestList = diseaseService.getDiseaseList();
         return ResponseViewModel.ok(dieaseLatestList);
 
     }

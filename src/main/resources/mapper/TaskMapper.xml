@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dicadut.soms.mapper.TaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.Task">
+        <id column="id" property="id"/>
+        <result column="task_type" property="taskType"/>
+        <result column="task_status" property="taskStatus"/>
+        <result column="creator_id" property="creatorId"/>
+        <result column="user_id" property="userId"/>
+        <result column="component_id" property="componentId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="is_temporary" property="isTemporary"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from system.component;
+    </select>
+
+    <select id="selectCountByTaskStatus" resultType="java.lang.Integer">
+        select count(*)
+        from system.task t
+        where t.create_time between #{startTime} and #{endTime}
+        <if test="taskStatus != null">
+            and t.task_status = #{taskStatus}
+        </if>
+    </select>
+
+    <select id="selectTaskStatisticByTaskStatus" resultType="com.dicadut.soms.dto.TaskStatisticDTO">
+        select
+        count(*) total_count,
+        sum(if(t.task_status = 1002000001,1,0)) wait_4_received_count,
+        sum(if(t.task_status = 1002000003,1,0)) wait_4_reviewed_count,
+        sum(if(t.task_status = 1002000005,1,0)) wait_4_retransmitted_count,
+        sum(if(t.task_status = 1002000002,1,0)) inspecting_count
+        from system.task t
+        where t.create_time between #{startTime} and #{endTime}
+    </select>
+
+</mapper>
