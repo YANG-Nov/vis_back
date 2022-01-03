@@ -15,8 +15,8 @@ public enum TaskStatusEnum {
     INSPECTING("1001000002", "进行中"),
     WAIT_REVIEW("1001000003", "待审核"),
     WAIT_DISTRIBUTE("1001000004", "待分配"),
-    WAIT_RETRANSMIT("1001000004", "待重传"),
-    FINISH("1001000004", "已完成"),
+    WAIT_RETRANSMIT("1001000005", "待重传"),
+    FINISH("1001000006", "已完成"),
     ;
 
     private String value;

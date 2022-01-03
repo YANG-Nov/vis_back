@@ -105,10 +105,9 @@ public class  TaskController {
 
     }
 
-    // TODO 实现本年度巡检任务总数查询
     @ApiOperation("本年度巡检任务列表")
-    @GetMapping("getThisYearTaskList")
-    public ResponseViewModel<TaskStatisticDTO> getThisYearTaskList(@RequestParam String startTime, @RequestParam String endTime) {
-        return ResponseViewModel.ok(taskService.getThisYearTaskList(startTime, endTime));
+    @GetMapping("getThisYearTaskListBySingleSql")
+    public ResponseViewModel<TaskStatisticDTO> getThisYearTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
+        return ResponseViewModel.ok(taskService.getThisYearTaskListBySingleSql(startTime, endTime));
     }
 }
