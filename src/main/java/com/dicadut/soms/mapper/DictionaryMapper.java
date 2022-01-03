@@ -1,7 +1,7 @@
 package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.dicadut.soms.entity.TDictionary;
+import com.dicadut.soms.entity.Dictionary;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.dicadut.soms.entity.TDictionary;
  * @author testjava
  * @since 2022-01-03
  */
-public interface TDictionaryMapper extends BaseMapper<TDictionary> {
+public interface DictionaryMapper extends BaseMapper<Dictionary> {
 
 }

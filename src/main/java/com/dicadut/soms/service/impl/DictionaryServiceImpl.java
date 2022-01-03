@@ -1,9 +1,9 @@
 package com.dicadut.soms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.entity.TDictionary;
-import com.dicadut.soms.mapper.TDictionaryMapper;
-import com.dicadut.soms.service.TDictionaryService;
+import com.dicadut.soms.entity.Dictionary;
+import com.dicadut.soms.mapper.DictionaryMapper;
+import com.dicadut.soms.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class TDictionaryServiceImpl extends ServiceImpl<TDictionaryMapper, TDictionary> implements TDictionaryService {
+public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Dictionary> implements DictionaryService {
 
 }

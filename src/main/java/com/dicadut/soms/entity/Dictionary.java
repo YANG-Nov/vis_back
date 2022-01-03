@@ -21,7 +21,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="TDictionary对象", description="字典表")
-public class TDictionary implements Serializable {
+public class Dictionary implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

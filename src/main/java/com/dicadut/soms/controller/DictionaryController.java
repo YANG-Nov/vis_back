@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/t-dictionary")
-public class TDictionaryController {
+public class DictionaryController {
 
 }
 

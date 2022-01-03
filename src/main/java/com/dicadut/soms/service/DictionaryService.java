@@ -1,7 +1,7 @@
 package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dicadut.soms.entity.TDictionary;
+import com.dicadut.soms.entity.Dictionary;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.dicadut.soms.entity.TDictionary;
  * @author testjava
  * @since 2022-01-03
  */
-public interface TDictionaryService extends IService<TDictionary> {
+public interface DictionaryService extends IService<Dictionary> {
 
 }
