@@ -3,7 +3,7 @@ package com.dicadut.soms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.entity.Dictionary;
-import com.dicadut.soms.enumeration.TypeName;
+import com.dicadut.soms.enumeration.TypeNameEnum;
 import com.dicadut.soms.mapper.DictionaryMapper;
 import com.dicadut.soms.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
     @Override
     public List<String> getComponentsFrequency() {
         QueryWrapper<Dictionary> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("type", TypeName.COMPONENT_INSPECTION_FREQUENCY.getValue());
+        queryWrapper.eq("type", TypeNameEnum.COMPONENT_INSPECTION_FREQUENCY.getValue());
         List<String> componentsFrequency = new ArrayList<>();
 
         List<Dictionary> dictionaries = baseMapper.selectList(queryWrapper);

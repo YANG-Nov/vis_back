@@ -10,7 +10,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2022-01-06 21:32
  */
-public enum TypeName {
+public enum TypeNameEnum {
 
     COMPONENT_INSPECTION_FREQUENCY("2004","构件巡检频率");
 
@@ -18,10 +18,10 @@ public enum TypeName {
 
     private String label;
 
-    private static Map<String, TypeName> codeEnumMap = new HashMap<>();
+    private static Map<String, TypeNameEnum> codeEnumMap = new HashMap<>();
 
     static {
-        Arrays.asList(TypeName.values()).forEach(v -> {
+        Arrays.asList(TypeNameEnum.values()).forEach(v -> {
             codeEnumMap.put(v.value, v);
         });
     }
@@ -34,17 +34,17 @@ public enum TypeName {
         return label;
     }
 
-    TypeName(String value, String label) {
+    TypeNameEnum(String value, String label) {
         this.value = value;
         this.label = label;
     }
 
 
     public static String findByValue(String value) {
-        return Arrays.stream(values()).filter(e -> e.getValue().equals(value)).findAny().map(TypeName::getLabel).orElse("");
+        return Arrays.stream(values()).filter(e -> e.getValue().equals(value)).findAny().map(TypeNameEnum::getLabel).orElse("");
     }
 
-    public static TypeName getEnum(String value) {
+    public static TypeNameEnum getEnum(String value) {
         return codeEnumMap.get(value);
     }
 }
