@@ -1,11 +1,16 @@
 package com.dicadut.soms.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.entity.Dictionary;
+import com.dicadut.soms.enumeration.TypeName;
 import com.dicadut.soms.mapper.DictionaryMapper;
 import com.dicadut.soms.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -19,4 +24,30 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Dictionary> implements DictionaryService {
 
+    /**
+     *TODO
+     * 该方法首先将构件频率类型从数据库中读取到内存，再用循坏把类型名称列添加到列表，
+     * 后面再优化
+     *
+     *
+     *
+     * @return componentsFrequency
+     */
+    @Override
+    public List<String> getComponentsFrequency() {
+        QueryWrapper<Dictionary> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("type", TypeName.COMPONENT_INSPECTION_FREQUENCY.getValue());
+        List<String> componentsFrequency = new ArrayList<>();
+
+        List<Dictionary> dictionaries = baseMapper.selectList(queryWrapper);
+
+        for (Dictionary d:
+             dictionaries) {
+            componentsFrequency.add(d.getCodeName());
+        }
+
+
+
+        return componentsFrequency;
+    }
 }
