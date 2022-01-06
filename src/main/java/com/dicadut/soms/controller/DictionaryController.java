@@ -2,6 +2,7 @@ package com.dicadut.soms.controller;
 
 
 import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.dto.InspectionFrequencyDTO;
 import com.dicadut.soms.service.DictionaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,7 +34,7 @@ public class DictionaryController {
 
     @ApiOperation("制定任务页显示构件频率")
     @GetMapping("getComponentsFrequency")
-    public ResponseViewModel<List<String>> getComponentsFrequency() {
+    public ResponseViewModel<List<InspectionFrequencyDTO>> getComponentsFrequency() {
         return ResponseViewModel.ok(dictionaryService.getComponentsFrequency());
     }
 
