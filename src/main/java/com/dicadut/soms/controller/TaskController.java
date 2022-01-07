@@ -2,10 +2,7 @@ package com.dicadut.soms.controller;
 
 
 import com.dicadut.soms.common.ResponseViewModel;
-import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskDisplayDTO;
-import com.dicadut.soms.dto.TaskNumDTO;
-import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.service.TaskService;
 import io.swagger.annotations.Api;
@@ -109,5 +106,11 @@ public class  TaskController {
     @GetMapping("getThisYearTaskListBySingleSql")
     public ResponseViewModel<TaskStatisticDTO> getThisYearTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisYearTaskListBySingleSql(startTime, endTime));
+    }
+
+    @ApiOperation("本月巡检任务列表，APP")
+    @GetMapping("getThisMonthTaskListBySingleSql")
+    public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
+        return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
     }
 }
