@@ -2,6 +2,7 @@ package com.dicadut.soms.controller;
 
 
 import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.dto.BLineStakeNumberMinMaxDTO;
 import com.dicadut.soms.dto.InspectionFrequencyDTO;
 import com.dicadut.soms.dto.TaskTypeDTO;
 import com.dicadut.soms.service.DictionaryService;
@@ -46,6 +47,21 @@ public class DictionaryController {
     @GetMapping("getTaskType")
     public ResponseViewModel<List<TaskTypeDTO>> getTaskType() {
         return ResponseViewModel.ok(dictionaryService.getTaskType());
+    }
+
+    /**
+     * TODO
+     * AB可以共用一个接口吗
+     */
+/*    @ApiOperation("制定任务页显示B匝道下拉桩号")
+    @GetMapping("getBLineStakeNumber")
+    public ResponseViewModel<List<BLineStakeNumberDTO>> getBLineStakeNumber() {
+        return ResponseViewModel.ok(dictionaryService.getBLineStakeNumber());
+    }*/
+    @ApiOperation("制定任务页显示B匝道下拉桩号")
+    @GetMapping("getBLineStakeNumber")
+    public ResponseViewModel<BLineStakeNumberMinMaxDTO> getBLineStakeNumberMinMax() {
+        return ResponseViewModel.ok(dictionaryService.getBLineStakeNumberMinMax());
     }
 
 

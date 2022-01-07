@@ -1,6 +1,8 @@
 package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dicadut.soms.dto.BLineStakeNumberDTO;
+import com.dicadut.soms.dto.BLineStakeNumberMinMaxDTO;
 import com.dicadut.soms.dto.InspectionFrequencyDTO;
 import com.dicadut.soms.dto.TaskTypeDTO;
 import com.dicadut.soms.entity.Dictionary;
@@ -20,4 +22,8 @@ public interface DictionaryService extends IService<Dictionary> {
     List<InspectionFrequencyDTO> getComponentsFrequency();
 
     List<TaskTypeDTO> getTaskType();
+
+    List<BLineStakeNumberDTO>getBLineStakeNumber();
+
+    BLineStakeNumberMinMaxDTO getBLineStakeNumberMinMax();
 }

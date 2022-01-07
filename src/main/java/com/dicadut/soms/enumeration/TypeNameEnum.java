@@ -13,7 +13,8 @@ import java.util.Map;
 public enum TypeNameEnum {
 
     COMPONENT_INSPECTION_FREQUENCY("2004", "构件巡检频率"),
-    TASK_TYPE("1001", "任务类型");
+    TASK_TYPE("1001", "任务类型"),
+    B_LINE_STAKE_NUMBER("3002", "B匝道桩号数");
 
     private String value;
 

@@ -25,9 +25,17 @@ public class ComponentController {
     @Autowired
     private ComponentService componentService;
 
-    @ApiOperation("查询构件巡检频率")
+    @ApiOperation("获得构件巡检频率")
     @GetMapping("getFrequency")
     public ResponseViewModel<List<ComponentDTO>> getFrequencyList() {
+        List<ComponentDTO> frequencyLatestList = componentService.getFrequencyList();
+        return ResponseViewModel.ok(frequencyLatestList);
+
+    }
+
+    @ApiOperation("任务添加页面的构件显示")
+    @GetMapping("getStakeNumberListByLine")
+    public ResponseViewModel<List<ComponentDTO>> getStakeNumberListByLine() {
         List<ComponentDTO> frequencyLatestList = componentService.getFrequencyList();
         return ResponseViewModel.ok(frequencyLatestList);
 
