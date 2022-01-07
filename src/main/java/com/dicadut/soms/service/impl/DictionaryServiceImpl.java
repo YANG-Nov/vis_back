@@ -3,6 +3,7 @@ package com.dicadut.soms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.InspectionFrequencyDTO;
+import com.dicadut.soms.dto.TaskTypeDTO;
 import com.dicadut.soms.entity.Dictionary;
 import com.dicadut.soms.enumeration.TypeNameEnum;
 import com.dicadut.soms.mapper.DictionaryMapper;
@@ -27,11 +28,9 @@ import java.util.List;
 public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Dictionary> implements DictionaryService {
 
     /**
-     *TODO
-     * 该方法首先将构件频率类型从数据库中读取到内存，再用循坏把类型名称列添加到列表，
-     * 后面再优化
-     *
-     *
+     * TODO
+     * 该方法首先将构件频率类型从数据库中读取到内存，再用循坏把类型名称列添加到列表，数据较少
+     * 后面再优化循环，mapper和相同代码提取
      *
      * @return componentsFrequency
      */
@@ -43,13 +42,39 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
 
         List<Dictionary> dictionaries = baseMapper.selectList(queryWrapper);
 
-        for (Dictionary d:
-             dictionaries) {
+        for (Dictionary d :
+                dictionaries) {
             InspectionFrequencyDTO inspectionFrequencyDTO = new InspectionFrequencyDTO();
             BeanUtils.copyProperties(d, inspectionFrequencyDTO);
             componentsFrequency.add(inspectionFrequencyDTO);
 
         }
         return componentsFrequency;
+    }
+
+    /**
+     * TODO 和上个方法相同，是否可以合并
+     * 该方法首先将构件频率类型从数据库中读取到内存，再用循坏把类型名称列添加到列表，数据较少
+     * 后面再优化循环，mapper和相同代码提取
+     *
+     * @return componentsFrequency
+     */
+    @Override
+    public List<TaskTypeDTO> getTaskType() {
+        QueryWrapper<Dictionary> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("type", TypeNameEnum.TASK_TYPE.getValue());
+        List<TaskTypeDTO> taskTypeDTOS = new ArrayList<>();
+
+        List<Dictionary> dictionaries = baseMapper.selectList(queryWrapper);
+
+        for (Dictionary d :
+                dictionaries) {
+            TaskTypeDTO taskTypeDTO = new TaskTypeDTO();
+            BeanUtils.copyProperties(d, taskTypeDTO);
+            taskTypeDTOS.add(taskTypeDTO);
+
+        }
+        return taskTypeDTOS;
+
     }
 }

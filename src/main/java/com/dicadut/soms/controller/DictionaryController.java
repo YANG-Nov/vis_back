@@ -3,6 +3,7 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.InspectionFrequencyDTO;
+import com.dicadut.soms.dto.TaskTypeDTO;
 import com.dicadut.soms.service.DictionaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +37,15 @@ public class DictionaryController {
     @GetMapping("getComponentsFrequency")
     public ResponseViewModel<List<InspectionFrequencyDTO>> getComponentsFrequency() {
         return ResponseViewModel.ok(dictionaryService.getComponentsFrequency());
+    }
+
+    /**
+     * TODO 可以和getcomponentFrquency合成一个接口吗
+     */
+    @ApiOperation("制定任务页显示任务类型")
+    @GetMapping("getTaskType")
+    public ResponseViewModel<List<TaskTypeDTO>> getTaskType() {
+        return ResponseViewModel.ok(dictionaryService.getTaskType());
     }
 
 

@@ -5,14 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @desc  TODO 待完善
  * @author fan_jennifer
  * @version 1.0
+ * @desc TODO 待完善
  * @date 2022-01-06 21:32
  */
 public enum TypeNameEnum {
 
-    COMPONENT_INSPECTION_FREQUENCY("2004","构件巡检频率");
+    COMPONENT_INSPECTION_FREQUENCY("2004", "构件巡检频率"),
+    TASK_TYPE("1001", "任务类型");
 
     private String value;
 
