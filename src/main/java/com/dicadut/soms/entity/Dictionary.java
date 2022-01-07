@@ -1,6 +1,7 @@
 package com.dicadut.soms.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,13 +22,14 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="TDictionary对象", description="字典表")
+@TableName("system.t_dictionary")
 public class Dictionary implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "字典id")
     @TableId
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(value = "大类编码")
     private String type;
