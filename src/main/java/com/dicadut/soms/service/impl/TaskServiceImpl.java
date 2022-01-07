@@ -4,10 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskDisplayDTO;
-import com.dicadut.soms.dto.TaskNumDTO;
-import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.entity.Task;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskMapper;
@@ -16,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,43 +30,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     //查询任务状态数量，扇形图
     @Override
     public List<TaskDTO> getTaskStatusLatestList() {
-        //查询task_status中最大值
-        QueryWrapper<Task> queryWrapper1 = new QueryWrapper<>();
-        queryWrapper1.orderByAsc("task_status").last("limit 1");
-        Task task1 = baseMapper.selectOne(queryWrapper1);
-        Integer taskStatusMinimum = Integer.valueOf(task1.getTaskStatus());
-
-        //查询task_status中最小值
-        QueryWrapper<Task> queryWrapper2 = new QueryWrapper<>();
-        queryWrapper2.orderByDesc("task_status").last("limit 1");
-        Task task2 = baseMapper.selectOne(queryWrapper2);
-        Integer taskStatusMaximum = Integer.valueOf(task2.getTaskStatus());
-        //创建list集合
-        List<TaskDTO> list = new ArrayList<>();
-
-        //遍历每个属性（最小数字和最大数字之间），并查到属性个数，并放入集合）
-        for (int i = taskStatusMinimum; i < taskStatusMaximum + 1; i++) {
-            //获得taskstatus为i的任务竖向
-            QueryWrapper<Task> queryWrapper3 = new QueryWrapper<>();
-            queryWrapper3.eq("task_status", i);
-            int value = count(queryWrapper3);
-            //把任务数量和任务名称封装到对象里
-            TaskDTO taskDTO = new TaskDTO();
-            taskDTO.setValue(value);
-            taskDTO.setName(i);
-            //把对象封装到集合里
-            list.add(taskDTO);
-
-
-        }
-
-
-        return list;
-
-
+        return baseMapper.selectTaskStatusLatestList();
     }
 
-    //查询任务次数，柱状图
+    //TODO 查询任务次数，柱状图优化
     @Override
     public List<TaskNumDTO> getTaskNumList() {
         //查询巡检次数
@@ -369,5 +334,20 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public TaskStatisticDTO getThisYearTaskListBySingleSql(String startTime, String endTime) {
         return baseMapper.selectTaskStatisticByTaskStatus(startTime, endTime);
+    }
+
+    @Override
+    public TaskStatisticAppDTO getThisMonthTaskListBySingleSql(String startTime, String endTime) {
+
+        TaskStatisticAppDTO taskStatisticAppDTO = baseMapper.selectTaskStatisticAppByTaskStatus(startTime, endTime);
+
+        double p1 = taskStatisticAppDTO.getFinishCount();
+        double p2 = taskStatisticAppDTO.getTotalCount();
+        double p3 = p1 / p2;
+        NumberFormat nf  =  NumberFormat.getPercentInstance();
+        nf.setMinimumFractionDigits( 1 );
+        taskStatisticAppDTO.setFinishPercentage(nf.format(p3));
+
+        return taskStatisticAppDTO;
     }
 }
