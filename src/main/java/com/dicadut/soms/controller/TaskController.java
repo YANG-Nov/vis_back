@@ -113,4 +113,12 @@ public class  TaskController {
     public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
     }
+
+    @ApiOperation("任务人员分配")
+    @GetMapping("getTaskUserDistributeList")
+    public ResponseViewModel<List<TaskUserDistributeDTO>> getTaskUserDistributeList() {
+        List<TaskUserDistributeDTO> taskUserDistributeList = taskService.getTaskUserDistributeList();
+        return ResponseViewModel.ok(taskUserDistributeList);
+//        return ResponseViewModel.ok(taskService.getTaskUserDistributeList());
+    }
 }

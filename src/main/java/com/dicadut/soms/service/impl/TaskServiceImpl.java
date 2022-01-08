@@ -336,6 +336,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return baseMapper.selectTaskStatisticByTaskStatus(startTime, endTime);
     }
 
+    //APP首页报表
     @Override
     public TaskStatisticAppDTO getThisMonthTaskListBySingleSql(String startTime, String endTime) {
 
@@ -349,5 +350,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         taskStatisticAppDTO.setFinishPercentage(nf.format(p3));
 
         return taskStatisticAppDTO;
+    }
+
+    //任务人员分配
+    @Override
+    public List<TaskUserDistributeDTO> getTaskUserDistributeList() {
+        return baseMapper.selectTaskUserDistributeList();
     }
 }
