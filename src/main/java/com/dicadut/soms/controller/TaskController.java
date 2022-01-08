@@ -119,6 +119,5 @@ public class  TaskController {
     public ResponseViewModel<List<TaskUserDistributeDTO>> getTaskUserDistributeList() {
         List<TaskUserDistributeDTO> taskUserDistributeList = taskService.getTaskUserDistributeList();
         return ResponseViewModel.ok(taskUserDistributeList);
-//        return ResponseViewModel.ok(taskService.getTaskUserDistributeList());
     }
 }
