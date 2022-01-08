@@ -11,12 +11,6 @@ import lombok.Data;
 @ApiModel("巡检任务状态扇形图")
 @Data
 public class TaskDTO {
-    @ApiModelProperty("待领取任务数")
-    private Integer wait4ReceivedCount;
-    @ApiModelProperty("待审核任务数")
-    private Integer wait4ReviewedCount;
-    @ApiModelProperty("待重传任务数")
-    private Integer wait4RetransmittedCount;
-    @ApiModelProperty("巡检中任务数")
-    private Integer inspectingCount;
+    private int name;
+    private int value;
 }

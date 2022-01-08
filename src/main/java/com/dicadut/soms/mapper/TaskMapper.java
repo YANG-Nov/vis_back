@@ -1,10 +1,7 @@
 package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskStatisticAppDTO;
-import com.dicadut.soms.dto.TaskStatisticDTO;
-import com.dicadut.soms.dto.TaskUserDistributeDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.entity.Task;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,7 +25,7 @@ public interface TaskMapper extends BaseMapper<Task> {
     TaskStatisticAppDTO selectTaskStatisticAppByTaskStatus(@Param("startTime") String startTime,
                                                            @Param("endTime") String endTime);
 
-    List<TaskDTO> selectTaskStatusLatestList();
-
     List<TaskUserDistributeDTO> selectTaskUserDistributeList();
+
+    List<TaskWaitConfirmAppListDTO> selectTaskWaitConfirmAppList();
 }
