@@ -64,7 +64,7 @@
         select
             u.real_name AS inspectorName,
             t.code,t.begin_time AS beginTime,t.end_time AS endTime,t.task_status AS taskStatus,
-            u.id,t.id,GROUP_CONCAT(c.component_name) AS inspectingContent
+            u.id,t.id,GROUP_CONCAT(c.name) AS inspectingContent
         from system.user u left outer join system.task t on u.id = t.inspector
                            left outer join system.task_component tc on t.id = tc.task_id
                            left outer join system.component c on tc.component_id = c.id
