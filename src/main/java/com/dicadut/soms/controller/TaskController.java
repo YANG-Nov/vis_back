@@ -127,4 +127,10 @@ public class  TaskController {
         List<TaskWaitConfirmAppListDTO> taskWaitConfirmAppList = taskService.getTaskWaitConfirmAppList();
         return ResponseViewModel.ok(taskWaitConfirmAppList);
     }
+
+    @ApiOperation("查看任务信息")
+    @GetMapping("getTaskDetails")
+    public ResponseViewModel<TaskDetailsDTO> getTaskDetails(@RequestParam String taskId) {
+        return ResponseViewModel.ok(taskService.getTaskDetails(taskId));
+    }
 }

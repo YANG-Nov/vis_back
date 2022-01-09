@@ -11,6 +11,10 @@ import lombok.Data;
 @ApiModel("巡检任务状态扇形图")
 @Data
 public class TaskDTO {
-    private int name;
+    @ApiModelProperty("任务状态编号")
+    private int id;
+    @ApiModelProperty("任务状态名称")
+    private String name;
+    @ApiModelProperty("任务数量")
     private int value;
 }

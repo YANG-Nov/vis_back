@@ -35,4 +35,6 @@ public interface TaskService extends IService<Task> {
     List<TaskUserDistributeDTO> getTaskUserDistributeList();
 
     List<TaskWaitConfirmAppListDTO> getTaskWaitConfirmAppList();
+
+    TaskDetailsDTO getTaskDetails(String taskId);
 }

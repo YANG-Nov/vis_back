@@ -73,4 +73,22 @@
         where (t.task_status,c.Inspection_frequency) = (1002000010, 2004000001)
     </select>
 
+    <select id="selectTaskDetails" resultType="com.dicadut.soms.dto.TaskDetailsDTO">
+        select
+            t.code_name AS taskSummary,
+            t.ramp,
+            t.stake_begin AS stakeBegin,t.stake_end AS stakeEnd,
+            GROUP_CONCAT(c.`name`) AS componentName
+        from system.task t JOIN system.task_component tc on t.id = tc.task_id
+                           JOIN system.component c on tc.component_id = c.id
+        where t.id = #{taskId}
+    </select>
+
+    <select id="selectTaskStatusLatestList" resultType="com.dicadut.soms.dto.TaskDTO">
+        select d.code id, d.code_name name, count(t.task_status) value
+        from system.t_dictionary d
+            left join system.task t  on t.task_status = d.`code`
+        where d.code in ('1002000001','1002000002','1002000003','1002000005')
+        group by d.code;
+    </select>
 </mapper>

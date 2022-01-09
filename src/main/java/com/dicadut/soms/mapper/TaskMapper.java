@@ -28,4 +28,8 @@ public interface TaskMapper extends BaseMapper<Task> {
     List<TaskUserDistributeDTO> selectTaskUserDistributeList();
 
     List<TaskWaitConfirmAppListDTO> selectTaskWaitConfirmAppList();
+
+    TaskDetailsDTO selectTaskDetails(@Param("taskId") String taskId);
+
+    List<TaskDTO> selectTaskStatusLatestList();
 }
