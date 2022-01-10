@@ -121,11 +121,11 @@ public class  TaskController {
         return ResponseViewModel.ok(taskUserDistributeList);
     }
 
-    @ApiOperation("App待确认页面，每日一次")
+    @ApiOperation("App任务列表")
     @GetMapping("getTaskWaitConfirmAppList")
-    public ResponseViewModel<List<TaskWaitConfirmAppListDTO>> getTaskWaitConfirmAppList() {
-        List<TaskWaitConfirmAppListDTO> taskWaitConfirmAppList = taskService.getTaskWaitConfirmAppList();
-        return ResponseViewModel.ok(taskWaitConfirmAppList);
+    public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus, @RequestParam Integer inspectionFrequency) {
+        List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus,inspectionFrequency);
+        return ResponseViewModel.ok(taskAppList);
     }
 
     @ApiOperation("查看任务信息")

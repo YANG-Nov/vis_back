@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 @ApiModel("APP待确认页面")
 @Data
-public class TaskWaitConfirmAppListDTO {
+public class TaskAppListDTO {
         @ApiModelProperty("任务编码")
         private String code;
         @ApiModelProperty("桥梁上下层")
@@ -18,4 +18,6 @@ public class TaskWaitConfirmAppListDTO {
         private String taskDetail;
         @ApiModelProperty("截止时间")
         private String deadTime;
+        @ApiModelProperty("构件名称")
+        private String componentName;
 }

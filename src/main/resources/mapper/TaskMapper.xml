@@ -64,13 +64,14 @@
               group by u.id,t.id
     </select>
 
-    <select id="selectTaskWaitConfirmAppList" resultType="com.dicadut.soms.dto.TaskWaitConfirmAppListDTO">
+    <select id="selectTaskAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
         select
             t.`code`,t.bridge_storey AS bridgeStorey,t.stake_begin AS stakeBegin,t.stake_end AS stakeEnd,
-               t.code_name AS taskDetail,t.end_time AS deadTime
+               t.code_name AS taskDetail,t.end_time AS deadTime,
+               c.name AS componentName
         from system.task t JOIN system.task_component tc on t.id = tc.task_id
                            JOIN system.component c on tc.component_id = c.id
-        where (t.task_status,c.Inspection_frequency) = (1002000010, 2004000001)
+        where (t.task_status,c.Inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
     </select>
 
     <select id="selectTaskDetails" resultType="com.dicadut.soms.dto.TaskDetailsDTO">

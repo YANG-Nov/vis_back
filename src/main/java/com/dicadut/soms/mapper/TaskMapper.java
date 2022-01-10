@@ -27,7 +27,8 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     List<TaskUserDistributeDTO> selectTaskUserDistributeList();
 
-    List<TaskWaitConfirmAppListDTO> selectTaskWaitConfirmAppList();
+    List<TaskAppListDTO> selectTaskAppList(@Param("taskStatus") Integer taskStatus,
+                                           @Param("inspectionFrequency") Integer inspectionFrequency);
 
     TaskDetailsDTO selectTaskDetails(@Param("taskId") String taskId);
 

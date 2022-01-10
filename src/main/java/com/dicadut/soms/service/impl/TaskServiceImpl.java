@@ -359,8 +359,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     //App待确认页面，每日一次
-    public List<TaskWaitConfirmAppListDTO> getTaskWaitConfirmAppList() {
-        return baseMapper.selectTaskWaitConfirmAppList();
+    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus,Integer inspectionFrequency) {
+        return baseMapper.selectTaskAppList(taskStatus,inspectionFrequency);
     }
 
     //查看任务信息
