@@ -19,24 +19,20 @@ import java.util.List;
 @Slf4j
 @Service
 public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component> implements ComponentService {
+
     @Override
     public List<ComponentDTO> getFrequencyList() {
 
         List<Component> components = baseMapper.selectList(null);
         int value = 0;
-        ArrayList<ComponentDTO> cmponentsDTO = new ArrayList<>();
+        List<ComponentDTO> componentDTOS = new ArrayList<>();
         for (int i = 0; i < components.size(); i++) {
             ComponentDTO componentDTO = new ComponentDTO();
-
-            BeanUtils.copyProperties( components.get(i), componentDTO);
-
+            BeanUtils.copyProperties(components.get(i), componentDTO);
             componentDTO.setValue(++value);
-
-            cmponentsDTO.add(componentDTO);
+            componentDTOS.add(componentDTO);
         }
 
-
-
-        return cmponentsDTO;
+        return componentDTOS;
     }
 }
