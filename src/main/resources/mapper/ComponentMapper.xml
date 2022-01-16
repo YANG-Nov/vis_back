@@ -6,20 +6,30 @@
     <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.Component">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
-        <result column="serial_number" property="serialNumber"/>
-        <result column="component_level" property="componentLevel"/>
-        <result column="is_scan" property="isScan"/>
         <result column="parent_id" property="parentId"/>
-        <result column="component_status" property="componentStatus"/>
-        <result column="material" property="material"/>
+        <result column="level" property="level"/>
+        <result column="xpath" property="xpath"/>
+        <result column="xname" property="xname"/>
+        <result column="is_deleted" property="isDeleted"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
     <select id="selectCount" resultType="java.lang.Integer">
         select count(*)
         from system.component;
+    </select>
+
+    <select id="selectComponentAppList" resultType="com.dicadut.soms.dto.ComponentAppListDTO">
+        select c.name AS componentName
+        from system.t_component c
+        where
+            (
+            select count(1)
+            from system.t_component i
+            where i.parent_id = c.id
+            ) = 0
+          and c.xpath like '%${componentId}%';
     </select>
 
 </mapper>

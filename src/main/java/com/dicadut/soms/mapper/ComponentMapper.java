@@ -1,7 +1,11 @@
 package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dicadut.soms.dto.ComponentAppListDTO;
+import com.dicadut.soms.dto.DiseaseAppListDTO;
 import com.dicadut.soms.entity.Component;
+
+import java.util.List;
 
 
 /**
@@ -11,5 +15,5 @@ import com.dicadut.soms.entity.Component;
 public interface ComponentMapper extends BaseMapper<Component> {
 
     Integer selectCount();
-
+    List<ComponentAppListDTO> selectComponentAppList(Integer componentId);
 }

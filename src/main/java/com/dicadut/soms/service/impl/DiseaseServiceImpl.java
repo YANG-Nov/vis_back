@@ -2,7 +2,7 @@ package com.dicadut.soms.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.dto.DieaseDTO;
+import com.dicadut.soms.dto.DiseaseAppListDTO;
 import com.dicadut.soms.entity.Disease;
 import com.dicadut.soms.mapper.DiseaseMapper;
 import com.dicadut.soms.service.DiseaseService;
@@ -26,13 +26,13 @@ import java.util.List;
 public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> implements DiseaseService {
 
     @Override
-    public List<DieaseDTO> getDiseaseList() {
+    public List<DiseaseAppListDTO> getDiseaseList() {
 
 
         List<Disease> diseases = baseMapper.selectList(null);
-        ArrayList<DieaseDTO> diseasesDTO = new ArrayList<>();
+        ArrayList<DiseaseAppListDTO> diseasesDTO = new ArrayList<>();
         for (int i = 0; i < diseases.size(); i++) {
-            DieaseDTO diseaseDTO = new DieaseDTO();
+            DiseaseAppListDTO diseaseDTO = new DiseaseAppListDTO();
 
             BeanUtils.copyProperties(diseases.get(i),diseaseDTO);
 
@@ -42,5 +42,10 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
 
 
         return diseasesDTO;
+    }
+
+    //App添加病害，不同构件对应的病害列表
+    public List<DiseaseAppListDTO> getDiseaseAppList(Integer componentId) {
+        return baseMapper.selectDiseaseAppList(componentId);
     }
 }
