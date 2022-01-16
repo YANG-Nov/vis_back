@@ -29,7 +29,7 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
         for (int i = 0; i < components.size(); i++) {
             ComponentDTO componentDTO = new ComponentDTO();
             BeanUtils.copyProperties(components.get(i), componentDTO);
-            componentDTO.setValue(++value);
+            //componentDTO.setValue(++value);
             componentDTOS.add(componentDTO);
         }
 

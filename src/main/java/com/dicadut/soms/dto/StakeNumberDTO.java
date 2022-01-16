@@ -4,12 +4,11 @@ import lombok.Data;
 
 /**
  * @author fan_jennifer
- * @create 2021-11-2021/11/21 13:56
+ * @version 1.0
+ * @date 2022-01-11 14:46
  */
 @Data
-public class ComponentDTO {
+public class StakeNumberDTO {
     private String id;
-    private String name;
-
-
+    private String number;
 }

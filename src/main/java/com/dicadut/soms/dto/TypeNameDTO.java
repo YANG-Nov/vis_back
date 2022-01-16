@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2022-01-06 21:53
  */
 @Data
-public class InspectionFrequencyDTO {
+public class TypeNameDTO {
     private String codeName;
     private String code;
 }

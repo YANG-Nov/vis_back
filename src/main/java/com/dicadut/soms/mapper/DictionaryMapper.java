@@ -1,7 +1,11 @@
 package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dicadut.soms.dto.TypeNameDTO;
 import com.dicadut.soms.entity.Dictionary;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.dicadut.soms.entity.Dictionary;
  */
 public interface DictionaryMapper extends BaseMapper<Dictionary> {
 
+    List<TypeNameDTO> selectCodeNameListByType(@Param("type") String type);
 }
