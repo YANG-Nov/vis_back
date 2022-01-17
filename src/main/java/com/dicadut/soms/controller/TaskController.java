@@ -32,7 +32,11 @@ public class  TaskController {
     @Autowired
     private TaskService taskService;
 
-
+    /**
+     *
+     *
+     * @author fan_jane
+     */
     @ApiOperation("测试功能，查询表中所有数据")
     @GetMapping("findAll")
     public List<Task> findAllTask(){
@@ -57,7 +61,11 @@ public class  TaskController {
         List<TaskNumDTO> taskNumList = taskService.getTaskNumList();
         return ResponseViewModel.ok(taskNumList);
     }
-
+    /**
+     *
+     *
+     * @author fan_jane
+     */
     @ApiOperation("总任务列表")
     @GetMapping("getTotalTaskList")
     public ResponseViewModel<List<TaskDisplayDTO>> getTotalTaskList(){
@@ -65,7 +73,11 @@ public class  TaskController {
         return ResponseViewModel.ok(totalTaskList);
 
     }
-
+    /**
+     *
+     *
+     * @author fan_jane
+     */
     @ApiOperation("待领取任务列表")
     @GetMapping("getUnclaimedTaskList")
     public ResponseViewModel<List<TaskDisplayDTO>> getUnclaimedTaskList(){
@@ -73,7 +85,11 @@ public class  TaskController {
         return ResponseViewModel.ok(unclaimedTaskList);
 
     }
-
+    /**
+     *
+     *
+     * @author fan_jane
+     */
     @ApiOperation("正在巡检任务列表")
     @GetMapping("getAreInspectionTaskList")
     public ResponseViewModel<List<TaskDisplayDTO>> getAreInspectionTaskList(){
@@ -81,7 +97,11 @@ public class  TaskController {
         return ResponseViewModel.ok(areInspectionTaskList);
 
     }
-
+    /**
+     *
+     *
+     * @author fan_jane
+     */
     @ApiOperation("巡检完成任务列表")
     @GetMapping("getCompletedTaskList")
     public ResponseViewModel<List<TaskDisplayDTO>> getCompletedTaskList(){
@@ -89,7 +109,11 @@ public class  TaskController {
         return ResponseViewModel.ok(completedTaskList);
 
     }
-
+    /**
+     *
+     *
+     * @author fan_jane
+     */
     @ApiOperation("添加任务")
     @PostMapping("addTask")
     public ResponseViewModel addTask(@RequestBody Task task){

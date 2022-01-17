@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dicadut.soms.mapper.TaskSetMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.TaskSetMenu">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="creat_by" property="creatBy"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <!--    <select id="selectCount" resultType="java.lang.Integer">-->
+    <!--        select count(*)-->
+    <!--        from system.task;-->
+    <!--    </select>-->
+
+    <insert id="insertMenu">
+        INSERT INTO system.task_set_menu
+        SET `name`= #{menuName};
+    </insert>
+
+    <insert id="insertMenuComponent" parameterType="java.util.ArrayList">
+        INSERT INTO system.menu_component(`task_set_menu_id`,`component_id`) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{menuId},#{item.id})
+        </foreach>
+    </insert>
+</mapper>

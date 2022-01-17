@@ -32,7 +32,11 @@ public class DictionaryController {
     //注入service
     @Autowired
     private DictionaryService dictionaryService;
-
+    /**
+     *
+     *
+     * @author fan_jane
+     */
     @ApiOperation("制定任务页显示任务类型:1001,构件频率2004")
     @GetMapping("/getTypeNames/{type}")
     public ResponseViewModel<List<TypeNameDTO>> getTypeNames(@PathVariable String type) {

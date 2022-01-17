@@ -25,4 +25,6 @@ public interface BridgeInfoService extends IService<BridgeInfo> {
     List<StakeNumberDTO> getComponentNumberList(String start, String end, String id);
 
     List<LineLocationDTO> getLocationList();
+
+
 }

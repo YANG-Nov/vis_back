@@ -66,4 +66,5 @@ public class BridgeInfoServiceImpl extends ServiceImpl<BridgeInfoMapper, BridgeI
     public List<LineLocationDTO> getLocationList() {
         return  baseMapper.selectLocationList();
     }
+
 }

@@ -3,8 +3,6 @@ package com.dicadut.soms.controller;
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
-import com.dicadut.soms.dto.DiseaseAppListDTO;
-import com.dicadut.soms.entity.Component;
 import com.dicadut.soms.service.ComponentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +26,11 @@ import java.util.List;
 public class ComponentController {
     @Autowired
     private ComponentService componentService;
-
+    /**
+     *
+     *
+     * @author fan_jane
+     */
     @ApiOperation("获得构件巡检频率")
     @GetMapping("getFrequency")
     public ResponseViewModel<List<ComponentDTO>> getFrequencyList() {
@@ -36,7 +38,11 @@ public class ComponentController {
         return ResponseViewModel.ok(frequencyLatestList);
 
     }
-
+    /**
+     *
+     *
+     * @author fan_jane
+     */
     @ApiOperation("任务添加页面的构件显示")
     @GetMapping("getStakeNumberListByLine")
     public ResponseViewModel<List<ComponentDTO>> getStakeNumberListByLine() {
