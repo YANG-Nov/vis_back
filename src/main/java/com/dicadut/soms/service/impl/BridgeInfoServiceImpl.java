@@ -3,6 +3,7 @@ package com.dicadut.soms.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.BridgeCompositionDTO;
 import com.dicadut.soms.dto.ComponentDTO;
+import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
 import com.dicadut.soms.entity.BridgeInfo;
 import com.dicadut.soms.mapper.BridgeInfoMapper;
@@ -59,5 +60,10 @@ public class BridgeInfoServiceImpl extends ServiceImpl<BridgeInfoMapper, BridgeI
     @Override
     public List<StakeNumberDTO> getComponentNumberList(String start, String end, String id) {
         return baseMapper.selectComponentNumberList(start,end,id);
+    }
+
+    @Override
+    public List<LineLocationDTO> getLocationList() {
+        return  baseMapper.selectLocationList();
     }
 }

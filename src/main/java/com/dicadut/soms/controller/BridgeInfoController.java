@@ -3,6 +3,7 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.ComponentDTO;
+import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
 import com.dicadut.soms.service.BridgeInfoService;
 import io.swagger.annotations.Api;
@@ -52,6 +53,10 @@ public class BridgeInfoController {
     public ResponseViewModel<List<StakeNumberDTO>> getComponentNumberList(@PathVariable String start, @PathVariable String end,@PathVariable String id) {
         return ResponseViewModel.ok(bridgeInfoService.getComponentNumberList(start,end,id));
     }
-
+    @ApiOperation("任务制定-添加任务页显示桩号下拉菜单框前面内容")
+    @GetMapping("/showLocation")
+    public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
+        return ResponseViewModel.ok(bridgeInfoService.getLocationList());
+    }
 }
 

@@ -48,4 +48,9 @@
         WHERE component_id=#{id} AND bc.bridge_info_id BETWEEN #{start} AND #{end}
         GROUP BY bc.bridge_info_id;
     </select>
+    <select id="selectLocationList" resultType="com.dicadut.soms.dto.LineLocationDTO">
+        SELECT DISTINCT CONCAT(main_or_approach,line) id,location
+        FROM system.t_bridge_info b
+        GROUP BY b.id;
+    </select>
 </mapper>
