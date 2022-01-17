@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dicadut.soms.mapper.DiseaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.Disease">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="selectDiseaseAppList" resultType="com.dicadut.soms.dto.DiseaseAppListDTO">
+        select
+            d.name AS diseaseName
+        from system.t_component_disease cd JOIN system.t_disease d on cd.disease_id = d.id
+        where (cd.component_id) = (#{componentId})
+    </select>
+
+</mapper>

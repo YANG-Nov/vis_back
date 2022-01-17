@@ -1,7 +1,9 @@
 package com.dicadut.soms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
+import com.dicadut.soms.dto.DiseaseAppListDTO;
 import com.dicadut.soms.entity.Component;
 import com.dicadut.soms.mapper.ComponentMapper;
 import com.dicadut.soms.service.ComponentService;
@@ -34,5 +36,10 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
         }
 
         return componentDTOS;
+    }
+
+    //App添加病害前，选择构件列表
+    public List<ComponentAppListDTO> getComponentAppList(Integer componentId) {
+        return baseMapper.selectComponentAppList(componentId);
     }
 }

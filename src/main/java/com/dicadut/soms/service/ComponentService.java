@@ -1,6 +1,7 @@
 package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.entity.Component;
 
@@ -13,4 +14,6 @@ import java.util.List;
  */
 public interface ComponentService extends IService<Component> {
     List<ComponentDTO> getFrequencyList();
+
+    List<ComponentAppListDTO> getComponentAppList(Integer componentId);
 }

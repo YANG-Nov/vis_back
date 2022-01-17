@@ -122,7 +122,7 @@ public class  TaskController {
     }
 
     @ApiOperation("App任务列表")
-    @GetMapping("getTaskWaitConfirmAppList")
+    @GetMapping("getTaskAppList")
     public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus, @RequestParam Integer inspectionFrequency) {
         List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus,inspectionFrequency);
         return ResponseViewModel.ok(taskAppList);
