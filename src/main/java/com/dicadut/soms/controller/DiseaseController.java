@@ -3,6 +3,7 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.DiseaseAppListDTO;
+import com.dicadut.soms.dto.DiseaseAttributeListDTO;
 import com.dicadut.soms.service.DiseaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,6 +47,13 @@ public class DiseaseController {
     public ResponseViewModel<List<DiseaseAppListDTO>> getComponentDiseaseAppList(@RequestParam Integer componentId) {
         List<DiseaseAppListDTO> diseaseAppList = diseaseService.getDiseaseAppList(componentId);
         return ResponseViewModel.ok(diseaseAppList);
+    }
+
+    @ApiOperation("App添加病害，不同病害对应的病害属性列表")
+    @GetMapping("getDiseaseAttributeAppList")
+    public ResponseViewModel<List<DiseaseAttributeListDTO>> getDiseaseAttributeAppList(@RequestParam Integer diseaseId) {
+        List<DiseaseAttributeListDTO> diseaseAttributeAppList = diseaseService.getDiseaseAttributeAppList(diseaseId);
+        return ResponseViewModel.ok(diseaseAttributeAppList);
     }
 
 

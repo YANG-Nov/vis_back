@@ -3,6 +3,7 @@ package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.dto.DiseaseAppListDTO;
+import com.dicadut.soms.dto.DiseaseAttributeListDTO;
 import com.dicadut.soms.entity.Disease;
 
 import java.util.List;
@@ -18,4 +19,6 @@ import java.util.List;
 public interface DiseaseMapper extends BaseMapper<Disease> {
 
     List<DiseaseAppListDTO> selectDiseaseAppList(Integer componentId);
+
+    List<DiseaseAttributeListDTO> selectDiseaseAttributeAppList(Integer diseaseId);
 }

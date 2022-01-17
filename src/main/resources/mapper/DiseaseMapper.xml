@@ -18,4 +18,14 @@
         where (cd.component_id) = (#{componentId})
     </select>
 
+    <select id="selectDiseaseAttributeAppList" resultType="com.dicadut.soms.dto.DiseaseAttributeListDTO">
+        select
+            da.name AS diseaseAttribute,
+            da.`name`,GROUP_CONCAT(da.value) AS diseaseAttributeValue
+        from system.t_disease d LEFT JOIN system.t_disease_disease_attribute dda on d.id = dda.disease_id
+                                LEFT JOIN system.t_disease_attribute da on dda.disease_attribute_group = da.group
+        where (d.id) = (#{diseaseId})
+        GROUP BY da.`name`
+    </select>
+
 </mapper>

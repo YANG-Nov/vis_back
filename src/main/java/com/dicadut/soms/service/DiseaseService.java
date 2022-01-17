@@ -2,6 +2,7 @@ package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.DiseaseAppListDTO;
+import com.dicadut.soms.dto.DiseaseAttributeListDTO;
 import com.dicadut.soms.entity.Disease;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface DiseaseService extends IService<Disease> {
     List<DiseaseAppListDTO> getDiseaseList();
 
     List<DiseaseAppListDTO> getDiseaseAppList(Integer componentId);
+
+    List<DiseaseAttributeListDTO> getDiseaseAttributeAppList(Integer diseaseId);
 }
