@@ -3,7 +3,7 @@
 <mapper namespace="com.dicadut.soms.mapper.DictionaryMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.Dictionary">
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.domain.Dictionary">
         <id column="id" property="id"/>
         <result column="type" property="type"/>
         <result column="type_name" property="typeName"/>

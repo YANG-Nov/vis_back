@@ -2,7 +2,7 @@ package com.dicadut.soms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.TypeNameDTO;
-import com.dicadut.soms.entity.Dictionary;
+import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.mapper.DictionaryMapper;
 import com.dicadut.soms.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;

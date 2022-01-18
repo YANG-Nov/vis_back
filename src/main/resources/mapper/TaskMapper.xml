@@ -3,7 +3,7 @@
 <mapper namespace="com.dicadut.soms.mapper.TaskMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.Task">
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.domain.Task">
         <id column="id" property="id"/>
         <result column="task_type" property="taskType"/>
         <result column="task_status" property="taskStatus"/>

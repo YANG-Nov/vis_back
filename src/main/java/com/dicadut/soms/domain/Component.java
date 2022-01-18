@@ -1,4 +1,4 @@
-package com.dicadut.soms.entity;
+package com.dicadut.soms.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @create 2021-11-2021/11/20 22:14
  */
 @Data
-@TableName("system.component")
+@TableName("system.t_component")
 public class Component {
     @ApiModelProperty(value = "构件id")
     private Integer id;

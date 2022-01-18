@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
-import com.dicadut.soms.entity.BridgeInfo;
+import com.dicadut.soms.domain.BridgeInfo;
 
 import java.util.List;
 

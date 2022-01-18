@@ -2,8 +2,7 @@ package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.dto.ComponentAppListDTO;
-import com.dicadut.soms.dto.DiseaseAppListDTO;
-import com.dicadut.soms.entity.Component;
+import com.dicadut.soms.domain.Component;
 
 import java.util.List;
 

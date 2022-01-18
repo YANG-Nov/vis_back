@@ -3,7 +3,7 @@
 <mapper namespace="com.dicadut.soms.mapper.BridgeInfoMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.BridgeInfo">
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.domain.BridgeInfo">
         <id column="id" property="id"/>
         <result column="stake_or_truss_number" property="stakeOrTrussNumber"/>
         <result column="line" property="line"/>

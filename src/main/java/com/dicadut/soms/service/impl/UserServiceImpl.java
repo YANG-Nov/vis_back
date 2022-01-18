@@ -2,12 +2,10 @@ package com.dicadut.soms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.dto.UserDTO;
 import com.dicadut.soms.dto.UserStatusDTO;
-import com.dicadut.soms.entity.User;
+import com.dicadut.soms.domain.User;
 import com.dicadut.soms.mapper.UserMapper;
 import com.dicadut.soms.service.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

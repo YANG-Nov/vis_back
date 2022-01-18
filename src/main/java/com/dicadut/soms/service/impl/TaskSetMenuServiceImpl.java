@@ -3,7 +3,7 @@ package com.dicadut.soms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.ComponentDTO;
-import com.dicadut.soms.entity.TaskSetMenu;
+import com.dicadut.soms.domain.TaskSetMenu;
 import com.dicadut.soms.mapper.TaskSetMenuMapper;
 import com.dicadut.soms.service.TaskSetMenuService;
 import lombok.extern.slf4j.Slf4j;

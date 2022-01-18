@@ -3,7 +3,7 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.*;
-import com.dicadut.soms.entity.Task;
+import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.vo.TaskVO;
 import io.swagger.annotations.Api;
