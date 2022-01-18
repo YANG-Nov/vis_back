@@ -63,7 +63,13 @@ public class BridgeInfoServiceImpl extends ServiceImpl<BridgeInfoMapper, BridgeI
 
     @Override
     public List<LineLocationDTO> getLocationList() {
-        return  baseMapper.selectLocationList();
+        List<LineLocationDTO> lineLocationDTOS = baseMapper.selectLocationList();
+        for (LineLocationDTO lineLocationDTO:lineLocationDTOS
+             ) {
+            lineLocationDTO.setStakeNumberDTOS(baseMapper.selectNumberListByGenreLine(lineLocationDTO.getGenreId(),lineLocationDTO.getGenreId()));
+            
+        }
+        return lineLocationDTOS;
     }
 
 }

@@ -3,6 +3,7 @@ package com.dicadut.soms.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.entity.Task;
+import com.dicadut.soms.vo.TaskVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,4 +34,10 @@ public interface TaskMapper extends BaseMapper<Task> {
     TaskDetailsDTO selectTaskDetails(@Param("taskId") String taskId);
 
     List<TaskDTO> selectTaskStatusLatestList();
+
+    void addTask(@Param("taskId") String taskId,
+                 @Param("taskVO")TaskVO taskVO);
+
+    void addTaskComponent(@Param("taskId") String taskId,
+                          @Param("list") List<ComponentNumberDTO> componentNumberDTOList);
 }

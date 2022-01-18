@@ -27,7 +27,7 @@
 
     <insert id="insertMenuComponent" parameterType="java.util.ArrayList">
         INSERT INTO system.menu_component(`task_set_menu_id`,`component_id`) values
-        <foreach collection="list" item="item" index="index" separator=",">
+        <foreach collection="cns" item="item" index="index" separator=",">
             (#{menuId},#{item.id})
         </foreach>
     </insert>

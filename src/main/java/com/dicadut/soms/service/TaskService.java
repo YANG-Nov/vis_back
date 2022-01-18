@@ -3,6 +3,7 @@ package com.dicadut.soms.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.entity.Task;
+import com.dicadut.soms.vo.TaskVO;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface TaskService extends IService<Task> {
 
     List<TaskDTO> getTaskStatusLatestList();
 
-    List<TaskNumDTO> getTaskNumList();
+//    List<TaskNumDTO> getTaskNumList();
 
     List<TaskDisplayDTO> getTotalTaskList();
 
@@ -37,4 +38,6 @@ public interface TaskService extends IService<Task> {
     List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency);
 
     TaskDetailsDTO getTaskDetails(String taskId);
+
+    void saveTask(TaskVO taskVO);
 }
