@@ -21,7 +21,9 @@
     </select>
 
     <select id="selectComponentAppList" resultType="com.dicadut.soms.dto.ComponentAppListDTO">
-        select c.name AS componentName
+        select
+               c.name,
+               c.id
         from system.t_component c
         where
             (

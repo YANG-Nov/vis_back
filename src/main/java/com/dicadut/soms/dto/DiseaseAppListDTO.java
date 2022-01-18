@@ -10,5 +10,7 @@ import lombok.Data;
 @Data
 public class DiseaseAppListDTO {
     @ApiModelProperty("病害名称")
-    private String diseaseName;
+    private String name;
+    @ApiModelProperty("病害id")
+    private String id;
 }
