@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.WyResDTO;
-import com.dicadut.soms.entity.Wy;
+import com.dicadut.soms.domain.Wy;
 import com.dicadut.soms.mapper.WyMapper;
 import com.dicadut.soms.service.WyService;
 import com.dicadut.soms.util.WyUtil;

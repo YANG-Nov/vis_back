@@ -2,7 +2,7 @@ package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.ComponentDTO;
-import com.dicadut.soms.entity.TaskSetMenu;
+import com.dicadut.soms.domain.TaskSetMenu;
 
 import java.util.List;
 

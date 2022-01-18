@@ -2,7 +2,7 @@ package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.UserStatusDTO;
-import com.dicadut.soms.entity.User;
+import com.dicadut.soms.domain.User;
 
 import java.util.List;
 

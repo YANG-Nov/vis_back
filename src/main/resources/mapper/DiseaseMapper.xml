@@ -3,7 +3,7 @@
 <mapper namespace="com.dicadut.soms.mapper.DiseaseMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.Disease">
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.domain.Disease">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="is_deleted" property="isDeleted"/>
@@ -26,8 +26,9 @@
             da.value,
             da.type,
             da.unit
-        from system.t_disease d LEFT JOIN system.t_disease_disease_attribute dda on d.id = dda.disease_id
-                                LEFT JOIN system.t_disease_attribute da on dda.disease_attribute_group = da.group
+        from system.t_disease d
+        LEFT JOIN system.t_disease_disease_attribute dda on d.id = dda.disease_id
+        LEFT JOIN system.t_disease_attribute da on dda.disease_attribute_group = da.group
         where (d.id) = (#{diseaseId})
     </select>
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -27,19 +28,18 @@ import java.util.List;
 @Api(tags = "病害管理接口")
 @Slf4j
 @RestController
-@RequestMapping("diease")
+@RequestMapping("disease")
 public class DiseaseController {
 
 
-    @Autowired
+    @Resource
     private DiseaseService diseaseService;
 
     @ApiOperation("查询病害")
     @GetMapping("getFrequency")
-    public ResponseViewModel<List<DiseaseAppListDTO>> getDiease() {
-        List<DiseaseAppListDTO> dieaseLatestList = diseaseService.getDiseaseList();
-        return ResponseViewModel.ok(dieaseLatestList);
-
+    public ResponseViewModel<List<DiseaseAppListDTO>> getDisease() {
+        List<DiseaseAppListDTO> diseaseLatestList = diseaseService.getDiseaseList();
+        return ResponseViewModel.ok(diseaseLatestList);
     }
 
     @ApiOperation("App添加病害，不同构件对应的病害列表")

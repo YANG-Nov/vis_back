@@ -1,4 +1,4 @@
-package com.dicadut.soms.entity;
+package com.dicadut.soms.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;

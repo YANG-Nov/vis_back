@@ -4,7 +4,7 @@ package com.dicadut.soms.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.DiseaseAppListDTO;
 import com.dicadut.soms.dto.DiseaseAttributeListDTO;
-import com.dicadut.soms.entity.Disease;
+import com.dicadut.soms.domain.Disease;
 import com.dicadut.soms.mapper.DiseaseMapper;
 import com.dicadut.soms.service.DiseaseService;
 import lombok.extern.slf4j.Slf4j;

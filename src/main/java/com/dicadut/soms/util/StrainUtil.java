@@ -1,7 +1,7 @@
 package com.dicadut.soms.util;
 
 import com.dicadut.soms.dto.StrainResDTO;
-import com.dicadut.soms.entity.Strain;
+import com.dicadut.soms.domain.Strain;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;

@@ -3,7 +3,7 @@ package com.dicadut.soms.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
-import com.dicadut.soms.entity.Component;
+import com.dicadut.soms.domain.Component;
 
 
 import java.util.List;
