@@ -33,11 +33,14 @@ public interface TaskService extends IService<Task> {
 
     TaskStatisticAppDTO getThisMonthTaskListBySingleSql(String startTime, String endTime);
 
-    List<TaskUserDistributeDTO> getTaskUserDistributeList();
+    List<InspectorDTO> getInspectorList();
 
     List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency);
 
     TaskDetailsDTO getTaskDetails(String taskId);
 
     void saveTask(TaskVO taskVO);
+
+
+    void distributeTask(String taskId, String userId);
 }

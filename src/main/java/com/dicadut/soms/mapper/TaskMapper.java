@@ -26,7 +26,7 @@ public interface TaskMapper extends BaseMapper<Task> {
     TaskStatisticAppDTO selectTaskStatisticAppByTaskStatus(@Param("startTime") String startTime,
                                                            @Param("endTime") String endTime);
 
-    List<TaskUserDistributeDTO> selectTaskUserDistributeList();
+    List<InspectorDTO> selectInspectorList();
 
     List<TaskAppListDTO> selectTaskAppList(@Param("taskStatus") Integer taskStatus,
                                            @Param("inspectionFrequency") Integer inspectionFrequency);
@@ -40,4 +40,8 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     void addTaskComponent(@Param("taskId") String taskId,
                           @Param("list") List<ComponentNumberDTO> componentNumberDTOList);
+
+
+    void addInspectorToTask(@Param("taskId") String taskId,
+                            @Param("userId") String userId);
 }

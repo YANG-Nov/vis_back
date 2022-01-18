@@ -278,8 +278,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     //任务人员分配
     @Override
-    public List<TaskUserDistributeDTO> getTaskUserDistributeList() {
-        return baseMapper.selectTaskUserDistributeList();
+    public List<InspectorDTO> getInspectorList() {
+        return baseMapper.selectInspectorList();
     }
 
     //App待确认页面，每日一次
@@ -305,6 +305,17 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         String taskId = businessCodeService.generateBusinessCode("t_task");
         baseMapper.addTask(taskId,taskVO);
         baseMapper.addTaskComponent(taskId,taskVO.getComponentNumberDTOS());
+    }
+    /**
+     * TODO
+     * 巡检内容
+     * 添加任务中的巡检人员
+     * 并设置状态为待领取
+     *
+     */
+    @Override
+    public void distributeTask(String taskId, String userId) {
+        baseMapper.addInspectorToTask(taskId,userId);
     }
 
 }

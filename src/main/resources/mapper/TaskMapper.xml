@@ -52,16 +52,16 @@
     </select>
 
 
-    <select id="selectTaskUserDistributeList" resultType="com.dicadut.soms.dto.TaskUserDistributeDTO">
+    <select id="selectInspectorList" resultType="com.dicadut.soms.dto.InspectorDTO">
         select
-            u.real_name AS inspectorName,
-            t.code,t.begin_time AS beginTime,t.end_time AS endTime,t.task_status AS taskStatus,
+            u.real_name AS `name`,
+            t.id task_id,t.start_time AS startTime,t.end_time AS endTime,t.task_status AS taskStatus,
             u.id,t.id,GROUP_CONCAT(c.name) AS inspectingContent
-        from system.user u left outer join system.task t on u.id = t.inspector
-                           left outer join system.task_component tc on t.id = tc.task_id
-                           left outer join system.component c on tc.component_id = c.id
+        from system.user u left outer join system.t_task t on u.id = t.inspector_id
+                           left outer join system.t_task_bridge_component tc on t.id = tc.task_id
+                           left outer join system.t_component c on tc.bridge_component_id = c.id
         where u.duty = 2
-              group by u.id,t.id
+        group by u.id,t.id
     </select>
 
     <select id="selectTaskAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
@@ -104,4 +104,10 @@
         (#{taskId},#{item.id})
         </foreach>
     </insert>
+
+    <update id="addInspectorToTask" parameterType="com.dicadut.soms.entity.Task">
+        update system.t_task t
+        set t.inspector_id =#{userId},t.task_status ='1002000001'
+        where t.id=#{taskId}
+     </update>
 </mapper>

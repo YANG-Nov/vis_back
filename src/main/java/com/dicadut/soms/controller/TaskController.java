@@ -10,12 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -135,11 +130,32 @@ public class  TaskController {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
     }
 
-    @ApiOperation("任务人员分配")
-    @GetMapping("getTaskUserDistributeList")
-    public ResponseViewModel<List<TaskUserDistributeDTO>> getTaskUserDistributeList() {
-        List<TaskUserDistributeDTO> taskUserDistributeList = taskService.getTaskUserDistributeList();
+
+
+    /**
+     *TODO 是不是要写到user controller里
+     *@author fan_jane
+     *      * 20220118
+     *
+     */
+    @ApiOperation("任务制定页点击任务分配获取所有巡检人员")
+    @GetMapping("getInspectorList")
+    public ResponseViewModel<List<InspectorDTO>> getInspectorList() {
+        List<InspectorDTO> taskUserDistributeList = taskService.getInspectorList();
         return ResponseViewModel.ok(taskUserDistributeList);
+    }
+
+    /**
+     *T
+     *@author fan_jane
+     *      * 20220118
+     *
+     */
+    @ApiOperation("任务制定页点击人员分配分配任务")
+    @GetMapping("distributeTask/{taskId}/{userId}")
+    public ResponseViewModel distributeTask(@PathVariable String taskId,@PathVariable String userId) {
+        taskService.distributeTask(taskId,userId);
+        return ResponseViewModel.ok();
     }
 
     @ApiOperation("App任务列表")

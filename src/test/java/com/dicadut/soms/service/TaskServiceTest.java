@@ -68,4 +68,11 @@ public class TaskServiceTest {
         taskService.saveTask(taskVO);
         log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
     }
+    @Test
+    public void distributeTask() {
+        log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
+        taskService.distributeTask("20220118000002", "1448232280441845762");
+        log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
+    }
+
 }
