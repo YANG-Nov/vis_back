@@ -54,8 +54,7 @@ public class BridgeInfoServiceImpl extends ServiceImpl<BridgeInfoMapper, BridgeI
     }
     /**
      *显示可选择的构建编号
-     * 第一步获取桥梁部位封装数据
-     * 第二部获取构件部位封装数据
+     *
      */
     @Override
     public List<StakeNumberDTO> getComponentNumberList(String start, String end, String id) {

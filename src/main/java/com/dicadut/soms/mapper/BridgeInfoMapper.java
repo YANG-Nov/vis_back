@@ -37,5 +37,5 @@ public interface BridgeInfoMapper extends BaseMapper<BridgeInfo> {
 
     List<LineLocationDTO> selectLocationList();
 
-    void insertMenu();
+
 }
