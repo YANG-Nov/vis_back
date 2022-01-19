@@ -125,7 +125,7 @@
         group by t.id
     </select>
 
-    <select id="getAmendingTaskListByePageType" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
+    <select id="getAmendingTaskListByPageType" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
         SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,CONCAT(b.location,
                                                                                                             cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
         FROM system.t_task t
@@ -153,7 +153,7 @@
                  LEFT JOIN system.t_bridge_info b ON b.id=bc.bridge_info_id
                  LEFT JOIN system.t_dictionary d ON t.task_status = d.`code`
                  LEFT JOIN system.t_dictionary dd ON t.task_type =dd.`code`
-        WHERE t.task_type= #{status}
+        WHERE t.task_status= #{status}
         group by t.id
     </select>
 

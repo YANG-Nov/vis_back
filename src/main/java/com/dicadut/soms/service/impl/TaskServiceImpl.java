@@ -198,7 +198,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public List<AmendingTaskDTO> getAmendingTaskList(Integer current, Integer size, TaskQueryVO taskQueryVO) {
         IPage<AmendingTaskDTO> page= new Page<>(current, size);
 
-        if(!StringUtils.isBlank(taskQueryVO.getTaskType())||!StringUtils.isBlank(taskQueryVO.getTaskStatus())){
+        if(!StringUtils.isBlank(taskQueryVO.getTaskType())&&!StringUtils.isBlank(taskQueryVO.getTaskStatus())){
             return baseMapper.getAmendingTaskListByePageQuery(page,taskQueryVO);
         }
         if(!StringUtils.isBlank(taskQueryVO.getTaskType())){
