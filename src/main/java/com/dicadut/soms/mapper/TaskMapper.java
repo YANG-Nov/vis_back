@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.domain.Task;
+import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -47,4 +48,13 @@ public interface TaskMapper extends BaseMapper<Task> {
                             @Param("userId") String userId);
 
     List<AmendingTaskDTO> getAmendingTaskListByPage(IPage<AmendingTaskDTO> page);
+
+    List<AmendingTaskDTO> getAmendingTaskListByePageQuery(IPage<AmendingTaskDTO> page,
+                                                    @Param("query")TaskQueryVO taskQueryVO);
+
+    List<AmendingTaskDTO> getAmendingTaskListByPageType(IPage<AmendingTaskDTO> page,
+                                                        @Param("type") String taskType);
+
+    List<AmendingTaskDTO> getAmendingTaskListByPageStatus(IPage<AmendingTaskDTO> page,
+                                                          @Param("status") String status);
 }

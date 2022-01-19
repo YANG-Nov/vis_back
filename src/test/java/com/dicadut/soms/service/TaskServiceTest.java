@@ -2,6 +2,7 @@ package com.dicadut.soms.service;
 
 
 import com.dicadut.soms.dto.ComponentNumberDTO;
+import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -77,8 +78,11 @@ public class TaskServiceTest {
 
     @Test
     public void getAmendingTaskList() {
+        TaskQueryVO taskQueryVO = new TaskQueryVO();
+        taskQueryVO.setTaskType("1001000005");
+        taskQueryVO.setTaskStatus("1002000004");
         log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
-        log.info("{}", taskService.getAmendingTaskList(1, 4,null));
+        log.info("{}", taskService.getAmendingTaskList(1, 4,taskQueryVO));
         log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
     }
 
