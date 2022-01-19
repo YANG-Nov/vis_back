@@ -11,4 +11,5 @@ import lombok.Data;
 public class ComponentNumberTotalDTO {
     private String componentName;
     private String componentNumber;
+
 }

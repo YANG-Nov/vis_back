@@ -301,10 +301,18 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskStatisticAppDTO;
     }
 
-    //任务人员分配
+    /**
+     *
+     *
+     */
     @Override
     public List<InspectorDTO> getInspectorList() {
-        return baseMapper.selectInspectorList();
+        List<InspectorDTO> inspectorDTOList=baseMapper.selectInspectorList();
+        for (InspectorDTO inspectorDTO :
+                inspectorDTOList) {
+            inspectorDTO.setChildren(baseMapper.selectTaskByInspector(inspectorDTO.getId()));
+        }
+        return inspectorDTOList;
     }
 
     //App待确认页面，每日一次
@@ -343,9 +351,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         baseMapper.addInspectorToTask(taskId,userId);
     }
     /**
-     * 添加任务的方法
-     * 把taskVo添加到task
-     * 并设置状态为待分配
+     *
      *
      */
     @Override
