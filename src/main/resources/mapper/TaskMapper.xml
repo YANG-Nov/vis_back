@@ -158,11 +158,12 @@
     </select>
 
     <select id="getInspectionPosition" resultType="java.lang.String">
-        SELECT DISTINCT cc.name
+        SELECT DISTINCT CONCAT(b.location,cc.`name`) inspectionPosition
         FROM system.t_task_bridge_component tc
                  LEFT JOIN system.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
                  LEFT JOIN system.t_component c ON bc.component_id= c.id
                  LEFT JOIN system.t_component cc ON c.parent_id=cc.id
+                 LEFT JOIN system.t_bridge_info b ON bc.bridge_info_id=b.id
         WHERE tc.task_id=#{taskId}
     </select>
 
