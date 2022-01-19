@@ -352,15 +352,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public TaskContentDTO getTaskContent(String taskId) {
         TaskContentDTO taskContentDTO = new TaskContentDTO();
         taskContentDTO.setInspectionPosition(baseMapper.getInspectionPosition(taskId));
-        List<String> componentList=baseMapper.getComponentList(taskId);
-        for ( int  i =  0 ;i < componentList.size();i++){
-            System.out.println(componentList.get(i));
-        }
-        List<ComponentNumberTotalDTO> componentNumberRange = baseMapper.getComponentNumberRange(componentList, taskId);
-        for ( int  i =  0 ;i < componentNumberRange.size();i++){
-            System.out.println(componentNumberRange.get(i));
-        }
-         taskContentDTO.setChildren(componentNumberRange);
+        taskContentDTO.setChildren(baseMapper.getComponentNumberRange(baseMapper.getComponentList(taskId), taskId));
         return taskContentDTO;
     }
 
