@@ -2,7 +2,7 @@ package com.dicadut.soms.util;
 
 
 import com.dicadut.soms.dto.WyResDTO;
-import com.dicadut.soms.entity.Wy;
+import com.dicadut.soms.domain.Wy;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;

@@ -5,7 +5,7 @@ import com.dicadut.soms.dto.BridgeCompositionDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
-import com.dicadut.soms.entity.BridgeInfo;
+import com.dicadut.soms.domain.BridgeInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

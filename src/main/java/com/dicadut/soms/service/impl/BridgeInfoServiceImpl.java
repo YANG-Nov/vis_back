@@ -5,7 +5,7 @@ import com.dicadut.soms.dto.BridgeCompositionDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
-import com.dicadut.soms.entity.BridgeInfo;
+import com.dicadut.soms.domain.BridgeInfo;
 import com.dicadut.soms.mapper.BridgeInfoMapper;
 import com.dicadut.soms.service.BridgeInfoService;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +63,13 @@ public class BridgeInfoServiceImpl extends ServiceImpl<BridgeInfoMapper, BridgeI
 
     @Override
     public List<LineLocationDTO> getLocationList() {
-        return  baseMapper.selectLocationList();
+        List<LineLocationDTO> lineLocationDTOS = baseMapper.selectLocationList();
+        for (LineLocationDTO lineLocationDTO:lineLocationDTOS
+             ) {
+            lineLocationDTO.setStakeNumberDTOS(baseMapper.selectNumberListByGenreLine(lineLocationDTO.getGenreId(),lineLocationDTO.getGenreId()));
+            
+        }
+        return lineLocationDTOS;
     }
 
 }

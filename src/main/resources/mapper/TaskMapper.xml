@@ -3,7 +3,7 @@
 <mapper namespace="com.dicadut.soms.mapper.TaskMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.Task">
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.domain.Task">
         <id column="id" property="id"/>
         <result column="task_type" property="taskType"/>
         <result column="task_status" property="taskStatus"/>
@@ -52,16 +52,16 @@
     </select>
 
 
-    <select id="selectTaskUserDistributeList" resultType="com.dicadut.soms.dto.TaskUserDistributeDTO">
+    <select id="selectInspectorList" resultType="com.dicadut.soms.dto.InspectorDTO">
         select
-            u.real_name AS inspectorName,
-            t.code,t.begin_time AS beginTime,t.end_time AS endTime,t.task_status AS taskStatus,
+            u.real_name AS `name`,
+            t.id task_id,t.start_time AS startTime,t.end_time AS endTime,t.task_status AS taskStatus,
             u.id,t.id,GROUP_CONCAT(c.name) AS inspectingContent
-        from system.user u left outer join system.task t on u.id = t.inspector
-                           left outer join system.task_component tc on t.id = tc.task_id
-                           left outer join system.component c on tc.component_id = c.id
+        from system.user u left outer join system.t_task t on u.id = t.inspector_id
+                           left outer join system.t_task_bridge_component tc on t.id = tc.task_id
+                           left outer join system.t_component c on tc.bridge_component_id = c.id
         where u.duty = 2
-              group by u.id,t.id
+        group by u.id,t.id
     </select>
 
     <select id="selectTaskAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
@@ -92,4 +92,22 @@
         where d.code in ('1002000001','1002000002','1002000003','1002000005')
         group by d.code;
     </select>
+
+    <insert id="addTask" parameterType="com.dicadut.soms.vo.TaskVO">
+        INSERT INTO system.t_task(`id`,`task_type`,`task_status`,`start_time`,`end_time`,`receive_time`,`recall_time`,`create_by`)
+        values(#{taskId},#{taskVO.taskType},'1002000004',#{taskVO.startTime},#{taskVO.endTime},#{taskVO.receiveTime},#{taskVO.recallTime},#{taskVO.createBy});
+    </insert>
+
+    <insert id="addTaskComponent" parameterType="java.util.ArrayList">
+        INSERT INTO system.t_task_bridge_component(t_task_bridge_component.`task_id`,t_task_bridge_component.`bridge_component_id`) values
+        <foreach collection="list" item="item" index="index" separator=",">
+        (#{taskId},#{item.id})
+        </foreach>
+    </insert>
+
+    <update id="addInspectorToTask" parameterType="com.dicadut.soms.entity.Task">
+        update system.t_task t
+        set t.inspector_id =#{userId},t.task_status ='1002000001'
+        where t.id=#{taskId}
+     </update>
 </mapper>

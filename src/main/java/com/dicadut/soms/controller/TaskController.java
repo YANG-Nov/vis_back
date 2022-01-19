@@ -3,18 +3,14 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.*;
-import com.dicadut.soms.entity.Task;
+import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.service.TaskService;
+import com.dicadut.soms.vo.TaskVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,12 +51,12 @@ public class  TaskController {
 
     }
 
-    @ApiOperation(("查询任务次数，柱状图"))
+/*    @ApiOperation(("查询任务次数，柱状图"))
     @GetMapping("getTaskNum")
     public ResponseViewModel<List<TaskNumDTO>> getTaskNumList(){
         List<TaskNumDTO> taskNumList = taskService.getTaskNumList();
         return ResponseViewModel.ok(taskNumList);
-    }
+    }*/
     /**
      *
      *
@@ -113,17 +109,13 @@ public class  TaskController {
      *
      *
      * @author fan_jane
+     * 20220118
      */
     @ApiOperation("添加任务")
     @PostMapping("addTask")
-    public ResponseViewModel addTask(@RequestBody Task task){
-        boolean save = taskService.save(task);
-        if (save){
-            return ResponseViewModel.ok();
-        }else{
-            return ResponseViewModel.fail("添加失败");
-        }
-
+    public ResponseViewModel addTask(@RequestBody TaskVO taskVO){
+         taskService.saveTask(taskVO);
+         return ResponseViewModel.ok();
     }
 
     @ApiOperation("本年度巡检任务列表")
@@ -138,11 +130,32 @@ public class  TaskController {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
     }
 
-    @ApiOperation("任务人员分配")
-    @GetMapping("getTaskUserDistributeList")
-    public ResponseViewModel<List<TaskUserDistributeDTO>> getTaskUserDistributeList() {
-        List<TaskUserDistributeDTO> taskUserDistributeList = taskService.getTaskUserDistributeList();
+
+
+    /**
+     *TODO 是不是要写到user controller里
+     *@author fan_jane
+     *      * 20220118
+     *
+     */
+    @ApiOperation("任务制定页点击任务分配获取所有巡检人员")
+    @GetMapping("getInspectorList")
+    public ResponseViewModel<List<InspectorDTO>> getInspectorList() {
+        List<InspectorDTO> taskUserDistributeList = taskService.getInspectorList();
         return ResponseViewModel.ok(taskUserDistributeList);
+    }
+
+    /**
+     *T
+     *@author fan_jane
+     *      * 20220118
+     *
+     */
+    @ApiOperation("任务制定页点击人员分配分配任务")
+    @GetMapping("distributeTask/{taskId}/{userId}")
+    public ResponseViewModel distributeTask(@PathVariable String taskId,@PathVariable String userId) {
+        taskService.distributeTask(taskId,userId);
+        return ResponseViewModel.ok();
     }
 
     @ApiOperation("App任务列表")

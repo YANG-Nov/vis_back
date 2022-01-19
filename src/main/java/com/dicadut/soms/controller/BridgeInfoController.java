@@ -35,16 +35,16 @@ public class BridgeInfoController {
     @Autowired
     private BridgeInfoService bridgeInfoService;
     /**
-     *
+     *暂时不用了
      *
      * @author fan_jane
      */
-    @ApiOperation("制定任务页桩号下拉框：东引桥A匝道 1 1，东引桥B匝道 1 2，东引桥S匝道 1 3，东引桥X匝道 1 4，主桥 2 5， " +
-            "西引桥S匝道 3 3， 西引桥X匝道 3 4 ")
-    @GetMapping("/getStakeOrTrussNumber/{genre}/{line}")
-    public ResponseViewModel<List<StakeNumberDTO>> getNumberList(@PathVariable String genre, @PathVariable String line) {
-        return ResponseViewModel.ok(bridgeInfoService.getNumberList(genre,line));
-    }
+//    @ApiOperation("制定任务页桩号下拉框：东引桥A匝道 1 1，东引桥B匝道 1 2，东引桥S匝道 1 3，东引桥X匝道 1 4，主桥 2 5， " +
+//            "西引桥S匝道 3 3， 西引桥X匝道 3 4 ")
+//    @GetMapping("/getStakeOrTrussNumber/{genre}/{line}")
+//    public ResponseViewModel<List<StakeNumberDTO>> getNumberList(@PathVariable String genre, @PathVariable String line) {
+//        return ResponseViewModel.ok(bridgeInfoService.getNumberList(genre,line));
+//    }
     /**
      *
      *
@@ -71,7 +71,7 @@ public class BridgeInfoController {
      *
      * @author fan_jane
      */
-    @ApiOperation("任务制定-添加任务页显示桩号下拉菜单框前面内容")
+    @ApiOperation("任务制定-添加任务页显示下拉菜单框前面内容和桩号")
     @GetMapping("/showLocation")
     public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
         return ResponseViewModel.ok(bridgeInfoService.getLocationList());

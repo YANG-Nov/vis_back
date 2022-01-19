@@ -29,5 +29,12 @@ public class BridgeInfoServiceTest {
         log.info("{}",bridgeInfoService.getComponentNumberList("12000","12016","2001000012"));
         log.info("#### 结束单元测试 saveTaskMenu()");
     }
+    @Test
+    public void getLocationList() {
+
+        log.info("#### 启动单元测试 saveTaskMenu");
+        log.info("{}",bridgeInfoService.getLocationList());
+        log.info("#### 结束单元测试 saveTaskMenu()");
+    }
 
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.dicadut.soms.mapper.ComponentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dicadut.soms.entity.Component">
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.domain.Component">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="parent_id" property="parentId"/>

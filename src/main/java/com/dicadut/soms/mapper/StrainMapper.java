@@ -1,7 +1,7 @@
 package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.dicadut.soms.entity.Strain;
+import com.dicadut.soms.domain.Strain;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

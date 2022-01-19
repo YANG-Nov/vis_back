@@ -2,7 +2,7 @@ package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.dto.TypeNameDTO;
-import com.dicadut.soms.entity.Dictionary;
+import com.dicadut.soms.domain.Dictionary;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

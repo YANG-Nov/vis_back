@@ -3,11 +3,9 @@ package com.dicadut.soms.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.UserDTO;
-import com.dicadut.soms.entity.User;
+import com.dicadut.soms.domain.User;
 import com.dicadut.soms.dto.UserStatusDTO;
 import com.dicadut.soms.service.UserService;
 import io.swagger.annotations.Api;
