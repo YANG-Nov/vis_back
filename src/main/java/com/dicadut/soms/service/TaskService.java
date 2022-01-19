@@ -3,6 +3,7 @@ package com.dicadut.soms.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.domain.Task;
+import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface TaskService extends IService<Task> {
 
 //    List<TaskNumDTO> getTaskNumList();
 
-    List<TaskDisplayDTO> getTotalTaskList();
+    List<AmendingTaskDTO> getAmendingTaskList(Integer current, Integer size, TaskQueryVO taskQueryVO);
 
     List<TaskDisplayDTO> getUnclaimedTaskList();
 

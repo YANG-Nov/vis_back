@@ -1,6 +1,7 @@
 package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.vo.TaskVO;
@@ -44,4 +45,6 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     void addInspectorToTask(@Param("taskId") String taskId,
                             @Param("userId") String userId);
+
+    List<AmendingTaskDTO> getAmendingTaskListByPage(IPage<AmendingTaskDTO> page);
 }

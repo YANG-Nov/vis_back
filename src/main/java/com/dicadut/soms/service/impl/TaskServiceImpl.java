@@ -3,13 +3,16 @@ package com.dicadut.soms.service.impl;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.dto.*;
 import com.dicadut.soms.domain.Task;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.BusinessCodeService;
 import com.dicadut.soms.service.TaskService;
+import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -180,10 +183,23 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         }
         return taskDisplayDTOS;
     }
-
+    /**
+     *
+     *
+     * @param current   第几页
+     *  @param size   每页显示数量
+     * @param  taskQueryVO 查询条件
+     * @return List<AmendingTaskDTO>
+     *
+     * @author fan_jane
+     */
     @Override
-    public List<TaskDisplayDTO> getTotalTaskList() {
-        return getTaskDisplayList(null);
+    public List<AmendingTaskDTO> getAmendingTaskList(Integer current, Integer size, TaskQueryVO taskQueryVO) {
+        IPage<AmendingTaskDTO> page= new Page<>(current, size);
+
+
+
+        return baseMapper.getAmendingTaskListByPage(page);
     }
 
     @Override

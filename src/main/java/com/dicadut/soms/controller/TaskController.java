@@ -2,16 +2,17 @@ package com.dicadut.soms.controller;
 
 
 import com.dicadut.soms.common.ResponseViewModel;
-import com.dicadut.soms.dto.*;
 import com.dicadut.soms.domain.Task;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.service.TaskService;
+import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ import java.util.List;
 public class  TaskController {
     //访问地址 ：http://localhost:8089/task/findAll
     //注入service
-    @Autowired
+    @Resource
     private TaskService taskService;
 
     /**
@@ -62,10 +63,12 @@ public class  TaskController {
      *
      * @author fan_jane
      */
-    @ApiOperation("总任务列表")
-    @GetMapping("getTotalTaskList")
-    public ResponseViewModel<List<TaskDisplayDTO>> getTotalTaskList(){
-        List<TaskDisplayDTO> totalTaskList = taskService.getTotalTaskList();
+    @ApiOperation("任务制定页显示任务列表")
+    @PostMapping("getAmendingTaskList/{current}/{size}")
+    public ResponseViewModel<List<AmendingTaskDTO>> getTotalTaskList(@PathVariable Integer current,
+                                                                    @PathVariable Integer size,
+                                                                    @RequestBody(required = false) TaskQueryVO taskQueryVO){
+        List<AmendingTaskDTO> totalTaskList = taskService.getAmendingTaskList(current, size, taskQueryVO);
         return ResponseViewModel.ok(totalTaskList);
 
     }

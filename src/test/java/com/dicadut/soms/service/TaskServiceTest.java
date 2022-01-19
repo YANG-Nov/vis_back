@@ -75,4 +75,12 @@ public class TaskServiceTest {
         log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
     }
 
+    @Test
+    public void getAmendingTaskList() {
+        log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
+        log.info("{}", taskService.getAmendingTaskList(1, 4,null));
+        log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
+    }
+
+
 }
