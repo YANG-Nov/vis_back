@@ -78,7 +78,7 @@ public class  TaskController {
      * @author fan_jane
      */
     @ApiOperation("任务制定页任务列表点查看按钮")
-    @PostMapping("showTaskContent/{taskId}")
+    @GetMapping("showTaskContent/{taskId}")
     public ResponseViewModel<TaskContentDTO> getTaskContent(@PathVariable String taskId){
         TaskContentDTO taskContent = taskService.getTaskContent(taskId);
         return ResponseViewModel.ok(taskContent);

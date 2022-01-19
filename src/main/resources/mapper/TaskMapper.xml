@@ -94,8 +94,8 @@
     </select>
 
     <select id="getAmendingTaskListByPage" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
-        SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,CONCAT(b.location,
-            cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
+        SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,
+                        CONCAT(b.location,cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
         FROM system.t_task t
                  LEFT JOIN system.`user` u ON t.inspector_id = u.id
                  LEFT JOIN system.t_task_bridge_component tc ON t.id = tc.task_id
@@ -110,8 +110,8 @@
     </select>
 
     <select id="getAmendingTaskListByePageQuery" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
-        SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,CONCAT(b.location,
-                                                                                                            cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
+        SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,
+                        CONCAT(b.location,cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
         FROM system.t_task t
                  LEFT JOIN system.`user` u ON t.inspector_id = u.id
                  LEFT JOIN system.t_task_bridge_component tc ON t.id = tc.task_id
@@ -126,8 +126,8 @@
     </select>
 
     <select id="getAmendingTaskListByPageType" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
-        SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,CONCAT(b.location,
-                                                                                                            cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
+        SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,
+                        CONCAT(b.location, cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
         FROM system.t_task t
                  LEFT JOIN system.`user` u ON t.inspector_id = u.id
                  LEFT JOIN system.t_task_bridge_component tc ON t.id = tc.task_id
@@ -142,8 +142,8 @@
     </select>
 
     <select id="getAmendingTaskListByPageStatus" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
-        SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,CONCAT(b.location,
-                                                                                                            cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
+        SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,
+                        ONCAT(b.location,cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
         FROM system.t_task t
                  LEFT JOIN system.`user` u ON t.inspector_id = u.id
                  LEFT JOIN system.t_task_bridge_component tc ON t.id = tc.task_id
@@ -175,7 +175,8 @@
 
     <select id="getComponentNumberRange" resultType="com.dicadut.soms.dto.ComponentNumberTotalDTO">
         <foreach collection="list" item="item" index="index" separator="UNION">
-            SELECT CONCAT_WS("~",MIN(stake_or_truss_number),MAX(stake_or_truss_number)) componentName,c.`name` componentNumber
+            SELECT  IF(bc.component_id IN(2001000013,2001000014),GROUP_CONCAT(`stake_or_truss_number` SEPARATOR',' ),
+                CONCAT_WS("~",MIN(stake_or_truss_number),MAX(stake_or_truss_number))) componentName,c.`name` componentNumber
             FROM system.t_task_bridge_component tc
             LEFT JOIN system.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
             LEFT JOIN system.t_component c ON bc.component_id= c.id
@@ -185,8 +186,10 @@
     </select>
 
     <insert id="addTask" parameterType="com.dicadut.soms.vo.TaskVO">
-        INSERT INTO system.t_task(`id`,`task_type`,`task_status`,`start_time`,`end_time`,`receive_time`,`recall_time`,`create_by`)
-        values(#{taskId},#{taskVO.taskType},'1002000004',#{taskVO.startTime},#{taskVO.endTime},#{taskVO.receiveTime},#{taskVO.recallTime},#{taskVO.createBy});
+        INSERT INTO system.t_task(`id`,`task_type`,`task_status`,`start_time`,`end_time`,`receive_time`,`recall_time`,
+                                  `create_by`)
+        values(#{taskId},#{taskVO.taskType},'1002000004',#{taskVO.startTime},#{taskVO.endTime},#{taskVO.receiveTime},
+               #{taskVO.recallTime},#{taskVO.createBy});
     </insert>
 
     <insert id="addTaskComponent" parameterType="java.util.ArrayList">
