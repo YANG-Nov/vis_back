@@ -188,7 +188,9 @@
     <select id="getComponentNumberRange" resultType="com.dicadut.soms.dto.ComponentNumberTotalDTO">
         <foreach collection="list" item="item" index="index" separator="UNION">
             SELECT  IF(bc.component_id IN(2001000013,2001000014),GROUP_CONCAT(`stake_or_truss_number` SEPARATOR',' ),
-                CONCAT_WS("~",MIN(stake_or_truss_number),MAX(stake_or_truss_number))) componentName,c.`name` componentNumber
+            CONCAT_WS("~",CONCAT(SUBSTR(stake_or_truss_number,1,1),MIN(SUBSTR(stake_or_truss_number,2,3))),
+                CONCAT(SUBSTR(stake_or_truss_number,1,1),MAX(SUBSTR(stake_or_truss_number,2,3)+0)))) componentName,
+                   c.`name` componentNumber
             FROM system.t_task_bridge_component tc
             LEFT JOIN system.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
             LEFT JOIN system.t_component c ON bc.component_id= c.id
