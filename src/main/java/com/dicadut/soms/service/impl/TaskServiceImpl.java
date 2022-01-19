@@ -342,5 +342,26 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public void distributeTask(String taskId, String userId) {
         baseMapper.addInspectorToTask(taskId,userId);
     }
+    /**
+     * 添加任务的方法
+     * 把taskVo添加到task
+     * 并设置状态为待分配
+     *
+     */
+    @Override
+    public TaskContentDTO getTaskContent(String taskId) {
+        TaskContentDTO taskContentDTO = new TaskContentDTO();
+        taskContentDTO.setInspectionPosition(baseMapper.getInspectionPosition(taskId));
+        List<String> componentList=baseMapper.getComponentList(taskId);
+        for ( int  i =  0 ;i < componentList.size();i++){
+            System.out.println(componentList.get(i));
+        }
+        List<ComponentNumberTotalDTO> componentNumberRange = baseMapper.getComponentNumberRange(componentList, taskId);
+        for ( int  i =  0 ;i < componentNumberRange.size();i++){
+            System.out.println(componentNumberRange.get(i));
+        }
+         taskContentDTO.setChildren(componentNumberRange);
+        return taskContentDTO;
+    }
 
 }

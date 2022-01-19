@@ -157,6 +157,33 @@
         group by t.id
     </select>
 
+    <select id="getInspectionPosition" resultType="java.lang.String">
+        SELECT DISTINCT cc.name
+        FROM system.t_task_bridge_component tc
+                 LEFT JOIN system.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
+                 LEFT JOIN system.t_component c ON bc.component_id= c.id
+                 LEFT JOIN system.t_component cc ON c.parent_id=cc.id
+        WHERE tc.task_id=#{taskId}
+    </select>
+
+    <select id="getComponentList" resultType="java.lang.String">
+        SELECT DISTINCT bc.component_id
+        FROM system.t_task_bridge_component tc
+                 LEFT JOIN system.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
+        WHERE tc.task_id=#{taskId}
+    </select>
+
+    <select id="getComponentNumberRange" resultType="com.dicadut.soms.dto.ComponentNumberTotalDTO">
+        <foreach collection="list" item="item" index="index" separator="UNION">
+            SELECT CONCAT_WS("~",MIN(stake_or_truss_number),MAX(stake_or_truss_number)) componentName,c.`name` componentNumber
+            FROM system.t_task_bridge_component tc
+            LEFT JOIN system.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
+            LEFT JOIN system.t_component c ON bc.component_id= c.id
+            LEFT JOIN system.t_bridge_info b ON bc.bridge_info_id=b.id
+            WHERE tc.task_id=#{taskId} AND bc.component_id=#{item}
+        </foreach>
+    </select>
+
     <insert id="addTask" parameterType="com.dicadut.soms.vo.TaskVO">
         INSERT INTO system.t_task(`id`,`task_type`,`task_status`,`start_time`,`end_time`,`receive_time`,`recall_time`,`create_by`)
         values(#{taskId},#{taskVO.taskType},'1002000004',#{taskVO.startTime},#{taskVO.endTime},#{taskVO.receiveTime},#{taskVO.recallTime},#{taskVO.createBy});

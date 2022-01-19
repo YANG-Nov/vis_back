@@ -44,4 +44,6 @@ public interface TaskService extends IService<Task> {
 
 
     void distributeTask(String taskId, String userId);
+
+    TaskContentDTO getTaskContent(String taskId);
 }
