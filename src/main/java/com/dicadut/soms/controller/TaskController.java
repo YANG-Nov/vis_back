@@ -72,41 +72,20 @@ public class TaskController {
         return ResponseViewModel.ok(taskNumList);
     }*/
 
-    /**
-     * TODO
-     *
-     * @author fan_jane
-     */
-    @ApiOperation("任务制定页显示任务列表")
-    @PostMapping("getAmendingTaskList/{current}/{size}")
-    public ResponseViewModel<List<AmendingTaskDTO>> getTotalTaskList(@PathVariable Integer current,
-                                                                     @PathVariable Integer size,
-                                                                     @RequestBody(required = false) TaskQueryVO taskQueryVO) {
-        List<AmendingTaskDTO> totalTaskList = taskService.getAmendingTaskList(current, size, taskQueryVO);
-        return ResponseViewModel.ok(totalTaskList);
 
-    }
 
     /**
      * 分页查询
-     *
+     * todo 先把上两个TODO 实现了，后续我再跟大家讲更优雅的实现方式
      * @param pageParam
      * @return
+     * @author fan_jane
      */
     @ApiOperation("任务制定页显示任务列表")
     @PostMapping("getAmendingTaskList")
-    public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(@RequestBody PageParam<TaskQueryVO> pageParam) {
+    public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(@RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
 
-        List<AmendingTaskDTO> totalTaskList = taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize(), pageParam.getParam());
-
-        PageResult<AmendingTaskDTO> pageResult = new PageResult();
-        pageResult.setTotalCount(0);    // todo 乾玉请跟进计算该值：实现思路，根据前端传过来的参数，在数据库中用 count 函数计算出满足条件的记录总数
-        pageResult.setPageCount(0);     // todo 乾玉请跟进计算该值: 实现思路，用上一步的 totalCount 除与 pageSize，结果向上取整
-        // todo 先把上两个TODO 实现了，后续我再跟大家讲更优雅的实现方式
-        pageResult.setPageNo(pageParam.getPageNo());
-        pageResult.setPageSize(pageParam.getPageSize());
-        pageResult.setResults(totalTaskList);
-        return ResponseViewModel.ok(pageResult);
+         return  ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize(), pageParam.getParam()));
     }
 
     /**

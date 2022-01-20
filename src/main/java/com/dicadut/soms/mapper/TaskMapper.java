@@ -66,4 +66,12 @@ public interface TaskMapper extends BaseMapper<Task> {
     List<String> getComponentList(@Param("taskId") String taskId);
 
     List<InspectorTaskDTO> selectTaskByInspector(@Param("id") String id);
+
+    long getAmendingTaskListQueryCount(@Param("query")TaskQueryVO taskQueryVO);
+
+    long getAmendingTaskListCount();
+
+    long getAmendingTaskListTypeCount(@Param("type") String taskType);
+
+    long getAmendingTaskListStatusCount(@Param("status") String taskStatus);
 }

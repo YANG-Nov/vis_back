@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
+import com.dicadut.soms.dto.viewmodel.PageResult;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.BusinessCodeService;
@@ -190,24 +191,49 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * @param current   第几页
      *  @param size   每页显示数量
      * @param  taskQueryVO 查询条件
-     * @return List<AmendingTaskDTO>
+     * @return PageResult<AmendingTaskDTO>
      *
      * @author fan_jane
      */
     @Override
-    public List<AmendingTaskDTO> getAmendingTaskList(Integer current, Integer size, TaskQueryVO taskQueryVO) {
+    public PageResult<AmendingTaskDTO> getAmendingTaskList(Integer current, Integer size, TaskQueryVO taskQueryVO) {
         IPage<AmendingTaskDTO> page= new Page<>(current, size);
+        PageResult<AmendingTaskDTO> pageResult = new PageResult();
+        pageResult.setPageNo(current);
+        pageResult.setPageSize(size);
 
         if(!StringUtils.isBlank(taskQueryVO.getTaskType())&&!StringUtils.isBlank(taskQueryVO.getTaskStatus())){
-            return baseMapper.getAmendingTaskListByePageQuery(page,taskQueryVO);
+            long totalCount = baseMapper.getAmendingTaskListQueryCount(taskQueryVO);
+            pageResult.setTotalCount(totalCount);
+            pageResult.setPageCount(totalCount % size == 0 ? totalCount / size : totalCount / size + 1);
+            pageResult.setResults(baseMapper.getAmendingTaskListByePageQuery(page, taskQueryVO));
+            return  pageResult;
         }
         if(!StringUtils.isBlank(taskQueryVO.getTaskType())){
-            return baseMapper.getAmendingTaskListByPageType(page,taskQueryVO.getTaskType());
+            long totalCount = baseMapper.getAmendingTaskListTypeCount(taskQueryVO.getTaskType());
+            pageResult.setTotalCount(totalCount);
+            pageResult.setPageCount(totalCount % size == 0 ? totalCount / size : totalCount / size + 1);
+            pageResult.setResults(baseMapper.getAmendingTaskListByPageType(page,taskQueryVO.getTaskType()));
+            return pageResult ;
         }
         if (!StringUtils.isBlank(taskQueryVO.getTaskStatus())) {
-            return baseMapper.getAmendingTaskListByPageStatus(page,taskQueryVO.getTaskStatus());
+            long totalCount = baseMapper.getAmendingTaskListStatusCount(taskQueryVO.getTaskStatus());
+            pageResult.setTotalCount(totalCount);
+            pageResult.setPageCount(totalCount % size == 0 ? totalCount / size : totalCount / size + 1);
+            pageResult.setResults(baseMapper.getAmendingTaskListByPageStatus(page,taskQueryVO.getTaskStatus()));
+            return pageResult;
         }
-        return baseMapper.getAmendingTaskListByPage(page);
+
+
+        long totalCount = baseMapper.getAmendingTaskListCount();
+        pageResult.setTotalCount(totalCount);
+        pageResult.setPageCount(totalCount % size == 0 ? totalCount / size : totalCount / size + 1);
+        pageResult.setResults(baseMapper.getAmendingTaskListByPage(page));
+
+        return pageResult;
+
+
+
 
     }
 

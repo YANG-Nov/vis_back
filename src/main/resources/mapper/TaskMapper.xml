@@ -87,7 +87,12 @@
         where d.code in ('1002000001','1002000002','1002000003','1002000005')
         group by d.code;
     </select>
+    <select id="getAmendingTaskListCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM system.t_task t
+        WHERE t.task_status IN (1002000004,1002000007,1002000008);
 
+    </select>
     <select id="getAmendingTaskListByPage" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
         SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,
                         CONCAT(b.location,cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
@@ -104,6 +109,11 @@
         group by t.id
     </select>
 
+    <select id="getAmendingTaskListQueryCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM system.t_task t
+        WHERE t.task_status = #{query.taskStatus} AND t.task_type= #{query.taskType}
+    </select>
     <select id="getAmendingTaskListByePageQuery" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
         SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,
                         CONCAT(b.location,cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
@@ -119,7 +129,11 @@
         WHERE t.task_status = #{query.taskStatus} AND t.task_type= #{query.taskType}
         group by t.id
     </select>
-
+    <select id="getAmendingTaskListTypeCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM system.t_task t
+        WHERE t.task_status IN (1002000004,1002000007,1002000008) AND t.task_type= #{type}
+    </select>
     <select id="getAmendingTaskListByPageType" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
         SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,
                         CONCAT(b.location, cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
@@ -135,7 +149,11 @@
         WHERE t.task_status IN (1002000004,1002000007,1002000008) AND t.task_type= #{type}
         group by t.id
     </select>
-
+    <select id="getAmendingTaskListStatusCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM system.t_task t
+        WHERE t.task_status= #{status}
+    </select>
     <select id="getAmendingTaskListByPageStatus" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
         SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,
                         ONCAT(b.location,cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus

@@ -1,8 +1,9 @@
 package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dicadut.soms.dto.*;
 import com.dicadut.soms.domain.Task;
+import com.dicadut.soms.dto.*;
+import com.dicadut.soms.dto.viewmodel.PageResult;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 
@@ -18,7 +19,7 @@ public interface TaskService extends IService<Task> {
 
 //    List<TaskNumDTO> getTaskNumList();
 
-    List<AmendingTaskDTO> getAmendingTaskList(Integer current, Integer size, TaskQueryVO taskQueryVO);
+    PageResult<AmendingTaskDTO> getAmendingTaskList(Integer current, Integer size, TaskQueryVO taskQueryVO);
 
     List<TaskDisplayDTO> getUnclaimedTaskList();
 
