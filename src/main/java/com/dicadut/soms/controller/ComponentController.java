@@ -3,6 +3,7 @@ package com.dicadut.soms.controller;
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
+import com.dicadut.soms.dto.ComponentPositionAppListDTO;
 import com.dicadut.soms.service.ComponentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,5 +57,13 @@ public class ComponentController {
     public ResponseViewModel<List<ComponentAppListDTO>> getComponentAppList(@RequestParam Integer componentId) {
         List<ComponentAppListDTO> componentAppList = componentService.getComponentAppList(componentId);
         return ResponseViewModel.ok(componentAppList);
+    }
+
+    @ApiOperation("APP添加病害页面，选择构件位置")
+    @GetMapping("getComponentPositionAppList")
+    public ResponseViewModel<List<ComponentPositionAppListDTO>> getComponentPositionAppList(@RequestParam String taskId
+                                                                                            ,@RequestParam String componentId) {
+        List<ComponentPositionAppListDTO> componentPositionAppList = componentService.getComponentPositionAppList(taskId,componentId);
+        return ResponseViewModel.ok(componentPositionAppList);
     }
 }

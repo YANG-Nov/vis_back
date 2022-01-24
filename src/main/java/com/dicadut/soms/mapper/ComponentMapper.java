@@ -3,6 +3,7 @@ package com.dicadut.soms.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.domain.Component;
+import com.dicadut.soms.dto.ComponentPositionAppListDTO;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface ComponentMapper extends BaseMapper<Component> {
 
     Integer selectCount();
     List<ComponentAppListDTO> selectComponentAppList(Integer componentId);
+    List<ComponentPositionAppListDTO> selectComponentPositionAppList(String taskId,String componentId);
 }

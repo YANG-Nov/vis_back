@@ -34,4 +34,16 @@
           and c.xpath like '%${componentId}%';
     </select>
 
+    <select id="selectComponentPositionAppList" resultType="com.dicadut.soms.dto.ComponentPositionAppListDTO">
+        SELECT
+            bi.stake_or_truss_number as position,
+            bi.id
+        FROM system.t_task_bridge_component tbc
+                    LEFT JOIN system.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
+                    LEFT JOIN system.t_bridge_info bi ON bic.bridge_info_id = bi.id
+        WHERE
+            tbc.task_id = #{taskId}
+          AND bic.component_id = #{componentId}
+    </select>
+
 </mapper>

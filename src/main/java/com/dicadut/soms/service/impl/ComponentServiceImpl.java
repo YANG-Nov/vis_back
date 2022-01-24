@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.domain.Component;
+import com.dicadut.soms.dto.ComponentPositionAppListDTO;
 import com.dicadut.soms.mapper.ComponentMapper;
 import com.dicadut.soms.service.ComponentService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,9 +37,13 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
 
         return componentDTOS;
     }
-
-    //App添加病害前，选择构件列表
+    @Override
     public List<ComponentAppListDTO> getComponentAppList(Integer componentId) {
         return baseMapper.selectComponentAppList(componentId);
+    }
+
+    @Override
+    public List<ComponentPositionAppListDTO> getComponentPositionAppList(String taskId, String componentId) {
+        return baseMapper.selectComponentPositionAppList(taskId,componentId);
     }
 }
