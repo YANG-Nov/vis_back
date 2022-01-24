@@ -236,4 +236,15 @@
         set t.inspector_id =#{userId},t.task_status ='1002000001'
         where t.id=#{taskId}
      </update>
+
+    <select id="selectTaskScanPositionAppList" resultType="com.dicadut.soms.dto.TaskScanPositionAppListDTO">
+        SELECT
+            bic.scan_position AS id,
+            d.code_name AS `name`
+        FROM system.t_task_bridge_component tbc
+                 LEFT JOIN system.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
+                 LEFT JOIN system.t_dictionary d ON bic.scan_position = d.code
+        WHERE tbc.task_id = #{taskId}
+        GROUP BY bic.scan_position
+    </select>
 </mapper>

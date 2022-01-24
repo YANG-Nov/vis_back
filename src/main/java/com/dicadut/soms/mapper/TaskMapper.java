@@ -74,4 +74,6 @@ public interface TaskMapper extends BaseMapper<Task> {
     long getAmendingTaskListTypeCount(@Param("type") String taskType);
 
     long getAmendingTaskListStatusCount(@Param("status") String taskStatus);
+
+    List<TaskScanPositionAppListDTO> selectTaskScanPositionAppList(String taskId);
 }

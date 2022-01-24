@@ -47,4 +47,11 @@ public interface TaskService extends IService<Task> {
     void distributeTask(String taskId, String userId);
 
     TaskContentDTO getTaskContent(String taskId);
+
+    /**
+     * App任务对应的打卡点
+     * @param taskId 任务id
+     * @return  打卡点列表
+     */
+    List<TaskScanPositionAppListDTO> getTaskScanPositionAppList(String taskId);
 }

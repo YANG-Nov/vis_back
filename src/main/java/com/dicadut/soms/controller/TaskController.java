@@ -3,15 +3,7 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.dto.AmendingTaskDTO;
-import com.dicadut.soms.dto.InspectorDTO;
-import com.dicadut.soms.dto.TaskAppListDTO;
-import com.dicadut.soms.dto.TaskContentDTO;
-import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskDetailsDTO;
-import com.dicadut.soms.dto.TaskDisplayDTO;
-import com.dicadut.soms.dto.TaskStatisticAppDTO;
-import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.dto.viewmodel.PageParam;
 import com.dicadut.soms.dto.viewmodel.PageResult;
 import com.dicadut.soms.service.TaskService;
@@ -195,5 +187,12 @@ public class TaskController {
     @GetMapping("getTaskDetails")
     public ResponseViewModel<TaskDetailsDTO> getTaskDetails(@RequestParam String taskId) {
         return ResponseViewModel.ok(taskService.getTaskDetails(taskId));
+    }
+
+    @ApiOperation("App任务对应的打卡点")
+    @GetMapping("getTaskScanPositionAppList")
+    public ResponseViewModel<List<TaskScanPositionAppListDTO>> getTaskScanPositionAppList(@RequestParam String taskId) {
+        List<TaskScanPositionAppListDTO> taskScanPositionAppList = taskService.getTaskScanPositionAppList(taskId);
+        return ResponseViewModel.ok(taskScanPositionAppList);
     }
 }

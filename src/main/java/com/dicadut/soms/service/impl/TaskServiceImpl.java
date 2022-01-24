@@ -388,4 +388,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskContentDTO;
     }
 
+    @Override
+    public List<TaskScanPositionAppListDTO> getTaskScanPositionAppList(String taskId) {
+        return baseMapper.selectTaskScanPositionAppList(taskId);
+    }
+
 }
