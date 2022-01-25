@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.util.List;
-
 /**
  * @author Radium
  * @version 1.0
@@ -19,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @ApiModel("统一响应对象")
-public class Result <T>{
+public class Result<T> {
 
     // 0 -> success
     // 1 -> failure
@@ -32,9 +30,9 @@ public class Result <T>{
     @ApiModelProperty("信息")
     private String message;
 
-    @ApiModelProperty("数据")
-    private T data;
+//    @ApiModelProperty("数据")
+//    private T data;
 
-    private List<String> errorMessage;
+//    private List<String> errorMessage;
 
 }
