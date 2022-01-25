@@ -1,9 +1,18 @@
 package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.dicadut.soms.dto.*;
 import com.dicadut.soms.domain.Task;
+import com.dicadut.soms.dto.AmendingTaskDTO;
+import com.dicadut.soms.dto.ComponentNumberDTO;
+import com.dicadut.soms.dto.ComponentNumberTotalDTO;
+import com.dicadut.soms.dto.InspectorDTO;
+import com.dicadut.soms.dto.InspectorTaskDTO;
+import com.dicadut.soms.dto.TaskAppListDTO;
+import com.dicadut.soms.dto.TaskDTO;
+import com.dicadut.soms.dto.TaskDetailsDTO;
+import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
+import com.dicadut.soms.dto.TaskStatisticAppDTO;
+import com.dicadut.soms.dto.TaskStatisticDTO;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import com.github.pagehelper.Page;
@@ -40,7 +49,7 @@ public interface TaskMapper extends BaseMapper<Task> {
     List<TaskDTO> selectTaskStatusLatestList();
 
     void addTask(@Param("taskId") String taskId,
-                 @Param("taskVO")TaskVO taskVO);
+                 @Param("taskVO") TaskVO taskVO);
 
     void addTaskComponent(@Param("taskId") String taskId,
                           @Param("list") List<ComponentNumberDTO> componentNumberDTOList);
@@ -49,33 +58,16 @@ public interface TaskMapper extends BaseMapper<Task> {
     void addInspectorToTask(@Param("taskId") String taskId,
                             @Param("userId") String userId);
 
-    List<AmendingTaskDTO> getAmendingTaskListByPage(IPage<AmendingTaskDTO> page);
+    Page<AmendingTaskDTO> getAmendingTaskListByePageQuery(TaskQueryVO taskQueryVO);
 
-    List<AmendingTaskDTO> getAmendingTaskListByePageQuery(IPage<AmendingTaskDTO> page,
-                                                    @Param("query")TaskQueryVO taskQueryVO);
-
-    List<AmendingTaskDTO> getAmendingTaskListByPageType(IPage<AmendingTaskDTO> page,
-                                                        @Param("type") String taskType);
-
-    List<AmendingTaskDTO> getAmendingTaskListByPageStatus(IPage<AmendingTaskDTO> page,
-                                                          @Param("status") String status);
-
-    String getInspectionPosition(@Param("taskId")String taskId);
+    String getInspectionPosition(@Param("taskId") String taskId);
 
     List<ComponentNumberTotalDTO> getComponentNumberRange(@Param("list") List<String> list,
-                                                          @Param("taskId")String taskId);
+                                                          @Param("taskId") String taskId);
 
     List<String> getComponentList(@Param("taskId") String taskId);
 
     List<InspectorTaskDTO> selectTaskByInspector(@Param("id") String id);
-
-    long getAmendingTaskListQueryCount(@Param("query")TaskQueryVO taskQueryVO);
-
-    long getAmendingTaskListCount();
-
-    long getAmendingTaskListTypeCount(@Param("type") String taskType);
-
-    long getAmendingTaskListStatusCount(@Param("status") String taskStatus);
 
     List<TaskScanPositionAppListDTO> selectTaskScanPositionAppList(String taskId);
 

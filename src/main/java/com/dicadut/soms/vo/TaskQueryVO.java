@@ -11,6 +11,4 @@ import lombok.Data;
 public class TaskQueryVO {
     private String taskType;
     private String taskStatus;
-
-
 }

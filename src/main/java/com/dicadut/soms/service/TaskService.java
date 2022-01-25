@@ -2,8 +2,17 @@ package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.dto.*;
-import com.dicadut.soms.dto.viewmodel.PageResult;
+import com.dicadut.soms.dto.AmendingTaskDTO;
+import com.dicadut.soms.dto.InspectorDTO;
+import com.dicadut.soms.dto.TaskAppListDTO;
+import com.dicadut.soms.dto.TaskContentDTO;
+import com.dicadut.soms.dto.TaskDTO;
+import com.dicadut.soms.dto.TaskDetailsDTO;
+import com.dicadut.soms.dto.TaskDisplayDTO;
+import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
+import com.dicadut.soms.dto.TaskStatisticAppDTO;
+import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.dto.viewmodel.Page;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 
@@ -15,11 +24,23 @@ import java.util.List;
  */
 public interface TaskService extends IService<Task> {
 
+    /**
+     * 查询任务状态数量，扇形图
+     *
+     * @return
+     */
     List<TaskDTO> getTaskStatusLatestList();
 
-//    List<TaskNumDTO> getTaskNumList();
-
-    PageResult<AmendingTaskDTO> getAmendingTaskList(Integer current, Integer size, TaskQueryVO taskQueryVO);
+    /**
+     * 条件查询分页
+     *
+     * @param currentPage 第几页
+     * @param pageSize    页大小
+     * @param taskQueryVO 查询条件
+     * @return PageResult<AmendingTaskDTO>
+     * @author fan_jane
+     */
+    Page<AmendingTaskDTO> getAmendingTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO);
 
     List<TaskDisplayDTO> getUnclaimedTaskList();
 
@@ -50,8 +71,9 @@ public interface TaskService extends IService<Task> {
 
     /**
      * App任务对应的打卡点
+     *
      * @param taskId 任务id
-     * @return  打卡点列表
+     * @return 打卡点列表
      */
     List<TaskScanPositionAppListDTO> getTaskScanPositionAppList(String taskId);
 }

@@ -5,7 +5,7 @@ import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.dto.viewmodel.PageParam;
-import com.dicadut.soms.dto.viewmodel.PageResult;
+import com.dicadut.soms.dto.viewmodel.Page;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
@@ -75,8 +75,7 @@ public class TaskController {
      */
     @ApiOperation("任务制定页显示任务列表")
     @PostMapping("getAmendingTaskList")
-    public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(@RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
-
+    public ResponseViewModel<Page<AmendingTaskDTO>> getAmendingTaskList(@RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
          return  ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize(), pageParam.getParam()));
     }
 

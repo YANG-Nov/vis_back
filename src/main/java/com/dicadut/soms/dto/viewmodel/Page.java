@@ -1,18 +1,23 @@
-package com.dicadut.soms.common;
+package com.dicadut.soms.dto.viewmodel;
 
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
- * 整合分页插件和MP分页的功能，提供统一的page给前端
+ * 查询分页结果对象，由后端传递给前端<br>
+ * 整合分页插件和MP分页的功能，提供统一的page给前端<br>
  *
  * @author Radium
  * @version 1.0.0
- * @date 2022-01-25 17:33:37
+ * @since 2022-01-20 10:55:31
  */
 public class Page<T> {
+    private int totalPage;      // pageCount -> totalPage
+    private int totalCount;     // totalCount
+    private int currentPage;    // pageNo -> currentPage
+    private int pageSize;       // pageSize
+    private List<T> results;
 
     private com.github.pagehelper.Page<T> helperPage;
 
@@ -37,12 +42,6 @@ public class Page<T> {
         page.setMpPage(mpPage);
         return page;
     }
-
-    private int totalCount;
-    private int totalPage;
-    private int pageSize;
-    private int currentPage;
-    private List<T> results;
 
     /**
      * 总记录数

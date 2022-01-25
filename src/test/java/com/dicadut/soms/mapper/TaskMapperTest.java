@@ -2,8 +2,8 @@ package com.dicadut.soms.mapper;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.dicadut.soms.common.Page;
 import com.dicadut.soms.domain.Task;
+import com.dicadut.soms.dto.viewmodel.Page;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

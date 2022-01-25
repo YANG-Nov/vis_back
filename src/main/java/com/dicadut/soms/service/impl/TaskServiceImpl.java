@@ -3,24 +3,31 @@ package com.dicadut.soms.service.impl;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.dto.*;
-import com.dicadut.soms.dto.viewmodel.PageResult;
+import com.dicadut.soms.dto.AmendingTaskDTO;
+import com.dicadut.soms.dto.InspectorDTO;
+import com.dicadut.soms.dto.TaskAppListDTO;
+import com.dicadut.soms.dto.TaskContentDTO;
+import com.dicadut.soms.dto.TaskDTO;
+import com.dicadut.soms.dto.TaskDetailsDTO;
+import com.dicadut.soms.dto.TaskDisplayDTO;
+import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
+import com.dicadut.soms.dto.TaskStatisticAppDTO;
+import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.dto.viewmodel.Page;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.BusinessCodeService;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
+import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,133 +39,15 @@ import java.util.List;
 @Slf4j
 @Service
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements TaskService {
-    @Autowired
+
+    @Resource
     private BusinessCodeService businessCodeService;
 
 
-    //查询任务状态数量，扇形图
     @Override
     public List<TaskDTO> getTaskStatusLatestList() {
         return baseMapper.selectTaskStatusLatestList();
     }
-
-    //TODO 查询任务次数，柱状图优化
-/*    @Override
-    public List<TaskNumDTO> getTaskNumList() {
-        //查询巡检次数
-        List<TaskNumDTO> taskNum = new ArrayList<>();
-        TaskNumDTO patrolTaskDTO = new TaskNumDTO();
-        int[] taskNumArray = new int[12];
-        patrolTaskDTO.setName("巡检次数");
-        QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("task_type", 1001000001);
-        List<Task> tasks = baseMapper.selectList(queryWrapper);
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            Date createTime = task.getCreateTime();
-            Calendar c = Calendar.getInstance();
-            c.setTime(createTime);
-            int month = c.get(Calendar.MONTH);
-            switch (month) {
-                case 0:
-                    taskNumArray[0]++;
-                    break;
-                case 1:
-                    taskNumArray[1]++;
-                    break;
-                case 2:
-                    taskNumArray[2]++;
-                    break;
-                case 3:
-                    taskNumArray[3]++;
-                    break;
-                case 4:
-                    taskNumArray[4]++;
-                    break;
-                case 5:
-                    taskNumArray[5]++;
-                    break;
-                case 6:
-                    taskNumArray[6]++;
-                    break;
-                case 7:
-                    taskNumArray[7]++;
-                    break;
-                case 8:
-                    taskNumArray[8]++;
-                    break;
-                case 9:
-                    taskNumArray[9]++;
-                    break;
-                case 10:
-                    taskNumArray[10]++;
-                    break;
-                case 11:
-                    taskNumArray[11]++;
-                    break;
-            }
-        }
-        patrolTaskDTO.setData(taskNumArray);
-        taskNum.add(patrolTaskDTO);*/
-
-
-        //查询维修次数
-
-/*        TaskNumDTO maintenanceTaskDTO = new TaskNumDTO();
-        int[] maintenanceTaskNumArray = new int[12];
-        maintenanceTaskDTO.setName("维修次数");
-        QueryWrapper<Task> wrapper = new QueryWrapper<>();
-        wrapper.eq("task_type", 1001000004);
-        List<Task> maintenanceTasks = baseMapper.selectList(wrapper);
-        for (int i = 0; i < tasks.size(); i++) {
-            Task maintenanceTask = maintenanceTasks.get(i);
-            Date createTime = maintenanceTask.getCreateTime();
-            Calendar c = Calendar.getInstance();
-            c.setTime(createTime);
-            int month = c.get(Calendar.MONTH);
-            switch (month) {
-                case 0:
-                    maintenanceTaskNumArray[0]++;
-                    break;
-                case 1:
-                    maintenanceTaskNumArray[1]++;
-                    break;
-                case 2:
-                    maintenanceTaskNumArray[2]++;
-                    break;
-                case 3:
-                    maintenanceTaskNumArray[3]++;
-                    break;
-                case 4:
-                    maintenanceTaskNumArray[4]++;
-                    break;
-                case 5:
-                    maintenanceTaskNumArray[5]++;
-                    break;
-                case 6:
-                    maintenanceTaskNumArray[6]++;
-                    break;
-                case 7:
-                    maintenanceTaskNumArray[7]++;
-                    break;
-                case 8:
-                    maintenanceTaskNumArray[8]++;
-                    break;
-                case 9:
-                    maintenanceTaskNumArray[9]++;
-                    break;
-                case 10:
-                    maintenanceTaskNumArray[10]++;
-                    break;
-                case 11:
-                    maintenanceTaskNumArray[11]++;
-                    break;
-            }
-        }
-        maintenanceTaskDTO.setData(maintenanceTaskNumArray);
-        taskNum.add(maintenanceTaskDTO);
-        return taskNum;*/
-
 
     /**
      * 根据taskStatus获取任务列表， 如taskStatus为null或空串，则获取所有任务列表
@@ -185,56 +74,12 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         }
         return taskDisplayDTOS;
     }
-    /**
-     *
-     *条件查询分页
-     * @param current   第几页
-     *  @param size   每页显示数量
-     * @param  taskQueryVO 查询条件
-     * @return PageResult<AmendingTaskDTO>
-     *
-     * @author fan_jane
-     */
+
     @Override
-    public PageResult<AmendingTaskDTO> getAmendingTaskList(Integer current, Integer size, TaskQueryVO taskQueryVO) {
-        IPage<AmendingTaskDTO> page= new Page<>(current, size);
-        PageResult<AmendingTaskDTO> pageResult = new PageResult();
-        pageResult.setPageNo(current);
-        pageResult.setPageSize(size);
-
-        if(!StringUtils.isBlank(taskQueryVO.getTaskType())&&!StringUtils.isBlank(taskQueryVO.getTaskStatus())){
-            long totalCount = baseMapper.getAmendingTaskListQueryCount(taskQueryVO);
-            pageResult.setTotalCount(totalCount);
-            pageResult.setPageCount(totalCount % size == 0 ? totalCount / size : totalCount / size + 1);
-            pageResult.setResults(baseMapper.getAmendingTaskListByePageQuery(page, taskQueryVO));
-            return  pageResult;
-        }
-        if(!StringUtils.isBlank(taskQueryVO.getTaskType())){
-            long totalCount = baseMapper.getAmendingTaskListTypeCount(taskQueryVO.getTaskType());
-            pageResult.setTotalCount(totalCount);
-            pageResult.setPageCount(totalCount % size == 0 ? totalCount / size : totalCount / size + 1);
-            pageResult.setResults(baseMapper.getAmendingTaskListByPageType(page,taskQueryVO.getTaskType()));
-            return pageResult ;
-        }
-        if (!StringUtils.isBlank(taskQueryVO.getTaskStatus())) {
-            long totalCount = baseMapper.getAmendingTaskListStatusCount(taskQueryVO.getTaskStatus());
-            pageResult.setTotalCount(totalCount);
-            pageResult.setPageCount(totalCount % size == 0 ? totalCount / size : totalCount / size + 1);
-            pageResult.setResults(baseMapper.getAmendingTaskListByPageStatus(page,taskQueryVO.getTaskStatus()));
-            return pageResult;
-        }
-
-
-        long totalCount = baseMapper.getAmendingTaskListCount();
-        pageResult.setTotalCount(totalCount);
-        pageResult.setPageCount(totalCount % size == 0 ? totalCount / size : totalCount / size + 1);
-        pageResult.setResults(baseMapper.getAmendingTaskListByPage(page));
-
-        return pageResult;
-
-
-
-
+    public Page<AmendingTaskDTO> getAmendingTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
+        PageHelper.startPage(currentPage, pageSize);
+        com.github.pagehelper.Page<AmendingTaskDTO> helperPage = baseMapper.getAmendingTaskListByePageQuery(taskQueryVO);
+        return Page.buildPage(helperPage);
     }
 
     @Override
@@ -320,20 +165,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         double p1 = taskStatisticAppDTO.getFinishCount();
         double p2 = taskStatisticAppDTO.getTotalCount();
         double p3 = p1 / p2;
-        NumberFormat nf  =  NumberFormat.getPercentInstance();
-        nf.setMinimumFractionDigits( 1 );
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMinimumFractionDigits(1);
         taskStatisticAppDTO.setFinishPercentage(nf.format(p3));
 
         return taskStatisticAppDTO;
     }
 
-    /**
-     *
-     *
-     */
     @Override
     public List<InspectorDTO> getInspectorList() {
-        List<InspectorDTO> inspectorDTOList=baseMapper.selectInspectorList();
+        List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
         for (InspectorDTO inspectorDTO :
                 inspectorDTOList) {
             inspectorDTO.setChildren(baseMapper.selectTaskByInspector(inspectorDTO.getId()));
@@ -342,8 +183,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     //App待确认页面，每日一次
-    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus,Integer inspectionFrequency) {
-        return baseMapper.selectTaskAppList(taskStatus,inspectionFrequency);
+    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency) {
+        return baseMapper.selectTaskAppList(taskStatus, inspectionFrequency);
     }
 
     //查看任务信息
@@ -357,27 +198,26 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 添加任务的方法
      * 把taskVo添加到task
      * 并设置状态为待分配
-     *
      */
     @Override
     public void saveTask(TaskVO taskVO) {
         String taskId = businessCodeService.generateBusinessCode("t_task");
-        baseMapper.addTask(taskId,taskVO);
-        baseMapper.addTaskComponent(taskId,taskVO.getComponentNumberDTOS());
+        baseMapper.addTask(taskId, taskVO);
+        baseMapper.addTaskComponent(taskId, taskVO.getComponentNumberDTOS());
     }
+
     /**
      * TODO
      * 巡检内容
      * 添加任务中的巡检人员
      * 并设置状态为待领取
-     *
      */
     @Override
     public void distributeTask(String taskId, String userId) {
-        baseMapper.addInspectorToTask(taskId,userId);
+        baseMapper.addInspectorToTask(taskId, userId);
     }
+
     /**
-     *
      *
      */
     @Override
