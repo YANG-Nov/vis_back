@@ -1,6 +1,8 @@
 package com.dicadut.soms.mapper;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dicadut.soms.domain.Task;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -27,7 +29,7 @@ public class TaskMapperTest {
     @Test
     public void testPagination() {
 
-
+        //  法一：分页插件，适用于所有场景，包括复杂的多表关联场景
         PageHelper.startPage(2, 2); // 查第2页, 页大小为2
         Page<Task> tasks = taskMapper.listAll();    // 执行查询的语句必须紧挨着放在 PageHelper.startPage(2,2) 之后，否则可能不生效
         log.info("{} {}", tasks.getTotal(), tasks.getPageSize());
@@ -35,6 +37,11 @@ public class TaskMapperTest {
             log.info("{}", task);
         }
         log.info("{}", tasks);
+
+        // 法二：mp提供分页方案，适用于单表场景
+        com.baomidou.mybatisplus.extension.plugins.pagination.Page<Task> page = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(2, 2);
+        com.baomidou.mybatisplus.extension.plugins.pagination.Page<Task> taskPage = taskMapper.selectPage(page, new LambdaQueryWrapper<>());
+        log.info("{} {} {}", taskPage.getTotal(), taskPage.getSize(), taskPage.getRecords());
 
     }
 }
