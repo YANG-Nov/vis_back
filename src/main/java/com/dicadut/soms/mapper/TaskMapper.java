@@ -6,8 +6,10 @@ import com.dicadut.soms.dto.*;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -76,4 +78,7 @@ public interface TaskMapper extends BaseMapper<Task> {
     long getAmendingTaskListStatusCount(@Param("status") String taskStatus);
 
     List<TaskScanPositionAppListDTO> selectTaskScanPositionAppList(String taskId);
+
+    @Select("select * from system.t_task")
+    Page<Task> listAll();
 }
