@@ -47,16 +47,3 @@ swagger:
     enable: true
     username: dut
     password: dut
-
-
-##逻辑删除
-#mybatis:
-#  plus.global:
-#    config.db:
-#      config.logic:
-#        delete:
-#          field: flag
-#          value: 1
-#        not:
-#          delete:
-#            value: 0

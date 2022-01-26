@@ -49,6 +49,17 @@ public class BridgeInfo implements Serializable {
     @ApiModelProperty(value = "桥梁名称")
     private String bridgeName;
 
+    @ApiModelProperty(value = "所在匝道位置", example = "东引桥b匝道")
+    private String location;
+
+
+
+
+
+
+
+
+
     @Version
     private Integer version;
 
@@ -61,7 +72,4 @@ public class BridgeInfo implements Serializable {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
-
-    @ApiModelProperty(value = "所在匝道位置", example = "东引桥b匝道")
-    private String location;
 }
