@@ -3,9 +3,18 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.dto.*;
+import com.dicadut.soms.dto.AmendingTaskDTO;
+import com.dicadut.soms.dto.InspectorDTO;
+import com.dicadut.soms.dto.TaskAppListDTO;
+import com.dicadut.soms.dto.TaskContentDTO;
+import com.dicadut.soms.dto.TaskDTO;
+import com.dicadut.soms.dto.TaskDetailsDTO;
+import com.dicadut.soms.dto.TaskDisplayDTO;
+import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
+import com.dicadut.soms.dto.TaskStatisticAppDTO;
+import com.dicadut.soms.dto.TaskStatisticDTO;
 import com.dicadut.soms.dto.viewmodel.PageParam;
-import com.dicadut.soms.dto.viewmodel.Page;
+import com.dicadut.soms.dto.viewmodel.PageResult;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
@@ -75,7 +84,7 @@ public class TaskController {
      */
     @ApiOperation("任务制定页显示任务列表")
     @PostMapping("getAmendingTaskList")
-    public ResponseViewModel<Page<AmendingTaskDTO>> getAmendingTaskList(@RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
+    public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(@RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
          return  ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize(), pageParam.getParam()));
     }
 

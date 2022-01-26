@@ -3,6 +3,8 @@ package com.dicadut.soms.service.impl;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.AmendingTaskDTO;
@@ -15,14 +17,13 @@ import com.dicadut.soms.dto.TaskDisplayDTO;
 import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
 import com.dicadut.soms.dto.TaskStatisticAppDTO;
 import com.dicadut.soms.dto.TaskStatisticDTO;
-import com.dicadut.soms.dto.viewmodel.Page;
+import com.dicadut.soms.dto.viewmodel.PageResult;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.BusinessCodeService;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
-import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -76,10 +77,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public Page<AmendingTaskDTO> getAmendingTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
-        PageHelper.startPage(currentPage, pageSize);
-        com.github.pagehelper.Page<AmendingTaskDTO> helperPage = baseMapper.getAmendingTaskListByePageQuery(taskQueryVO);
-        return Page.buildPage(helperPage);
+    public PageResult<AmendingTaskDTO> getAmendingTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
+        IPage<AmendingTaskDTO> page = new Page<>(currentPage, pageSize);
+        baseMapper.getAmendingTaskListByePageQuery(page, taskQueryVO);
+        return PageResult.buildPage(page);
     }
 
     @Override

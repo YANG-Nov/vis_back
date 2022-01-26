@@ -12,7 +12,7 @@ import com.dicadut.soms.dto.TaskDisplayDTO;
 import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
 import com.dicadut.soms.dto.TaskStatisticAppDTO;
 import com.dicadut.soms.dto.TaskStatisticDTO;
-import com.dicadut.soms.dto.viewmodel.Page;
+import com.dicadut.soms.dto.viewmodel.PageResult;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 
@@ -40,7 +40,7 @@ public interface TaskService extends IService<Task> {
      * @return PageResult<AmendingTaskDTO>
      * @author fan_jane
      */
-    Page<AmendingTaskDTO> getAmendingTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO);
+    PageResult<AmendingTaskDTO> getAmendingTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO);
 
     List<TaskDisplayDTO> getUnclaimedTaskList();
 

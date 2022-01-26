@@ -1,6 +1,7 @@
 package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.AmendingTaskDTO;
 import com.dicadut.soms.dto.ComponentNumberDTO;
@@ -15,10 +16,8 @@ import com.dicadut.soms.dto.TaskStatisticAppDTO;
 import com.dicadut.soms.dto.TaskStatisticDTO;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
-import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -58,7 +57,7 @@ public interface TaskMapper extends BaseMapper<Task> {
     void addInspectorToTask(@Param("taskId") String taskId,
                             @Param("userId") String userId);
 
-    Page<AmendingTaskDTO> getAmendingTaskListByePageQuery(TaskQueryVO taskQueryVO);
+    IPage<AmendingTaskDTO> getAmendingTaskListByePageQuery(IPage<AmendingTaskDTO> page, @Param("taskQueryVO") TaskQueryVO taskQueryVO);
 
     String getInspectionPosition(@Param("taskId") String taskId);
 
@@ -70,7 +69,4 @@ public interface TaskMapper extends BaseMapper<Task> {
     List<InspectorTaskDTO> selectTaskByInspector(@Param("id") String id);
 
     List<TaskScanPositionAppListDTO> selectTaskScanPositionAppList(String taskId);
-
-    @Select("select * from system.t_task")
-    Page<Task> listAll();
 }

@@ -27,7 +27,7 @@ spring:
 
 logging:
   level:
-    com.dicadut.soms: debug
+    com.dicadut.soms: info
   pattern:
     console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t %5L]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
     file: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t %5L]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
@@ -35,6 +35,8 @@ logging:
 mybatis-plus:
   global-config:
     banner: false
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 swagger:
   basic:
@@ -54,10 +56,3 @@ mybatis:
         not:
           delete:
             value: 0
-
-# mybatis 分页插件配置
-pagehelper:
-  helper-dialect: mysql
-  reasonable: true
-  support-methods-arguments: true
-  params: count=countSql
