@@ -27,6 +27,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
             return;
         }
 
+        // 1. 将6个list合并到1个list上
         List<DiseaseRecordDTO.Item> items = new ArrayList<>();
         items.addAll(diseaseRecordDTO.getFeatureFields());
         items.addAll(diseaseRecordDTO.getFeaturePopups());
@@ -35,6 +36,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         items.addAll(diseaseRecordDTO.getDiseaseVoices());
         items.addAll(diseaseRecordDTO.getDiseaseTexts());
 
+        // 2. 将合并后的list转换成与数据库一致的格式
         List<DiseaseRecord> list = new ArrayList<>();
         if (items.size() != 0) {
             for (DiseaseRecordDTO.Item item : items) {
@@ -50,6 +52,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
             }
         }
 
+        // 3. 批量插入
         saveBatch(list);
     }
 }
