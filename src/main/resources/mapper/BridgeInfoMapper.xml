@@ -10,7 +10,11 @@
         <result column="code" property="code"/>
         <result column="main_or_approach" property="mainOrApproach"/>
         <result column="bridge_name" property="bridgeName"/>
+        <result column="location" property="location"/>
+        <result column="version" property="version"/>
         <result column="is_deleted" property="isDeleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <select id="selectCount" resultType="java.lang.Integer">
@@ -28,8 +32,8 @@
     <select id="selectBridgeCompositionList" resultType="com.dicadut.soms.dto.BridgeCompositionDTO">
         SELECT DISTINCT co.id,co.`name`
         from system.t_bridge_info_component bc
-                 INNER JOIN system.t_component c ON system.bc.component_id= c.id
-                 INNER JOIN system.t_component co ON system.c.parent_id = co.id
+        INNER JOIN system.t_component c ON system.bc.component_id= c.id
+        INNER JOIN system.t_component co ON system.c.parent_id = co.id
         WHERE bc.bridge_info_id BETWEEN #{start} AND #{end}
         group by co.id;
     </select>
@@ -37,15 +41,16 @@
     <select id="selectComponentByBridgeComposition" resultType="com.dicadut.soms.dto.ComponentDTO">
         SELECT DISTINCT c.id,c.`name`
         from system.t_bridge_info_component bc
-                 INNER JOIN system.t_component c ON system.bc.component_id= c.id
+        INNER JOIN system.t_component c ON system.bc.component_id= c.id
         WHERE bc.bridge_info_id BETWEEN #{start} AND #{end} AND c.parent_id = #{id}
         group by c.id;
     </select>
     <select id="selectComponentNumberList" resultType="com.dicadut.soms.dto.ComponentNumberDTO">
         SELECT bc.id id,b.stake_or_truss_number number
         FROM system.t_bridge_info_component bc
-                 INNER JOIN system.t_bridge_info b ON b.id=bc.bridge_info_id
-        WHERE component_id=#{id} AND bc.bridge_info_id BETWEEN #{start} AND #{end}
+        INNER JOIN system.t_bridge_info b ON b.id=bc.bridge_info_id
+        WHERE component_id=#{id}
+          AND bc.bridge_info_id BETWEEN #{start} AND #{end}
         GROUP BY bc.bridge_info_id;
     </select>
     <select id="selectLocationList" resultType="com.dicadut.soms.dto.LineLocationDTO">

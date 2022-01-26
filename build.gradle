@@ -13,32 +13,31 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.4.4'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
-    implementation 'org.springframework.boot:spring-boot-starter-aop'
-    implementation 'mysql:mysql-connector-java:5.1.47'
-    implementation 'org.projectlombok:lombok:1.18.10'
-    implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.2'
-//    implementation 'com.baomidou:dynamic-datasource-spring-boot-starter:3.4.1'
-    implementation 'com.alibaba:druid-spring-boot-starter:1.2.5'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.3'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.1'
+    implementation 'org.springframework.boot:spring-boot-starter-aop:2.6.3'
+    implementation 'mysql:mysql-connector-java:5.1.49'
+    implementation 'org.projectlombok:lombok:1.18.22'
+    implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.1'
+    implementation 'com.alibaba:druid-spring-boot-starter:1.2.8'
     implementation 'io.springfox:springfox-swagger2:2.9.2'
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
     implementation 'com.github.xiaoymin:swagger-bootstrap-ui:1.9.6'
-    implementation 'cn.hutool:hutool-all:5.3.10'
-    implementation 'org.testng:testng:7.1.0'
-    implementation 'org.apache.velocity:velocity-engine-core:2.0'
-    implementation 'com.baomidou:mybatis-plus-generator:3.0.5'
+    implementation 'cn.hutool:hutool-all:5.7.20'
+    implementation 'org.testng:testng:7.5'
+    implementation 'org.apache.velocity:velocity-engine-core:2.3'
+    implementation 'com.baomidou:mybatis-plus-generator:3.5.1'
 
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.10'
-    compileOnly 'org.projectlombok:lombok:1.18.10'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
-    testCompileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.projectlombok:lombok:1.18.10'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.projectlombok:lombok:1.18.22'
 
 }
 

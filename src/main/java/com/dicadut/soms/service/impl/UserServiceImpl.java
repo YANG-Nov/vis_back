@@ -42,7 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             //获得status为i的巡检员数量
             QueryWrapper<User> queryWrapper3 = new QueryWrapper<>();
             queryWrapper3.eq("duty",2).eq("status", i);
-            int value = count(queryWrapper3);
+            int value = (int)count(queryWrapper3);
             //把数量和名称封装到对象里
             UserStatusDTO userStatusDTO = new UserStatusDTO();
             userStatusDTO.setValue(value);
@@ -76,7 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             //获得status为i的维修员数量
             QueryWrapper<User> queryWrapper3 = new QueryWrapper<>();
             queryWrapper3.eq("duty",3).eq("status", i);
-            int value = count(queryWrapper3);
+            int value = (int)count(queryWrapper3);
             //把数量和名称封装到对象里
             UserStatusDTO userStatusDTO = new UserStatusDTO();
             userStatusDTO.setValue(value);

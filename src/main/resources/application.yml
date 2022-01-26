@@ -35,6 +35,10 @@ logging:
 mybatis-plus:
   global-config:
     banner: false
+    db-config:
+      logic-delete-field: isDeleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
@@ -45,14 +49,14 @@ swagger:
     password: dut
 
 
-#逻辑删除
-mybatis:
-  plus.global:
-    config.db:
-      config.logic:
-        delete:
-          field: flag
-          value: 1
-        not:
-          delete:
-            value: 0
+##逻辑删除
+#mybatis:
+#  plus.global:
+#    config.db:
+#      config.logic:
+#        delete:
+#          field: flag
+#          value: 1
+#        not:
+#          delete:
+#            value: 0

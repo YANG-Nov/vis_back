@@ -1,26 +1,29 @@
-package com.dicadut.soms.common;
+package com.dicadut.soms.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author fan_jennifer
- * @create 2021-10-2021/10/22 16:32
+ * @create 2021/10/22 16:32
  */
+@Slf4j
 @Component
 public class MyMetaObjectorHandler implements MetaObjectHandler {
+
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "createTime", LocalDateTime::now, LocalDateTime.class);
-        this.strictInsertFill(metaObject, "updateTime", LocalDateTime::now, LocalDateTime.class);
-
+        this.setFieldValByName("createTime", new Date(), metaObject);
+        this.setFieldValByName("updateTime", new Date(), metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "updateTime", LocalDateTime::now, LocalDateTime.class);
+        this.setFieldValByName("updateTime", new Date(), metaObject);
     }
+
 }
