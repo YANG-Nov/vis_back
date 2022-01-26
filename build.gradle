@@ -26,7 +26,7 @@ dependencies {
     implementation 'cn.hutool:hutool-all:5.7.20'
     implementation 'org.testng:testng:7.5'
     implementation 'org.apache.velocity:velocity-engine-core:2.3'
-    implementation 'com.baomidou:mybatis-plus-generator:3.5.1'
+    implementation 'com.baomidou:mybatis-plus-generator:3.0.5'
 
 
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
