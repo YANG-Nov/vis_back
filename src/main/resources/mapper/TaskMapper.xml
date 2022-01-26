@@ -103,10 +103,13 @@
         LEFT JOIN system.t_dictionary dd ON t.task_type =dd.`code`
         WHERE 1 = 1
         <if test="taskQueryVO.taskStatus != null and taskQueryVO.taskStatus != ''">
-          AND t.task_status = #{taskQueryVO.taskStatus}
+            AND t.task_status = #{taskQueryVO.taskStatus}
+        </if>
+        <if test="taskQueryVO.taskStatus == null or taskQueryVO.taskStatus == ''">
+            AND t.task_status in ('1002000004','1002000007','1002000008')
         </if>
         <if test="taskQueryVO.taskType != null and taskQueryVO.taskType != ''">
-          AND t.task_type= #{taskQueryVO.taskType}
+            AND t.task_type= #{taskQueryVO.taskType}
         </if>
         group by t.id
     </select>

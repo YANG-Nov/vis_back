@@ -19,7 +19,7 @@ public class PageResult<T> {
     private int pages;          // pageCount    -> pages    总页数
     private int total;          // totalCount   -> total    总记录数
     private int current;        // pageNo       -> current  当前页
-    private int size;           // pageSize     -> size     也大小
+    private int size;           // pageSize     -> size     页大小
     private List<T> records;    // results      -> records  数据列表
 
     public static <T> PageResult<T> buildPage(IPage<T> page) {
