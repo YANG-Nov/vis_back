@@ -45,7 +45,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
                 diseaseRecord.setComponentId(diseaseRecordDTO.getComponentId());
                 diseaseRecord.setTaskId(diseaseRecordDTO.getTaskId());
                 diseaseRecord.setBridgeInfoId(diseaseRecordDTO.getPositionId());
-                diseaseRecord.setDiseaseAttributeId(item.getDiseaseAttributeId());
+                diseaseRecord.setDiseaseAttributeId(item.getId());
                 diseaseRecord.setContent(item.getContent());
                 diseaseRecord.setType(item.getType());
                 list.add(diseaseRecord);

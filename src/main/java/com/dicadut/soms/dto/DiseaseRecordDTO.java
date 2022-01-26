@@ -18,13 +18,14 @@ public class DiseaseRecordDTO {
 //        componentId:"222",
 //        positionId:"333",
 //        diseaseId:"444",
-//        featureField: [{diseaseAttributeId:10301,   content:5,type:1},{id:10401, content:56,type:1}],        2
+//        featureField: [{id:10301,   content:5,type:1},{id:10401, content:56,type:1}],                        2
 //        featurePopup: [{id:20101,  type:2},{id:20202,type:2}],                                               2
 //        featureRadio: [{id:30102,  type:3},{id:30101,type:3}],                                               2
 //        diseasePicture: [{content:"http:abc/dbc.img"  type:4},{content:"http:abc/dbc.mp4"  type:4}],         2
 //        diseaseVoice: [{content:"http:abc/dbc.wav"  type:5}],                                                1
 //        diseaseText: [{content:"病害描述"  type:6}]                                                            1
 //    }
+    // TODO: id 改成 diseaseAttributeId, 6个数组的属性名要用复数即加s
 
     private String taskId;
     private String componentId;
@@ -42,9 +43,9 @@ public class DiseaseRecordDTO {
 
 
     @Data
-    public static class Item{
+    public static class Item {
         private Integer type;                   // 病害记录种类：(1)输入框,(2)下拉框,(3)单选框,(4)照片/视频,(5)语音,(6)文本
-        private String diseaseAttributeId;
+        private String id;
         private String content;
     }
 
