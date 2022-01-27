@@ -47,7 +47,7 @@ public class DiseaseRecordController {
     /**
      * 通过id查询
      */
-    @GetMapping("/get-by-id/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseViewModel<Object> getById(@PathVariable(value = "id") Integer id) {
         return ResponseViewModel.ok(diseaseRecordService.getById(id));
     }
@@ -64,7 +64,7 @@ public class DiseaseRecordController {
     /**
      * 通过id删除
      */
-    @DeleteMapping("/delete-by-id/{id}")
+    @DeleteMapping("/deleteById/{id}")
     public ResponseViewModel<Object> delete(@PathVariable(value = "id") String ids) {
         String[] idsStrs = ids.split(",");
         for (String id : idsStrs) {
@@ -102,13 +102,7 @@ public class DiseaseRecordController {
         final LambdaQueryWrapper<DiseaseRecord> lambda = new QueryWrapper<DiseaseRecord>().lambda();
         this.buildCondition(lambda, param);
         final IPage<DiseaseRecord> page = diseaseRecordService.page(new Page<>(pageParam.getPageNo(), pageParam.getPageSize()), lambda);
-        PageResult<DiseaseRecord> pr = new PageResult();
-        pr.setPageCount((int) page.getPages());
-        pr.setTotalCount((int) page.getTotal());
-        pr.setPageNo(new Long(page.getCurrent()).intValue());
-        pr.setPageSize((int) page.getSize());
-        pr.setResults(page.getRecords());
-        return ResponseViewModel.ok(pr);
+        return ResponseViewModel.ok(PageResult.buildPage(page));
     }
 
 
