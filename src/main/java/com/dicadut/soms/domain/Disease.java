@@ -21,7 +21,7 @@ import java.util.Date;
  * @since 2021-11-21
  */
 @Data
-@TableName("system.disease")
+@TableName("system.t_disease")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Disease{
