@@ -45,7 +45,7 @@ public class DiseaseRecordDTO {
     @Data
     public static class Item {
         private Integer type;                   // 病害记录种类：(1)输入框,(2)下拉框,(3)单选框,(4)照片/视频,(5)语音,(6)文本
-        private String id;
+        private String diseaseAttributeId;
         private String content;
     }
 

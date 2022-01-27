@@ -6,11 +6,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.domain.DiseaseRecord;
+import com.dicadut.soms.dto.DiseaseRecordDTO;
 import com.dicadut.soms.service.DiseaseRecordService;
 import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
+import com.dicadut.soms.vo.TaskVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +36,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Auto-generator
  * @since 2022-01-26
  */
+@Api(tags = "病害信息管理接口")
+@Slf4j
 @RestController
 @RequestMapping("/disease_record")
 public class DiseaseRecordController {
@@ -150,5 +157,10 @@ public class DiseaseRecordController {
     private static class DiseaseRecordReqVo extends DiseaseRecord {
     }
 
-
+    @ApiOperation("添加病害记录")
+    @PostMapping("addDiseaseRecords")
+    public ResponseViewModel addDiseaseRecords(@RequestBody DiseaseRecordDTO diseaseRecordDTO) {
+        diseaseRecordService.addDiseaseRecords(diseaseRecordDTO);
+        return ResponseViewModel.ok();
+    }
 }
