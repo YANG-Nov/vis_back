@@ -1,6 +1,7 @@
 package com.dicadut.soms.service.impl;
 
 import com.dicadut.soms.domain.DiseaseRecord;
+import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
 import com.dicadut.soms.dto.DiseaseRecordDTO;
 import com.dicadut.soms.mapper.DiseaseRecordMapper;
 import com.dicadut.soms.service.DiseaseRecordService;
@@ -54,5 +55,10 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
 
         // 3. 批量插入
         saveBatch(list);
+    }
+
+    //App添加病害后显示病害记录表
+    public List<DiseaseRecordAppListDTO> getDiseaseRecordAppList(String taskId, String componentId) {
+        return baseMapper.selectDiseaseRecordAppList(taskId,componentId);
     }
 }

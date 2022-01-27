@@ -14,4 +14,20 @@
         <result column="content" property="content" />
     </resultMap>
 
+    <select id="selectDiseaseRecordAppList" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+        select
+            dr.component_id componentId,
+            c.name component,
+            dr.bridge_info_id positionId,
+            bi.stake_or_truss_number position,
+            dr.disease_id diseaseId,
+            d.name disease
+        from system.t_disease_record dr
+            LEFT JOIN system.t_component c on dr.component_id = c.id
+            LEFT JOIN system.t_component cc on cc.id = c.parent_id
+            LEFT JOIN system.t_bridge_info bi on dr.bridge_info_id = bi.id
+            LEFT JOIN system.t_disease d on dr.disease_id = d.id
+        where (dr.task_id,c.parent_id) = (#{taskId},#{componentId})
+        GROUP BY component_id,bridge_info_id,disease_id
+    </select>
 </mapper>
