@@ -6,7 +6,10 @@ import java.time.OffsetDateTime;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -30,6 +33,7 @@ public class TaskBridgeComponent extends Model<TaskBridgeComponent> {
     /**
      * 自增id
      */
+    @JsonSerialize(using= ToStringSerializer.class)
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
@@ -47,11 +51,11 @@ public class TaskBridgeComponent extends Model<TaskBridgeComponent> {
     /**
      * 创建时间
      */
-    private OffsetDateTime createTime;
+    private Date createTime;
     /**
      * 更新时间
      */
-    private OffsetDateTime updateTime;
+    private Date updateTime;
 
 
 }
