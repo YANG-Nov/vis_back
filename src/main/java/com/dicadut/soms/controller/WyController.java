@@ -1,6 +1,6 @@
 package com.dicadut.soms.controller;
 
-import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.dto.WyResDTO;
 import com.dicadut.soms.service.WyService;
 import io.swagger.annotations.Api;

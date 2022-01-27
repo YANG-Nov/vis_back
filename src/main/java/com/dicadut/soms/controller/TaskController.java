@@ -1,7 +1,7 @@
 package com.dicadut.soms.controller;
 
 
-import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.AmendingTaskDTO;
 import com.dicadut.soms.dto.InspectorDTO;
@@ -13,8 +13,8 @@ import com.dicadut.soms.dto.TaskDisplayDTO;
 import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
 import com.dicadut.soms.dto.TaskStatisticAppDTO;
 import com.dicadut.soms.dto.TaskStatisticDTO;
-import com.dicadut.soms.dto.viewmodel.PageParam;
-import com.dicadut.soms.dto.viewmodel.PageResult;
+import com.dicadut.soms.viewmodel.PageParam;
+import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;

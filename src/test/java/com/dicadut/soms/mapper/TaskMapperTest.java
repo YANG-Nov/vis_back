@@ -4,7 +4,7 @@ package com.dicadut.soms.mapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.dto.viewmodel.PageResult;
+import com.dicadut.soms.viewmodel.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,7 @@
 package com.dicadut.soms.controller;
 
 
-import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.dto.TypeNameDTO;
 import com.dicadut.soms.service.DictionaryService;
 import io.swagger.annotations.Api;

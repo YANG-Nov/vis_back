@@ -1,4 +1,4 @@
-package com.dicadut.soms.dto.viewmodel;
+package com.dicadut.soms.viewmodel;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;

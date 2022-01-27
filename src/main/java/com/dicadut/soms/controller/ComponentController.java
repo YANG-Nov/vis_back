@@ -1,6 +1,6 @@
 package com.dicadut.soms.controller;
 
-import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.ComponentPositionAppListDTO;

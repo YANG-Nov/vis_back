@@ -1,4 +1,4 @@
-package com.dicadut.soms.common;
+package com.dicadut.soms.viewmodel;
 
 import com.dicadut.soms.util.ResourceUtil;
 import lombok.Data;
@@ -17,7 +17,7 @@ public class ResponseViewModel<T> {
     private T data;
 
     public static <T> ResponseViewModel<T> ok() {
-        return new ResponseViewModel<>();
+        return new ResponseViewModel<T>();
     }
 
     public static <T> ResponseViewModel<T> ok(T data) {
@@ -25,7 +25,7 @@ public class ResponseViewModel<T> {
     }
 
     public static <T> ResponseViewModel<T> fail(String msg) {
-        return new ResponseViewModel<>(-1, msg, null);
+        return new ResponseViewModel<T>(-1, msg, null);
     }
 
     public ResponseViewModel() {

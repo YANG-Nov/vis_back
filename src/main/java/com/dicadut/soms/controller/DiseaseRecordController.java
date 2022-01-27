@@ -1,14 +1,15 @@
 package com.dicadut.soms.controller;
 
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.dicadut.soms.common.ResponseViewModel;
 import com.dicadut.soms.domain.DiseaseRecord;
-import com.dicadut.soms.dto.viewmodel.PageParam;
-import com.dicadut.soms.dto.viewmodel.PageResult;
 import com.dicadut.soms.service.DiseaseRecordService;
+import com.dicadut.soms.viewmodel.PageParam;
+import com.dicadut.soms.viewmodel.PageResult;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;

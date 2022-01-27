@@ -1,10 +1,12 @@
-package com.dicadut.soms.common;
+package com.dicadut.soms.viewmodel;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
@@ -17,7 +19,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 @ApiModel("统一响应对象")
-public class Result<T> {
+public class Result {
 
     // 0 -> success
     // 1 -> failure

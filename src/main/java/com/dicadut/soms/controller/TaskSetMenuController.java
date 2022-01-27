@@ -1,7 +1,7 @@
 package com.dicadut.soms.controller;
 
 
-import com.dicadut.soms.common.ResponseViewModel;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.service.TaskSetMenuService;
 import io.swagger.annotations.Api;
