@@ -9,9 +9,7 @@ import com.dicadut.soms.domain.DiseaseRecord;
 import com.dicadut.soms.dto.viewmodel.PageParam;
 import com.dicadut.soms.dto.viewmodel.PageResult;
 import com.dicadut.soms.service.DiseaseRecordService;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -100,11 +98,11 @@ public class DiseaseRecordController {
         this.buildCondition(lambda, param);
         final IPage<DiseaseRecord> page = diseaseRecordService.page(new Page<>(pageParam.getPageNo(), pageParam.getPageSize()), lambda);
         PageResult<DiseaseRecord> pr = new PageResult();
-        pr.setPages((int) page.getPages());
-        pr.setTotal((int) page.getTotal());
-        pr.setCurrent(new Long(page.getCurrent()).intValue());
-        pr.setSize((int) page.getSize());
-        pr.setRecords(page.getRecords());
+        pr.setPageCount((int) page.getPages());
+        pr.setTotalCount((int) page.getTotal());
+        pr.setPageNo(new Long(page.getCurrent()).intValue());
+        pr.setPageSize((int) page.getSize());
+        pr.setResults(page.getRecords());
         return ResponseViewModel.ok(pr);
     }
 

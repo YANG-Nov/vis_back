@@ -1,7 +1,6 @@
 package com.dicadut.soms.dto.viewmodel;
 
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Data;
 
@@ -16,15 +15,19 @@ import java.util.List;
  */
 @Data
 public class PageResult<T> {
-    private int pages;          // pageCount    -> pages    总页数
-    private int total;          // totalCount   -> total    总记录数
-    private int current;        // pageNo       -> current  当前页
-    private int size;           // pageSize     -> size     页大小
-    private List<T> records;    // results      -> records  数据列表
+    private int pageCount;      // pageCount    -> pages    总页数
+    private int totalCount;     // totalCount   -> total    总记录数
+    private int pageNo;         // pageNo       -> current  当前页
+    private int pageSize;       // pageSize     -> size     页大小
+    private List<T> results;    // results      -> records  数据列表
 
     public static <T> PageResult<T> buildPage(IPage<T> page) {
         PageResult<T> pageResult = new PageResult<>();
-        BeanUtil.copyProperties(page, pageResult);
+        pageResult.setPageCount((int) page.getPages());
+        pageResult.setTotalCount((int) page.getTotal());
+        pageResult.setPageNo((int) page.getCurrent());
+        pageResult.setPageSize((int) page.getSize());
+        pageResult.setResults(page.getRecords());
         return pageResult;
     }
 }
