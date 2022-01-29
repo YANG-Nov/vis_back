@@ -27,7 +27,79 @@
             LEFT JOIN system.t_component cc on cc.id = c.parent_id
             LEFT JOIN system.t_bridge_info bi on dr.bridge_info_id = bi.id
             LEFT JOIN system.t_disease d on dr.disease_id = d.id
-        where (dr.task_id,c.parent_id) = (#{taskId},#{componentId})
+        where (dr.task_id,dr.component_id,dr.bridge_info_id) = (#{taskId},#{componentId},#{positionId})
         GROUP BY component_id,bridge_info_id,disease_id
+    </select>
+
+    <select id="selectFeatureFields" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+        select
+            dr.disease_attribute_id diseaseAttributeId,
+            da.value diseaseAttributeName,
+            dr.content,
+            dr.type
+        from system.t_disease_record dr
+                 LEFT JOIN system.t_disease_attribute da on dr.disease_attribute_id = da.id
+        where (dr.task_id,dr.component_id,dr.bridge_info_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
+          and dr.type = 1
+    </select>
+
+    <select id="selectFeaturePopups" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+        select
+            dr.disease_attribute_id diseaseAttributeId,
+            da.value diseaseAttributeName,
+            dr.content,
+            dr.type
+        from system.t_disease_record dr
+                 LEFT JOIN system.t_disease_attribute da on dr.disease_attribute_id = da.id
+        where (dr.task_id,dr.component_id,dr.bridge_info_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
+          and dr.type = 2
+    </select>
+
+    <select id="selectFeatureRadios" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+        select
+            dr.disease_attribute_id diseaseAttributeId,
+            da.value diseaseAttributeName,
+            dr.content,
+            dr.type
+        from system.t_disease_record dr
+                 LEFT JOIN system.t_disease_attribute da on dr.disease_attribute_id = da.id
+        where (dr.task_id,dr.component_id,dr.bridge_info_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
+          and dr.type = 3
+    </select>
+
+    <select id="selectDiseasePictures" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+        select
+            dr.disease_attribute_id diseaseAttributeId,
+            da.value diseaseAttributeName,
+            dr.content,
+            dr.type
+        from system.t_disease_record dr
+                 LEFT JOIN system.t_disease_attribute da on dr.disease_attribute_id = da.id
+        where (dr.task_id,dr.component_id,dr.bridge_info_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
+          and dr.type = 4
+    </select>
+
+    <select id="selectDiseaseVoices" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+        select
+            dr.disease_attribute_id diseaseAttributeId,
+            da.value diseaseAttributeName,
+            dr.content,
+            dr.type
+        from system.t_disease_record dr
+                 LEFT JOIN system.t_disease_attribute da on dr.disease_attribute_id = da.id
+        where (dr.task_id,dr.component_id,dr.bridge_info_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
+          and dr.type = 5
+    </select>
+
+    <select id="selectDiseaseTexts" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+        select
+            dr.disease_attribute_id diseaseAttributeId,
+            da.value diseaseAttributeName,
+            dr.content,
+            dr.type
+        from system.t_disease_record dr
+                 LEFT JOIN system.t_disease_attribute da on dr.disease_attribute_id = da.id
+        where (dr.task_id,dr.component_id,dr.bridge_info_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
+          and dr.type = 6
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.dicadut.soms.service.impl;
 
 import com.dicadut.soms.domain.DiseaseRecord;
+import com.dicadut.soms.dto.DiseaseDetailsListDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
 import com.dicadut.soms.dto.DiseaseRecordDTO;
 import com.dicadut.soms.mapper.DiseaseRecordMapper;
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -57,8 +59,41 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         saveBatch(list);
     }
 
-    //App添加病害后显示病害记录表
-    public List<DiseaseRecordAppListDTO> getDiseaseRecordAppList(String taskId, String componentId) {
-        return baseMapper.selectDiseaseRecordAppList(taskId,componentId);
+    //App添加病害后,添加病害页显示病害记录
+    @Override
+    public List<DiseaseRecordAppListDTO> getDiseaseRecordAppList(String taskId, String componentId, String positionId) {
+        return baseMapper.selectDiseaseRecordAppList(taskId,componentId,positionId);
+    }
+
+//    @Override
+//    public List<InspectorDTO> getInspectorList() {
+//        List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
+//        for (InspectorDTO inspectorDTO :
+//                inspectorDTOList) {
+//            inspectorDTO.setChildren(baseMapper.selectTaskByInspector(inspectorDTO.getId()));
+//        }
+//        return inspectorDTOList;
+//    }
+    public Collection<DiseaseRecordAppListDTO> getDiseaseDetailsList(String taskId, String componentId, String positionId, String diseaseId){
+        List<DiseaseRecordAppListDTO> list = baseMapper.selectDiseaseRecordAppList(taskId, componentId, positionId);
+        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
+            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectFeatureFields(taskId,componentId,positionId,diseaseId));
+        }
+        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
+            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectFeaturePopups(taskId,componentId,positionId,diseaseId));
+        }
+        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
+            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectFeatureRadios(taskId,componentId,positionId,diseaseId));
+        }
+        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
+            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectDiseasePictures(taskId,componentId,positionId,diseaseId));
+        }
+        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
+            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectDiseaseVoices(taskId,componentId,positionId,diseaseId));
+        }
+        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
+            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectDiseaseTexts(taskId,componentId,positionId,diseaseId));
+        }
+        return list;
     }
 }

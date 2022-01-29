@@ -6,14 +6,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.domain.DiseaseRecord;
-import com.dicadut.soms.dto.DiseaseAttributeListDTO;
-import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
-import com.dicadut.soms.dto.DiseaseRecordDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.service.DiseaseRecordService;
 import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
-import com.dicadut.soms.vo.TaskVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
@@ -22,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -155,10 +153,19 @@ public class DiseaseRecordController {
         return ResponseViewModel.ok();
     }
 
-    @ApiOperation("App添加病害后显示病害记录表")
+    @ApiOperation("App添加病害后,添加病害页显示病害记录")
     @GetMapping("getDiseaseRecordAppList")
-    public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId,@RequestParam String componentId) {
-        List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId,componentId);
+    public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId,@RequestParam String componentId,@RequestParam String positionId) {
+        List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId,componentId,positionId);
         return ResponseViewModel.ok(diseaseRecordAppList);
     }
+
+    @ApiOperation("APP添加病害后，查看病害详情")
+    @GetMapping("getDiseaseDetailsList")
+    public ResponseViewModel<Collection<DiseaseRecordAppListDTO>> getDiseaseDetailsList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId) {
+        Collection<DiseaseRecordAppListDTO> diseaseDetailsList = diseaseRecordService.getDiseaseDetailsList(taskId,componentId,positionId,diseaseId);
+        return ResponseViewModel.ok(diseaseDetailsList);
+    }
+
+
 }
