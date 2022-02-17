@@ -45,7 +45,7 @@
         WHERE bc.bridge_info_id BETWEEN #{start} AND #{end} AND c.parent_id = #{id}
         group by c.id;
     </select>
-    <select id="selectComponentNumberList" resultType="com.dicadut.soms.dto.ComponentNumberDTO">
+    <select id="selectComponentNumberList" resultType="com.dicadut.soms.dto.StakeNumberDTO">
         SELECT bc.id id,b.stake_or_truss_number number
         FROM system.t_bridge_info_component bc
         INNER JOIN system.t_bridge_info b ON b.id=bc.bridge_info_id
