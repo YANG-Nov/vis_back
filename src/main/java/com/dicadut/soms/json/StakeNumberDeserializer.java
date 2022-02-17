@@ -73,7 +73,7 @@ public class StakeNumberDeserializer extends JsonDeserializer<String> {
         if (value != null && !"".equals(value.trim())) {
             result = String.format("%s%03d", value.charAt(0), Integer.parseInt(value.substring(1)));
         }
-        log.info("serialize stake number: {} -->> {}", value, result);
+        log.info("deserialize stake number: {} -->> {}", value, result);
         return result;
     }
 }
