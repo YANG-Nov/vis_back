@@ -3,17 +3,7 @@ package com.dicadut.soms.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.dto.AmendingTaskDTO;
-import com.dicadut.soms.dto.ComponentNumberDTO;
-import com.dicadut.soms.dto.ComponentNumberTotalDTO;
-import com.dicadut.soms.dto.InspectorDTO;
-import com.dicadut.soms.dto.InspectorTaskDTO;
-import com.dicadut.soms.dto.TaskAppListDTO;
-import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskDetailsDTO;
-import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
-import com.dicadut.soms.dto.TaskStatisticAppDTO;
-import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -40,8 +30,14 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     List<InspectorDTO> selectInspectorList();
 
-    List<TaskAppListDTO> selectTaskAppList(@Param("taskStatus") Integer taskStatus,
-                                           @Param("inspectionFrequency") Integer inspectionFrequency);
+    List<TaskEndTimeAppListDTO> selectTaskEndTimeAppList(@Param("taskStatus") Integer taskStatus,
+                                                         @Param("inspectionFrequency") Integer inspectionFrequency);
+
+    List<TaskInspectionAppListDTO> selectTaskInspectionAppList(@Param("taskStatus") Integer taskStatus,
+                                                     @Param("inspectionFrequency") Integer inspectionFrequency);
+
+    List<TaskDetailsAppListDTO> selectTaskDetailsAppList(@Param("taskStatus") Integer taskStatus,
+                                                  @Param("inspectionFrequency") Integer inspectionFrequency);
 
     TaskDetailsDTO selectTaskDetails(@Param("taskId") String taskId);
 

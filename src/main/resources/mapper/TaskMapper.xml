@@ -54,14 +54,48 @@
         group by id
     </select>
 
-    <select id="selectTaskAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
-        select
-            t.`code`,t.bridge_storey AS bridgeStorey,t.stake_begin AS stakeBegin,t.stake_end AS stakeEnd,
-               t.code_name AS taskDetail,t.end_time AS deadTime,
-               c.name AS componentName
-        from system.task t JOIN system.task_component tc on t.id = tc.task_id
-                           JOIN system.component c on tc.component_id = c.id
-        where (t.task_status,c.Inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
+    <select id="selectTaskEndTimeAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
+        SELECT
+            t.id,
+            t.end_time
+        FROM system.t_task t
+                 LEFT JOIN system.t_task_bridge_component tbc ON t.id = tbc.task_id
+                 LEFT JOIN system.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
+        WHERE
+            (t.task_status,bic.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
+        GROUP BY t.id
+    </select>
+
+    <select id="selectTaskInspectionAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
+        SELECT
+            t.id,
+            bic.inspection_route,
+            MIN(bic.inspection_stake_number) inspection_stake_number_min,
+            MAX(bic.inspection_stake_number) inspection_stake_number_max
+        FROM system.t_task t
+                 LEFT JOIN system.t_task_bridge_component tbc ON t.id = tbc.task_id
+                 LEFT JOIN system.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
+        WHERE
+            (t.task_status,bic.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
+        GROUP BY t.id
+    </select>
+
+    <select id="selectTaskDetailsAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
+        SELECT
+            t.id,
+            bi.location route,
+            MIN(bi.stake_or_truss_number) stake_or_truss_number_min,
+            MAX(bi.stake_or_truss_number) stake_or_truss_number_max,
+            replace(substring(substring_index(c.xname, '/', 3), char_length(substring_index(c.xname, '/', 3-1)) + 1), '/', '') level_two_parent_name	-- 二级构件名称
+        FROM system.t_task t
+                 LEFT JOIN system.t_task_bridge_component tbc ON t.id = tbc.task_id
+                 LEFT JOIN system.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
+                 LEFT JOIN system.t_bridge_info bi ON bic.bridge_info_id = bi.id
+                 LEFT JOIN system.t_component c ON bic.component_id = c.id
+        WHERE
+            (t.task_status,bic.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
+          AND c.id != c.parent_id
+        GROUP BY t.id
     </select>
 
     <select id="selectTaskDetails" resultType="com.dicadut.soms.dto.TaskDetailsDTO">

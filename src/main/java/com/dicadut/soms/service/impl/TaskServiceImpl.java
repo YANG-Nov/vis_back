@@ -1,5 +1,7 @@
 package com.dicadut.soms.service.impl;
 
+
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -7,16 +9,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.dto.AmendingTaskDTO;
-import com.dicadut.soms.dto.InspectorDTO;
-import com.dicadut.soms.dto.TaskAppListDTO;
-import com.dicadut.soms.dto.TaskContentDTO;
-import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskDetailsDTO;
-import com.dicadut.soms.dto.TaskDisplayDTO;
-import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
-import com.dicadut.soms.dto.TaskStatisticAppDTO;
-import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskMapper;
@@ -32,6 +25,8 @@ import javax.annotation.Resource;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author fan_jennifer
@@ -183,10 +178,48 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return inspectorDTOList;
     }
 
-    //App待确认页面，每日一次
-    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency) {
-        return baseMapper.selectTaskAppList(taskStatus, inspectionFrequency);
+    /**
+     * App任务列表
+     * @param taskStatus 任务状态
+     * @param inspectionFrequency 巡检频率
+     * @return
+     */
+//    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency) {
+////        List<TaskAppListDTO> taskEndTimeAppList = baseMapper.selectTaskEndTimeAppList(taskStatus, inspectionFrequency);
+////        List<TaskAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus,inspectionFrequency);
+////        List<TaskAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus,inspectionFrequency);
+//        return taskEndTimeAppList;
+//    }
+
+
+
+    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency){
+        // 理论上这三个list的长度要一样，即任务数，否则可能有bug
+        List<TaskEndTimeAppListDTO> taskEndTimeAppList = baseMapper.selectTaskEndTimeAppList(taskStatus, inspectionFrequency);
+        List<TaskInspectionAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus,inspectionFrequency);
+        List<TaskDetailsAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus,inspectionFrequency);
+
+        List<TaskAppListDTO> taskAppListDTOList = new ArrayList();  // 存放结果列表
+
+        // 理论上这三个map的长度要一样，即任务数，否则可能有bug
+        Map<String, TaskEndTimeAppListDTO> taskEndTimeMap = taskEndTimeAppList.stream().collect(Collectors.toMap(TaskEndTimeAppListDTO::getId, e -> e, (e1, e2) -> e1)); // 将obj1List转成 map
+        Map<String, TaskInspectionAppListDTO> taskInspectionMap = taskInspectionAppList.stream().collect(Collectors.toMap(TaskInspectionAppListDTO::getId, e -> e, (e1, e2) -> e1));  // 将obj2List转成 map
+        Map<String, TaskDetailsAppListDTO> taskDetailsMap = taskDetailsAppList.stream().collect(Collectors.toMap(TaskDetailsAppListDTO::getId, e -> e, (e1, e2) -> e1)); // 将obj3List转成 map
+
+        // 任意遍历一个map的key，比如obj1Map
+        taskEndTimeMap.keySet().forEach(key-> {
+            TaskAppListDTO of = new TaskAppListDTO();
+            BeanUtil.copyProperties(taskEndTimeMap.get(key), of); // 将 obj1 的属性 copy 到 of  对象
+            BeanUtil.copyProperties(taskInspectionMap.get(key), of); // 将 obj2 的属性 copy 到 of  对象
+            BeanUtil.copyProperties(taskDetailsMap.get(key), of); // 将 obj3 的属性 copy 到 of  对象
+            taskAppListDTOList.add(of);
+        });
+        return taskAppListDTOList;
     }
+
+
+
+
 
     //查看任务信息
     @Override
