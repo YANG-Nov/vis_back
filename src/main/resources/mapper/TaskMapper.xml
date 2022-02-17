@@ -54,7 +54,7 @@
         group by id
     </select>
 
-    <select id="selectTaskEndTimeAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
+    <select id="selectTaskEndTimeAppList" resultType="com.dicadut.soms.dto.TaskEndTimeAppListDTO">
         SELECT
             t.id,
             t.end_time
@@ -66,7 +66,7 @@
         GROUP BY t.id
     </select>
 
-    <select id="selectTaskInspectionAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
+    <select id="selectTaskInspectionAppList" resultType="com.dicadut.soms.dto.TaskInspectionAppListDTO">
         SELECT
             t.id,
             bic.inspection_route,
@@ -80,7 +80,7 @@
         GROUP BY t.id
     </select>
 
-    <select id="selectTaskDetailsAppList" resultType="com.dicadut.soms.dto.TaskAppListDTO">
+    <select id="selectTaskDetailsAppList" resultType="com.dicadut.soms.dto.TaskDetailsAppListDTO">
         SELECT
             t.id,
             bi.location route,
