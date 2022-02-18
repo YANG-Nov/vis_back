@@ -17,32 +17,31 @@
 
     <select id="selectCount" resultType="java.lang.Integer">
         select count(*)
-        from system.component;
+        from soms.t_component
     </select>
 
     <select id="selectComponentAppList" resultType="com.dicadut.soms.dto.ComponentAppListDTO">
         select
-               c.name,
-               c.id
-        from system.t_component c
+            c.name,
+            c.id
+        from soms.t_component c
         where
             (
-            select count(1)
-            from system.t_component i
-            where i.parent_id = c.id
+                select count(1)
+                from soms.t_component i
+                where i.parent_id = c.id
             ) = 0
-          and c.xpath like '%${componentId}%';
+          and c.xpath like '%${componentId}%'
     </select>
 
     <select id="selectComponentPositionAppList" resultType="com.dicadut.soms.dto.ComponentPositionAppListDTO">
         SELECT
             bi.stake_or_truss_number as position,
             bi.id
-        FROM system.t_task_bridge_component tbc
-                    LEFT JOIN system.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
-                    LEFT JOIN system.t_bridge_info bi ON bic.bridge_info_id = bi.id
-        WHERE
-            tbc.task_id = #{taskId}
+        FROM soms.t_task_bridge_component tbc
+        LEFT JOIN soms.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
+        LEFT JOIN soms.t_bridge_info bi ON bic.bridge_info_id = bi.id
+        WHERE tbc.task_id = #{taskId}
           AND bic.component_id = #{componentId}
     </select>
 

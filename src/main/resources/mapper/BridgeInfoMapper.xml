@@ -19,43 +19,44 @@
 
     <select id="selectCount" resultType="java.lang.Integer">
         select count(*)
-        from system.t_dictionary;
+        from soms.t_dictionary
     </select>
 
     <select id="selectNumberListByGenreLine" resultType="com.dicadut.soms.dto.StakeNumberDTO">
-        SELECT b.`id`,b.stake_or_truss_number number
-        FROM system.t_bridge_info b
-        where b.line = #{line} AND main_or_approach=#{genre}
-        group by b.id;
+        SELECT b.id, b.stake_or_truss_number number
+        FROM soms.t_bridge_info b
+        where b.line = #{line}
+          AND b.main_or_approach=#{genre}
+        group by b.id
     </select>
 
     <select id="selectBridgeCompositionList" resultType="com.dicadut.soms.dto.BridgeCompositionDTO">
         SELECT DISTINCT co.id,co.`name`
-        from system.t_bridge_info_component bc
-        INNER JOIN system.t_component c ON system.bc.component_id= c.id
-        INNER JOIN system.t_component co ON system.c.parent_id = co.id
+        from soms.t_bridge_info_component bc
+        INNER JOIN soms.t_component c ON bc.component_id= c.id
+        INNER JOIN soms.t_component co ON c.parent_id = co.id
         WHERE bc.bridge_info_id BETWEEN #{start} AND #{end}
-        group by co.id;
+        group by co.id
     </select>
 
     <select id="selectComponentByBridgeComposition" resultType="com.dicadut.soms.dto.ComponentDTO">
         SELECT DISTINCT c.id,c.`name`
-        from system.t_bridge_info_component bc
-        INNER JOIN system.t_component c ON system.bc.component_id= c.id
+        from soms.t_bridge_info_component bc
+        INNER JOIN soms.t_component c ON bc.component_id= c.id
         WHERE bc.bridge_info_id BETWEEN #{start} AND #{end} AND c.parent_id = #{id}
-        group by c.id;
+        group by c.id
     </select>
     <select id="selectComponentNumberList" resultType="com.dicadut.soms.dto.StakeNumberDTO">
         SELECT bc.id id,b.stake_or_truss_number number
-        FROM system.t_bridge_info_component bc
-        INNER JOIN system.t_bridge_info b ON b.id=bc.bridge_info_id
+        FROM soms.t_bridge_info_component bc
+        INNER JOIN soms.t_bridge_info b ON b.id=bc.bridge_info_id
         WHERE component_id=#{id}
           AND bc.bridge_info_id BETWEEN #{start} AND #{end}
-        GROUP BY bc.bridge_info_id;
+        GROUP BY bc.bridge_info_id
     </select>
     <select id="selectLocationList" resultType="com.dicadut.soms.dto.LineLocationDTO">
         SELECT DISTINCT main_or_approach genreId,line lineId ,location
-        FROM system.t_bridge_info b
-        GROUP BY b.id;
+        FROM soms.t_bridge_info b
+        GROUP BY b.id
     </select>
 </mapper>

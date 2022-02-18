@@ -15,8 +15,9 @@
         select
             d.name AS name,
             d.id AS id
-        from system.t_component_disease cd JOIN system.t_disease d on cd.disease_id = d.id
-        where (cd.component_id) = (#{componentId})
+        from soms.t_component_disease cd
+        JOIN soms.t_disease d on cd.disease_id = d.id
+        where cd.component_id = #{componentId}
     </select>
 
     <select id="selectDiseaseAttributeAppList" resultType="com.dicadut.soms.dto.DiseaseAttributeListDTO">
@@ -26,10 +27,10 @@
             da.value,
             da.type,
             da.unit
-        from system.t_disease d
-        LEFT JOIN system.t_disease_disease_attribute dda on d.id = dda.disease_id
-        LEFT JOIN system.t_disease_attribute da on dda.disease_attribute_group = da.group
-        where (d.id) = (#{diseaseId})
+        from soms.t_disease d
+        LEFT JOIN soms.t_disease_disease_attribute dda on d.id = dda.disease_id
+        LEFT JOIN soms.t_disease_attribute da on dda.disease_attribute_group = da.group
+        where d.id = #{diseaseId}
     </select>
 
 </mapper>

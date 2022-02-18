@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * @create 2021-10-2021/10/22 14:12
  */
 @Data
-@TableName("system.t_task")
+@TableName("soms.t_task")
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value="Task对象", description="任务表")

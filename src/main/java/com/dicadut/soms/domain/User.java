@@ -12,7 +12,7 @@ import java.util.Date;
  * @create 2021-10-13 12:29
  */
 @Data
-@TableName("system.user")
+@TableName("soms.t_user")
 public class User {
     @ApiModelProperty(value = "用户id", example = "23863422-8b51-4084-80b7-e419483f82b9")
     private String id;

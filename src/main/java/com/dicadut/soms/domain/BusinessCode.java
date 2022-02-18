@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("system.t_business_code")
+@TableName("soms.t_business_code")
 public class BusinessCode extends Model<BusinessCode> {
 
     private static final long serialVersionUID = 1L;

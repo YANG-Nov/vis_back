@@ -26,7 +26,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("system.t_task_bridge_component")
+@TableName("soms.t_task_bridge_component")
 public class TaskBridgeComponent extends Model<TaskBridgeComponent> {
 
     private static final long serialVersionUID = 1L;

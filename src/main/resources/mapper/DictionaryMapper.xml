@@ -15,14 +15,14 @@
 
     <select id="selectCount" resultType="java.lang.Integer">
         select count(*)
-        from system.t_dictionary;
+        from soms.t_dictionary
     </select>
 
     <select id="selectCodeNameListByType" resultType="com.dicadut.soms.dto.TypeNameDTO">
         SELECT d.`code`,d.code_name
-        FROM system.t_dictionary d
+        FROM soms.t_dictionary d
         where d.type = #{type}
-        group by d.code;
+        group by d.code
     </select>
 
 </mapper>

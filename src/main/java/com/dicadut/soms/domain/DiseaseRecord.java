@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("system.t_disease_record")
+@TableName("soms.t_disease_record")
 public class DiseaseRecord extends Model<DiseaseRecord> {
 
     private static final long serialVersionUID = 1L;
