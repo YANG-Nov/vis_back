@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dicadut.soms.mapper.BridgeInfoMapper">
+<mapper namespace="com.dicadut.soms.mapper.BridgeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dicadut.soms.domain.BridgeInfo">
+    <resultMap id="BaseResultMap" type="com.dicadut.soms.domain.Bridge">
         <id column="id" property="id"/>
         <result column="stake_or_truss_number" property="stakeOrTrussNumber"/>
         <result column="line" property="line"/>
@@ -24,7 +24,7 @@
 
     <select id="selectNumberListByGenreLine" resultType="com.dicadut.soms.dto.StakeNumberDTO">
         SELECT b.id, b.stake_or_truss_number number
-        FROM soms.t_bridge_info b
+        FROM soms.t_bridge b
         where b.line = #{line}
           AND b.main_or_approach=#{genre}
         group by b.id
@@ -32,31 +32,31 @@
 
     <select id="selectBridgeCompositionList" resultType="com.dicadut.soms.dto.BridgeCompositionDTO">
         SELECT DISTINCT co.id,co.`name`
-        from soms.t_bridge_info_component bc
+        from soms.t_bridge_component bc
         INNER JOIN soms.t_component c ON bc.component_id= c.id
         INNER JOIN soms.t_component co ON c.parent_id = co.id
-        WHERE bc.bridge_info_id BETWEEN #{start} AND #{end}
+        WHERE bc.bridge_id BETWEEN #{start} AND #{end}
         group by co.id
     </select>
 
     <select id="selectComponentByBridgeComposition" resultType="com.dicadut.soms.dto.ComponentDTO">
         SELECT DISTINCT c.id,c.`name`
-        from soms.t_bridge_info_component bc
+        from soms.t_bridge_component bc
         INNER JOIN soms.t_component c ON bc.component_id= c.id
-        WHERE bc.bridge_info_id BETWEEN #{start} AND #{end} AND c.parent_id = #{id}
+        WHERE bc.bridge_id BETWEEN #{start} AND #{end} AND c.parent_id = #{id}
         group by c.id
     </select>
     <select id="selectComponentNumberList" resultType="com.dicadut.soms.dto.StakeNumberDTO">
         SELECT bc.id id,b.stake_or_truss_number number
-        FROM soms.t_bridge_info_component bc
-        INNER JOIN soms.t_bridge_info b ON b.id=bc.bridge_info_id
+        FROM soms.t_bridge_component bc
+        INNER JOIN soms.t_bridge b ON b.id=bc.bridge_id
         WHERE component_id=#{id}
-          AND bc.bridge_info_id BETWEEN #{start} AND #{end}
-        GROUP BY bc.bridge_info_id
+          AND bc.bridge_id BETWEEN #{start} AND #{end}
+        GROUP BY bc.bridge_id
     </select>
     <select id="selectLocationList" resultType="com.dicadut.soms.dto.LineLocationDTO">
         SELECT DISTINCT main_or_approach genreId,line lineId ,location
-        FROM soms.t_bridge_info b
+        FROM soms.t_bridge b
         GROUP BY b.id
     </select>
 </mapper>

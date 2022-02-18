@@ -38,7 +38,7 @@ public class DiseaseRecord extends Model<DiseaseRecord> {
     private String componentId;
 
     @ApiModelProperty(value = "桥桩号id")
-    private String bridgeInfoId;
+    private String bridgeId;
 
     @ApiModelProperty(value = "病害种类id")
     private String diseaseId;

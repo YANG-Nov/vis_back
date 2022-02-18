@@ -1,18 +1,18 @@
 package com.dicadut.soms.controller;
 
 
-import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.dto.TypeNameDTO;
 import com.dicadut.soms.service.DictionaryService;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,18 +23,16 @@ import java.util.List;
  * @author testjava
  * @since 2022-01-03
  */
-@Api(tags = "t字典接口")
+@Api(tags = "字典接口")
 @Slf4j
 @RestController
 @RequestMapping("/dictionary")
 public class DictionaryController {
-    //访问地址 ：http://localhost:8089/dictionary
-    //注入service
-    @Autowired
+
+    @Resource
     private DictionaryService dictionaryService;
+
     /**
-     *
-     *
      * @author fan_jane
      */
     @ApiOperation("制定任务页显示任务类型:1001,构件频率2004")
@@ -42,7 +40,6 @@ public class DictionaryController {
     public ResponseViewModel<List<TypeNameDTO>> getTypeNames(@PathVariable String type) {
         return ResponseViewModel.ok(dictionaryService.getTypeNames(type));
     }
-
 
 
 }

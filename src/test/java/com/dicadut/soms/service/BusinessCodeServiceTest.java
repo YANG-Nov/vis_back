@@ -24,6 +24,8 @@ public class BusinessCodeServiceTest {
 
     @Test
     public void generateBusinessCode() {
-        String s = businessCodeService.generateBusinessCode("t_task");
+        String tableName = "t_task";
+        String code = businessCodeService.generateBusinessCode(tableName);
+        log.info("businessCode for table {} {}", tableName, code);
     }
 }

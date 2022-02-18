@@ -1,35 +1,35 @@
 package com.dicadut.soms.controller;
 
-import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.ComponentPositionAppListDTO;
 import com.dicadut.soms.service.ComponentService;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @author fan_jennifer
  * @create 21/11/21 13:59
  */
-@Api(tags = "构件管理接口")
+@Api(tags = "构件接口")
 @Slf4j
 @RestController
 @RequestMapping("/component")
 public class ComponentController {
-    @Autowired
+
+    @Resource
     private ComponentService componentService;
+
     /**
-     *
-     *
      * @author fan_jane
      */
     @ApiOperation("获得构件巡检频率")
@@ -39,9 +39,8 @@ public class ComponentController {
         return ResponseViewModel.ok(frequencyLatestList);
 
     }
+
     /**
-     *
-     *
      * @author fan_jane
      */
     @ApiOperation("任务添加页面的构件显示")
@@ -62,8 +61,8 @@ public class ComponentController {
     @ApiOperation("APP添加病害页面，选择构件位置")
     @GetMapping("getComponentPositionAppList")
     public ResponseViewModel<List<ComponentPositionAppListDTO>> getComponentPositionAppList(@RequestParam String taskId
-                                                                                            ,@RequestParam String componentId) {
-        List<ComponentPositionAppListDTO> componentPositionAppList = componentService.getComponentPositionAppList(taskId,componentId);
+            , @RequestParam String componentId) {
+        List<ComponentPositionAppListDTO> componentPositionAppList = componentService.getComponentPositionAppList(taskId, componentId);
         return ResponseViewModel.ok(componentPositionAppList);
     }
 }

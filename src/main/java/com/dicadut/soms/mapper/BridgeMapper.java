@@ -5,7 +5,7 @@ import com.dicadut.soms.dto.BridgeCompositionDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
-import com.dicadut.soms.domain.BridgeInfo;
+import com.dicadut.soms.domain.Bridge;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  * @author fan_jane
  * @since 2022-01-11
  */
-public interface BridgeInfoMapper extends BaseMapper<BridgeInfo> {
+public interface BridgeMapper extends BaseMapper<Bridge> {
 
     List<StakeNumberDTO> selectNumberListByGenreLine(@Param("genre") String genre,
                                                      @Param("line") String line);

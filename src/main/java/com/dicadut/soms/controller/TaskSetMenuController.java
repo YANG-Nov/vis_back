@@ -20,7 +20,7 @@ import java.util.List;
  * @author fan_jane
  * @since 2022-01-17
  */
-@Api(tags = "任务套餐接口")
+@Api(tags = "_任务套餐接口")
 @Slf4j
 @RestController
 @RequestMapping("/menu")

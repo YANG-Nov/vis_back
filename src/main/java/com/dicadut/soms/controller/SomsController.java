@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0
  * @date 2021-04-13 20:56:28
  */
-@Api(tags = "智慧运维系统接口")
+@Api(tags = "_智慧运维系统接口")
 @Slf4j
 @RestController
 @RequestMapping("/welcome")

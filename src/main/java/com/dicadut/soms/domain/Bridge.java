@@ -27,9 +27,9 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "TBridgeInfo对象", description = "")
-@TableName("soms.t_bridge_info")
-public class BridgeInfo implements Serializable {
+@ApiModel(value = "Bridge对象", description = "")
+@TableName("soms.t_bridge")
+public class Bridge implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -60,37 +60,37 @@
             t.end_time
         FROM soms.t_task t
         LEFT JOIN soms.t_task_bridge_component tbc ON t.id = tbc.task_id
-        LEFT JOIN soms.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
-        WHERE (t.task_status,bic.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
+        LEFT JOIN soms.t_bridge_component bc ON tbc.bridge_component_id = bc.id
+        WHERE (t.task_status,bc.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
         GROUP BY t.id
     </select>
 
     <select id="selectTaskInspectionAppList" resultType="com.dicadut.soms.dto.TaskInspectionAppListDTO">
         SELECT
             t.id,
-            bic.inspection_route,
-            MIN(bic.inspection_stake_number) inspection_stake_number_min,
-            MAX(bic.inspection_stake_number) inspection_stake_number_max
+            bc.inspection_route,
+            MIN(bc.inspection_stake_number) inspection_stake_number_min,
+            MAX(bc.inspection_stake_number) inspection_stake_number_max
         FROM soms.t_task t
         LEFT JOIN soms.t_task_bridge_component tbc ON t.id = tbc.task_id
-        LEFT JOIN soms.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
-        WHERE (t.task_status,bic.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
+        LEFT JOIN soms.t_bridge_component bc ON tbc.bridge_component_id = bc.id
+        WHERE (t.task_status,bc.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
         GROUP BY t.id
     </select>
 
     <select id="selectTaskDetailsAppList" resultType="com.dicadut.soms.dto.TaskDetailsAppListDTO">
         SELECT
             t.id,
-            bi.location route,
-            MIN(bi.stake_or_truss_number) stake_or_truss_number_min,
-            MAX(bi.stake_or_truss_number) stake_or_truss_number_max,
+            b.location route,
+            MIN(b.stake_or_truss_number) stake_or_truss_number_min,
+            MAX(b.stake_or_truss_number) stake_or_truss_number_max,
             replace(substring(substring_index(c.xname, '/', 3), char_length(substring_index(c.xname, '/', 3-1)) + 1), '/', '') level_two_parent_name	-- 二级构件名称
         FROM soms.t_task t
         LEFT JOIN soms.t_task_bridge_component tbc ON t.id = tbc.task_id
-        LEFT JOIN soms.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
-        LEFT JOIN soms.t_bridge_info bi ON bic.bridge_info_id = bi.id
-        LEFT JOIN soms.t_component c ON bic.component_id = c.id
-        WHERE (t.task_status,bic.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
+        LEFT JOIN soms.t_bridge_component bc ON tbc.bridge_component_id = bc.id
+        LEFT JOIN soms.t_bridge b ON bc.bridge_id = b.id
+        LEFT JOIN soms.t_component c ON bc.component_id = c.id
+        WHERE (t.task_status,bc.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
           AND c.id != c.parent_id
         GROUP BY t.id
     </select>
@@ -126,10 +126,10 @@
         FROM soms.t_task t
         LEFT JOIN soms.t_user u ON t.inspector_id = u.id
         LEFT JOIN soms.t_task_bridge_component tc ON t.id = tc.task_id
-        LEFT JOIN soms.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
+        LEFT JOIN soms.t_bridge_component bc ON tc.bridge_component_id = bc.id
         LEFT JOIN soms.t_component c ON bc.component_id = c.id
         LEFT JOIN soms.t_component cc ON c.parent_id = cc.id
-        LEFT JOIN soms.t_bridge_info b ON b.id=bc.bridge_info_id
+        LEFT JOIN soms.t_bridge b ON b.id=bc.bridge_id
         LEFT JOIN soms.t_dictionary d ON t.task_status = d.`code`
         LEFT JOIN soms.t_dictionary dd ON t.task_type =dd.`code`
         WHERE 1 = 1
@@ -151,10 +151,10 @@
         FROM soms.t_task t
         LEFT JOIN soms.`user` u ON t.inspector_id = u.id
         LEFT JOIN soms.t_task_bridge_component tc ON t.id = tc.task_id
-        LEFT JOIN soms.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
+        LEFT JOIN soms.t_bridge_component bc ON tc.bridge_component_id = bc.id
         LEFT JOIN soms.t_component c ON bc.component_id = c.id
         LEFT JOIN soms.t_component cc ON c.parent_id = cc.id
-        LEFT JOIN soms.t_bridge_info b ON b.id=bc.bridge_info_id
+        LEFT JOIN soms.t_bridge b ON b.id=bc.bridge_id
         LEFT JOIN soms.t_dictionary d ON t.task_status = d.`code`
         LEFT JOIN soms.t_dictionary dd ON t.task_type =dd.`code`
         WHERE u.id=#{id}
@@ -164,17 +164,17 @@
     <select id="getInspectionPosition" resultType="java.lang.String">
         SELECT DISTINCT CONCAT(b.location,cc.`name`) inspectionPosition
         FROM soms.t_task_bridge_component tc
-        LEFT JOIN soms.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
+        LEFT JOIN soms.t_bridge_component bc ON tc.bridge_component_id = bc.id
         LEFT JOIN soms.t_component c ON bc.component_id= c.id
         LEFT JOIN soms.t_component cc ON c.parent_id=cc.id
-        LEFT JOIN soms.t_bridge_info b ON bc.bridge_info_id=b.id
+        LEFT JOIN soms.t_bridge b ON bc.bridge_id=b.id
         WHERE tc.task_id=#{taskId}
     </select>
 
     <select id="getComponentList" resultType="java.lang.String">
         SELECT DISTINCT bc.component_id
         FROM soms.t_task_bridge_component tc
-        LEFT JOIN soms.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
+        LEFT JOIN soms.t_bridge_component bc ON tc.bridge_component_id = bc.id
         WHERE tc.task_id=#{taskId}
     </select>
 
@@ -185,9 +185,9 @@
                 CONCAT(SUBSTR(stake_or_truss_number,1,1),MAX(SUBSTR(stake_or_truss_number,2,3)+0)))) componentName,
                 c.`name` componentNumber
             FROM soms.t_task_bridge_component tc
-            LEFT JOIN soms.t_bridge_info_component bc ON tc.bridge_component_id = bc.id
+            LEFT JOIN soms.t_bridge_component bc ON tc.bridge_component_id = bc.id
             LEFT JOIN soms.t_component c ON bc.component_id= c.id
-            LEFT JOIN soms.t_bridge_info b ON bc.bridge_info_id=b.id
+            LEFT JOIN soms.t_bridge b ON bc.bridge_id=b.id
             WHERE tc.task_id=#{taskId} AND bc.component_id=#{item}
         </foreach>
     </select>
@@ -215,12 +215,12 @@
 
     <select id="selectTaskScanPositionAppList" resultType="com.dicadut.soms.dto.TaskScanPositionAppListDTO">
         SELECT
-            bic.scan_position AS id,
+            bc.scan_position AS id,
             d.code_name AS `name`
         FROM soms.t_task_bridge_component tbc
-        LEFT JOIN soms.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
-        LEFT JOIN soms.t_dictionary d ON bic.scan_position = d.code
+        LEFT JOIN soms.t_bridge_component bc ON tbc.bridge_component_id = bc.id
+        LEFT JOIN soms.t_dictionary d ON bc.scan_position = d.code
         WHERE tbc.task_id = #{taskId}
-        GROUP BY bic.scan_position
+        GROUP BY bc.scan_position
     </select>
 </mapper>

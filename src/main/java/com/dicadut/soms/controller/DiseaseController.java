@@ -1,10 +1,10 @@
 package com.dicadut.soms.controller;
 
 
-import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.dto.DiseaseAppListDTO;
 import com.dicadut.soms.dto.DiseaseAttributeListDTO;
 import com.dicadut.soms.service.DiseaseService;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +18,13 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author testjava
  * @since 2021-11-21
  */
-@Api(tags = "病害管理接口")
+@Api(tags = "病害接口")
 @Slf4j
 @RestController
 @RequestMapping("disease")

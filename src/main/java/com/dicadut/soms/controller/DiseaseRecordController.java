@@ -6,7 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.domain.DiseaseRecord;
-import com.dicadut.soms.dto.*;
+import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
+import com.dicadut.soms.dto.DiseaseRecordDTO;
 import com.dicadut.soms.service.DiseaseRecordService;
 import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
@@ -15,10 +16,18 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,14 +40,14 @@ import java.util.List;
  * @author Auto-generator
  * @since 2022-01-26
  */
-@Api(tags = "病害信息管理接口")
+@Api(tags = "病害记录接口")
 @Slf4j
 @RestController
 @RequestMapping("/disease_record")
 public class DiseaseRecordController {
 
 
-    @Autowired
+    @Resource
     private DiseaseRecordService diseaseRecordService;
 
 
@@ -120,8 +129,8 @@ public class DiseaseRecordController {
         if (!StringUtils.isEmpty(param.getComponentId())) {
             lambda.eq(DiseaseRecord::getComponentId, param.getComponentId());
         }
-        if (!StringUtils.isEmpty(param.getBridgeInfoId())) {
-            lambda.eq(DiseaseRecord::getBridgeInfoId, param.getBridgeInfoId());
+        if (!StringUtils.isEmpty(param.getBridgeId())) {
+            lambda.eq(DiseaseRecord::getBridgeId, param.getBridgeId());
         }
         if (!StringUtils.isEmpty(param.getDiseaseId())) {
             lambda.eq(DiseaseRecord::getDiseaseId, param.getDiseaseId());
@@ -155,15 +164,15 @@ public class DiseaseRecordController {
 
     @ApiOperation("App添加病害后,添加病害页显示病害记录")
     @GetMapping("getDiseaseRecordAppList")
-    public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId,@RequestParam String componentId,@RequestParam String positionId) {
-        List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId,componentId,positionId);
+    public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId) {
+        List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId, componentId, positionId);
         return ResponseViewModel.ok(diseaseRecordAppList);
     }
 
     @ApiOperation("APP添加病害后，查看病害详情")
     @GetMapping("getDiseaseDetailsList")
     public ResponseViewModel<Collection<DiseaseRecordAppListDTO>> getDiseaseDetailsList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId) {
-        Collection<DiseaseRecordAppListDTO> diseaseDetailsList = diseaseRecordService.getDiseaseDetailsList(taskId,componentId,positionId,diseaseId);
+        Collection<DiseaseRecordAppListDTO> diseaseDetailsList = diseaseRecordService.getDiseaseDetailsList(taskId, componentId, positionId, diseaseId);
         return ResponseViewModel.ok(diseaseDetailsList);
     }
 

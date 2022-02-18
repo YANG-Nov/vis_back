@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
-import com.dicadut.soms.domain.BridgeInfo;
+import com.dicadut.soms.domain.Bridge;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @author fan_jane
  * @since 2022-01-11
  */
-public interface BridgeInfoService extends IService<BridgeInfo> {
+public interface BridgeService extends IService<Bridge> {
 
     List<StakeNumberDTO> getNumberList(String genre, String line);
 

@@ -3,17 +3,24 @@ package com.dicadut.soms.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.dicadut.soms.viewmodel.ResponseViewModel;
-import com.dicadut.soms.dto.UserDTO;
 import com.dicadut.soms.domain.User;
+import com.dicadut.soms.dto.UserDTO;
 import com.dicadut.soms.dto.UserStatusDTO;
 import com.dicadut.soms.service.UserService;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +29,14 @@ import java.util.List;
  * @version 1.0.0
  * @date 2021-09-30 18:13:41
  */
-@Api(tags = "用户管理接口")
+@Api(tags = "用户接口")
 @Slf4j
 @RestController
 @RequestMapping("/user")
 
 public class UserController {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @ApiOperation("用户注册")
@@ -44,6 +51,7 @@ public class UserController {
         return ResponseViewModel.ok(userDTO);
 
     }
+
     @ApiOperation("用户名是否已存在")
     @PostMapping("/isExist")
     public ResponseViewModel<UserDTO> iSExist(@RequestBody UserDTO userDTO) {
@@ -51,7 +59,7 @@ public class UserController {
 
         if (one == null) {
             return ResponseViewModel.ok(userDTO);
-        }else {
+        } else {
             return ResponseViewModel.fail("用户名已存在");
         }
     }
@@ -92,9 +100,9 @@ public class UserController {
                 .eq("username", user.getUsername())
                 .eq("password", user.getPassword())
         );
-        if(one!=null){
+        if (one != null) {
             return ResponseViewModel.ok("success");
-        }else {
+        } else {
             return ResponseViewModel.ok("fail");
         }
 
@@ -114,9 +122,9 @@ public class UserController {
                 .eq("phone", user.getPhone())
                 .eq("password", user.getPassword())
         );
-        if(one!=null){
+        if (one != null) {
             return ResponseViewModel.ok("success");
-        }else {
+        } else {
             return ResponseViewModel.ok("fail");
         }
 

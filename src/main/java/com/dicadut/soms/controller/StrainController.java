@@ -1,8 +1,8 @@
 package com.dicadut.soms.controller;
 
-import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.dto.StrainResDTO;
 import com.dicadut.soms.service.StrainService;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  * @date 2021-04-13 20:56:28
  */
-@Api(tags = "北大桥应力传感器接口")
+@Api(tags = "_北大桥应力传感器接口")
 @Slf4j
 @RestController
 @RequestMapping("/api")

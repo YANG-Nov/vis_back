@@ -36,13 +36,13 @@
 
     <select id="selectComponentPositionAppList" resultType="com.dicadut.soms.dto.ComponentPositionAppListDTO">
         SELECT
-            bi.stake_or_truss_number as position,
-            bi.id
+            b.stake_or_truss_number as position,
+            b.id
         FROM soms.t_task_bridge_component tbc
-        LEFT JOIN soms.t_bridge_info_component bic ON tbc.bridge_component_id = bic.id
-        LEFT JOIN soms.t_bridge_info bi ON bic.bridge_info_id = bi.id
+        LEFT JOIN soms.t_bridge_component bc ON tbc.bridge_component_id = bc.id
+        LEFT JOIN soms.t_bridge b ON bc.bridge_id = b.id
         WHERE tbc.task_id = #{taskId}
-          AND bic.component_id = #{componentId}
+          AND bc.component_id = #{componentId}
     </select>
 
 </mapper>

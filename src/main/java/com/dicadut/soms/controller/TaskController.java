@@ -1,7 +1,6 @@
 package com.dicadut.soms.controller;
 
 
-import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.AmendingTaskDTO;
 import com.dicadut.soms.dto.InspectorDTO;
@@ -13,9 +12,10 @@ import com.dicadut.soms.dto.TaskDisplayDTO;
 import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
 import com.dicadut.soms.dto.TaskStatisticAppDTO;
 import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
-import com.dicadut.soms.service.TaskService;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import io.swagger.annotations.Api;
@@ -36,13 +36,12 @@ import java.util.List;
  * @author fan_jennifer
  * @create 2021-10-22 16:42
  */
-@Api(tags = "任务管理接口")
+@Api(tags = "任务接口")
 @Slf4j
 @RestController
 @RequestMapping("/task")
 public class TaskController {
-    //访问地址 ：http://localhost:8089/task/findAll
-    //注入service
+
     @Resource
     private TaskService taskService;
 
@@ -74,10 +73,10 @@ public class TaskController {
     }*/
 
 
-
     /**
      * 分页查询
      * todo 先把上两个TODO 实现了，后续我再跟大家讲更优雅的实现方式
+     *
      * @param pageParam
      * @return
      * @author fan_jane
@@ -85,7 +84,7 @@ public class TaskController {
     @ApiOperation("任务制定页显示任务列表")
     @PostMapping("getAmendingTaskList")
     public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(@RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
-         return  ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize(), pageParam.getParam()));
+        return ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize(), pageParam.getParam()));
     }
 
     /**

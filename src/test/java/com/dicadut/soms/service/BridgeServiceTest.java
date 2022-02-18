@@ -17,23 +17,23 @@ import javax.annotation.Resource;
 @Slf4j
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class BridgeInfoServiceTest {
+public class BridgeServiceTest {
 
     @Resource
-    private BridgeInfoService bridgeInfoService;
+    private BridgeService bridgeService;
 
     @Test
     public void getComponentNumberList() {
 
         log.info("#### 启动单元测试 saveTaskMenu");
-        log.info("{}",bridgeInfoService.getComponentNumberList("12000","12016","2001000012"));
+        log.info("{}", bridgeService.getComponentNumberList("12000","12016","2001000012"));
         log.info("#### 结束单元测试 saveTaskMenu()");
     }
     @Test
     public void getLocationList() {
 
         log.info("#### 启动单元测试 saveTaskMenu");
-        log.info("{}",bridgeInfoService.getLocationList());
+        log.info("{}", bridgeService.getLocationList());
         log.info("#### 结束单元测试 saveTaskMenu()");
     }
 

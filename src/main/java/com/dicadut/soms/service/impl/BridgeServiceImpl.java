@@ -5,9 +5,9 @@ import com.dicadut.soms.dto.BridgeCompositionDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
-import com.dicadut.soms.domain.BridgeInfo;
-import com.dicadut.soms.mapper.BridgeInfoMapper;
-import com.dicadut.soms.service.BridgeInfoService;
+import com.dicadut.soms.domain.Bridge;
+import com.dicadut.soms.mapper.BridgeMapper;
+import com.dicadut.soms.service.BridgeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class BridgeInfoServiceImpl extends ServiceImpl<BridgeInfoMapper, BridgeInfo> implements BridgeInfoService {
+public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> implements BridgeService {
 
     /**
      *
