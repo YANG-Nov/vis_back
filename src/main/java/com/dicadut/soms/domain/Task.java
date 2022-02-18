@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * @create 2021-10-2021/10/22 14:12
  */
 @Data
-@TableName("soms.t_task")
+@TableName("t_task")
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value="Task对象", description="任务表")
@@ -50,6 +50,10 @@ public class Task implements Serializable {
 
     @ApiModelProperty(value = "养护工程师id")
     private String createBy;
+
+    @ApiModelProperty(value = "乐观锁")
+    @Version
+    private Integer version;
 
     @ApiModelProperty(value = "逻辑删, 0未删, 1已删")
     @TableLogic

@@ -10,6 +10,7 @@
         <result column="level" property="level"/>
         <result column="xpath" property="xpath"/>
         <result column="xname" property="xname"/>
+        <result column="version" property="version"/>
         <result column="is_deleted" property="isDeleted"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
@@ -17,18 +18,18 @@
 
     <select id="selectCount" resultType="java.lang.Integer">
         select count(*)
-        from soms.t_component
+        from t_component
     </select>
 
     <select id="selectComponentAppList" resultType="com.dicadut.soms.dto.ComponentAppListDTO">
         select
             c.name,
             c.id
-        from soms.t_component c
+        from t_component c
         where
             (
                 select count(1)
-                from soms.t_component i
+                from t_component i
                 where i.parent_id = c.id
             ) = 0
           and c.xpath like '%${componentId}%'
@@ -38,9 +39,9 @@
         SELECT
             b.stake_or_truss_number as position,
             b.id
-        FROM soms.t_task_bridge_component tbc
-        LEFT JOIN soms.t_bridge_component bc ON tbc.bridge_component_id = bc.id
-        LEFT JOIN soms.t_bridge b ON bc.bridge_id = b.id
+        FROM t_task_bridge_component tbc
+        LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
+        LEFT JOIN t_bridge b ON bc.bridge_id = b.id
         WHERE tbc.task_id = #{taskId}
           AND bc.component_id = #{componentId}
     </select>

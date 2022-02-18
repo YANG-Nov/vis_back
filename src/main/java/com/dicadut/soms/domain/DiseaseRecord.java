@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("soms.t_disease_record")
+@TableName("t_disease_record")
 public class DiseaseRecord extends Model<DiseaseRecord> {
 
     private static final long serialVersionUID = 1L;
@@ -51,6 +51,9 @@ public class DiseaseRecord extends Model<DiseaseRecord> {
 
     @ApiModelProperty(value = "病害记录内容")
     private String content;
+
+    @Version
+    private Integer version;
 
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
     @TableLogic

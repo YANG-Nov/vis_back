@@ -1,6 +1,10 @@
 package com.dicadut.soms.domain;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,7 +16,7 @@ import java.util.Date;
  * @create 2021-10-13 12:29
  */
 @Data
-@TableName("soms.t_user")
+@TableName("t_user")
 public class User {
     @ApiModelProperty(value = "用户id", example = "23863422-8b51-4084-80b7-e419483f82b9")
     private String id;
@@ -32,12 +36,25 @@ public class User {
     private String department;
     @ApiModelProperty(value = "职务", example = "0管理员1养护工程师2巡检员3维修员", allowableValues = "0,1,2,3")
     private Integer duty = 0;
-    @ApiModelProperty(value = "创建时间", example = "2021-09-30 13:00:00")
-    private Date createTime;
-    @ApiModelProperty(value = "更新时间", example = "2021-09-30 14:00:00")
-    private Date updateTime;
-    @ApiModelProperty(value = "是否已删除", example = "0", allowableValues = "0,1")
-    private Integer isDelete = 0;
+    @ApiModelProperty(value = "加密盐值")
+    private String salt;
     @ApiModelProperty(value = "工作状态:工作中2001000001 空闲中2001000002", example = "2001000002", allowableValues = "2001000002,2001000001")
     private Integer status = 2001000002;
+
+    @ApiModelProperty(value = "乐观锁")
+    @Version
+    private Integer version;
+
+    @ApiModelProperty(value = "是否已删除", example = "0", allowableValues = "0,1")
+    @TableLogic
+    private Integer isDeleted;
+
+    @ApiModelProperty(value = "创建时间", example = "2021-09-30 13:00:00")
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
+
+    @ApiModelProperty(value = "更新时间", example = "2021-09-30 14:00:00")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
+
 }

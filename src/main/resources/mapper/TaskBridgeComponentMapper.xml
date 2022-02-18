@@ -7,6 +7,7 @@
         <id column="id" property="id" />
         <result column="task_id" property="taskId" />
         <result column="bridge_component_id" property="bridgeComponentId" />
+        <result column="version" property="version" />
         <result column="is_deleted" property="isDeleted" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />

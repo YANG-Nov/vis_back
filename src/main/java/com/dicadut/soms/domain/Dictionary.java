@@ -22,7 +22,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="TDictionary对象", description="字典表")
-@TableName("soms.t_dictionary")
+@TableName("t_dictionary")
 public class Dictionary implements Serializable {
 
     private static final long serialVersionUID = 1L;

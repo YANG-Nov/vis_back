@@ -1,30 +1,31 @@
 package com.dicadut.soms.domain;
 
-import com.baomidou.mybatisplus.annotation.*;
-import io.swagger.annotations.ApiModel;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author testjava
  * @since 2021-11-21
  */
 @Data
-@TableName("soms.t_disease")
+@TableName("t_disease")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Disease{
+public class Disease {
 
 
     @ApiModelProperty(value = "病害id")
@@ -33,6 +34,9 @@ public class Disease{
 
     @ApiModelProperty(value = "病害名")
     private String name;
+
+    @Version
+    private Integer version;
 
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
     @TableLogic

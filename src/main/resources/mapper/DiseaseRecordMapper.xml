@@ -12,6 +12,10 @@
         <result column="type" property="type" />
         <result column="disease_attribute_id" property="diseaseAttributeId" />
         <result column="content" property="content" />
+        <result column="version" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <select id="selectDiseaseRecordAppList" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
@@ -22,11 +26,11 @@
             b.stake_or_truss_number position,
             dr.disease_id diseaseId,
             d.name disease
-        from soms.t_disease_record dr
-        LEFT JOIN soms.t_component c on dr.component_id = c.id
-        LEFT JOIN soms.t_component cc on cc.id = c.parent_id
-        LEFT JOIN soms.t_bridge b on dr.bridge_id = b.id
-        LEFT JOIN soms.t_disease d on dr.disease_id = d.id
+        from t_disease_record dr
+        LEFT JOIN t_component c on dr.component_id = c.id
+        LEFT JOIN t_component cc on cc.id = c.parent_id
+        LEFT JOIN t_bridge b on dr.bridge_id = b.id
+        LEFT JOIN t_disease d on dr.disease_id = d.id
         where (dr.task_id,dr.component_id,dr.bridge_id) = (#{taskId},#{componentId},#{positionId})
         GROUP BY component_id,bridge_id,disease_id
     </select>
@@ -37,8 +41,8 @@
             da.value diseaseAttributeName,
             dr.content,
             dr.type
-        from soms.t_disease_record dr
-        LEFT JOIN soms.t_disease_attribute da on dr.disease_attribute_id = da.id
+        from t_disease_record dr
+        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
         where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
           and dr.type = 1
     </select>
@@ -49,8 +53,8 @@
             da.value diseaseAttributeName,
             dr.content,
             dr.type
-        from soms.t_disease_record dr
-        LEFT JOIN soms.t_disease_attribute da on dr.disease_attribute_id = da.id
+        from t_disease_record dr
+        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
         where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
           and dr.type = 2
     </select>
@@ -61,8 +65,8 @@
             da.value diseaseAttributeName,
             dr.content,
             dr.type
-        from soms.t_disease_record dr
-        LEFT JOIN soms.t_disease_attribute da on dr.disease_attribute_id = da.id
+        from t_disease_record dr
+        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
         where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
           and dr.type = 3
     </select>
@@ -73,8 +77,8 @@
             da.value diseaseAttributeName,
             dr.content,
             dr.type
-        from soms.t_disease_record dr
-        LEFT JOIN soms.t_disease_attribute da on dr.disease_attribute_id = da.id
+        from t_disease_record dr
+        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
         where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
           and dr.type = 4
     </select>
@@ -85,8 +89,8 @@
             da.value diseaseAttributeName,
             dr.content,
             dr.type
-        from soms.t_disease_record dr
-        LEFT JOIN soms.t_disease_attribute da on dr.disease_attribute_id = da.id
+        from t_disease_record dr
+        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
         where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
           and dr.type = 5
     </select>
@@ -97,8 +101,8 @@
             da.value diseaseAttributeName,
             dr.content,
             dr.type
-        from soms.t_disease_record dr
-        LEFT JOIN soms.t_disease_attribute da on dr.disease_attribute_id = da.id
+        from t_disease_record dr
+        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
         where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
           and dr.type = 6
     </select>

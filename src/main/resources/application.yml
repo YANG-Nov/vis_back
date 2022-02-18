@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://116.63.185.111:3306/dalianwan?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://116.63.185.111:3306/soms?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     username: root
     password: DUT-SHM-DB1
     platform: mysql

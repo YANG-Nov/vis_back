@@ -22,7 +22,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("system.task_set_menu")
+@TableName("t_task_set_menu")
 @ApiModel(value="TaskSetMenu对象", description="任务套餐表")
 public class TaskSetMenu implements Serializable {
 

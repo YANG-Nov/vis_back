@@ -28,7 +28,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value = "Bridge对象", description = "")
-@TableName("soms.t_bridge")
+@TableName("t_bridge")
 public class Bridge implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,14 +51,6 @@ public class Bridge implements Serializable {
 
     @ApiModelProperty(value = "所在匝道位置", example = "东引桥b匝道")
     private String location;
-
-
-
-
-
-
-
-
 
     @Version
     private Integer version;

@@ -1,6 +1,7 @@
 package com.dicadut.soms.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  * @create 2021-08-25 16:59
  */
 @Data
+@TableName("dalianwan.wy")
 public class Wy {
     @TableId
     private Integer id;

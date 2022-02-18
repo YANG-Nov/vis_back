@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -26,7 +27,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("soms.t_task_bridge_component")
+@TableName("t_task_bridge_component")
 public class TaskBridgeComponent extends Model<TaskBridgeComponent> {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +46,10 @@ public class TaskBridgeComponent extends Model<TaskBridgeComponent> {
      * 桥梁构件关联id
      */
     private Integer bridgeComponentId;
+
+    @Version
+    private Integer version;
+
     /**
      * 是否删除：0未删1删
      */
