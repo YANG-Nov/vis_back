@@ -43,16 +43,22 @@ public class BridgeController {
      * @author fan_jane
      */
     @ApiOperation("制定任务页根据桩号显示构件:B0-B16 12000-12016 ")
-    @GetMapping("/getComponentNumber/{start}/{end}")
+    @GetMapping("/get_component_number/{start}/{end}")
     public ResponseViewModel<List<Tree<Integer>>> getComponentList(@PathVariable String start, @PathVariable String end) {
         return ResponseViewModel.ok(bridgeService.getComponentList(start, end));
     }
 
     /**
-     * @author fan_jane
+     *根据桩号和构件id返回可选择的构件编号列表
+     *
+     *@param start 起始桩号id
+     *@param end   结束桩号id
+     *@param id    构件id
+     *@return 构件编号列表
+     *@author fan_jane
      */
     @ApiOperation("制定任务页根据桩号显示可选择的构件编号:B0-B16 12000-12016,桥面铺装 2001000012 桥头平顺2001000013，  伸缩缝2001000014， 排水口2001000015， 排水管2001000016， 栏杆2001000017， 防撞护栏2001000018， 人行道 2001000019")
-    @GetMapping("/getComponentNumber/{start}/{end}/{id}")
+    @GetMapping("/get_component_number/{start}/{end}/{id}")
     public ResponseViewModel<List<StakeNumberDTO>> getComponentNumberList(@PathVariable String start, @PathVariable String end, @PathVariable String id) {
         return ResponseViewModel.ok(bridgeService.getComponentNumberList(start, end, id));
     }
