@@ -3,6 +3,7 @@ package com.dicadut.soms.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
+import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Bridge;
@@ -70,7 +71,24 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
                 }
             }
         }
-        List<Tree<Integer>> treeList = TreeUtil.build(nodeList, 2001000000);    // 指定根节点，创建构件树
+
+        // 适配前端组件
+        TreeNodeConfig treeNodeConfig = new TreeNodeConfig();
+        // 自定义属性名 都要默认值的
+        treeNodeConfig.setWeightKey("level");
+        treeNodeConfig.setIdKey("value");
+        treeNodeConfig.setNameKey("label");
+        // 最大递归深度
+        treeNodeConfig.setDeep(30);
+        //转换器
+        List<Tree<Integer>> treeList = TreeUtil.build(nodeList, 2001000000, treeNodeConfig,
+                (treeNode, tree) -> {
+                    tree.setId(treeNode.getId());
+                    tree.setParentId(treeNode.getParentId());
+                    tree.setWeight(treeNode.getWeight());
+                    tree.setName(treeNode.getName());
+                });
+
         return treeList;
     }
 
