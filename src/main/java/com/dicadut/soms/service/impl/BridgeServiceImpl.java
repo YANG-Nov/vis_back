@@ -77,9 +77,8 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
         // 自定义属性名 都要默认值的
         treeNodeConfig.setWeightKey("level");
         treeNodeConfig.setIdKey("value");
+        treeNodeConfig.setParentIdKey("parentValue");
         treeNodeConfig.setNameKey("label");
-        // 最大递归深度
-        treeNodeConfig.setDeep(30);
         //转换器
         List<Tree<Integer>> treeList = TreeUtil.build(nodeList, 2001000000, treeNodeConfig,
                 (treeNode, tree) -> {
