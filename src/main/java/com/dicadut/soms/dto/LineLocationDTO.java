@@ -12,8 +12,6 @@ import java.util.List;
  */
 @Data
 public class LineLocationDTO {
-    private String genreId;
-    private String lineId;
     private String location;
     private List<StakeNumberDTO> stakeNumberDTOS = new ArrayList<>();
 }

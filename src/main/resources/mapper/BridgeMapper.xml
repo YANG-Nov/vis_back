@@ -54,9 +54,8 @@
           AND bc.bridge_id BETWEEN #{start} AND #{end}
         GROUP BY bc.bridge_id
     </select>
-    <select id="selectLocationList" resultType="com.dicadut.soms.dto.LineLocationDTO">
-        SELECT DISTINCT main_or_approach genreId,line lineId ,location
-        FROM t_bridge b
-        GROUP BY b.id
+    <select id="selectLocationList" resultType="com.dicadut.soms.dto.BridgeSimpleDTO">
+        select b.id, b.stake_or_truss_number number, b.location
+        from t_bridge b
     </select>
 </mapper>

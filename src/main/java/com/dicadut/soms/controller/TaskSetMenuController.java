@@ -25,8 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/menu")
 public class TaskSetMenuController {
-    //访问地址 ：http://localhost:8089/menu
-    //注入service
+
     @Autowired
     private TaskSetMenuService taskSetMenuService;
 
@@ -36,7 +35,7 @@ public class TaskSetMenuController {
      * @author fan_jane
      */
     @ApiOperation("制定任务添加任务页添加套餐")
-    @PostMapping("/addMenu")
+    @PostMapping("/add_menu")
     public ResponseViewModel addMenu(@RequestBody List<ComponentDTO> componentDTOList) {
         taskSetMenuService.saveTaskMenu(componentDTOList);
         return ResponseViewModel.ok();

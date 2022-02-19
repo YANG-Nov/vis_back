@@ -2,6 +2,7 @@ package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.dto.BridgeCompositionDTO;
+import com.dicadut.soms.dto.BridgeSimpleDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
@@ -35,7 +36,7 @@ public interface BridgeMapper extends BaseMapper<Bridge> {
                                                    @Param("end") String end,
                                                    @Param("id") String id);
 
-    List<LineLocationDTO> selectLocationList();
+    List<BridgeSimpleDTO> selectLocationList();
 
 
 }

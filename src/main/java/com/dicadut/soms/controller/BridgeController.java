@@ -35,6 +35,11 @@ public class BridgeController {
     private BridgeService bridgeService;
 
     /**
+     * 根据桩号返回可选择的构件列表，构件有层级结构
+     *
+     * @param start 起始桩号id
+     * @param end   结束桩号id
+     * @return 带层级结构的构件列表
      * @author fan_jane
      */
     @ApiOperation("制定任务页根据桩号显示构件:B0-B16 12000-12016 ")
@@ -53,10 +58,15 @@ public class BridgeController {
     }
 
     /**
+     * 桩号选择下拉框接口
+     * 使用场景: 创建任务时，桩号选择下来框用到该接口（开始桩号及结束桩号都要调用该接口）
+     * 输入参数: 无
+     * 返回结果: 带层级结构的桩号列表数据，第一级是匝道(location)，第二级是桩号(id,number)
+     * SQL: select b.id, b.stake_or_truss_number, b.location from t_bridge b;
      * @author fan_jane
      */
     @ApiOperation("任务制定-添加任务页显示下拉菜单框前面内容和桩号")
-    @GetMapping("/showLocation")
+    @GetMapping("/show_location")
     public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());
     }

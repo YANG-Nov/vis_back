@@ -17,6 +17,7 @@ import java.io.IOException;
 @Slf4j
 public class StakeNumberDeserializer extends JsonDeserializer<String> {
     /**
+     * 把json转换成java对象，传递给后端
      * Method that can be called to ask implementation to deserialize
      * JSON content into the value type this serializer handles.
      * Returned instance is to be constructed by method itself.
