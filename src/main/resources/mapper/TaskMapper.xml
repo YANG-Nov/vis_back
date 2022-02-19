@@ -35,7 +35,7 @@
             sum(if(t.task_status = 1002000003,1,0)) wait_4_reviewed_count,
             sum(if(t.task_status = 1002000005,1,0)) wait_4_retransmitted_count,
             sum(if(t.task_status = 1002000002,1,0)) inspecting_count
-        from soms.task t
+        from soms.t_task t
         where t.create_time between #{startTime} and #{endTime}
     </select>
 
@@ -43,7 +43,7 @@
         select
             count(*) total_count,
             sum(if(t.task_status = 1002000006,1,0)) finish_count
-        from soms.task t
+        from t_task t
         where t.create_time between #{startTime} and #{endTime}
     </select>
 
