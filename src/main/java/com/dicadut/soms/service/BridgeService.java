@@ -1,16 +1,16 @@
 package com.dicadut.soms.service;
 
+import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dicadut.soms.dto.ComponentDTO;
+import com.dicadut.soms.domain.Bridge;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
-import com.dicadut.soms.domain.Bridge;
 
 import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author fan_jane
@@ -20,7 +20,7 @@ public interface BridgeService extends IService<Bridge> {
 
     List<StakeNumberDTO> getNumberList(String genre, String line);
 
-    List<ComponentDTO> getComponentList(String start, String end);
+    List<Tree<Integer>> getComponentList(String start, String end);
 
     List<StakeNumberDTO> getComponentNumberList(String start, String end, String id);
 

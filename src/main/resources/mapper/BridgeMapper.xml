@@ -30,13 +30,12 @@
         group by b.id
     </select>
 
-    <select id="selectBridgeCompositionList" resultType="com.dicadut.soms.dto.BridgeCompositionDTO">
-        SELECT DISTINCT co.id,co.`name`
+    <select id="selectBridgeCompositionList" resultType="com.dicadut.soms.domain.Component">
+        select distinct c.*
         from t_bridge_component bc
-        INNER JOIN t_component c ON bc.component_id= c.id
-        INNER JOIN t_component co ON c.parent_id = co.id
-        WHERE bc.bridge_id BETWEEN #{start} AND #{end}
-        group by co.id
+        left join t_component c on bc.component_id = c.id
+        where bc.bridge_id between #{start} AND #{end}
+        ;
     </select>
 
     <select id="selectComponentByBridgeComposition" resultType="com.dicadut.soms.dto.ComponentDTO">

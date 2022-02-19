@@ -1,12 +1,15 @@
 package com.dicadut.soms.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNode;
+import cn.hutool.core.lang.tree.TreeUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.dto.BridgeCompositionDTO;
+import com.dicadut.soms.domain.Bridge;
+import com.dicadut.soms.domain.Component;
 import com.dicadut.soms.dto.BridgeSimpleDTO;
-import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
-import com.dicadut.soms.domain.Bridge;
 import com.dicadut.soms.mapper.BridgeMapper;
 import com.dicadut.soms.service.BridgeService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +17,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -38,21 +43,35 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
     }
 
     /**
-     * 显示可选择的构建
-     * 第一步获取桥梁部位封装数据
-     * 第二部获取构件部位封装数据
+     * 构件树形结构
+     *
+     * @param start 起始桩号
+     * @param end   结束桩号
+     * @return
      */
     @Override
-    public List<ComponentDTO> getComponentList(String start, String end) {
+    public List<Tree<Integer>> getComponentList(String start, String end) {
         //查询所有的桥梁部位
-        List<BridgeCompositionDTO> bridgeCompositionDTOS = baseMapper.selectBridgeCompositionList(start, end);
-        //查询该部位含有的构件
-        List<ComponentDTO> componentDTOS = new ArrayList<>();
-        for (BridgeCompositionDTO b : bridgeCompositionDTOS) {
-            componentDTOS = baseMapper.selectComponentByBridgeComposition(start, end, b.getId());
+        List<Component> bridgeCompositionDTOS = baseMapper.selectBridgeCompositionList(start, end);
+        List<TreeNode<Integer>> nodeList = CollUtil.newArrayList();
+        Set<Integer> hasAddedIdSet = new HashSet<>();   // 存放已经加入到树的节点
+        for (Component component : bridgeCompositionDTOS) {
+            String[] xpathArray = component.getXpath().split("/");
+            String[] xnameArray = component.getXname().split("/");
+            for (int i = 2; i < xpathArray.length; i++) {   // 遍历xpath中的每一级路径，构造树节点
+                Integer id = Integer.parseInt(xpathArray[i]);
+                Integer parentId = Integer.parseInt(xpathArray[i - 1]);
+                String name = xnameArray[i];
+                Integer level = i - 1;
+                if (!hasAddedIdSet.contains(id)) {  // 将未加入树中的节点添加到树中
+                    TreeNode<Integer> node = new TreeNode<>(id, parentId, name, level); // weight 存放level值
+                    nodeList.add(node);
+                    hasAddedIdSet.add(id);
+                }
+            }
         }
-
-        return componentDTOS;
+        List<Tree<Integer>> treeList = TreeUtil.build(nodeList, 2001000000);    // 指定根节点，创建构件树
+        return treeList;
     }
 
     /**

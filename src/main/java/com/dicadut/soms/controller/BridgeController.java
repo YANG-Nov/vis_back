@@ -1,7 +1,7 @@
 package com.dicadut.soms.controller;
 
 
-import com.dicadut.soms.dto.ComponentDTO;
+import cn.hutool.core.lang.tree.Tree;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
 import com.dicadut.soms.service.BridgeService;
@@ -44,7 +44,7 @@ public class BridgeController {
      */
     @ApiOperation("制定任务页根据桩号显示构件:B0-B16 12000-12016 ")
     @GetMapping("/getComponentNumber/{start}/{end}")
-    public ResponseViewModel<List<ComponentDTO>> getComponentList(@PathVariable String start, @PathVariable String end) {
+    public ResponseViewModel<List<Tree<Integer>>> getComponentList(@PathVariable String start, @PathVariable String end) {
         return ResponseViewModel.ok(bridgeService.getComponentList(start, end));
     }
 
@@ -63,6 +63,7 @@ public class BridgeController {
      * 输入参数: 无
      * 返回结果: 带层级结构的桩号列表数据，第一级是匝道(location)，第二级是桩号(id,number)
      * SQL: select b.id, b.stake_or_truss_number, b.location from t_bridge b;
+     *
      * @author fan_jane
      */
     @ApiOperation("任务制定-添加任务页显示下拉菜单框前面内容和桩号")
@@ -70,6 +71,5 @@ public class BridgeController {
     public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());
     }
-
 }
 
