@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Data
 public class LineLocationDTO {
-    private String location;
-    private List<StakeNumberDTO> stakeNumberDTOS = new ArrayList<>();
+    private String value;
+    private String label;
+    private List<StakeNumberDTO> children = new ArrayList<>();
 }

@@ -92,8 +92,8 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
             String location = bridgeSimpleDTO.getLocation(); // 匝道
             map.putIfAbsent(location, new ArrayList<>());
             StakeNumberDTO stakeNumberDTO = new StakeNumberDTO();
-            stakeNumberDTO.setId(bridgeSimpleDTO.getId());
-            stakeNumberDTO.setNumber(bridgeSimpleDTO.getNumber());
+            stakeNumberDTO.setValue(bridgeSimpleDTO.getId());
+            stakeNumberDTO.setLabel(bridgeSimpleDTO.getNumber());
             map.get(location).add(stakeNumberDTO);
         }
 
@@ -101,8 +101,9 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
             String location = entry.getKey();
             List<StakeNumberDTO> stakeNumberDTOList = entry.getValue();
             LineLocationDTO lineLocationDTO = new LineLocationDTO();
-            lineLocationDTO.setLocation(location);
-            lineLocationDTO.setStakeNumberDTOS(stakeNumberDTOList);
+            lineLocationDTO.setLabel(location);
+            lineLocationDTO.setValue(location);
+            lineLocationDTO.setChildren(stakeNumberDTOList);
             list.add(lineLocationDTO);
         }
 

@@ -13,9 +13,9 @@ import lombok.Data;
  */
 @Data
 public class StakeNumberDTO {
-    private String id;
+    private String value;
 
     @JsonSerialize(using = StakeNumberSerializer.class)
     @JsonDeserialize(using = StakeNumberDeserializer.class)
-    private String number;
+    private String label;
 }
