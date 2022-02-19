@@ -30,22 +30,12 @@ public class ComponentController {
     private ComponentService componentService;
 
     /**
+     * 数据库变动待修改
      * @author fan_jane
      */
     @ApiOperation("获得构件巡检频率")
     @GetMapping("getFrequency")
     public ResponseViewModel<List<ComponentDTO>> getFrequencyList() {
-        List<ComponentDTO> frequencyLatestList = componentService.getFrequencyList();
-        return ResponseViewModel.ok(frequencyLatestList);
-
-    }
-
-    /**
-     * @author fan_jane
-     */
-    @ApiOperation("任务添加页面的构件显示")
-    @GetMapping("getStakeNumberListByLine")
-    public ResponseViewModel<List<ComponentDTO>> getStakeNumberListByLine() {
         List<ComponentDTO> frequencyLatestList = componentService.getFrequencyList();
         return ResponseViewModel.ok(frequencyLatestList);
 
