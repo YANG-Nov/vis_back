@@ -2,32 +2,16 @@ package com.dicadut.soms.controller;
 
 
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.dto.AmendingTaskDTO;
-import com.dicadut.soms.dto.InspectorDTO;
-import com.dicadut.soms.dto.TaskAppListDTO;
-import com.dicadut.soms.dto.TaskContentDTO;
-import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskDetailsDTO;
-import com.dicadut.soms.dto.TaskDisplayDTO;
-import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
-import com.dicadut.soms.dto.TaskStatisticAppDTO;
-import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.vo.TaskQueryVO;
-import com.dicadut.soms.vo.TaskVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -49,7 +33,7 @@ public class TaskController {
      * @author fan_jane
      */
     @ApiOperation("测试功能，查询表中所有数据")
-    @GetMapping("findAll")
+    @GetMapping("find_all")
     public List<Task> findAllTask() {
         //调用service的方法实现查询所有的操作返回list集合，方法名称可能和mapper不一样，但是内容都一样
         List<Task> list = taskService.list(null);
@@ -82,7 +66,7 @@ public class TaskController {
      * @author fan_jane
      */
     @ApiOperation("任务制定页显示任务列表")
-    @PostMapping("getAmendingTaskList")
+    @PostMapping("get_amending_taskList")
     public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(@RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
         return ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize(), pageParam.getParam()));
     }
@@ -93,7 +77,7 @@ public class TaskController {
      * @author fan_jane
      */
     @ApiOperation("任务制定页任务列表点查看按钮")
-    @GetMapping("showTaskContent/{taskId}")
+    @GetMapping("show_taskContent/{taskId}")
     public ResponseViewModel<TaskContentDTO> getTaskContent(@PathVariable String taskId) {
         TaskContentDTO taskContent = taskService.getTaskContent(taskId);
         return ResponseViewModel.ok(taskContent);
@@ -104,7 +88,7 @@ public class TaskController {
      * @author fan_jane
      */
     @ApiOperation("待领取任务列表")
-    @GetMapping("getUnclaimedTaskList")
+    @GetMapping("get_unclaimed_task_list")
     public ResponseViewModel<List<TaskDisplayDTO>> getUnclaimedTaskList() {
         List<TaskDisplayDTO> unclaimedTaskList = taskService.getUnclaimedTaskList();
         return ResponseViewModel.ok(unclaimedTaskList);
@@ -115,7 +99,7 @@ public class TaskController {
      * @author fan_jane
      */
     @ApiOperation("正在巡检任务列表")
-    @GetMapping("getAreInspectionTaskList")
+    @GetMapping("get_are_inspection_taskList")
     public ResponseViewModel<List<TaskDisplayDTO>> getAreInspectionTaskList() {
         List<TaskDisplayDTO> areInspectionTaskList = taskService.getAreInspectionTaskList();
         return ResponseViewModel.ok(areInspectionTaskList);
@@ -126,23 +110,13 @@ public class TaskController {
      * @author fan_jane
      */
     @ApiOperation("巡检完成任务列表")
-    @GetMapping("getCompletedTaskList")
+    @GetMapping("get_completed_task_list")
     public ResponseViewModel<List<TaskDisplayDTO>> getCompletedTaskList() {
         List<TaskDisplayDTO> completedTaskList = taskService.getCompletedTaskList();
         return ResponseViewModel.ok(completedTaskList);
 
     }
 
-    /**
-     * @author fan_jane
-     * 20220118
-     */
-    @ApiOperation("添加任务")
-    @PostMapping("addTask")
-    public ResponseViewModel addTask(@RequestBody TaskVO taskVO) {
-        taskService.saveTask(taskVO);
-        return ResponseViewModel.ok();
-    }
 
     @ApiOperation("本年度巡检任务列表")
     @GetMapping("getThisYearTaskListBySingleSql")
@@ -164,7 +138,7 @@ public class TaskController {
      * * 20220118
      */
     @ApiOperation("任务制定页点击任务分配获取所有巡检人员")
-    @GetMapping("getInspectorList")
+    @GetMapping("get_inspector_list")
     public ResponseViewModel<List<InspectorDTO>> getInspectorList() {
         List<InspectorDTO> taskUserDistributeList = taskService.getInspectorList();
         return ResponseViewModel.ok(taskUserDistributeList);
@@ -177,7 +151,7 @@ public class TaskController {
      * * 20220118
      */
     @ApiOperation("任务制定页点击人员分配分配任务")
-    @GetMapping("distributeTask/{taskId}/{userId}")
+    @GetMapping("distribute_task/{taskId}/{userId}")
     public ResponseViewModel distributeTask(@PathVariable String taskId, @PathVariable String userId) {
         taskService.distributeTask(taskId, userId);
         return ResponseViewModel.ok();
