@@ -36,7 +36,7 @@ public class DictionaryController {
      * @author fan_jane
      */
     @ApiOperation("制定任务页显示任务类型:1001,构件频率2004")
-    @GetMapping("/getTypeNames/{type}")
+    @GetMapping("/get_typeNames/{type}")
     public ResponseViewModel<List<TypeNameDTO>> getTypeNames(@PathVariable String type) {
         return ResponseViewModel.ok(dictionaryService.getTypeNames(type));
     }
