@@ -136,7 +136,7 @@ public class TaskController {
         return ResponseViewModel.ok(taskService.getThisYearTaskListBySingleSql(startTime, endTime));
     }
 
-    @ApiOperation("本月巡检任务列表，APP首页")
+    @ApiOperation("本月巡检任务统计，APP首页")
     @GetMapping("get_task_statistic_App")   // TODO 接口路径 //FIX
     public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
