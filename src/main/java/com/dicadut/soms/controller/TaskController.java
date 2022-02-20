@@ -8,6 +8,7 @@ import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.vo.TaskQueryVO;
+import com.dicadut.soms.vo.TaskVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,16 @@ public class TaskController {
         List<Task> list = taskService.list(null);
         return list;
     }
-
+    /**
+     * @author fan_jane
+     * 20220118
+     */
+    @ApiOperation("添加任务")
+    @PostMapping("add_ask")
+    public ResponseViewModel addTask(@RequestBody TaskVO taskVO) {
+        taskService.saveTask(taskVO);
+        return ResponseViewModel.ok();
+    }
 
     @ApiOperation("查询任务状态数量，扇形图")
     @GetMapping("getTaskStatus")
