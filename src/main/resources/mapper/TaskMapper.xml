@@ -110,7 +110,7 @@
     <select id="selectTaskStatusLatestList" resultType="com.dicadut.soms.dto.TaskDTO">
         select d.code id, d.code_name name, count(t.task_status) value
         from t_dictionary d
-        left join soms.task t  on t.task_status = d.`code`
+        left join soms.task t  on t.task_status = d.`code`  -- TODO task表不存在
         where d.code in ('1002000001','1002000002','1002000003','1002000005')
         group by d.code;
     </select>

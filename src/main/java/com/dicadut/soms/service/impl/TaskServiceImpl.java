@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
+import com.dicadut.soms.mapper.TaskBridgeComponentMapper;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskMapper;
@@ -35,6 +36,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements TaskService {
+
+    @Resource
+    private TaskBridgeComponentMapper taskBridgeComponentMapper;
 
     @Resource
     private BusinessCodeService businessCodeService;
@@ -170,9 +174,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public List<InspectorDTO> getInspectorList() {
+        // TODO 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些
         List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
-        for (InspectorDTO inspectorDTO :
-                inspectorDTOList) {
+        for (InspectorDTO inspectorDTO : inspectorDTOList) {
             inspectorDTO.setChildren(baseMapper.selectTaskByInspector(inspectorDTO.getId()));
         }
         return inspectorDTOList;
@@ -236,8 +240,14 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public void saveTask(TaskVO taskVO) {
         String taskId = businessCodeService.generateBusinessCode("t_task");
+        // TODO 设置任务初试状态
         baseMapper.addTask(taskId, taskVO);
+        // TODO 方法二
+//        Task task = new Task();
+//        ... taskVO copy task
+//        baseMapper.insert(task);
         baseMapper.addTaskComponent(taskId, taskVO.getComponentNumberDTOS());
+        // taskBridgeComponentMapper.addTaskComponent(taskId, taskVO.getComponentNumberDTOS()); // TODO 上一行改成这行
     }
 
     /**
@@ -253,12 +263,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     /**
      *
+     * @param taskId
+     * @return
      */
     @Override
     public TaskContentDTO getTaskContent(String taskId) {
+        // TODO 底层实现得改
         TaskContentDTO taskContentDTO = new TaskContentDTO();
         taskContentDTO.setInspectionPosition(baseMapper.getInspectionPosition(taskId));
-        taskContentDTO.setChildren(baseMapper.getComponentNumberRange(baseMapper.getComponentList(taskId), taskId));
+        List<String> componentList = baseMapper.getComponentList(taskId);
+        taskContentDTO.setChildren(baseMapper.getComponentNumberRange(componentList, taskId));
         return taskContentDTO;
     }
 

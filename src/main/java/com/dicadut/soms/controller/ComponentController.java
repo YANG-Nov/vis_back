@@ -35,6 +35,7 @@ public class ComponentController {
      */
     @ApiOperation("获得构件巡检频率")
     @GetMapping("getFrequency")
+    @Deprecated
     public ResponseViewModel<List<ComponentDTO>> getFrequencyList() {
         List<ComponentDTO> frequencyLatestList = componentService.getFrequencyList();
         return ResponseViewModel.ok(frequencyLatestList);

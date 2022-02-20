@@ -36,6 +36,7 @@ public class DiseaseController {
 
     @ApiOperation("查询病害")
     @GetMapping("getFrequency")
+    @Deprecated
     public ResponseViewModel<List<DiseaseAppListDTO>> getDisease() {
         List<DiseaseAppListDTO> diseaseLatestList = diseaseService.getDiseaseList();
         return ResponseViewModel.ok(diseaseLatestList);

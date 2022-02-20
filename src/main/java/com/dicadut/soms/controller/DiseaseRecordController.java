@@ -162,18 +162,21 @@ public class DiseaseRecordController {
         return ResponseViewModel.ok();
     }
 
-    //TODO App添加病害后,添加病害页显示病害记录
+    //TODO App添加病害后,添加病害页显示病害记录 重点看
     @ApiOperation("App添加病害后,添加病害页显示病害记录")
     @GetMapping("getDiseaseRecordAppList")
     public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId) {
         List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId, componentId, positionId);
         return ResponseViewModel.ok(diseaseRecordAppList);
     }
-    //TODO APP添加病害后，查看病害详情
+    //TODO APP添加病害后，查看病害详情 重点看
     @ApiOperation("APP添加病害后，查看病害详情")
     @GetMapping("getDiseaseDetailsList")
     public ResponseViewModel<Collection<DiseaseRecordAppListDTO>> getDiseaseDetailsList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId) {
         Collection<DiseaseRecordAppListDTO> diseaseDetailsList = diseaseRecordService.getDiseaseDetailsList(taskId, componentId, positionId, diseaseId);
         return ResponseViewModel.ok(diseaseDetailsList);
     }
+
+    // TODO 缺失接口: 参数是不是一样的，返回值是不是一样的
+    // TODO delete接口
 }

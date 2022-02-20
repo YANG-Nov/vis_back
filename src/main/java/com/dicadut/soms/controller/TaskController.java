@@ -40,6 +40,7 @@ public class TaskController {
         List<Task> list = taskService.list(null);
         return list;
     }
+
     /**
      * @author fan_jane
      * 20220118
@@ -53,6 +54,7 @@ public class TaskController {
 
     @ApiOperation("查询任务状态数量，扇形图")
     @GetMapping("getTaskStatus")
+    @Deprecated
     public ResponseViewModel<List<TaskDTO>> getTaskStatusLatestList() {
         List<TaskDTO> taskStatusLatestList = taskService.getTaskStatusLatestList();
         return ResponseViewModel.ok(taskStatusLatestList);
@@ -69,7 +71,6 @@ public class TaskController {
 
     /**
      * 分页查询
-     * todo 先把上两个TODO 实现了，后续我再跟大家讲更优雅的实现方式
      *
      * @param pageParam
      * @return
@@ -82,8 +83,6 @@ public class TaskController {
     }
 
     /**
-     * TODO
-     *
      * @author fan_jane
      */
     @ApiOperation("任务制定页任务列表点查看按钮")
@@ -99,6 +98,7 @@ public class TaskController {
      */
     @ApiOperation("待领取任务列表")
     @GetMapping("get_unclaimed_task_list")
+    @Deprecated
     public ResponseViewModel<List<TaskDisplayDTO>> getUnclaimedTaskList() {
         List<TaskDisplayDTO> unclaimedTaskList = taskService.getUnclaimedTaskList();
         return ResponseViewModel.ok(unclaimedTaskList);
@@ -110,6 +110,7 @@ public class TaskController {
      */
     @ApiOperation("正在巡检任务列表")
     @GetMapping("get_are_inspection_taskList")
+    @Deprecated
     public ResponseViewModel<List<TaskDisplayDTO>> getAreInspectionTaskList() {
         List<TaskDisplayDTO> areInspectionTaskList = taskService.getAreInspectionTaskList();
         return ResponseViewModel.ok(areInspectionTaskList);
@@ -121,6 +122,7 @@ public class TaskController {
      */
     @ApiOperation("巡检完成任务列表")
     @GetMapping("get_completed_task_list")
+    @Deprecated
     public ResponseViewModel<List<TaskDisplayDTO>> getCompletedTaskList() {
         List<TaskDisplayDTO> completedTaskList = taskService.getCompletedTaskList();
         return ResponseViewModel.ok(completedTaskList);
@@ -129,13 +131,13 @@ public class TaskController {
 
 
     @ApiOperation("本年度巡检任务列表")
-    @GetMapping("get_this_year_task_list_by_single_sql")
+    @GetMapping("get_this_year_task_list_by_single_sql")    // TODO 接口路径
     public ResponseViewModel<TaskStatisticDTO> getThisYearTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisYearTaskListBySingleSql(startTime, endTime));
     }
 
     @ApiOperation("本月巡检任务列表，APP首页")
-    @GetMapping("get_this_month_task_list_by_single_sql")
+    @GetMapping("get_this_month_task_list_by_single_sql")   // TODO 接口路径
     public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
     }
@@ -176,6 +178,7 @@ public class TaskController {
 
     @ApiOperation("查看任务信息")
     @GetMapping("getTaskDetails")
+    @Deprecated  // TODO 删除
     public ResponseViewModel<TaskDetailsDTO> getTaskDetails(@RequestParam String taskId) {
         return ResponseViewModel.ok(taskService.getTaskDetails(taskId));
     }
