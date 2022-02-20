@@ -130,14 +130,14 @@ public class TaskController {
     }
 
 
-    @ApiOperation("本年度巡检任务列表")
-    @GetMapping("get_this_year_task_list_by_single_sql")    // TODO 接口路径
+    @ApiOperation("巡检任务扇形图")
+    @GetMapping("get_task_statistic")    // TODO 接口路径 //FIX
     public ResponseViewModel<TaskStatisticDTO> getThisYearTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisYearTaskListBySingleSql(startTime, endTime));
     }
 
     @ApiOperation("本月巡检任务列表，APP首页")
-    @GetMapping("get_this_month_task_list_by_single_sql")   // TODO 接口路径
+    @GetMapping("get_task_statistic_App")   // TODO 接口路径 //FIX
     public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
     }
