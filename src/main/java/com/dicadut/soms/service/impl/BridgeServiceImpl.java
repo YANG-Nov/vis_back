@@ -54,8 +54,9 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
     public List<Tree<Integer>> getComponentList(String start, String end) {
         //查询所有的桥梁部位
         List<Component> bridgeCompositionDTOS = baseMapper.selectBridgeCompositionList(start, end);
-        List<TreeNode<Integer>> nodeList = CollUtil.newArrayList();
-        Set<Integer> hasAddedIdSet = new HashSet<>();   // 存放已经加入到树的节点
+        List<TreeNode<Integer>> nodeList = CollUtil.newArrayList();  // 所有树的节点列表，树枝列表
+        Set<Integer> hasAddedIdSet = new HashSet<>();   // 存放已经加入到树的节点，辅助的数据结构
+
         for (Component component : bridgeCompositionDTOS) {
             String[] xpathArray = component.getXpath().split("/");
             String[] xnameArray = component.getXname().split("/");

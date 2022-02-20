@@ -59,6 +59,7 @@ public class BridgeController {
      */
     @ApiOperation("制定任务页根据桩号显示可选择的构件编号:B0-B16 12000-12016,桥面铺装 2001000012 桥头平顺2001000013，  伸缩缝2001000014， 排水口2001000015， 排水管2001000016， 栏杆2001000017， 防撞护栏2001000018， 人行道 2001000019")
     @GetMapping("/get_component_number/{start}/{end}/{id}")
+    @Deprecated
     public ResponseViewModel<List<StakeNumberDTO>> getComponentNumberList(@PathVariable String start, @PathVariable String end, @PathVariable String id) {
         return ResponseViewModel.ok(bridgeService.getComponentNumberList(start, end, id));
     }
