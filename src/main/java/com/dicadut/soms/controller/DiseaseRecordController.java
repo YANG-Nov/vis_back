@@ -155,26 +155,25 @@ public class DiseaseRecordController {
     private static class DiseaseRecordReqVo extends DiseaseRecord {
     }
 
-    @ApiOperation("添加病害记录")
-    @PostMapping("addDiseaseRecords")
+    @ApiOperation("App添加病害记录")
+    @PostMapping("add_disease_records")
     public ResponseViewModel addDiseaseRecords(@RequestBody DiseaseRecordDTO diseaseRecordDTO) {
         diseaseRecordService.addDiseaseRecords(diseaseRecordDTO);
         return ResponseViewModel.ok();
     }
 
+    //TODO App添加病害后,添加病害页显示病害记录
     @ApiOperation("App添加病害后,添加病害页显示病害记录")
     @GetMapping("getDiseaseRecordAppList")
     public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId) {
         List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId, componentId, positionId);
         return ResponseViewModel.ok(diseaseRecordAppList);
     }
-
+    //TODO APP添加病害后，查看病害详情
     @ApiOperation("APP添加病害后，查看病害详情")
     @GetMapping("getDiseaseDetailsList")
     public ResponseViewModel<Collection<DiseaseRecordAppListDTO>> getDiseaseDetailsList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId) {
         Collection<DiseaseRecordAppListDTO> diseaseDetailsList = diseaseRecordService.getDiseaseDetailsList(taskId, componentId, positionId, diseaseId);
         return ResponseViewModel.ok(diseaseDetailsList);
     }
-
-
 }

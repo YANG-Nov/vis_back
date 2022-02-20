@@ -25,7 +25,6 @@ public class DiseaseRecordDTO {
 //        diseaseVoice: [{content:"http:abc/dbc.wav"  type:5}],                                                1
 //        diseaseText: [{content:"病害描述"  type:6}]                                                            1
 //    }
-    // TODO: id 改成 diseaseAttributeId, 6个数组的属性名要用复数即加s
 
     private String taskId;
     private String componentId;

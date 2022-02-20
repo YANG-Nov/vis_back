@@ -40,16 +40,16 @@ public class ComponentController {
         return ResponseViewModel.ok(frequencyLatestList);
 
     }
-
+    //TODO 树形结构 任务巡检内容
     @ApiOperation("App添加病害前，选择构件列表")
-    @GetMapping("getComponentAppList")
+    @GetMapping("get_component_app_list")
     public ResponseViewModel<List<ComponentAppListDTO>> getComponentAppList(@RequestParam Integer componentId) {
         List<ComponentAppListDTO> componentAppList = componentService.getComponentAppList(componentId);
         return ResponseViewModel.ok(componentAppList);
     }
 
     @ApiOperation("APP添加病害页面，选择构件位置")
-    @GetMapping("getComponentPositionAppList")
+    @GetMapping("get_component_position_app_list")
     public ResponseViewModel<List<ComponentPositionAppListDTO>> getComponentPositionAppList(@RequestParam String taskId
             , @RequestParam String componentId) {
         List<ComponentPositionAppListDTO> componentPositionAppList = componentService.getComponentPositionAppList(taskId, componentId);

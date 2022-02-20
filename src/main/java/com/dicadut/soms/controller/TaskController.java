@@ -119,13 +119,13 @@ public class TaskController {
 
 
     @ApiOperation("本年度巡检任务列表")
-    @GetMapping("getThisYearTaskListBySingleSql")
+    @GetMapping("get_this_year_task_list_by_single_sql")
     public ResponseViewModel<TaskStatisticDTO> getThisYearTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisYearTaskListBySingleSql(startTime, endTime));
     }
 
-    @ApiOperation("本月巡检任务列表，APP")
-    @GetMapping("getThisMonthTaskListBySingleSql")
+    @ApiOperation("本月巡检任务列表，APP首页")
+    @GetMapping("get_this_month_task_list_by_single_sql")
     public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
     }
@@ -158,7 +158,7 @@ public class TaskController {
     }
 
     @ApiOperation("App任务列表")
-    @GetMapping("getTaskAppList")
+    @GetMapping("get_task_app_list")
     public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus, @RequestParam Integer inspectionFrequency) {
         List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus, inspectionFrequency);
         return ResponseViewModel.ok(taskAppList);
@@ -171,7 +171,7 @@ public class TaskController {
     }
 
     @ApiOperation("App任务对应的打卡点")
-    @GetMapping("getTaskScanPositionAppList")
+    @GetMapping("get_task_scan_position_app_list")
     public ResponseViewModel<List<TaskScanPositionAppListDTO>> getTaskScanPositionAppList(@RequestParam String taskId) {
         List<TaskScanPositionAppListDTO> taskScanPositionAppList = taskService.getTaskScanPositionAppList(taskId);
         return ResponseViewModel.ok(taskScanPositionAppList);
