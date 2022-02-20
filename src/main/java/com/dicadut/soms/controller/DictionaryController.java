@@ -33,10 +33,15 @@ public class DictionaryController {
     private DictionaryService dictionaryService;
 
     /**
-     * @author fan_jane
+     *根据任务类型或构件频率id从字典中返回可选择的任务类型或构件频率列表
+     *
+     *@param type 任务类型或构件频率id
+     *@return 任务类型或构件频率列表
+     *@author fan_jane
      */
-    @ApiOperation("制定任务页显示任务类型:1001,构件频率2004")
-    @GetMapping("/get_typeNames/{type}")
+    @ApiOperation(value = "制定任务页显示任务类型和构件频率",tags = {"web","制定任务页"}
+        ,notes = "任务类型type:1001,构件频率type:2004")
+    @GetMapping("/get_type_names/{type}")
     public ResponseViewModel<List<TypeNameDTO>> getTypeNames(@PathVariable String type) {
         return ResponseViewModel.ok(dictionaryService.getTypeNames(type));
     }
