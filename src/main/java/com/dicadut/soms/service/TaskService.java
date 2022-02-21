@@ -60,10 +60,7 @@ public interface TaskService extends IService<Task> {
 
     List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency);
 
-    TaskDetailsDTO getTaskDetails(String taskId);
-
     void saveTask(TaskVO taskVO);
-
 
     void distributeTask(String taskId, String userId);
 

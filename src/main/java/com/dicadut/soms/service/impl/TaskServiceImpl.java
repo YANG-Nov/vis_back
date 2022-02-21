@@ -221,17 +221,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskAppListDTOList;
     }
 
-
-
-
-
-    //查看任务信息
-    @Override
-    public TaskDetailsDTO getTaskDetails(String taskId) {
-        return baseMapper.selectTaskDetails(taskId);
-    }
-
-
     /**
      * 添加任务的方法
      * 把taskVo添加到task
