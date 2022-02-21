@@ -1,5 +1,9 @@
 package com.dicadut.soms.dto;
 
+import com.dicadut.soms.json.StakeNumberDeserializer;
+import com.dicadut.soms.json.StakeNumberSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 /**
@@ -9,6 +13,9 @@ import lombok.Data;
 @Data
 public class ComponentNumberDTO {
     private String id;
+
+    @JsonSerialize(using = StakeNumberSerializer.class)
+    @JsonDeserialize(using = StakeNumberDeserializer.class)
     private String number;
 
 
