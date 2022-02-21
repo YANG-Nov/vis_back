@@ -172,6 +172,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskStatisticAppDTO;
     }
 
+    /**
+     * 一次查库得人员表任务表桥梁表的相关属性
+     *
+     * @return 人员相关信息列表
+     */
     @Override
     public List<InspectorDTO> getInspectorList() {
         // TODO 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing
