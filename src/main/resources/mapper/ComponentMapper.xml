@@ -27,7 +27,6 @@
                      left join t_bridge_component bc on tbc.bridge_component_id = bc.id
                      left join t_component c on bc.component_id = c.id
         where task_id = #{taskId}
-        ;
     </select>
 
     <select id="selectComponentPositionAppList" resultType="com.dicadut.soms.dto.ComponentPositionAppListDTO">

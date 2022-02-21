@@ -94,7 +94,7 @@
         from t_dictionary d
         left join soms.task t  on t.task_status = d.`code`  -- TODO task表不存在
         where d.code in ('1002000001','1002000002','1002000003','1002000005')
-        group by d.code;
+        group by d.code
     </select>
 
     <select id="getAmendingTaskListByePageQuery" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
@@ -176,7 +176,7 @@
         INSERT INTO t_task
             (`id`,`task_type`,`task_status`,`start_time`,`end_time`,`receive_time`,`recall_time`,`create_by`)
         values(#{taskId},#{taskVO.taskType},'1002000004',#{taskVO.startTime},#{taskVO.endTime},#{taskVO.receiveTime},
-               #{taskVO.recallTime},#{taskVO.createBy});
+               #{taskVO.recallTime},#{taskVO.createBy})
     </insert>
 
     <insert id="addTaskComponent" parameterType="java.util.ArrayList">
