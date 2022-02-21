@@ -71,23 +71,31 @@ public class TaskController {
 
 
     /**
-     * 分页查询
+     * 添加完任务之后，跳转到任务列表页，显示需要修改分配的任务
+     * 前端传过来查询条件对象，返回带分页的任务列表
      *
      * @param pageParam
-     * @return
+     * @return 带分页的任务列表
      * @author fan_jane
      */
-    @ApiOperation("任务制定页显示任务列表")
-    @PostMapping("get_amending_taskList")
+    @ApiOperation(value = "显示待分配任务列表", tags = {"web", "制定任务页", "jane","已通"}
+            , notes = "添加完任务之后，跳转到任务列表页，显示需要修改分配的任务")
+    @PostMapping("get_amending_task_list")
     public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(@RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
         return ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize(), pageParam.getParam()));
     }
 
     /**
+     * 在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情
+     * 前端传过来当前行的任务id，
+     *
+     * @param taskId
+     * @return 返回二级任务列表，一级为巡检位置，二级为构件
      * @author fan_jane
      */
-    @ApiOperation("任务制定页任务列表点查看按钮")
-    @GetMapping("show_taskContent/{taskId}")
+    @ApiOperation(value = "任务列表点查看按钮", tags = {"web", "制定任务页", "jane","已通"}
+            , notes = "在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情")
+    @GetMapping("show_task_content/{taskId}")
     public ResponseViewModel<TaskContentDTO> getTaskContent(@PathVariable String taskId) {
         TaskContentDTO taskContent = taskService.getTaskContent(taskId);
         return ResponseViewModel.ok(taskContent);
