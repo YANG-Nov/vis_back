@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author fan_jennifer
- * @create 2021-10-2021/10/22 19:38
+ * @date 2021-10-2021/10/22 19:38
  */
 @Slf4j
 @Service
@@ -174,11 +174,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public List<InspectorDTO> getInspectorList() {
-        // TODO 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些
+        // TODO 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing
         List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
-        for (InspectorDTO inspectorDTO : inspectorDTOList) {
-            inspectorDTO.setChildren(baseMapper.selectTaskByInspector(inspectorDTO.getId()));
-        }
+
         return inspectorDTOList;
     }
 
