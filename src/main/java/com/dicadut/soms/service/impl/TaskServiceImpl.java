@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author fan_jennifer
- * @date 2021/10/22
+ * @create 2021-10-2021/10/22 19:38
  */
 @Slf4j
 @Service
@@ -174,16 +174,17 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public List<InspectorDTO> getInspectorList() {
-        // TODO 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing
+        // TODO 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些
         List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
-
+        for (InspectorDTO inspectorDTO : inspectorDTOList) {
+            inspectorDTO.setChildren(baseMapper.selectTaskByInspector(inspectorDTO.getId()));
+        }
         return inspectorDTOList;
     }
 
     /**
      * App任务列表
-     *
-     * @param taskStatus          任务状态
+     * @param taskStatus 任务状态
      * @param inspectionFrequency 巡检频率
      * @return
      */
@@ -193,11 +194,14 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 ////        List<TaskAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus,inspectionFrequency);
 //        return taskEndTimeAppList;
 //    }
-    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency) {
+
+
+
+    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency){
         // 理论上这三个list的长度要一样，即任务数，否则可能有bug
         List<TaskEndTimeAppListDTO> taskEndTimeAppList = baseMapper.selectTaskEndTimeAppList(taskStatus, inspectionFrequency);
-        List<TaskInspectionAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus, inspectionFrequency);
-        List<TaskDetailsAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus, inspectionFrequency);
+        List<TaskInspectionAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus,inspectionFrequency);
+        List<TaskDetailsAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus,inspectionFrequency);
 
         List<TaskAppListDTO> taskAppListDTOList = new ArrayList();  // 存放结果列表
 
@@ -207,7 +211,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         Map<String, TaskDetailsAppListDTO> taskDetailsMap = taskDetailsAppList.stream().collect(Collectors.toMap(TaskDetailsAppListDTO::getId, e -> e, (e1, e2) -> e1)); // 将obj3List转成 map
 
         // 任意遍历一个map的key，比如obj1Map
-        taskEndTimeMap.keySet().forEach(key -> {
+        taskEndTimeMap.keySet().forEach(key-> {
             TaskAppListDTO of = new TaskAppListDTO();
             BeanUtil.copyProperties(taskEndTimeMap.get(key), of); // 将 obj1 的属性 copy 到 of  对象
             BeanUtil.copyProperties(taskInspectionMap.get(key), of); // 将 obj2 的属性 copy 到 of  对象
@@ -216,14 +220,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         });
         return taskAppListDTOList;
     }
-
-
-    //查看任务信息
-    @Override
-    public TaskDetailsDTO getTaskDetails(String taskId) {
-        return baseMapper.selectTaskDetails(taskId);
-    }
-
 
     /**
      * 添加任务的方法
@@ -255,6 +251,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     /**
+     *
      * @param taskId
      * @return
      */

@@ -179,13 +179,6 @@ public class TaskController {
         return ResponseViewModel.ok(taskAppList);
     }
 
-    @ApiOperation("查看任务信息")
-    @GetMapping("getTaskDetails")
-    @Deprecated  // TODO 删除
-    public ResponseViewModel<TaskDetailsDTO> getTaskDetails(@RequestParam String taskId) {
-        return ResponseViewModel.ok(taskService.getTaskDetails(taskId));
-    }
-
     @ApiOperation("App任务对应的打卡点")
     @GetMapping("get_task_scan_position_app_list")
     public ResponseViewModel<List<TaskScanPositionAppListDTO>> getTaskScanPositionAppList(@RequestParam String taskId) {

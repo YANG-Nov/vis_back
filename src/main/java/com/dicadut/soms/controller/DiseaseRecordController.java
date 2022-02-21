@@ -178,5 +178,5 @@ public class DiseaseRecordController {
     }
 
     // TODO 缺失接口: 参数是不是一样的，返回值是不是一样的
-    // TODO delete接口
+    // TODO delete接口 更新接口 显示接口（2合1）
 }

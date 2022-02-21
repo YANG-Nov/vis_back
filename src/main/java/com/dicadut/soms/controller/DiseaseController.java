@@ -55,7 +55,5 @@ public class DiseaseController {
         List<DiseaseAttributeListDTO> diseaseAttributeAppList = diseaseService.getDiseaseAttributeAppList(diseaseId);
         return ResponseViewModel.ok(diseaseAttributeAppList);
     }
-
-
 }
 

@@ -1,5 +1,6 @@
 package com.dicadut.soms.service;
 
+import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
@@ -17,11 +18,11 @@ public interface ComponentService extends IService<Component> {
     List<ComponentDTO> getFrequencyList();
 
     /**
-     * App添加病害前，选择构件列表
-     * @param componentId 一级构件id
-     * @return 构件列表
+     * App添加病害前，选择构件列表（巡检内容）
+     * @param taskId 任务id
+     * @return 构件列表，树形结构
      */
-    List<ComponentAppListDTO> getComponentAppList(Integer componentId);
+    List<Tree<Integer>> getComponentAppList(String taskId);
 
     /**
      * APP添加病害页面，选择构件位置
