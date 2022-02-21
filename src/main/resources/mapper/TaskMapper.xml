@@ -149,7 +149,7 @@
         LEFT JOIN t_component c ON bc.component_id = c.id
         LEFT JOIN t_component cc ON c.parent_id = cc.id
         LEFT JOIN t_dictionary d ON t.task_status = d.`code`
-        WHERE u.`status` = '2001000002'
+        WHERE u.`duty` = '2'
     </select>
 
     <select id="getInspectionPosition" resultType="java.lang.String">
