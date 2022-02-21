@@ -151,6 +151,7 @@ public class TaskController {
      * @return 带层级结构的人员列表，一级是人员信息，二级是对应的任务信息
      * @author fan_jane
      */
+
     @ApiOperation(value = "任务分配获取所有巡检人员", tags = {"web", "任务列表页", "jane"}
             , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
     @GetMapping("/get_inspector_list")
