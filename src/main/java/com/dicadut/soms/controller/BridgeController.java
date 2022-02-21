@@ -43,7 +43,7 @@ public class BridgeController {
      * @return 带层级结构的构件列表
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示构件", tags = {"web", "制定任务页", "jane"}
+    @ApiOperation(value = "制定任务页显示构件", tags = {"web", "制定任务页", "jane","已通"}
             , notes = "传入id:B0-B16 起始桩号id12000，终止桩号id12016")
     @GetMapping("/get_component_number/{start}/{end}")
     public ResponseViewModel<List<Tree<Integer>>> getComponentList(@PathVariable String start, @PathVariable String end) {
@@ -76,7 +76,7 @@ public class BridgeController {
      * SQL: select b.id, b.stake_or_truss_number, b.location from t_bridge b;
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "制定任务页", "jane"})
+    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "制定任务页", "jane","已通"})
     @GetMapping("/show_location")
     public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());
