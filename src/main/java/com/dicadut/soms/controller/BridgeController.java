@@ -42,22 +42,24 @@ public class BridgeController {
      * @return 带层级结构的构件列表
      * @author fan_jane
      */
-    @ApiOperation("制定任务页根据桩号显示构件:B0-B16 12000-12016 ")
+    @ApiOperation(value = "制定任务页显示构件", tags = {"web", "制定任务页"}
+            , notes = "传入id:B0-B16 起始桩号id12000，终止桩号id12016")
     @GetMapping("/get_component_number/{start}/{end}")
     public ResponseViewModel<List<Tree<Integer>>> getComponentList(@PathVariable String start, @PathVariable String end) {
         return ResponseViewModel.ok(bridgeService.getComponentList(start, end));
     }
 
     /**
-     *根据桩号和构件id返回可选择的构件编号列表
+     * 根据桩号和构件id返回可选择的构件编号列表
      *
-     *@param start 起始桩号id
-     *@param end   结束桩号id
-     *@param id    构件id
-     *@return 构件编号列表
-     *@author fan_jane
+     * @param start 起始桩号id
+     * @param end   结束桩号id
+     * @param id    构件id
+     * @return 构件编号列表
+     * @author fan_jane
      */
-    @ApiOperation("制定任务页根据桩号显示可选择的构件编号:B0-B16 12000-12016,桥面铺装 2001000012 桥头平顺2001000013，  伸缩缝2001000014， 排水口2001000015， 排水管2001000016， 栏杆2001000017， 防撞护栏2001000018， 人行道 2001000019")
+    @ApiOperation(value = "制定任务页根据桩号显示可选择的构件编号", tags = {"web", "制定任务页"}
+            , notes = "B0-B16 12000-12016,桥面铺装2001000012桥头平顺2001000013伸缩缝2001000014排水口2001000015排水管2001000016栏杆2001000017防撞护栏2001000018人行道 200100001")
     @GetMapping("/get_component_number/{start}/{end}/{id}")
     @Deprecated
     public ResponseViewModel<List<StakeNumberDTO>> getComponentNumberList(@PathVariable String start, @PathVariable String end, @PathVariable String id) {
@@ -65,15 +67,15 @@ public class BridgeController {
     }
 
     /**
-     * 桩号选择下拉框接口
+     * 桩号选择下拉框接口的
      * 使用场景: 创建任务时，桩号选择下来框用到该接口（开始桩号及结束桩号都要调用该接口）
-     * 输入参数: 无
-     * 返回结果: 带层级结构的桩号列表数据，第一级是匝道(location)，第二级是桩号(id,number)
-     * SQL: select b.id, b.stake_or_truss_number, b.location from t_bridge b;
+     * 输入参数：无
      *
+     * @return 带层级结构的桩号列表数据，第一级是匝道(location)，第二级是桩号(id,number)
+     * SQL: select b.id, b.stake_or_truss_number, b.location from t_bridge b;
      * @author fan_jane
      */
-    @ApiOperation("任务制定-添加任务页显示下拉菜单框前面内容和桩号")
+    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "制定任务页"})
     @GetMapping("/show_location")
     public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());
