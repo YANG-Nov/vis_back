@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * @author fan_jennifer
+ * @version 1.0
  * @create 2021-10-22 16:42
  */
 @Api(tags = "任务接口")
@@ -145,12 +146,14 @@ public class TaskController {
 
     /**
      * TODO 是不是要写到user controller里
+     * 任务列表点击任务分配获取所有巡检人员，不需要传参，返回人员表和任务表里的相关字段
      *
+     * @return 带层级结构的人员列表，一级是人员信息，二级是对应的任务信息
      * @author fan_jane
-     * * 20220118
      */
-    @ApiOperation("任务制定页点击任务分配获取所有巡检人员")
-    @GetMapping("get_inspector_list")
+    @ApiOperation(value = "任务分配获取所有巡检人员", tags = {"web", "任务列表页", "jane"}
+            , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
+    @GetMapping("/get_inspector_list")
     public ResponseViewModel<List<InspectorDTO>> getInspectorList() {
         List<InspectorDTO> taskUserDistributeList = taskService.getInspectorList();
         return ResponseViewModel.ok(taskUserDistributeList);

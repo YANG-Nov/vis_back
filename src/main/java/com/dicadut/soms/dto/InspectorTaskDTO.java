@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
  * @date 2022-01-20 0:12
  */
 @Data
+@Deprecated
 public class InspectorTaskDTO {
     @ApiModelProperty(value = "任务")
     private String taskId;

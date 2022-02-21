@@ -27,7 +27,7 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     TaskStatisticAppDTO selectTaskStatisticAppByTaskStatus(@Param("startTime") String startTime,
                                                            @Param("endTime") String endTime);
-
+    // TODO 1状态提到Java层做 2查询层级改成韦雷哥代码
     List<InspectorDTO> selectInspectorList();
 
     List<TaskEndTimeAppListDTO> selectTaskEndTimeAppList(@Param("taskStatus") Integer taskStatus,
@@ -61,8 +61,6 @@ public interface TaskMapper extends BaseMapper<Task> {
                                                           @Param("taskId") String taskId);
 
     List<String> getComponentList(@Param("taskId") String taskId);
-
-    List<InspectorTaskDTO> selectTaskByInspector(@Param("id") String id);
 
     List<TaskScanPositionAppListDTO> selectTaskScanPositionAppList(String taskId);
 }

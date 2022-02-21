@@ -48,13 +48,6 @@
     </select>
 
 
-    <select id="selectInspectorList" resultType="com.dicadut.soms.dto.InspectorDTO">
-        SELECT id,real_name name
-        FROM t_user
-        WHERE duty=2
-        group by id
-    </select>
-
     <select id="selectTaskEndTimeAppList" resultType="com.dicadut.soms.dto.TaskEndTimeAppListDTO">
         SELECT
             t.id,
@@ -146,20 +139,17 @@
         group by t.id
     </select>
 
-    <select id="selectTaskByInspector" resultType="com.dicadut.soms.dto.InspectorTaskDTO">
-        SELECT DISTINCT t.id taskId,dd.code_name taskType,t.start_time startTime, t.end_time endTime,
-            CONCAT(b.location,cc.`name`) inspectionPosition,u.real_name inspectorName,d.code_name taskStatus
-        FROM t_task t
-        LEFT JOIN soms.`user` u ON t.inspector_id = u.id
+    <select id="selectInspectorList" resultType="com.dicadut.soms.dto.InspectorDTO">
+        SELECT DISTINCT u.id,u.real_name `name`, t.id taskId,d.`code_name` taskStatus,t.start_time startTime, t.end_time endTime,CONCAT(b.location,cc.`name`) inspectionPosition
+        FROM t_user u
+        LEFT JOIN t_task t ON u.id = t.inspector_id
         LEFT JOIN t_task_bridge_component tc ON t.id = tc.task_id
         LEFT JOIN t_bridge_component bc ON tc.bridge_component_id = bc.id
+        LEFT JOIN t_bridge b ON b.id=bc.bridge_id
         LEFT JOIN t_component c ON bc.component_id = c.id
         LEFT JOIN t_component cc ON c.parent_id = cc.id
-        LEFT JOIN t_bridge b ON b.id=bc.bridge_id
         LEFT JOIN t_dictionary d ON t.task_status = d.`code`
-        LEFT JOIN t_dictionary dd ON t.task_type =dd.`code`
-        WHERE u.id=#{id}
-        group by t.id
+        WHERE u.`status` = '2001000002'
     </select>
 
     <select id="getInspectionPosition" resultType="java.lang.String">
