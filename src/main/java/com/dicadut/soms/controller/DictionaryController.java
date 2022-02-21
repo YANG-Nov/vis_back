@@ -33,13 +33,14 @@ public class DictionaryController {
     private DictionaryService dictionaryService;
 
     /**
+     * todo 格式还没对
      * 根据任务类型或构件频率id从字典中返回可选择的任务类型或构件频率列表
      *
      * @param type 任务类型或构件频率id
      * @return 任务类型或构件频率列表
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示任务类型和构件频率", tags = {"web", "制定任务页"}
+    @ApiOperation(value = "制定任务页显示任务类型和构件频率", tags = {"web", "制定任务页","jane","未通"}
             , notes = "任务类型type:1001,构件频率type:2004")
     @GetMapping("/get_type_names/{type}")
     public ResponseViewModel<List<TypeNameDTO>> getTypeNames(@PathVariable String type) {

@@ -1,8 +1,8 @@
 package com.dicadut.soms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.dto.TypeNameDTO;
 import com.dicadut.soms.domain.Dictionary;
+import com.dicadut.soms.dto.TypeNameDTO;
 import com.dicadut.soms.mapper.DictionaryMapper;
 import com.dicadut.soms.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +23,10 @@ import java.util.List;
 public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Dictionary> implements DictionaryService {
 
     /**
-     *该方法通过前方路径参数得到的类型返回所属的类型名称
+     * 该方法通过前方路径参数得到的类型返回所属的类型名称
      *
-     *@param type
-     * @return List<TypeNameDTO>
+     * @param type
+     * @return 任务类型名称或构件频率名称列表
      */
 
     @Override
