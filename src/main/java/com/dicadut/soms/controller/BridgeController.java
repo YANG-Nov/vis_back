@@ -60,10 +60,12 @@ public class BridgeController {
      * @author fan_jane
      */
     @ApiOperation(value = "制定任务页根据桩号显示可选择的构件编号", tags = {"web", "制定任务页", "jane"}
-            , notes = "B0-B16 12000-12016,桥面铺装2001000012桥头平顺2001000013伸缩缝2001000014排水口2001000015排水管2001000016栏杆2001000017防撞护栏2001000018人行道 200100001")
+            , notes = "B0-B16 12000-12016,桥面铺装2001000012桥头平顺2001000013伸缩缝2001000014排水口2001000015" +
+            "排水管2001000016栏杆2001000017防撞护栏2001000018人行道 200100001")
     @GetMapping("/get_component_number/{start}/{end}/{id}")
     @Deprecated
-    public ResponseViewModel<List<StakeNumberDTO>> getComponentNumberList(@PathVariable String start, @PathVariable String end, @PathVariable String id) {
+    public ResponseViewModel<List<StakeNumberDTO>> getComponentNumberList(@PathVariable String start
+            , @PathVariable String end, @PathVariable String id) {
         return ResponseViewModel.ok(bridgeService.getComponentNumberList(start, end, id));
     }
 

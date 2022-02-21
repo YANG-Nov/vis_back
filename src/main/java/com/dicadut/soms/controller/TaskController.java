@@ -78,11 +78,13 @@ public class TaskController {
      * @return 带分页的任务列表
      * @author fan_jane
      */
-    @ApiOperation(value = "显示待分配任务列表", tags = {"web", "任务列表页", "jane","已通"}
+    @ApiOperation(value = "显示待分配任务列表", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "添加完任务之后，跳转到任务列表页，显示需要修改分配的任务")
     @PostMapping("get_amending_task_list")
-    public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(@RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
-        return ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize(), pageParam.getParam()));
+    public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(
+            @RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
+        return ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize()
+                , pageParam.getParam()));
     }
 
     /**
@@ -93,7 +95,7 @@ public class TaskController {
      * @return 返回二级任务列表，一级为巡检位置，二级为构件
      * @author fan_jane
      */
-    @ApiOperation(value = "任务列表点查看按钮", tags = {"web", "任务列表页", "jane","已通"}
+    @ApiOperation(value = "任务列表点查看按钮", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情")
     @GetMapping("show_task_content/{taskId}")
     public ResponseViewModel<TaskContentDTO> getTaskContent(@PathVariable String taskId) {
@@ -159,7 +161,7 @@ public class TaskController {
      * @return 带层级结构的人员列表，一级是人员信息，二级是对应的任务信息
      * @author fan_jane
      */
-    @ApiOperation(value = "任务分配获取所有巡检人员", tags = {"web", "任务列表页", "jane","已通"}
+    @ApiOperation(value = "任务分配获取所有巡检人员", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
     @GetMapping("/get_inspector_list")
     public ResponseViewModel<List<InspectorDTO>> getInspectorList() {
