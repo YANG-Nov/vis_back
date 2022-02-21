@@ -34,7 +34,6 @@
         from t_bridge_component bc
         left join t_component c on bc.component_id = c.id
         where bc.bridge_id between #{start} AND #{end}
-        ;
     </select>
 
     <select id="selectComponentByBridgeComposition" resultType="com.dicadut.soms.dto.ComponentDTO">
