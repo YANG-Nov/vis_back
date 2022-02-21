@@ -7,7 +7,6 @@
         <id column="id" property="id"/>
         <result column="stake_or_truss_number" property="stakeOrTrussNumber"/>
         <result column="line" property="line"/>
-        <result column="code" property="code"/>
         <result column="main_or_approach" property="mainOrApproach"/>
         <result column="bridge_name" property="bridgeName"/>
         <result column="location" property="location"/>
