@@ -45,7 +45,6 @@ public class ComponentController {
      * @param taskId 任务id
      * @return 构件列表，树形结构
      */
-    //TODO 树形结构 任务巡检内容 //FIX
     @ApiOperation("App添加病害前，选择构件列表（巡检内容）")
     @GetMapping("get_component_app_list")
     public ResponseViewModel<List<Tree<Integer>>> getComponentAppList(@RequestParam String taskId) {

@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 /**
  * @author Yang
- * @Description TODO
  * @create 2021-08-25 17:10
  */
 public class WyUtil {

@@ -142,13 +142,13 @@ public class TaskController {
 
 
     @ApiOperation("巡检任务扇形图")
-    @GetMapping("get_task_statistic")    // TODO 接口路径 //FIX
+    @GetMapping("get_task_statistic")
     public ResponseViewModel<TaskStatisticDTO> getThisYearTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisYearTaskListBySingleSql(startTime, endTime));
     }
 
     @ApiOperation("本月巡检任务统计，APP首页")
-    @GetMapping("get_task_statistic_App")   // TODO 接口路径 //FIX
+    @GetMapping("get_task_statistic_App")
     public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
     }
