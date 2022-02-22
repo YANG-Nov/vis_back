@@ -107,11 +107,9 @@
           and dr.type = 6
     </select>
     <select id="selectDiseaseRecordDeleteList" resultType="com.dicadut.soms.domain.DiseaseRecord">
-    SELECT
-    *
-    FROM
-    soms.t_disease_record
-    WHERE
-    (task_id,component_id,bridge_id,disease_id)=(#{taskId},#{componentId},#{positionId},#{diseaseId})
+        SELECT
+            *
+        FROM soms.t_disease_record
+        WHERE (task_id,component_id,bridge_id,disease_id)=(#{taskId},#{componentId},#{positionId},#{diseaseId})
     </select>
 </mapper>
