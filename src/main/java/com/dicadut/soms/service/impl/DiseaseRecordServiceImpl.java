@@ -98,4 +98,9 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         }
         return list;
     }
+
+    @Override
+    public List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, String componentId, String positionId,String diseaseId) {
+        return baseMapper.selectDiseaseRecordDeleteList(taskId,componentId,positionId,diseaseId);
+    }
 }

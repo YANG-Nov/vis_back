@@ -35,7 +35,7 @@
         GROUP BY component_id,bridge_id,disease_id
     </select>
 
-    <select id="selectFeatureFields" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+    <select id="selectFeatureFields" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
         select
             dr.disease_attribute_id diseaseAttributeId,
             da.value diseaseAttributeName,
@@ -47,7 +47,7 @@
           and dr.type = 1
     </select>
 
-    <select id="selectFeaturePopups" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+    <select id="selectFeaturePopups" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
         select
             dr.disease_attribute_id diseaseAttributeId,
             da.value diseaseAttributeName,
@@ -59,7 +59,7 @@
           and dr.type = 2
     </select>
 
-    <select id="selectFeatureRadios" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+    <select id="selectFeatureRadios" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
         select
             dr.disease_attribute_id diseaseAttributeId,
             da.value diseaseAttributeName,
@@ -71,7 +71,7 @@
           and dr.type = 3
     </select>
 
-    <select id="selectDiseasePictures" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+    <select id="selectDiseasePictures" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
         select
             dr.disease_attribute_id diseaseAttributeId,
             da.value diseaseAttributeName,
@@ -83,7 +83,7 @@
           and dr.type = 4
     </select>
 
-    <select id="selectDiseaseVoices" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+    <select id="selectDiseaseVoices" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
         select
             dr.disease_attribute_id diseaseAttributeId,
             da.value diseaseAttributeName,
@@ -95,7 +95,7 @@
           and dr.type = 5
     </select>
 
-    <select id="selectDiseaseTexts" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
+    <select id="selectDiseaseTexts" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
         select
             dr.disease_attribute_id diseaseAttributeId,
             da.value diseaseAttributeName,
@@ -105,5 +105,13 @@
         LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
         where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
           and dr.type = 6
+    </select>
+    <select id="selectDiseaseRecordDeleteList" resultType="com.dicadut.soms.domain.DiseaseRecord">
+    SELECT
+    *
+    FROM
+    soms.t_disease_record
+    WHERE
+    (task_id,component_id,bridge_id,disease_id)=(#{taskId},#{componentId},#{positionId},#{diseaseId})
     </select>
 </mapper>

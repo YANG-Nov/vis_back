@@ -177,6 +177,13 @@ public class DiseaseRecordController {
         return ResponseViewModel.ok(diseaseDetailsList);
     }
 
+    @ApiOperation("删除病害记录")
+    @DeleteMapping("removeDiseaseRecord")
+    public ResponseViewModel removeDiseaseRecord(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId,@RequestParam String diseaseId) {
+        List<DiseaseRecord> diseaseRecordDeleteList = diseaseRecordService.getDiseaseRecordDeleteList(taskId, componentId, positionId,diseaseId);
+        diseaseRecordService.removeByIds(diseaseRecordDeleteList);
+        return ResponseViewModel.ok();
+    }
     // TODO 缺失接口: 参数是不是一样的，返回值是不是一样的
     // TODO delete接口 更新接口 显示接口（2合1）
 }
