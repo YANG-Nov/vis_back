@@ -7,7 +7,6 @@ import java.util.Map;
 /**
  * @author fan_jennifer
  * @version 1.0
- * @desc TODO 待完善
  * @date 2022-01-06 21:32
  */
 public enum TypeNameEnum {

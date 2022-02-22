@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author Yang
- * @Description TODO
+ * @Description
  * @create 2021-08-25 17:01
  */
 @Mapper

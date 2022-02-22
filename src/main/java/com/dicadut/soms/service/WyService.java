@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Yang
- * @Description TODO
+ * @Description
  * @create 2021-08-25 17:03
  */
 public interface WyService extends IService<Wy> {
