@@ -43,10 +43,15 @@ public class TaskController {
     }
 
     /**
+     * 选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储
+     * 前端传过来两级对象，第一级为任务信息，第二级为构件信息
+     *
+     * @param taskVO
+     * @return 暂时没有 TODO 后期需要优化
      * @author fan_jane
-     * 20220118
      */
-    @ApiOperation("添加任务")
+    @ApiOperation(value = "添加任务", tags = {"web", "任务制定页", "jane", "未通"}
+            , notes = "选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储")
     @PostMapping("add_ask")
     public ResponseViewModel addTask(@RequestBody TaskVO taskVO) {
         taskService.saveTask(taskVO);
