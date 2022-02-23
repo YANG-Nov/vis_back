@@ -175,12 +175,17 @@ public class TaskController {
     }
 
     /**
-     * T
+     * TODO 这个接口前端还没写可以修改传参路径
+     * 添加完任务后，跳转到任务列表页面，进行任务人员分配
+     * 前端穿过来当前任务id和人员id，后端修改任务表里的人员字段和任务状态字段
      *
+     * @param taskId
+     * @param userId
+     * @return 无
      * @author fan_jane
-     * * 20220118
      */
-    @ApiOperation("任务制定页点击人员分配分配任务")
+    @ApiOperation(value = "任务制定页点击人员分配分配任务", tags = {"web", "任务列表页", "jane", "未通"}
+            , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
     @GetMapping("distribute_task/{taskId}/{userId}")
     public ResponseViewModel distributeTask(@PathVariable String taskId, @PathVariable String userId) {
         taskService.distributeTask(taskId, userId);
