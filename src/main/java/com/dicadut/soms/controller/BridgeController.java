@@ -43,7 +43,7 @@ public class BridgeController {
      * @return 带层级结构的构件列表
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示构件", tags = {"web", "制定任务页", "jane","已通"}
+    @ApiOperation(value = "制定任务页显示构件", tags = {"web", "任务制定页", "jane","已通"}
             , notes = "传入id:B0-B16 起始桩号id12000，终止桩号id12016")
     @GetMapping("/get_component_number/{start}/{end}")
     public ResponseViewModel<List<Tree<Integer>>> getComponentList(@PathVariable String start, @PathVariable String end) {
@@ -60,7 +60,7 @@ public class BridgeController {
      * @return 构件编号列表
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页根据桩号显示可选择的构件编号", tags = {"web", "制定任务页", "jane"}
+    @ApiOperation(value = "制定任务页根据桩号显示可选择的构件编号", tags = {"web", "任务制定页", "jane"}
             , notes = "B0-B16 12000-12016,桥面铺装2001000012桥头平顺2001000013伸缩缝2001000014排水口2001000015" +
             "排水管2001000016栏杆2001000017防撞护栏2001000018人行道 200100001")
     @GetMapping("/get_component_number/{start}/{end}/{id}")
@@ -79,7 +79,7 @@ public class BridgeController {
      * SQL: select b.id, b.stake_or_truss_number, b.location from t_bridge b;
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "制定任务页", "jane","已通"})
+    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane","已通"})
     @GetMapping("/show_location")
     public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());

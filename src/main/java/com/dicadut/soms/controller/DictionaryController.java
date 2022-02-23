@@ -40,7 +40,7 @@ public class DictionaryController {
      * @return 任务类型或构件频率列表
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示任务类型和构件频率", tags = {"web", "制定任务页","jane","未通"}
+    @ApiOperation(value = "制定任务页显示任务类型和构件频率", tags = {"web", "任务制定页","jane","未通"}
             , notes = "任务类型type:1001,构件频率type:2004")
     @GetMapping("/get_type_names/{type}")
     public ResponseViewModel<List<TypeNameDTO>> getTypeNames(@PathVariable String type) {
