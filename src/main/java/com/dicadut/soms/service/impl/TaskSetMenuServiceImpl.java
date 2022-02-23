@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
+@Deprecated
 public class TaskSetMenuServiceImpl extends ServiceImpl<TaskSetMenuMapper, TaskSetMenu> implements TaskSetMenuService {
     /**
      *点提交，保存套餐

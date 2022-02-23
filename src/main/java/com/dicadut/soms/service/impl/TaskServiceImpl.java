@@ -75,6 +75,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskDisplayDTOS;
     }
 
+    /**
+     * 前端传过来查询条件对象，返回带分页的任务列表
+     *
+     * @param currentPage 第几页
+     * @param pageSize    页大小
+     * @param taskQueryVO 查询条件
+     * @return 带分页插件的任务列表
+     * @author fan_jane
+     */
     @Override
     public PageResult<AmendingTaskDTO> getAmendingTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
         IPage<AmendingTaskDTO> page = new Page<>(currentPage, pageSize);
@@ -176,6 +185,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 一次查库得人员表任务表桥梁表的相关属性
      *
      * @return 人员相关信息列表
+     * @author fan_jane
      */
     @Override
     public List<InspectorDTO> getInspectorList() {
@@ -187,7 +197,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     /**
      * App任务列表
-     * @param taskStatus 任务状态
+     *
+     * @param taskStatus          任务状态
      * @param inspectionFrequency 巡检频率
      * @return
      */
@@ -197,14 +208,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 ////        List<TaskAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus,inspectionFrequency);
 //        return taskEndTimeAppList;
 //    }
-
-
-
-    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency){
+    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency) {
         // 理论上这三个list的长度要一样，即任务数，否则可能有bug
         List<TaskEndTimeAppListDTO> taskEndTimeAppList = baseMapper.selectTaskEndTimeAppList(taskStatus, inspectionFrequency);
-        List<TaskInspectionAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus,inspectionFrequency);
-        List<TaskDetailsAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus,inspectionFrequency);
+        List<TaskInspectionAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus, inspectionFrequency);
+        List<TaskDetailsAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus, inspectionFrequency);
 
         List<TaskAppListDTO> taskAppListDTOList = new ArrayList();  // 存放结果列表
 
@@ -214,7 +222,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         Map<String, TaskDetailsAppListDTO> taskDetailsMap = taskDetailsAppList.stream().collect(Collectors.toMap(TaskDetailsAppListDTO::getId, e -> e, (e1, e2) -> e1)); // 将obj3List转成 map
 
         // 任意遍历一个map的key，比如obj1Map
-        taskEndTimeMap.keySet().forEach(key-> {
+        taskEndTimeMap.keySet().forEach(key -> {
             TaskAppListDTO of = new TaskAppListDTO();
             BeanUtil.copyProperties(taskEndTimeMap.get(key), of); // 将 obj1 的属性 copy 到 of  对象
             BeanUtil.copyProperties(taskInspectionMap.get(key), of); // 将 obj2 的属性 copy 到 of  对象
@@ -228,11 +236,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 添加任务的方法
      * 把taskVo添加到task
      * 并设置状态为待分配
+     *
+     * @param taskVO
+     * @return void
+     * @author fan_jane
      */
     @Override
     public void saveTask(TaskVO taskVO) {
         String taskId = businessCodeService.generateBusinessCode("t_task");
-        // TODO 设置任务初试状态
+        // TODO 设置任务初试状态  2.24号改
         baseMapper.addTask(taskId, taskVO);
         // TODO 方法二
 //        Task task = new Task();
@@ -246,6 +258,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 巡检内容
      * 添加任务中的巡检人员
      * 并设置状态为待领取
+     *
+     * @param taskId
+     * @param userId
+     * @author fan_jane
      */
     @Override
     public void distributeTask(String taskId, String userId) {
@@ -253,13 +269,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     /**
+     * 获取任务详情，全部罗列返回给前端，先不删，重新写一个好了
      *
      * @param taskId
      * @return
+     * @author fan_jane
      */
     @Override
+    @Deprecated
     public TaskContentDTO getTaskContent(String taskId) {
-        // TODO 底层实现得改
+        // TODO 底层实现得改 + fan（2.24号改这个）
         TaskContentDTO taskContentDTO = new TaskContentDTO();
         taskContentDTO.setInspectionPosition(baseMapper.getInspectionPosition(taskId));
         List<String> componentList = baseMapper.getComponentList(taskId);

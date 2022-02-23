@@ -24,6 +24,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("t_task_set_menu")
 @ApiModel(value="TaskSetMenu对象", description="任务套餐表")
+@Deprecated
 public class TaskSetMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;

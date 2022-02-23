@@ -14,7 +14,6 @@ import java.util.Map;
  * @version 1.0.0
  * @date 2022-02-23 22:43
  */
-@Deprecated
 public class TaskUtil {
     /**
      * TODO 需要完善，异常处理等
@@ -47,7 +46,7 @@ public class TaskUtil {
         for (E e : es) {
             //Class<T> aClass = (Class<T>) t.getClass();
             //取到e里的id，如果map里没有id就创建一个
-            Class<?> aClass = e.getClass();
+            Class<E> aClass = (Class<E>) e.getClass();
             Field[] fields = aClass.getDeclaredFields();
             Field id = aClass.getDeclaredField(sourceId);
             id.setAccessible(true);

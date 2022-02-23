@@ -1,13 +1,9 @@
 package com.dicadut.soms.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeNodeConfig;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.dto.ComponentAppListDTO;
-import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.domain.Component;
+import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.ComponentPositionAppListDTO;
 import com.dicadut.soms.mapper.ComponentMapper;
 import com.dicadut.soms.service.ComponentService;
@@ -17,9 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author fan_jennifer
@@ -30,6 +24,7 @@ import java.util.Set;
 public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component> implements ComponentService {
 
     @Override
+    @Deprecated
     public List<ComponentDTO> getFrequencyList() {
 
         List<Component> components = baseMapper.selectList(null);

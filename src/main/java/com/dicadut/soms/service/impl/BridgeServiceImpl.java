@@ -37,6 +37,7 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
      * 下拉菜单显示桩号
      */
     @Override
+    @Deprecated
     public List<StakeNumberDTO> getNumberList(String genre, String line) {
         return baseMapper.selectNumberListByGenreLine(genre, line);
     }
@@ -59,6 +60,7 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
      * 显示可选择的构建编号
      */
     @Override
+    @Deprecated
     public List<ComponentNumberDTO> getComponentNumberList(String start, String end, String id) {
         return baseMapper.selectComponentNumberList(start, end, id);
     }
@@ -110,7 +112,6 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
      * @return
      */
     @Override
-    @Deprecated
     public List<LineLocationDTO> getLocationList1() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         //一次查询数据库，将所有用到的数据封装到一级过渡对象当中
         List<BridgeSimpleDTO> bridgeSimpleDTOList = baseMapper.selectLocationList();
