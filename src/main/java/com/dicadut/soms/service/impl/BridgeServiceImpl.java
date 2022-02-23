@@ -1,27 +1,25 @@
 package com.dicadut.soms.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeNodeConfig;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Bridge;
 import com.dicadut.soms.domain.Component;
 import com.dicadut.soms.dto.BridgeSimpleDTO;
+import com.dicadut.soms.dto.ComponentNumberDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
 import com.dicadut.soms.mapper.BridgeMapper;
 import com.dicadut.soms.service.BridgeService;
+import com.dicadut.soms.util.TaskUtil;
 import com.dicadut.soms.util.TreeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * <p>
@@ -61,28 +59,41 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
      * 显示可选择的构建编号
      */
     @Override
-    public List<StakeNumberDTO> getComponentNumberList(String start, String end, String id) {
+    public List<ComponentNumberDTO> getComponentNumberList(String start, String end, String id) {
         return baseMapper.selectComponentNumberList(start, end, id);
     }
 
     @Override
     public List<LineLocationDTO> getLocationList() {
+        //一次查询数据库，将所有用到的数据封装到一级过渡对象当中
         List<BridgeSimpleDTO> bridgeSimpleDTOList = baseMapper.selectLocationList();
+
+        //返回数据集合
         List<LineLocationDTO> list = new ArrayList<>();
 
-        Map<String, List<StakeNumberDTO>> map = new HashMap<>();   // key: 匝道名, value: 桩号列表（id,name）
+        // 过渡map集合，key: 主引桥+匝道（location）, value: 桩号对象列表（id,name）
+        Map<String, List<StakeNumberDTO>> map = new HashMap<>();
+
+        //遍历数据库中封装一次查到的数据对象集合
         for (BridgeSimpleDTO bridgeSimpleDTO : bridgeSimpleDTOList) {
-            String location = bridgeSimpleDTO.getLocation(); // 匝道
+            //添加key: 主引桥+匝道（location）
+            String location = bridgeSimpleDTO.getLocation();
             map.putIfAbsent(location, new ArrayList<>());
+
+            //添加value：value: 桩号对象（id,name）
             StakeNumberDTO stakeNumberDTO = new StakeNumberDTO();
             stakeNumberDTO.setValue(bridgeSimpleDTO.getId());
             stakeNumberDTO.setLabel(bridgeSimpleDTO.getNumber());
             map.get(location).add(stakeNumberDTO);
         }
 
+        //遍历map集合
         for (Map.Entry<String, List<StakeNumberDTO>> entry : map.entrySet()) {
+            //取得key和value
             String location = entry.getKey();
             List<StakeNumberDTO> stakeNumberDTOList = entry.getValue();
+
+            //赋值给需要返回的集合
             LineLocationDTO lineLocationDTO = new LineLocationDTO();
             lineLocationDTO.setLabel(location);
             lineLocationDTO.setValue(location);
@@ -93,4 +104,21 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
         return list;
     }
 
+    /**
+     * 测试公共代码
+     *
+     * @return
+     */
+    @Override
+    @Deprecated
+    public List<LineLocationDTO> getLocationList1() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        //一次查询数据库，将所有用到的数据封装到一级过渡对象当中
+        List<BridgeSimpleDTO> bridgeSimpleDTOList = baseMapper.selectLocationList();
+
+
+        List<LineLocationDTO> list = TaskUtil.convert(bridgeSimpleDTOList, LineLocationDTO.class, BridgeSimpleDTO.class,"location","label");
+
+        return list;
+
+    }
 }

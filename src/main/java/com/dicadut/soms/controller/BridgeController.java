@@ -2,8 +2,8 @@ package com.dicadut.soms.controller;
 
 
 import cn.hutool.core.lang.tree.Tree;
+import com.dicadut.soms.dto.ComponentNumberDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
-import com.dicadut.soms.dto.StakeNumberDTO;
 import com.dicadut.soms.service.BridgeService;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -65,7 +66,7 @@ public class BridgeController {
             "排水管2001000016栏杆2001000017防撞护栏2001000018人行道 200100001")
     @GetMapping("/get_component_number/{start}/{end}/{id}")
     @Deprecated
-    public ResponseViewModel<List<StakeNumberDTO>> getComponentNumberList(@PathVariable String start
+    public ResponseViewModel<List<ComponentNumberDTO>> getComponentNumberList(@PathVariable String start
             , @PathVariable String end, @PathVariable String id) {
         return ResponseViewModel.ok(bridgeService.getComponentNumberList(start, end, id));
     }
@@ -83,6 +84,23 @@ public class BridgeController {
     @GetMapping("/show_location")
     public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());
+    }
+
+    /**
+     * 测试
+     *
+     * @return
+     * @throws NoSuchFieldException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane","测试"})
+    @GetMapping("/show_location1")
+    @Deprecated
+    public ResponseViewModel<List<LineLocationDTO>> getLocationList1() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return ResponseViewModel.ok(bridgeService.getLocationList1());
     }
 }
 
