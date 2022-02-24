@@ -3,9 +3,11 @@ package com.dicadut.soms.service;
 import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.domain.Bridge;
+import com.dicadut.soms.dto.ComponentNumberDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
 import com.dicadut.soms.dto.StakeNumberDTO;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -17,14 +19,16 @@ import java.util.List;
  * @since 2022-01-11
  */
 public interface BridgeService extends IService<Bridge> {
-
+    @Deprecated
     List<StakeNumberDTO> getNumberList(String genre, String line);
 
     List<Tree<Integer>> getComponentList(String start, String end);
 
-    List<StakeNumberDTO> getComponentNumberList(String start, String end, String id);
+    List<ComponentNumberDTO> getComponentNumberList(String start, String end, String id);
 
     List<LineLocationDTO> getLocationList();
+
+    List<LineLocationDTO> getLocationList1() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
 
 }

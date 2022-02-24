@@ -15,6 +15,7 @@ import java.util.List;
  * @author fan_jane
  * @since 2022-01-17
  */
+@Deprecated
 public interface TaskSetMenuService extends IService<TaskSetMenu> {
     void saveTaskMenu( List<ComponentDTO> componentDTOList);
 }

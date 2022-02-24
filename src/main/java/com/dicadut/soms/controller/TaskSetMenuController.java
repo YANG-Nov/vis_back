@@ -27,6 +27,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/menu")
+@Deprecated
 public class TaskSetMenuController {
 
     @Resource

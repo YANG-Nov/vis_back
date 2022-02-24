@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 /**
- * @author Radium
+ * @author fan_jane
  * @version 1.0.0
  * @date 2021-12-31 16:50:18
  */
@@ -31,6 +31,14 @@ public class BridgeServiceTest {
     }
     @Test
     public void getLocationList() {
+
+        log.info("#### 启动单元测试 saveTaskMenu");
+        log.info("{}", bridgeService.getLocationList());
+        log.info("#### 结束单元测试 saveTaskMenu()");
+    }
+
+    @Test
+    public void getLocationList1() {
 
         log.info("#### 启动单元测试 saveTaskMenu");
         log.info("{}", bridgeService.getLocationList());

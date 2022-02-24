@@ -2,8 +2,8 @@ package com.dicadut.soms.controller;
 
 
 import cn.hutool.core.lang.tree.Tree;
+import com.dicadut.soms.dto.ComponentNumberDTO;
 import com.dicadut.soms.dto.LineLocationDTO;
-import com.dicadut.soms.dto.StakeNumberDTO;
 import com.dicadut.soms.service.BridgeService;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class BridgeController {
      * @return 带层级结构的构件列表
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示构件", tags = {"web", "制定任务页", "jane","已通"}
+    @ApiOperation(value = "制定任务页显示构件", tags = {"web", "任务制定页", "jane","已通"}
             , notes = "传入id:B0-B16 起始桩号id12000，终止桩号id12016")
     @GetMapping("/get_component_number/{start}/{end}")
     public ResponseViewModel<List<Tree<Integer>>> getComponentList(@PathVariable String start, @PathVariable String end) {
@@ -60,12 +61,12 @@ public class BridgeController {
      * @return 构件编号列表
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页根据桩号显示可选择的构件编号", tags = {"web", "制定任务页", "jane"}
+    @ApiOperation(value = "制定任务页根据桩号显示可选择的构件编号", tags = {"web", "任务制定页", "jane"}
             , notes = "B0-B16 12000-12016,桥面铺装2001000012桥头平顺2001000013伸缩缝2001000014排水口2001000015" +
             "排水管2001000016栏杆2001000017防撞护栏2001000018人行道 200100001")
     @GetMapping("/get_component_number/{start}/{end}/{id}")
     @Deprecated
-    public ResponseViewModel<List<StakeNumberDTO>> getComponentNumberList(@PathVariable String start
+    public ResponseViewModel<List<ComponentNumberDTO>> getComponentNumberList(@PathVariable String start
             , @PathVariable String end, @PathVariable String id) {
         return ResponseViewModel.ok(bridgeService.getComponentNumberList(start, end, id));
     }
@@ -79,10 +80,27 @@ public class BridgeController {
      * SQL: select b.id, b.stake_or_truss_number, b.location from t_bridge b;
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "制定任务页", "jane","已通"})
+    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane","已通"})
     @GetMapping("/show_location")
     public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());
+    }
+
+    /**
+     * 测试
+     *
+     * @return
+     * @throws NoSuchFieldException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane","测试"})
+    @GetMapping("/show_location1")
+    @Deprecated
+    public ResponseViewModel<List<LineLocationDTO>> getLocationList1() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return ResponseViewModel.ok(bridgeService.getLocationList1());
     }
 }
 

@@ -55,6 +55,7 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     String getInspectionPosition(@Param("taskId") String taskId);
 
+    @Deprecated
     List<ComponentNumberTotalDTO> getComponentNumberRange(@Param("list") List<String> list,
                                                           @Param("taskId") String taskId);
 
