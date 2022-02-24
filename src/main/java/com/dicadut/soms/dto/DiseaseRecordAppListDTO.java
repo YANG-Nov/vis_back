@@ -1,5 +1,9 @@
 package com.dicadut.soms.dto;
 
+import com.dicadut.soms.json.StakeNumberDeserializer;
+import com.dicadut.soms.json.StakeNumberSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,7 +14,9 @@ import lombok.Data;
  * @Version: 1.0.0$
  */
 @Data
-public class DiseaseRecordAppListDTO extends DiseaseDetailsListDTO {
+public class DiseaseRecordAppListDTO {
+    @ApiModelProperty("任务id")
+    private String taskId;
     @ApiModelProperty("构件名称")
     private String component;
     @ApiModelProperty("构件id")
@@ -20,6 +26,8 @@ public class DiseaseRecordAppListDTO extends DiseaseDetailsListDTO {
     @ApiModelProperty("病害id")
     private String diseaseId;
     @ApiModelProperty("病害位置")
+    @JsonSerialize(using = StakeNumberSerializer.class)
+    @JsonDeserialize(using = StakeNumberDeserializer.class)
     private String position;
     @ApiModelProperty("病害id")
     private String positionId;

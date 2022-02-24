@@ -1,7 +1,6 @@
 package com.dicadut.soms.service.impl;
 
 import com.dicadut.soms.domain.DiseaseRecord;
-import com.dicadut.soms.dto.DiseaseDetailsListDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
 import com.dicadut.soms.dto.DiseaseRecordDTO;
 import com.dicadut.soms.mapper.DiseaseRecordMapper;
@@ -26,6 +25,7 @@ import java.util.Map;
 @Service
 public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, DiseaseRecord> implements DiseaseRecordService {
 
+    //添加病害
     @Override
     public void addDiseaseRecords(DiseaseRecordDTO diseaseRecordDTO) {
         if (diseaseRecordDTO == null) {
@@ -67,38 +67,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         return baseMapper.selectDiseaseRecordAppList(taskId,componentId,positionId);
     }
 
-//    @Override
-//    public List<InspectorDTO> getInspectorList() {
-//        List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
-//        for (InspectorDTO inspectorDTO :
-//                inspectorDTOList) {
-//            inspectorDTO.setChildren(baseMapper.selectTaskByInspector(inspectorDTO.getId()));
-//        }
-//        return inspectorDTOList;
-//    }
-    public Collection<DiseaseRecordAppListDTO> getDiseaseDetailsList(String taskId, String componentId, String positionId, String diseaseId){
-        List<DiseaseRecordAppListDTO> list = baseMapper.selectDiseaseRecordAppList(taskId, componentId, positionId);
-        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
-            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectFeatureFields(taskId,componentId,positionId,diseaseId));
-        }
-        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
-            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectFeaturePopups(taskId,componentId,positionId,diseaseId));
-        }
-        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
-            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectFeatureRadios(taskId,componentId,positionId,diseaseId));
-        }
-        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
-            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectDiseasePictures(taskId,componentId,positionId,diseaseId));
-        }
-        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
-            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectDiseaseVoices(taskId,componentId,positionId,diseaseId));
-        }
-        for (DiseaseDetailsListDTO diseaseDetailsListDTO : list) {
-            diseaseDetailsListDTO.setFeatureFields(baseMapper.selectDiseaseTexts(taskId,componentId,positionId,diseaseId));
-        }
-        return list;
-    }
-
+    //App删除病害记录
     @Override
     public List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, String componentId, String positionId,String diseaseId) {
         return baseMapper.selectDiseaseRecordDeleteList(taskId,componentId,positionId,diseaseId);

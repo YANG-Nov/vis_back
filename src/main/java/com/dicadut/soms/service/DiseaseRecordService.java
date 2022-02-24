@@ -2,7 +2,6 @@ package com.dicadut.soms.service;
 
 import com.dicadut.soms.domain.DiseaseRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dicadut.soms.dto.DiseaseDetailsListDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
 import com.dicadut.soms.dto.DiseaseRecordDTO;
 
@@ -35,7 +34,13 @@ public interface DiseaseRecordService extends IService<DiseaseRecord> {
      */
     List<DiseaseRecordAppListDTO> getDiseaseRecordAppList(String taskId, String componentId, String positionId);
 
-    Collection<DiseaseRecordAppListDTO> getDiseaseDetailsList(String taskId, String componentId, String positionId, String diseaseId);
-
+    /**
+     * App所要删除的病害记录查询
+     * @param taskId 任务id
+     * @param componentId 构件id
+     * @param positionId 位置id
+     * @param diseaseId 病害id
+     * @return 所要删除的病害记录list
+     */
     List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, String componentId, String positionId,String diseaseId);
 }

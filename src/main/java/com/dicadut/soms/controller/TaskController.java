@@ -182,6 +182,7 @@ public class TaskController {
         return ResponseViewModel.ok();
     }
 
+    //TODO 需要根据原型加以更改，考虑多种构件情况
     @ApiOperation("App任务列表")
     @GetMapping("get_task_app_list")
     public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus, @RequestParam Integer inspectionFrequency) {

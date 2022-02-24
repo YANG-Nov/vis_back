@@ -162,28 +162,28 @@ public class DiseaseRecordController {
         return ResponseViewModel.ok();
     }
 
-    //TODO App添加病害后,添加病害页显示病害记录 重点看
+    //TODO App添加病害后,添加病害页显示病害记录 重点看  FIX
     @ApiOperation("App添加病害后,添加病害页显示病害记录")
-    @GetMapping("getDiseaseRecordAppList")
+    @GetMapping("get_disease_record_list")
     public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId) {
         List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId, componentId, positionId);
         return ResponseViewModel.ok(diseaseRecordAppList);
     }
-    //TODO APP添加病害后，查看病害详情 重点看
-    @ApiOperation("APP添加病害后，查看病害详情")
-    @GetMapping("getDiseaseDetailsList")
-    public ResponseViewModel<Collection<DiseaseRecordAppListDTO>> getDiseaseDetailsList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId) {
-        Collection<DiseaseRecordAppListDTO> diseaseDetailsList = diseaseRecordService.getDiseaseDetailsList(taskId, componentId, positionId, diseaseId);
-        return ResponseViewModel.ok(diseaseDetailsList);
-    }
+    //TODO APP添加病害后，点击病害记录，查看病害详情 重点看
+//    @ApiOperation("APP添加病害后，查看病害详情")
+//    @GetMapping("getDiseaseDetailsList")
+//    public ResponseViewModel<Collection<DiseaseRecordAppListDTO>> getDiseaseDetailsList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId) {
+//        Collection<DiseaseRecordAppListDTO> diseaseDetailsList = diseaseRecordService.getDiseaseDetailsList(taskId, componentId, positionId, diseaseId);
+//        return ResponseViewModel.ok(diseaseDetailsList);
+//    }
 
     @ApiOperation("删除病害记录")
-    @DeleteMapping("removeDiseaseRecord")
+    @DeleteMapping("remove_disease_record")
     public ResponseViewModel removeDiseaseRecord(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId,@RequestParam String diseaseId) {
         List<DiseaseRecord> diseaseRecordDeleteList = diseaseRecordService.getDiseaseRecordDeleteList(taskId, componentId, positionId,diseaseId);
         diseaseRecordService.removeByIds(diseaseRecordDeleteList);
         return ResponseViewModel.ok();
     }
     // TODO 缺失接口: 参数是不是一样的，返回值是不是一样的
-    // TODO delete接口 更新接口 显示接口（2合1）
+    // TODO 更新接口 显示接口
 }

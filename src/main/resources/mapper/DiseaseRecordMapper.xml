@@ -20,11 +20,12 @@
 
     <select id="selectDiseaseRecordAppList" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
         select
-            dr.component_id componentId,
+            dr.task_id,
+            dr.component_id,
             c.name component,
             dr.bridge_id positionId,
             b.stake_or_truss_number position,
-            dr.disease_id diseaseId,
+            dr.disease_id,
             d.name disease
         from t_disease_record dr
         LEFT JOIN t_component c on dr.component_id = c.id
@@ -32,80 +33,10 @@
         LEFT JOIN t_bridge b on dr.bridge_id = b.id
         LEFT JOIN t_disease d on dr.disease_id = d.id
         where (dr.task_id,dr.component_id,dr.bridge_id) = (#{taskId},#{componentId},#{positionId})
+          and dr.is_deleted = 0
         GROUP BY component_id,bridge_id,disease_id
     </select>
 
-    <select id="selectFeatureFields" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
-        select
-            dr.disease_attribute_id diseaseAttributeId,
-            da.value diseaseAttributeName,
-            dr.content,
-            dr.type
-        from t_disease_record dr
-        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
-        where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
-          and dr.type = 1
-    </select>
-
-    <select id="selectFeaturePopups" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
-        select
-            dr.disease_attribute_id diseaseAttributeId,
-            da.value diseaseAttributeName,
-            dr.content,
-            dr.type
-        from t_disease_record dr
-        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
-        where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
-          and dr.type = 2
-    </select>
-
-    <select id="selectFeatureRadios" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
-        select
-            dr.disease_attribute_id diseaseAttributeId,
-            da.value diseaseAttributeName,
-            dr.content,
-            dr.type
-        from t_disease_record dr
-        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
-        where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
-          and dr.type = 3
-    </select>
-
-    <select id="selectDiseasePictures" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
-        select
-            dr.disease_attribute_id diseaseAttributeId,
-            da.value diseaseAttributeName,
-            dr.content,
-            dr.type
-        from t_disease_record dr
-        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
-        where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
-          and dr.type = 4
-    </select>
-
-    <select id="selectDiseaseVoices" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
-        select
-            dr.disease_attribute_id diseaseAttributeId,
-            da.value diseaseAttributeName,
-            dr.content,
-            dr.type
-        from t_disease_record dr
-        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
-        where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
-          and dr.type = 5
-    </select>
-
-    <select id="selectDiseaseTexts" resultType="com.dicadut.soms.dto.DiseaseDetailsDTO">
-        select
-            dr.disease_attribute_id diseaseAttributeId,
-            da.value diseaseAttributeName,
-            dr.content,
-            dr.type
-        from t_disease_record dr
-        LEFT JOIN t_disease_attribute da on dr.disease_attribute_id = da.id
-        where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
-          and dr.type = 6
-    </select>
     <select id="selectDiseaseRecordDeleteList" resultType="com.dicadut.soms.domain.DiseaseRecord">
         SELECT
             *
