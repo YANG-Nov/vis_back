@@ -46,13 +46,13 @@ public class TaskController {
      * 选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储
      * 前端传过来两级对象，第一级为任务信息，第二级为构件信息
      *
-     * @param taskVO
-     * @return 暂时没有 Jane_TODO 2022/2/24 后期需要优化
-     * @author fan_jane
+     * @param taskVO 添加的任务信息
+     * @return //暂时没有 Jane_TODO 2022/2/24 后期需要优化
+     * @author FanJane
      */
     @ApiOperation(value = "添加任务", tags = {"web", "任务制定页", "jane", "未通"}
             , notes = "选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储")
-    @PostMapping("add_ask")
+    @PostMapping("/add_task")
     public ResponseViewModel addTask(@RequestBody TaskVO taskVO) {
         taskService.saveTask(taskVO);
         return ResponseViewModel.ok();
@@ -96,13 +96,13 @@ public class TaskController {
      * 在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情
      * 前端传过来当前行的任务id，
      *
-     * @param taskId
+     * @param taskId 当前任务id
      * @return 返回二级任务列表，一级为巡检位置，二级为构件
-     * @author fan_jane
+     * @author FanJane
      */
     @ApiOperation(value = "任务列表点查看按钮", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情")
-    @GetMapping("show_task_content/{taskId}")
+    @GetMapping("/show_task_content/{taskId}")
     public ResponseViewModel<TaskContentDTO> getTaskContent(@PathVariable String taskId) {
         TaskContentDTO taskContent = taskService.getTaskContent(taskId);
         return ResponseViewModel.ok(taskContent);

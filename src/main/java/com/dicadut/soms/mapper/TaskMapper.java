@@ -27,6 +27,7 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     TaskStatisticAppDTO selectTaskStatisticAppByTaskStatus(@Param("startTime") String startTime,
                                                            @Param("endTime") String endTime);
+
     // Wei_TODO 2022/2/24 1状态提到Java层做 2查询层级改成韦雷哥代码
     List<InspectorDTO> selectInspectorList();
 
@@ -34,18 +35,23 @@ public interface TaskMapper extends BaseMapper<Task> {
                                                          @Param("inspectionFrequency") Integer inspectionFrequency);
 
     List<TaskInspectionAppListDTO> selectTaskInspectionAppList(@Param("taskStatus") Integer taskStatus,
-                                                     @Param("inspectionFrequency") Integer inspectionFrequency);
+                                                               @Param("inspectionFrequency") Integer inspectionFrequency);
 
     List<TaskDetailsAppListDTO> selectTaskDetailsAppList(@Param("taskStatus") Integer taskStatus,
-                                                  @Param("inspectionFrequency") Integer inspectionFrequency);
+                                                         @Param("inspectionFrequency") Integer inspectionFrequency);
 
     List<TaskDTO> selectTaskStatusLatestList();
 
+    /**
+     * 添加任务信息，并把任务状态设置为 1002000004 待分配
+     *
+     * @param taskId 自动生成的任务id
+     * @param taskVO 前端传过来的任务信息
+     * @author FanJane
+     */
+    @Deprecated
     void addTask(@Param("taskId") String taskId,
                  @Param("taskVO") TaskVO taskVO);
-
-    void addTaskComponent(@Param("taskId") String taskId,
-                          @Param("list") List<ComponentNumberDTO> componentNumberDTOList);
 
 
     void addInspectorToTask(@Param("taskId") String taskId,

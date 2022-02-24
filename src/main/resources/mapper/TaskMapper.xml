@@ -179,13 +179,6 @@
                #{taskVO.recallTime},#{taskVO.createBy})
     </insert>
 
-    <insert id="addTaskComponent" parameterType="java.util.ArrayList">
-        INSERT INTO t_task_bridge_component
-            (t_task_bridge_component.`task_id`,t_task_bridge_component.`bridge_component_id`) values
-        <foreach collection="list" item="item" index="index" separator=",">
-            (#{taskId},#{item.id})
-        </foreach>
-    </insert>
 
     <update id="addInspectorToTask" parameterType="com.dicadut.soms.domain.Task">
         update t_task t

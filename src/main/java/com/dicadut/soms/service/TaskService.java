@@ -2,16 +2,7 @@ package com.dicadut.soms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.dto.AmendingTaskDTO;
-import com.dicadut.soms.dto.InspectorDTO;
-import com.dicadut.soms.dto.TaskAppListDTO;
-import com.dicadut.soms.dto.TaskContentDTO;
-import com.dicadut.soms.dto.TaskDTO;
-import com.dicadut.soms.dto.TaskDetailsDTO;
-import com.dicadut.soms.dto.TaskDisplayDTO;
-import com.dicadut.soms.dto.TaskScanPositionAppListDTO;
-import com.dicadut.soms.dto.TaskStatisticAppDTO;
-import com.dicadut.soms.dto.TaskStatisticDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
@@ -60,6 +51,14 @@ public interface TaskService extends IService<Task> {
 
     List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency);
 
+    /**
+     * 选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储
+     * 前端传过来两级对象，第一级为任务信息，第二级为构件信息
+     *
+     * @param taskVO 添加的任务信息
+     * @return //暂时没有 Jane_TODO 2022/2/24 后期需要优化
+     * @author FanJane
+     */
     void saveTask(TaskVO taskVO);
 
     void distributeTask(String taskId, String userId);

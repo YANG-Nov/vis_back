@@ -10,12 +10,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
-import com.dicadut.soms.mapper.TaskBridgeComponentMapper;
-import com.dicadut.soms.viewmodel.PageResult;
+import com.dicadut.soms.enumeration.Constants;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
+import com.dicadut.soms.mapper.TaskBridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.BusinessCodeService;
 import com.dicadut.soms.service.TaskService;
+import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import lombok.extern.slf4j.Slf4j;
@@ -232,26 +233,36 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskAppListDTOList;
     }
 
+
     /**
      * 添加任务的方法
      * 把taskVo添加到task
      * 并设置状态为待分配
      *
-     * @param taskVO
-     * @return void
-     * @author fan_jane
+     * @param taskVO 添加的任务信息
+     * @return 暂时没有 Jane_TODO 2022/2/24 后期需要优化
+     * @author FanJane
      */
     @Override
     public void saveTask(TaskVO taskVO) {
-        String taskId = businessCodeService.generateBusinessCode("t_task");
-        // Wei_TODO 2022/2/24设置任务初试状态  2.24号改
-        baseMapper.addTask(taskId, taskVO);
-        // Wei_TODO 2022/2/24 方法二
-//        Task task = new Task();
-//        ... taskVO copy task
-//        baseMapper.insert(task);
-        baseMapper.addTaskComponent(taskId, taskVO.getComponentNumberDTOS());
-        // taskBridgeComponentMapper.addTaskComponent(taskId, taskVO.getComponentNumberDTOS()); // TODO 上一行改成这行
+        // Wei_TODO 方法二 //FIX
+
+        //自动生成任务id
+        String taskId = businessCodeService.generateBusinessCode(Constants.TASK);
+
+        //复制task信息
+        Task task = new Task();
+        BeanUtils.copyProperties(taskVO, task);
+
+        //设置任务id和任务状态变为待分配
+        task.setId(taskId);
+        task.setTaskStatus(TaskStatusEnum.WAIT_DISTRIBUTE.getValue());
+
+        //插入任务表和任务构件表
+        baseMapper.insert(task);
+        taskBridgeComponentMapper.addTaskComponent(taskId, taskVO.getComponentNumberDTOS());
+
+
     }
 
     /**
