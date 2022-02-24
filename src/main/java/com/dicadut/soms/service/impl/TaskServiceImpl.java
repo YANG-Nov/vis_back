@@ -189,7 +189,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     @Override
     public List<InspectorDTO> getInspectorList() {
-        // TODO 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing
+        // Wei_TODO 2022/2/24 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing
         List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
 
         return inspectorDTOList;
@@ -244,9 +244,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public void saveTask(TaskVO taskVO) {
         String taskId = businessCodeService.generateBusinessCode("t_task");
-        // TODO 设置任务初试状态  2.24号改
+        // Wei_TODO 2022/2/24设置任务初试状态  2.24号改
         baseMapper.addTask(taskId, taskVO);
-        // TODO 方法二
+        // Wei_TODO 2022/2/24 方法二
 //        Task task = new Task();
 //        ... taskVO copy task
 //        baseMapper.insert(task);
@@ -278,7 +278,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     @Deprecated
     public TaskContentDTO getTaskContent(String taskId) {
-        // TODO 底层实现得改 + fan（2.24号改这个）
+        // Wei_TODO 2022/2/24 底层实现得改
+        // Jane_TODO 2022/2/24 24 号改
         TaskContentDTO taskContentDTO = new TaskContentDTO();
         taskContentDTO.setInspectionPosition(baseMapper.getInspectionPosition(taskId));
         List<String> componentList = baseMapper.getComponentList(taskId);

@@ -44,7 +44,7 @@ public class BridgeController {
      * @return 带层级结构的构件列表
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示构件", tags = {"web", "任务制定页", "jane","已通"}
+    @ApiOperation(value = "制定任务页显示构件", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "传入id:B0-B16 起始桩号id12000，终止桩号id12016")
     @GetMapping("/get_component_number/{start}/{end}")
     public ResponseViewModel<List<Tree<Integer>>> getComponentList(@PathVariable String start, @PathVariable String end) {
@@ -52,7 +52,7 @@ public class BridgeController {
     }
 
     /**
-     * TODO 后期再改成requestbody
+     * Jane_TODO 2022/2/24 后期再改成requestbody
      * 根据桩号和构件id返回可选择的构件编号列表
      *
      * @param start 起始桩号id
@@ -80,7 +80,7 @@ public class BridgeController {
      * SQL: select b.id, b.stake_or_truss_number, b.location from t_bridge b;
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane","已通"})
+    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane", "已通"})
     @GetMapping("/show_location")
     public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());
@@ -96,7 +96,7 @@ public class BridgeController {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane","测试"})
+    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane", "测试"})
     @GetMapping("/show_location_test")
     @Deprecated
     public ResponseViewModel<List<LineLocationDTO>> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {

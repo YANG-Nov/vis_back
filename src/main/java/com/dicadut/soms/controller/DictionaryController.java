@@ -33,7 +33,7 @@ public class DictionaryController {
     private DictionaryService dictionaryService;
 
     /**
-     * todo 格式还没对
+     * Jane_TODO 2022/2/24 格式还没对
      * 根据任务类型或构件频率id从字典中返回可选择的任务类型或构件频率列表
      *
      * @param type 任务类型或构件频率id

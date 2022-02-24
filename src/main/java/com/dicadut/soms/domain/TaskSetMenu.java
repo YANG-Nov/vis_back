@@ -39,10 +39,10 @@ public class TaskSetMenu implements Serializable {
     @ApiModelProperty(value = "逻辑删除:0 未删，1 删除")
     private Boolean isDeleted;
 
-    @ApiModelProperty(value = "创建人")//TODO 后期绑定
+    @ApiModelProperty(value = "创建人")//Jane_TODO 2022/2/24后期绑定
     private String creatBy;
 
-    @ApiModelProperty(value = "修改人")//TODO 后期绑定
+    @ApiModelProperty(value = "修改人")//Jane_TODO 2022/2/24 后期绑定
     private String updateBy;
 
     @ApiModelProperty(value = "创建日期： 1000-01-01 00：00：00 ")

@@ -38,7 +38,7 @@ public interface BridgeMapper extends BaseMapper<Bridge> {
                                                        @Param("id") String id);
 
     /**
-     * TODO stake_or_truss_number 和名字统一
+     * Jane_TODO 2022/2/24 stake_or_truss_number 和名字统一
      * 用于指定任务页选择桩号,一次查询所有数据后再做层级
      * 查询bridge全表，返回bridge表的id字段、桩号字段、桥梁位置字段
      *

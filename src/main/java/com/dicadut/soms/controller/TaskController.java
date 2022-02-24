@@ -47,7 +47,7 @@ public class TaskController {
      * 前端传过来两级对象，第一级为任务信息，第二级为构件信息
      *
      * @param taskVO
-     * @return 暂时没有 TODO 后期需要优化
+     * @return 暂时没有 Jane_TODO 2022/2/24 后期需要优化
      * @author fan_jane
      */
     @ApiOperation(value = "添加任务", tags = {"web", "任务制定页", "jane", "未通"}
@@ -160,7 +160,7 @@ public class TaskController {
 
 
     /**
-     * TODO 是不是要写到user controller里
+     * Jane_TODO 2022/2/24 是不是要写到user controller里
      * 任务列表点击任务分配获取所有巡检人员，不需要传参，返回人员表和任务表里的相关字段
      *
      * @return 带层级结构的人员列表，一级是人员信息，二级是对应的任务信息
@@ -175,7 +175,7 @@ public class TaskController {
     }
 
     /**
-     * TODO 这个接口前端还没写可以修改传参路径
+     * Jane_TODO 2022/2/24 这个接口前端还没写可以修改传参路径
      * 添加完任务后，跳转到任务列表页面，进行任务人员分配
      * 前端穿过来当前任务id和人员id，后端修改任务表里的人员字段和任务状态字段
      *
