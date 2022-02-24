@@ -28,7 +28,17 @@ public interface BridgeService extends IService<Bridge> {
 
     List<LineLocationDTO> getLocationList();
 
-    List<LineLocationDTO> getLocationList1() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+    /**
+     * 测试
+     *
+     * @return
+     * @throws NoSuchFieldException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    List<LineLocationDTO> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
 
 }

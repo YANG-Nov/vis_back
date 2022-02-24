@@ -112,7 +112,7 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
      * @return
      */
     @Override
-    public List<LineLocationDTO> getLocationList1() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<LineLocationDTO> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         //一次查询数据库，将所有用到的数据封装到一级过渡对象当中
         List<BridgeSimpleDTO> bridgeSimpleDTOList = baseMapper.selectLocationList();
 

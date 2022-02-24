@@ -97,10 +97,10 @@ public class BridgeController {
      * @throws IllegalAccessException
      */
     @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane","测试"})
-    @GetMapping("/show_location1")
+    @GetMapping("/show_location_test")
     @Deprecated
-    public ResponseViewModel<List<LineLocationDTO>> getLocationList1() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        return ResponseViewModel.ok(bridgeService.getLocationList1());
+    public ResponseViewModel<List<LineLocationDTO>> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return ResponseViewModel.ok(bridgeService.getLocationListTest());
     }
 }
 
