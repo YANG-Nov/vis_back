@@ -21,8 +21,6 @@
     <select id="selectDiseaseRecordAppList" resultType="com.dicadut.soms.dto.DiseaseRecordAppListDTO">
         select
             dr.task_id,
-            dr.component_id,
-            c.name component,
             dr.bridge_id positionId,
             b.stake_or_truss_number position,
             dr.disease_id,

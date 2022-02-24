@@ -17,10 +17,6 @@ import lombok.Data;
 public class DiseaseRecordAppListDTO {
     @ApiModelProperty("任务id")
     private String taskId;
-    @ApiModelProperty("构件名称")
-    private String component;
-    @ApiModelProperty("构件id")
-    private String componentId;
     @ApiModelProperty("病害名称")
     private String disease;
     @ApiModelProperty("病害id")
