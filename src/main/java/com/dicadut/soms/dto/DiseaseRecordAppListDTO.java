@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @ Author     ：Yang
  * @ Date       ：Created in 12:21 下午 2022/1/27
@@ -27,4 +30,22 @@ public class DiseaseRecordAppListDTO {
     private String position;
     @ApiModelProperty("病害id")
     private String positionId;
+
+    private List<Item> featureFields = new ArrayList<>();
+    private List<Item> featurePopups = new ArrayList<>();
+    private List<Item> featureRadios = new ArrayList<>();
+    private List<Item> diseasePictures = new ArrayList<>();
+    private List<Item> diseaseVoices = new ArrayList<>();
+    private List<Item> diseaseTexts = new ArrayList<>();
+    @Data
+    public class Item {
+        @ApiModelProperty(value = "病害属性id")
+        private String diseaseAttributeId;
+        @ApiModelProperty(value = "病害属性")
+        private String diseaseAttributeName;
+        @ApiModelProperty(value = "内容")
+        private String content;
+        @ApiModelProperty(value = "内容种类")
+        private String type;
+    }
 }
