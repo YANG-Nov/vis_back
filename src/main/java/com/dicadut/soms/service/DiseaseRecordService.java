@@ -3,6 +3,7 @@ package com.dicadut.soms.service;
 import com.dicadut.soms.domain.DiseaseRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.DiseaseDetailDTO;
+import com.dicadut.soms.dto.DiseaseDetailListDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
 import com.dicadut.soms.dto.DiseaseRecordDTO;
 

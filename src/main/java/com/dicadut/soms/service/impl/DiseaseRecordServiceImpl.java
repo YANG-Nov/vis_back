@@ -1,16 +1,13 @@
 package com.dicadut.soms.service.impl;
 
 import com.dicadut.soms.domain.DiseaseRecord;
-import com.dicadut.soms.dto.DiseaseDetailDTO;
-import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
-import com.dicadut.soms.dto.DiseaseRecordDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.mapper.DiseaseRecordMapper;
 import com.dicadut.soms.service.DiseaseRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +74,45 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
     //App添加病害后,点击病害记录显示病害详情
     @Override
     public List<DiseaseDetailDTO> getDiseaseDetailList(String taskId, String componentId, String positionId, String diseaseId) {
+        //从数据库中查出数据
+        List<DiseaseDetailListDTO> diseaseDetailList = baseMapper.selectDiseaseDetailList(taskId,componentId,positionId,diseaseId);
+        // 存放结果列表
+        List<DiseaseDetailDTO> diseaseDetailListDTOList = new ArrayList();
+        // 过渡map集合，key: type, value: name、content、value、diseaseAttributeId、unit、type
+        Map<String, List<DiseaseDetailListDTO>> map = new HashMap<>();
+        //遍历数据库中封装一次查到的数据对象集合
+        for (DiseaseDetailListDTO diseaseDetailListDTO : diseaseDetailList) {
+            //添加key: type
+            String type = diseaseDetailListDTO.getType();
+            map.putIfAbsent(type, new ArrayList<>());
+            //添加value：value: name、content、value、diseaseAttributeId、unit、type
+            DiseaseDetailListDTO of = new DiseaseDetailListDTO();
+            of.setName(diseaseDetailListDTO.getName());
+            of.setContent(diseaseDetailListDTO.getContent());
+            of.setValue(diseaseDetailListDTO.getValue());
+            of.setDiseaseAttributeId(diseaseDetailListDTO.getDiseaseAttributeId());
+            of.setUnit(diseaseDetailListDTO.getUnit());
+            of.setType(diseaseDetailListDTO.getType());
 
-        return baseMapper.selectDiseaseDetailList(taskId,componentId,positionId,diseaseId);
+            map.get(type).add(of);
+        }
+
+        //遍历map集合
+        for (Map.Entry<String, List<DiseaseDetailListDTO>> entry : map.entrySet()) {
+            //取得key和value
+            String type = entry.getKey();
+            List<DiseaseDetailListDTO> diseaseDetailAppList = entry.getValue();
+
+            //赋值给需要返回的集合
+            DiseaseDetailDTO diseaseDetailDTO = new DiseaseDetailDTO();
+            diseaseDetailDTO.setDiseaseTexts(diseaseDetailAppList);
+            diseaseDetailDTO.setFeaturePopups(diseaseDetailAppList);
+            diseaseDetailDTO.setFeatureRadios(diseaseDetailAppList);
+            diseaseDetailDTO.setFeatureFields(diseaseDetailAppList);
+            diseaseDetailDTO.setDiseasePictures(diseaseDetailAppList);
+            diseaseDetailDTO.setDiseaseVoices(diseaseDetailAppList);
+            diseaseDetailListDTOList.add(diseaseDetailDTO);
+        }
+        return diseaseDetailListDTOList;
     }
 }

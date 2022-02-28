@@ -42,7 +42,7 @@
         WHERE (task_id,component_id,bridge_id,disease_id)=(#{taskId},#{componentId},#{positionId},#{diseaseId})
     </select>
 
-    <select id="selectDiseaseDetailList" resultType="com.dicadut.soms.dto.DiseaseDetailDTO">
+    <select id="selectDiseaseDetailList" resultType="com.dicadut.soms.dto.DiseaseDetailListDTO">
         SELECT
                 da.`name`,
                 dr.content,

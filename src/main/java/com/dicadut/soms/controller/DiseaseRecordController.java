@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.domain.DiseaseRecord;
 import com.dicadut.soms.dto.DiseaseDetailDTO;
+import com.dicadut.soms.dto.DiseaseDetailListDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
 import com.dicadut.soms.dto.DiseaseRecordDTO;
 import com.dicadut.soms.service.DiseaseRecordService;

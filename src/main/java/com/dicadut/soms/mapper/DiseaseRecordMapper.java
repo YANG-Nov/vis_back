@@ -2,9 +2,8 @@ package com.dicadut.soms.mapper;
 
 import com.dicadut.soms.domain.DiseaseRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.dicadut.soms.dto.DiseaseDetailDTO;
+import com.dicadut.soms.dto.DiseaseDetailListDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
-import com.dicadut.soms.dto.DiseaseRecordDTO;
 
 
 import java.util.List;
@@ -23,5 +22,5 @@ public interface DiseaseRecordMapper extends BaseMapper<DiseaseRecord> {
 
     List<DiseaseRecord> selectDiseaseRecordDeleteList(String taskId, String componentId, String positionId,String diseaseId);
 
-    List<DiseaseDetailDTO> selectDiseaseDetailList(String taskId, String componentId, String positionId, String diseaseId);
+    List<DiseaseDetailListDTO> selectDiseaseDetailList(String taskId, String componentId, String positionId, String diseaseId);
 }

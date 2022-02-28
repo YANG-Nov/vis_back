@@ -2,6 +2,7 @@ package com.dicadut.soms.dto;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,21 +13,10 @@ import java.util.List;
  */
 @Data
 public class DiseaseDetailDTO {
-
-    private List<Item> featureFields;
-    private List<Item> featurePopups;
-    private List<Item> featureRadios;
-    private List<Item> diseasePictures;
-    private List<Item> diseaseVoices;
-    private List<Item> diseaseTexts;
-
-    @Data
-    public static class Item {
-        private String content;
-        private String diseaseAttributeId;
-        private String name;
-        private Integer type;                   // 病害记录种类：(1)输入框,(2)下拉框,(3)单选框,(4)照片/视频,(5)语音,(6)文本
-        private String unit;
-        private String value;
-    }
+    private List<DiseaseDetailListDTO> featureFields = new ArrayList<>();
+    private List<DiseaseDetailListDTO> featurePopups = new ArrayList<>();
+    private List<DiseaseDetailListDTO> featureRadios = new ArrayList<>();
+    private List<DiseaseDetailListDTO> diseasePictures = new ArrayList<>();
+    private List<DiseaseDetailListDTO> diseaseVoices = new ArrayList<>();
+    private List<DiseaseDetailListDTO> diseaseTexts = new ArrayList<>();
 }
