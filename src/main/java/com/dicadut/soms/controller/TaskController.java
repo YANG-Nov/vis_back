@@ -151,7 +151,7 @@ public class TaskController {
         return ResponseViewModel.ok(taskService.getThisYearTaskListBySingleSql(startTime, endTime));
     }
 
-    @ApiOperation("本月巡检任务统计，APP首页")
+    @ApiOperation(value = "本月巡检任务统计，APP首页", tags = {"App","YANG","App已通"})
     @GetMapping("get_task_statistic_App")
     public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
@@ -191,18 +191,25 @@ public class TaskController {
         return ResponseViewModel.ok();
     }
 
-    //TODO 需要根据原型加以更改，考虑多种构件情况
-    @ApiOperation("App任务列表")
+    //TODO App任务列表需要根据原型加以更改，考虑多种构件情况
+    @ApiOperation(value = "App任务列表", tags = {"App","YANG","App未通"})
     @GetMapping("get_task_app_list")
     public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus, @RequestParam Integer inspectionFrequency) {
         List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus, inspectionFrequency);
         return ResponseViewModel.ok(taskAppList);
     }
 
-    @ApiOperation("App任务对应的打卡点")
+    @ApiOperation(value = "App任务对应的打卡点", tags = {"App","YANG","App已通"})
     @GetMapping("get_task_scan_position_app_list")
     public ResponseViewModel<List<TaskScanPositionAppListDTO>> getTaskScanPositionAppList(@RequestParam String taskId) {
         List<TaskScanPositionAppListDTO> taskScanPositionAppList = taskService.getTaskScanPositionAppList(taskId);
         return ResponseViewModel.ok(taskScanPositionAppList);
+    }
+
+    @ApiOperation(value = "查看App任务详情", tags = {"App","YANG","App未通"})
+    @GetMapping("get_task_detail")
+    public ResponseViewModel<List<TaskAppListDTO>> getTaskDetail(@RequestParam String taskId) {
+        //TODO 缺失接口：点击App端任务列表中的"详情"，查看任务详情
+        return ResponseViewModel.ok();
     }
 }
