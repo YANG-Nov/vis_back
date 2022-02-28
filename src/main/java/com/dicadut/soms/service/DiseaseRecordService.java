@@ -3,11 +3,9 @@ package com.dicadut.soms.service;
 import com.dicadut.soms.domain.DiseaseRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.DiseaseDetailDTO;
-import com.dicadut.soms.dto.DiseaseDetailListDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
 import com.dicadut.soms.dto.DiseaseRecordDTO;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -46,5 +44,5 @@ public interface DiseaseRecordService extends IService<DiseaseRecord> {
      */
     List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, String componentId, String positionId,String diseaseId);
 
-    List<DiseaseDetailDTO> getDiseaseDetailList(String taskId, String componentId, String positionId, String diseaseId);
+    DiseaseDetailDTO getDiseaseDetailList(String taskId, String componentId, String positionId, String diseaseId);
 }

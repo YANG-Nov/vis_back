@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
-import com.dicadut.soms.enumeration.Constants;
+import com.dicadut.soms.enumeration.SomsConstant;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.mapper.TaskBridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskMapper;
@@ -248,7 +248,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         // Wei_TODO 方法二 //FIX
 
         //自动生成任务id
-        String taskId = businessCodeService.generateBusinessCode(Constants.TASK);
+        String taskId = businessCodeService.generateBusinessCode(SomsConstant.TASK);
 
         //复制task信息
         Task task = new Task();

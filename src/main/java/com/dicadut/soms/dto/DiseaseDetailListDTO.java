@@ -14,6 +14,6 @@ public class DiseaseDetailListDTO {
     private String content;
     private String value;
     private String diseaseAttributeId;
-    private String type;
+    private Integer type;
     private String unit;
 }

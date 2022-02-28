@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.domain.DiseaseRecord;
 import com.dicadut.soms.dto.DiseaseDetailDTO;
-import com.dicadut.soms.dto.DiseaseDetailListDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
 import com.dicadut.soms.dto.DiseaseRecordDTO;
 import com.dicadut.soms.service.DiseaseRecordService;
@@ -30,8 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -181,8 +178,8 @@ public class DiseaseRecordController {
 //    }
     @ApiOperation(value = "APP添加病害后，点击病害记录，查看病害详情", tags = {"App","YANG","App未通"})
     @GetMapping("get_disease_detail_list")
-    public ResponseViewModel<List<DiseaseDetailDTO>> getDiseaseDetailList (@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId){
-        List<DiseaseDetailDTO> diseaseDetailList = diseaseRecordService.getDiseaseDetailList(taskId, componentId, positionId,diseaseId);
+    public ResponseViewModel<DiseaseDetailDTO> getDiseaseDetailList (@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId){
+        DiseaseDetailDTO diseaseDetailList = diseaseRecordService.getDiseaseDetailList(taskId, componentId, positionId,diseaseId);
         return ResponseViewModel.ok(diseaseDetailList);
     }
 
