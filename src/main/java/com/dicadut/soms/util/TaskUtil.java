@@ -4,10 +4,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author fan_jane
@@ -18,6 +15,7 @@ public class TaskUtil {
     /**
      * Jane_TODO 2022/2/24 需要完善，异常处理等
      * 将一次查询到的数据集合，封装到二级层级对象中
+     *
      * @param es
      * @param first
      * @param second
@@ -26,7 +24,6 @@ public class TaskUtil {
      * @param <T>
      * @param <E>
      * @param <A>
-     *
      * @return
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
@@ -34,7 +31,7 @@ public class TaskUtil {
      * @throws IllegalAccessException
      * @throws NoSuchFieldException
      */
-    public static <T, E, A> List<T> convert(List<E> es, Class<T> first, Class<A> second,String sourceId, String targetId) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
+    public static <T, E, A> List<T> convert(List<E> es, Class<T> first, Class<A> second, String sourceId, String targetId) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
 
         //方法返回值
         List<T> list = new ArrayList<>();
@@ -76,6 +73,35 @@ public class TaskUtil {
         }
         return list;
     }
+
+    public static String[] ArraysDelete(String[] strings, int i) {
+        for (int j = i; j < strings.length - 1; j++) {
+            strings[j] = strings[j + 1];
+        }
+        String[] y = new String[strings.length - 1];
+        System.arraycopy(strings, 0, y, 0, strings.length - 1);
+        return y;
+
+
+    }
+
+    public static Set<String> ArrayToSet(List<String> strings) {
+        Set<String> set = new HashSet<>();
+        for (String s : strings
+        ) {
+            String[] split = s.split(",");
+            for (String d : split) {
+
+                set.add(d);
+
+            }
+
+        }
+        return set;
+
+    }
+
 }
+
 
 

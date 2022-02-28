@@ -63,6 +63,15 @@ public interface TaskService extends IService<Task> {
 
     void distributeTask(String taskId, String userId);
 
+    /**
+     * 在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情
+     * 前端传过来当前行的任务id，
+     *
+     * @param taskId 当前任务id
+     * @return 返回二级任务列表，一级为巡检位置，二级为构件
+     * @author FanJane
+     */
+    @Deprecated
     TaskContentDTO getTaskContent(String taskId);
 
     /**
@@ -72,4 +81,13 @@ public interface TaskService extends IService<Task> {
      * @return 打卡点列表
      */
     List<TaskScanPositionAppListDTO> getTaskScanPositionAppList(String taskId);
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId
+     * @return com.dicadut.soms.dto.TaskContentDTO
+     * @author FanJane
+     */
+    TaskContentDTO showTaskContent(String taskId);
 }

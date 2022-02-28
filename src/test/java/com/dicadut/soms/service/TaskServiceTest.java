@@ -95,5 +95,12 @@ public class TaskServiceTest {
         log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
     }
 
+    @Test
+    public void showTaskContent() {
+        log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
+        log.info("{}", taskService.showTaskContent("2"));
+        log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
+    }
+
 
 }

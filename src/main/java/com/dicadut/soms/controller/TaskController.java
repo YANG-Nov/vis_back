@@ -103,8 +103,8 @@ public class TaskController {
             , notes = "在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情")
     @GetMapping("/show_task_content/{taskId}")
     public ResponseViewModel<TaskContentDTO> getTaskContent(@PathVariable String taskId) {
-        TaskContentDTO taskContent = taskService.getTaskContent(taskId);
-        return ResponseViewModel.ok(taskContent);
+        TaskContentDTO taskContentDTO = taskService.showTaskContent(taskId);
+        return ResponseViewModel.ok(taskContentDTO);
 
     }
 

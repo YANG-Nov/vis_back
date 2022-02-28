@@ -1,19 +1,15 @@
 package com.dicadut.soms.dto;
 
-import cn.hutool.core.lang.tree.Tree;
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author fan_jennifer
  * @version 1.0
- * @date 2022-01-19 19:48
+ * @description Jane_TODO
+ * @date 2022-02-28 15:55
  */
 @Data
-public class TaskContentDTO {
+public class TaskBridgeComponentDTO {
     private String taskId;
     private String taskType;
     private String taskStatus;
@@ -24,6 +20,9 @@ public class TaskContentDTO {
     private String endTime;
     private String receiveTime;
     private String recallTime;
-    private Set<String> scanPostion;
-    private List<List<Tree<Integer>>> inspectionPosition = new ArrayList<>();
+    private String location;
+    private String xname;
+    private String xpath;
+    private String scanPosition;
+
 }

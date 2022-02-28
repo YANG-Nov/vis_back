@@ -196,4 +196,34 @@
         WHERE tbc.task_id = #{taskId}
         GROUP BY bc.scan_position
     </select>
+
+    <select id="getTaskBridgeComponentList" resultType="com.dicadut.soms.dto.TaskBridgeComponentDTO">
+        SELECT tbc.task_id,
+               bc.id                                                     构件编号id,
+               t.start_time,
+               t.end_time,
+               t.recall_time,
+               t.receive_time,
+               b.stake_or_truss_number                                   构件编号,
+               CONCAT(b.location, c.xname, '/', b.stake_or_truss_number) xname,
+               CONCAT(b.main_or_approach, b.line, c.xpath, '/', bc.id)   xpath,
+               d.code_name                                               taskType,
+               d1.code_name                                              taskStatus,
+               d2.code_name                                              inspectionFrequency,
+               b.location,
+               u.real_name                                               inspector,
+               u1.real_name                                              creatBy,
+               tbc.scan_position
+        FROM t_task_bridge_component tbc
+                     LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
+                     LEFT JOIN t_component c ON c.id = bc.component_id
+                     LEFT JOIN t_bridge b ON b.id = bc.bridge_id
+                     LEFT JOIN t_task t ON t.id = tbc.task_id
+                     LEFT JOIN t_dictionary d ON d.`code` = t.task_type
+                     LEFT JOIN t_dictionary d1 ON d1.`code` = t.task_status
+                     LEFT JOIN t_dictionary d2 ON d2.`code` = bc.inspection_frequency
+                     LEFT JOIN t_user u ON u.id = t.inspector_id
+                     LEFT JOIN t_user u1 ON u1.id = t.create_by
+        WHERE tbc.task_id = #{taskId}
+    </select>
 </mapper>

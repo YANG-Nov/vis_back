@@ -59,13 +59,46 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     IPage<AmendingTaskDTO> getAmendingTaskListByePageQuery(IPage<AmendingTaskDTO> page, @Param("taskQueryVO") TaskQueryVO taskQueryVO);
 
+    /**
+     * 根据当前任务id查询任务构件编号表，桥梁构件关联表，，构件表，桥梁表
+     *
+     * @param taskId 当前任务id
+     * @return 主引桥+匝道+桥面系/上下部结构
+     * @author FanJane
+     */
+    @Deprecated
     String getInspectionPosition(@Param("taskId") String taskId);
 
+    /**
+     * 使用foreache循环遍历构件id集合，查询每类构件id构件编号的范围
+     *
+     * @param list   构件id集合
+     * @param taskId 任务id
+     * @return 构件编号集合，连续的用破折号，不连续的用顿号
+     * @author FanJane
+     */
     @Deprecated
     List<ComponentNumberTotalDTO> getComponentNumberRange(@Param("list") List<String> list,
                                                           @Param("taskId") String taskId);
 
+    /**
+     * 根据任务id，查询桥梁构件编号表和桥梁构件表，获取的构件表的id
+     *
+     * @param taskId 当前行的任务id
+     * @return 构件列表页的构件id集合
+     * @author FanJane
+     */
+    @Deprecated
     List<String> getComponentList(@Param("taskId") String taskId);
 
     List<TaskScanPositionAppListDTO> selectTaskScanPositionAppList(String taskId);
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param
+     * @return void
+     * @author FanJane
+     */
+    List<TaskBridgeComponentDTO> getTaskBridgeComponentList(String taskId);
 }
