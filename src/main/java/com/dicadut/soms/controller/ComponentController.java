@@ -39,13 +39,13 @@ public class ComponentController {
         return ResponseViewModel.ok(frequencyLatestList);
 
     }
-
+    //TODO App添加病害前，选择构件列表需与web端显示内容一致
     /**
      * App添加病害前，选择构件列表（巡检内容）
      * @param taskId 任务id
      * @return 构件列表，树形结构
      */
-    @ApiOperation("App添加病害前，选择构件列表（巡检内容）")
+    @ApiOperation(value = "App添加病害前，选择构件列表（巡检内容）", tags = {"App", "YANG", "App未通"})
     @GetMapping("get_component_app_list")
     public ResponseViewModel<List<Tree<Integer>>> getComponentAppList(@RequestParam String taskId) {
         return ResponseViewModel.ok(componentService.getComponentAppList(taskId));
@@ -57,7 +57,7 @@ public class ComponentController {
      * @param componentId 构件id
      * @return 构件所对应的桩号列表
      */
-    @ApiOperation("APP添加病害页面，选择构件位置")
+    @ApiOperation(value = "APP添加病害页面，选择构件位置", tags = {"App","YANG","App已通"})
     @GetMapping("get_component_position_app_list")
     public ResponseViewModel<List<ComponentPositionAppListDTO>> getComponentPositionAppList(@RequestParam String taskId
             , @RequestParam String componentId) {

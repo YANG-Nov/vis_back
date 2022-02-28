@@ -41,4 +41,18 @@
         FROM soms.t_disease_record
         WHERE (task_id,component_id,bridge_id,disease_id)=(#{taskId},#{componentId},#{positionId},#{diseaseId})
     </select>
+
+    <select id="selectDiseaseDetailList" resultType="com.dicadut.soms.dto.DiseaseDetailDTO">
+        SELECT
+                da.`name`,
+                dr.content,
+                da.`value`,
+                da.id disease_attribute_id,
+                dr.type,
+                da.unit
+        from soms.t_disease_record dr
+        left join soms.t_disease_attribute da on dr.disease_attribute_id = da.id
+        where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
+          and dr.is_deleted = 0
+    </select>
 </mapper>

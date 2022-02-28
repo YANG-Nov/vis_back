@@ -42,14 +42,14 @@ public class DiseaseController {
         return ResponseViewModel.ok(diseaseLatestList);
     }
 
-    @ApiOperation("App添加病害，不同构件对应的病害列表")
+    @ApiOperation(value = "App添加病害，不同构件对应的病害列表", tags = {"App","YANG","App已通"})
     @GetMapping("get_component_disease_app_list")
     public ResponseViewModel<List<DiseaseAppListDTO>> getComponentDiseaseAppList(@RequestParam Integer componentId) {
         List<DiseaseAppListDTO> diseaseAppList = diseaseService.getDiseaseAppList(componentId);
         return ResponseViewModel.ok(diseaseAppList);
     }
 
-    @ApiOperation("App添加病害，不同病害对应的病害属性列表")
+    @ApiOperation(value = "App添加病害，不同病害对应的病害属性列表", tags = {"App","YANG","App已通"})
     @GetMapping("get_disease_attribute_app_list")
     public ResponseViewModel<List<DiseaseAttributeListDTO>> getDiseaseAttributeAppList(@RequestParam Integer diseaseId) {
         List<DiseaseAttributeListDTO> diseaseAttributeAppList = diseaseService.getDiseaseAttributeAppList(diseaseId);

@@ -64,7 +64,6 @@ public class TaskController {
     public ResponseViewModel<List<TaskDTO>> getTaskStatusLatestList() {
         List<TaskDTO> taskStatusLatestList = taskService.getTaskStatusLatestList();
         return ResponseViewModel.ok(taskStatusLatestList);
-
     }
 
 /*    @ApiOperation(("查询任务次数，柱状图"))

@@ -155,15 +155,15 @@ public class DiseaseRecordController {
     private static class DiseaseRecordReqVo extends DiseaseRecord {
     }
 
-    @ApiOperation("App添加病害记录")
+    @ApiOperation(value = "App添加病害记录", tags = {"App","YANG","App已通"})
     @PostMapping("add_disease_records")
     public ResponseViewModel addDiseaseRecords(@RequestBody DiseaseRecordDTO diseaseRecordDTO) {
         diseaseRecordService.addDiseaseRecords(diseaseRecordDTO);
         return ResponseViewModel.ok();
     }
 
-    //TODO App添加病害后,添加病害页显示病害记录 重点看  FIX
-    @ApiOperation("App添加病害后,添加病害页显示病害记录")
+    //TODO App添加病害后,添加病害页显示病害记录 重点看  //FIX
+    @ApiOperation(value = "App添加病害后,添加病害页显示病害记录", tags = {"App","YANG","App已通"})
     @GetMapping("get_disease_record_list")
     public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId) {
         List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId, componentId, positionId);
@@ -176,14 +176,33 @@ public class DiseaseRecordController {
 //        Collection<DiseaseRecordAppListDTO> diseaseDetailsList = diseaseRecordService.getDiseaseDetailsList(taskId, componentId, positionId, diseaseId);
 //        return ResponseViewModel.ok(diseaseDetailsList);
 //    }
+    @ApiOperation(value = "APP添加病害后，点击病害记录，查看病害详情", tags = {"App","YANG","App未通"})
+    @GetMapping("get_disease_detail_list")
+    public ResponseViewModel<List<DiseaseDetailDTO>> getDiseaseDetailList (@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId){
+        List<DiseaseDetailDTO> diseaseDetailList = diseaseRecordService.getDiseaseDetailList(taskId, componentId, positionId,diseaseId);
+        return ResponseViewModel.ok(diseaseDetailList);
+    }
 
-    @ApiOperation("删除病害记录")
+    @ApiOperation(value = "删除病害记录", tags = {"App","YANG","App已通"})
     @DeleteMapping("remove_disease_record")
     public ResponseViewModel removeDiseaseRecord(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId,@RequestParam String diseaseId) {
         List<DiseaseRecord> diseaseRecordDeleteList = diseaseRecordService.getDiseaseRecordDeleteList(taskId, componentId, positionId,diseaseId);
         diseaseRecordService.removeByIds(diseaseRecordDeleteList);
         return ResponseViewModel.ok();
     }
-    // TODO 缺失接口: 参数是不是一样的，返回值是不是一样的
-    // TODO 更新接口 显示接口
+
+    @ApiOperation(value = "App添加病害后,任务详情页显示病害记录表", tags = {"App","YANG","App未通"})
+    @GetMapping("get_disease_record_table")
+    public ResponseViewModel<Void> getDiseaseRecordTable(@RequestParam String taskId) {
+        //TODO 缺失接口：App任务详情页显示病害记录表
+        return ResponseViewModel.ok();
+    }
+
+    @ApiOperation(value = "App更新病害记录", tags = {"App","YANG","App未通"})
+    @PostMapping("update_disease_records")
+    public ResponseViewModel updateDiseaseRecords(@RequestBody DiseaseRecordDTO diseaseRecordDTO) {
+        //TODO 缺失接口：App病害记录更新接口
+//        diseaseRecordService.addDiseaseRecords(diseaseRecordDTO);
+        return ResponseViewModel.ok();
+    }
 }

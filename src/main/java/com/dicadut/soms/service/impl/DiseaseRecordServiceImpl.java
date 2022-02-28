@@ -1,6 +1,7 @@
 package com.dicadut.soms.service.impl;
 
 import com.dicadut.soms.domain.DiseaseRecord;
+import com.dicadut.soms.dto.DiseaseDetailDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
 import com.dicadut.soms.dto.DiseaseRecordDTO;
 import com.dicadut.soms.mapper.DiseaseRecordMapper;
@@ -71,5 +72,12 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
     @Override
     public List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, String componentId, String positionId,String diseaseId) {
         return baseMapper.selectDiseaseRecordDeleteList(taskId,componentId,positionId,diseaseId);
+    }
+
+    //App添加病害后,点击病害记录显示病害详情
+    @Override
+    public List<DiseaseDetailDTO> getDiseaseDetailList(String taskId, String componentId, String positionId, String diseaseId) {
+
+        return baseMapper.selectDiseaseDetailList(taskId,componentId,positionId,diseaseId);
     }
 }

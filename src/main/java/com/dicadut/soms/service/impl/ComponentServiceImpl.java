@@ -46,7 +46,6 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
      * @param taskId 任务id
      * @return 构件列表，树形结构
      */
-    //TODO 根据web端进行更改
     @Override
     public List<Tree<Integer>> getComponentAppList(String taskId) {
         List<Component> components = baseMapper.selectComponentAppList(taskId); // 查询所有的桥梁部位
