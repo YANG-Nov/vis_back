@@ -170,9 +170,9 @@ public class DiseaseRecordController {
         List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId, componentId, positionId);
         return ResponseViewModel.ok(diseaseRecordAppList);
     }
-    
+
     //TODO APP添加病害后，点击病害记录，查看病害详情 重点看 //FIX
-    @ApiOperation(value = "APP添加病害后，点击病害记录，查看病害详情", tags = {"App","YANG","App未通"})
+    @ApiOperation(value = "APP添加病害后，点击病害记录，查看病害详情", tags = {"App","YANG","App已通"})
     @GetMapping("get_disease_detail_list")
     public ResponseViewModel<DiseaseDetailDTO> getDiseaseDetailList (@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId){
         DiseaseDetailDTO diseaseDetailList = diseaseRecordService.getDiseaseDetailList(taskId, componentId, positionId,diseaseId);
