@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.viewmodel.PageResult;
+import com.dicadut.soms.vo.InspectionScopeVO;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 
@@ -90,4 +91,13 @@ public interface TaskService extends IService<Task> {
      * @author FanJane
      */
     TaskContentDTO showTaskContent(String taskId);
+
+    /**
+     * 选择巡检范围后弹出所有打卡位置，并默认勾选构件包含的打卡位置
+     *
+     * @param inspectionScopeVO 巡检范围起始桩号
+     * @return CheckBox <ScanPositionDTO> 显示打卡位置
+     * @author FanJane
+     */
+    CheckBox<ScanPositionDTO> getTaskScanPosition(InspectionScopeVO inspectionScopeVO);
 }

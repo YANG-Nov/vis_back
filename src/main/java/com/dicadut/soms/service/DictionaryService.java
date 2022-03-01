@@ -16,6 +16,12 @@ import java.util.List;
  */
 public interface DictionaryService extends IService<Dictionary> {
 
-
+    /**
+     * 根据字典表的类型名称，获得所有该类型子类型集合，返回code 和codeName集合
+     *
+     * @param type 类型名称4位数
+     * @return List<TypeNameDTO>code 和codeName集合
+     * @author FanJane
+     */
     List<TypeNameDTO> getTypeNames(String type);
 }

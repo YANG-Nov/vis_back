@@ -7,6 +7,7 @@ import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
+import com.dicadut.soms.vo.InspectionScopeVO;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import io.swagger.annotations.Api;
@@ -107,6 +108,22 @@ public class TaskController {
         return ResponseViewModel.ok(taskContentDTO);
 
     }
+
+    /**
+     * 选择巡检范围后弹出所有打卡位置，并默认勾选构件包含的打卡位置
+     *
+     * @param inspectionScopeVO 巡检范围起始桩号
+     * @return CheckBox <ScanPositionDTO> 显示打卡位置
+     * @author FanJane
+     */
+    @ApiOperation(value = "显示打卡位置", tags = {"web", "任务制定页", "jane", "已通"}
+            , notes = "选择巡检范围后弹出所有打卡位置，并默认勾选构件包含的打卡位置,巡检范围测试12000~12016")
+    @PostMapping("get_scan_position")
+    public ResponseViewModel<CheckBox<ScanPositionDTO>> getScanPosition(@RequestBody InspectionScopeVO inspectionScopeVO) {
+        CheckBox<ScanPositionDTO> checkBox = taskService.getTaskScanPosition(inspectionScopeVO);
+        return ResponseViewModel.ok(checkBox);
+    }
+
 
     /**
      * @author fan_jane

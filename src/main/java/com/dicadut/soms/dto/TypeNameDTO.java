@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2022-01-06 21:53
  */
 @Data
-public class TypeNameDTO {
+public class TypeNameDTO extends ScanPositionDTO {
     private String codeName;
     private String code;
 }

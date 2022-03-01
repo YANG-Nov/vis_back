@@ -16,12 +16,15 @@ import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.enumeration.SomsConstant;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
+import com.dicadut.soms.enumeration.TypeNameEnum;
 import com.dicadut.soms.mapper.TaskBridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.BusinessCodeService;
+import com.dicadut.soms.service.DictionaryService;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.util.TaskUtil;
 import com.dicadut.soms.viewmodel.PageResult;
+import com.dicadut.soms.vo.InspectionScopeVO;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +49,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Resource
     private BusinessCodeService businessCodeService;
+
+    @Resource
+    private DictionaryService dictionaryService;
 
 
     @Override
@@ -193,7 +199,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     @Override
     public List<InspectorDTO> getInspectorList() {
-        // Wei_TODO 2022/2/24 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing
+        // Wei_TODO 2022/2/24 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing//FIX
         List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
 
         return inspectorDTOList;
@@ -383,6 +389,28 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskContentDTO;
 
 
+    }
+
+    /**
+     *选择巡检范围后弹出所有打卡位置，并默认勾选构件包含的打卡位置
+     *
+     * @param inspectionScopeVO 巡检范围起始桩号
+     * @return CheckBox <ScanPositionDTO> 显示打卡位置
+     * @author FanJane
+     */
+    @Override
+    public CheckBox<ScanPositionDTO> getTaskScanPosition(InspectionScopeVO inspectionScopeVO) {
+        CheckBox<ScanPositionDTO> scanPositionDTOCheckBox = new CheckBox<>();
+        //获得所有打卡位置
+        List<TypeNameDTO> typeNameDTOS = dictionaryService.getTypeNames(TypeNameEnum.SCAN_POSITION.getValue());
+        List<ScanPositionDTO> option = new ArrayList<>();
+        option.addAll(typeNameDTOS);
+
+        scanPositionDTOCheckBox.setOption(option);
+        //获得该桩号范围内的打卡位置
+        List<ScanPositionDTO> selected = baseMapper.getScanPositionList(inspectionScopeVO.getStart(),inspectionScopeVO.getEnd());
+        scanPositionDTOCheckBox.setSelected(selected);
+        return scanPositionDTOCheckBox;
     }
 
 }
