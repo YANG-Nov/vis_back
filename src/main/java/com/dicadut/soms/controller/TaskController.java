@@ -117,7 +117,7 @@ public class TaskController {
      * @author FanJane
      */
     @ApiOperation(value = "显示打卡位置", tags = {"web", "任务制定页", "jane", "已通"}
-            , notes = "选择巡检范围后弹出所有打卡位置，并默认勾选构件包含的打卡位置")
+            , notes = "选择巡检范围后弹出所有打卡位置，并默认勾选构件包含的打卡位置,巡检范围测试12000~12016")
     @PostMapping("get_scan_position")
     public ResponseViewModel<CheckBox<ScanPositionDTO>> getScanPosition(@RequestBody InspectionScopeVO inspectionScopeVO) {
         CheckBox<ScanPositionDTO> checkBox = taskService.getTaskScanPosition(inspectionScopeVO);
