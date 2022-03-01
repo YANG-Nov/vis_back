@@ -101,4 +101,14 @@ public interface TaskMapper extends BaseMapper<Task> {
      * @author FanJane
      */
     List<TaskBridgeComponentDTO> getTaskBridgeComponentList(String taskId);
+
+    /**
+     * 获得桩号范围内构件的打卡位置，查询bridge和bridge_component和dictionary表，并返回dictionary表中的code 和codeName集合
+     *
+     * @param start 开始桩号 bridge表中的id
+     * @param end 结束桩号  bridge表中的id
+     * @return List<ScanPositionDTO> dictionary表中的code 和codeName集合
+     * @author FanJane
+     */
+    List<ScanPositionDTO> getScanPositionList(@Param("start") String start, @Param("end") String end);
 }
