@@ -193,7 +193,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     @Override
     public List<InspectorDTO> getInspectorList() {
-        // Wei_TODO 2022/2/24 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing
+        // Wei_TODO 2022/2/24 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing//FIX
         List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
 
         return inspectorDTOList;
