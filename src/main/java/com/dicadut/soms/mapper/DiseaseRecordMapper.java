@@ -23,4 +23,6 @@ public interface DiseaseRecordMapper extends BaseMapper<DiseaseRecord> {
     List<DiseaseRecord> selectDiseaseRecordDeleteList(String taskId, String componentId, String positionId,String diseaseId);
 
     List<DiseaseDetailListDTO> selectDiseaseList(String taskId, String componentId, String positionId, String diseaseId);
+
+    void deleteDiseaseRecord(String taskId, String componentId, String positionId, String diseaseId);
 }

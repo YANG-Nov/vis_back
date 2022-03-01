@@ -55,4 +55,13 @@
         where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
           and dr.is_deleted = 0
     </select>
+
+    <delete id="deleteDiseaseRecord">
+        DELETE
+        FROM soms.t_disease_record
+        WHERE task_id = #{taskId}
+          and bridge_id = #{positionId}
+          and component_id = #{componentId}
+          and disease_id = #{diseaseId}
+    </delete>
 </mapper>

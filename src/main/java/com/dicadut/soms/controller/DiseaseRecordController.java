@@ -154,10 +154,11 @@ public class DiseaseRecordController {
     @Data
     private static class DiseaseRecordReqVo extends DiseaseRecord {
     }
-
-    @ApiOperation(value = "App添加病害记录", tags = {"App","YANG","App已通"})
+    //TODO 添加更新两个接口二合一 先根据4个id进行批量非逻辑删除，然后批量添加 //FIX
+    @ApiOperation(value = "App添加(更新)病害记录", tags = {"App","YANG","App已通"})
     @PostMapping("add_disease_records")
     public ResponseViewModel addDiseaseRecords(@RequestBody DiseaseRecordDTO diseaseRecordDTO) {
+        diseaseRecordService.deleteDiseaseRecord(diseaseRecordDTO);
         diseaseRecordService.addDiseaseRecords(diseaseRecordDTO);
         return ResponseViewModel.ok();
     }
@@ -169,13 +170,8 @@ public class DiseaseRecordController {
         List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId, componentId, positionId);
         return ResponseViewModel.ok(diseaseRecordAppList);
     }
-    //TODO APP添加病害后，点击病害记录，查看病害详情 重点看
-//    @ApiOperation("APP添加病害后，查看病害详情")
-//    @GetMapping("getDiseaseDetailsList")
-//    public ResponseViewModel<Collection<DiseaseRecordAppListDTO>> getDiseaseDetailsList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId) {
-//        Collection<DiseaseRecordAppListDTO> diseaseDetailsList = diseaseRecordService.getDiseaseDetailsList(taskId, componentId, positionId, diseaseId);
-//        return ResponseViewModel.ok(diseaseDetailsList);
-//    }
+    
+    //TODO APP添加病害后，点击病害记录，查看病害详情 重点看 //FIX
     @ApiOperation(value = "APP添加病害后，点击病害记录，查看病害详情", tags = {"App","YANG","App未通"})
     @GetMapping("get_disease_detail_list")
     public ResponseViewModel<DiseaseDetailDTO> getDiseaseDetailList (@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId){
@@ -195,14 +191,6 @@ public class DiseaseRecordController {
     @GetMapping("get_disease_record_table")
     public ResponseViewModel<Void> getDiseaseRecordTable(@RequestParam String taskId) {
         //TODO 缺失接口：App任务详情页显示病害记录表
-        return ResponseViewModel.ok();
-    }
-
-    @ApiOperation(value = "App更新病害记录", tags = {"App","YANG","App未通"})
-    @PostMapping("update_disease_records")
-    public ResponseViewModel updateDiseaseRecords(@RequestBody DiseaseRecordDTO diseaseRecordDTO) {
-        //TODO 缺失接口：App病害记录更新接口
-//        diseaseRecordService.addDiseaseRecords(diseaseRecordDTO);
         return ResponseViewModel.ok();
     }
 }

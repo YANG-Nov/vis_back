@@ -60,13 +60,23 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         saveBatch(list);
     }
 
+    //App添加病害记录前，先通过4个id查出病害记录并删除
+    @Override
+    public void deleteDiseaseRecord(DiseaseRecordDTO diseaseRecordDTO) {
+        String taskId = diseaseRecordDTO.getTaskId();
+        String componentId = diseaseRecordDTO.getComponentId();
+        String positionId = diseaseRecordDTO.getPositionId();
+        String diseaseId = diseaseRecordDTO.getDiseaseId();
+        baseMapper.deleteDiseaseRecord(taskId,componentId,positionId,diseaseId);
+    }
+
     //App添加病害后,添加病害页显示病害记录
     @Override
     public List<DiseaseRecordAppListDTO> getDiseaseRecordAppList(String taskId, String componentId, String positionId) {
         return baseMapper.selectDiseaseRecordAppList(taskId, componentId, positionId);
     }
 
-    //App删除病害记录
+    //App逻辑删除病害记录，查出要删除的数据
     @Override
     public List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, String componentId, String positionId, String diseaseId) {
         return baseMapper.selectDiseaseRecordDeleteList(taskId, componentId, positionId, diseaseId);

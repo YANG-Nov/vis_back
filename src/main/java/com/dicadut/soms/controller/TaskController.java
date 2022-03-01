@@ -206,10 +206,11 @@ public class TaskController {
         return ResponseViewModel.ok(taskScanPositionAppList);
     }
 
-    @ApiOperation(value = "查看App任务详情", tags = {"App","YANG","App未通"})
-    @GetMapping("get_task_detail")
-    public ResponseViewModel<List<TaskAppListDTO>> getTaskDetail(@RequestParam String taskId) {
-        //TODO 缺失接口：点击App端任务列表中的"详情"，查看任务详情
+    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "未通"})
+    @PostMapping("/update_task")
+    public ResponseViewModel updateTask(@RequestParam String taskId,@RequestParam String taskStatusIdGo) {
+        //TODO 缺失接口：App更新任务状态
+        //前端传taskId、taskStatusIdGo两个值 进行更新
         return ResponseViewModel.ok();
     }
 }
