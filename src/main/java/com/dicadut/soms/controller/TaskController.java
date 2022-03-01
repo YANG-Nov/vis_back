@@ -206,7 +206,7 @@ public class TaskController {
         return ResponseViewModel.ok(taskScanPositionAppList);
     }
 
-    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "未通"})
+    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App未通"})
     @PostMapping("/update_task")
     public ResponseViewModel updateTask(@RequestParam String taskId,@RequestParam String taskStatusIdGo) {
         //TODO 缺失接口：App更新任务状态
