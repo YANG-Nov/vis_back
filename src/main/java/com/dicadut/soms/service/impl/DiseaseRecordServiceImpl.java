@@ -110,16 +110,16 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         List<DiseaseRecordTableListDTO> diseaseRecordTableList = baseMapper.selectDiseaseRecordTable(taskId);
         //返回数据集合
         List<DiseaseRecordTableDTO> list = new ArrayList<>();
-        //过渡map集合，key: 父构件 parentComponent, value: componentId、component、positionId、position、diseaseId、disease
+        //过渡map集合，key: eg:东引桥B匝道桥面系, value: componentId、component、positionId、position、diseaseId、disease、taskId
         Map<String, List<DiseaseRecordTableDTO.Item>> map = new HashMap<>();
         //遍历数据库中封装一次查到的数据对象集合
         for (DiseaseRecordTableListDTO diseaseRecordTableListDTO : diseaseRecordTableList){
-            //添加key：东引桥B匝道桥面系
+            //添加key：eg:东引桥B匝道桥面系
             String location = diseaseRecordTableListDTO.getLocation();
             String parentComponent = diseaseRecordTableListDTO.getParentComponent();
             String inspectionLocation = location+parentComponent;
             map.putIfAbsent(inspectionLocation,new ArrayList<>());
-            //添加value：componentId、component、positionId、position、diseaseId、disease、taskId、location
+            //添加value：componentId、component、positionId、position、diseaseId、disease、taskId
             DiseaseRecordTableDTO.Item of = new DiseaseRecordTableDTO.Item();
             of.setComponentId(diseaseRecordTableListDTO.getComponentId());
             of.setComponent(diseaseRecordTableListDTO.getComponent());
