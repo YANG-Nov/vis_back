@@ -24,5 +24,8 @@ public class TaskBridgeComponentDTO {
     private String xname;
     private String xpath;
     private String scanPosition;
+    private String componentName;
+    private String componentNumber;
+    private String inspectionRoute;
 
 }

@@ -211,7 +211,10 @@
                b.location,
                u.real_name                                               inspector,
                u1.real_name                                              creatBy,
-               tbc.scan_position
+               tbc.scan_position,
+               c.`name`                                                 componentName,
+               b.stake_or_truss_number                                   componentNumber,
+               tbc.inspection_route
         FROM t_task_bridge_component tbc
                      LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
                      LEFT JOIN t_component c ON c.id = bc.component_id

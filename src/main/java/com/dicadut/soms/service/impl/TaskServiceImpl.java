@@ -3,7 +3,6 @@ package com.dicadut.soms.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -20,12 +19,12 @@ import com.dicadut.soms.service.BusinessCodeService;
 import com.dicadut.soms.service.DictionaryService;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.util.TaskUtil;
-import com.dicadut.soms.util.TreeUtil;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.vo.InspectionScopeVO;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -331,22 +330,50 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         BeanUtils.copyProperties(taskBridgeComponentDTO, taskContentDTO);
 
         //获得打卡点位置
-        ArrayList<TaskBridgeComponentDTO> collect1 = taskBridgeComponentList.stream().collect(
+        ArrayList<TaskBridgeComponentDTO> collect = taskBridgeComponentList.stream().collect(
                 Collectors.collectingAndThen(Collectors.toCollection(
                         () -> new TreeSet<>(Comparator.comparing(o -> o.getScanPosition()))), ArrayList::new));
-        Set<String> scanPositionSet = TaskUtil.ArrayToSet(collect1.stream().map(TaskBridgeComponentDTO::getScanPosition).collect(Collectors.toList()));
+        Set<String> scanPositionSet = TaskUtil.ArrayToSet(collect.stream().map(TaskBridgeComponentDTO::getScanPosition).collect(Collectors.toList()));
         taskContentDTO.setScanPostion(scanPositionSet);
 
-        //获得巡检部位
+        //获得子任务
+        List<subTaskV0> subTaskV0s = new ArrayList<>();
         Map<String, List<TaskBridgeComponentDTO>> map = taskBridgeComponentList.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getLocation));
-        List<List<Tree<Integer>>> inspectPosition = new ArrayList<>();
         for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry : map.entrySet()) {
-            //取得key和value
+            subTaskV0 subTaskV0 = new subTaskV0();
             List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = entry.getValue();
-            List<Tree<Integer>> treeList = TreeUtil.convertTaskBridgeComponentsToTree(taskBridgeComponentDTOS);
-            inspectPosition.add(treeList);
+            //获得巡检部位
+            HashSet<String> compositionList = new HashSet<>();
+            for (TaskBridgeComponentDTO t: taskBridgeComponentDTOS) {
+                String[] xName = t.getXname().split("/");
+                compositionList.add(xName[2]);
+            }
+            String location = entry.getKey();
+            String composition = StringUtils.join(compositionList.toArray(), "、");
+            subTaskV0.setInspectionPosition(location+composition);
+
+            //获得巡检路线
+            String inspectionRoute = taskBridgeComponentDTOS.get(0).getInspectionRoute();
+            subTaskV0.setInspectionRoute(inspectionRoute);
+
+            //获得巡检构件
+            List<String> inspectionComponentNumber = new ArrayList<>();
+            Map<String, List<TaskBridgeComponentDTO>> listMap = taskBridgeComponentDTOS.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getComponentName));
+            for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry1 : listMap.entrySet()) {
+                List<TaskBridgeComponentDTO> value = entry1.getValue();
+                //获得构件名称
+                String componentName = value.get(0).getComponentName();
+                //获得构件编号
+                List<String> stringList = value.stream().map(TaskBridgeComponentDTO::getComponentNumber).collect(Collectors.toList());
+                String join = StringUtils.join(stringList.toArray(), "、");
+                inspectionComponentNumber.add(componentName+":"+join);
+
+            }
+            subTaskV0.setInspectionComponentNumber(inspectionComponentNumber);
+            subTaskV0s.add(subTaskV0);
         }
-        taskContentDTO.setInspectionPosition(inspectPosition);
+        taskContentDTO.setSubTask(subTaskV0s);
+
 
         return taskContentDTO;
 

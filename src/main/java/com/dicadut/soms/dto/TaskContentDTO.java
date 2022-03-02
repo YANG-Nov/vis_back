@@ -1,6 +1,5 @@
 package com.dicadut.soms.dto;
 
-import cn.hutool.core.lang.tree.Tree;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -25,5 +24,5 @@ public class TaskContentDTO {
     private String receiveTime;
     private String recallTime;
     private Set<String> scanPostion;
-    private List<List<Tree<Integer>>> inspectionPosition = new ArrayList<>();
+    private List<subTaskV0> subTask = new ArrayList<>();
 }
