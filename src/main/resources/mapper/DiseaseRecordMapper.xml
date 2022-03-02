@@ -24,15 +24,14 @@
             dr.bridge_id positionId,
             b.stake_or_truss_number position,
             dr.disease_id,
-            d.name disease
+            d.name disease,
+            dr.component_id
         from t_disease_record dr
-        LEFT JOIN t_component c on dr.component_id = c.id
-        LEFT JOIN t_component cc on cc.id = c.parent_id
         LEFT JOIN t_bridge b on dr.bridge_id = b.id
         LEFT JOIN t_disease d on dr.disease_id = d.id
-        where (dr.task_id,dr.component_id,dr.bridge_id) = (#{taskId},#{componentId},#{positionId})
+        where (dr.task_id,dr.component_id) = (#{taskId},#{componentId})
           and dr.is_deleted = 0
-        GROUP BY component_id,bridge_id,disease_id
+        GROUP BY bridge_id,disease_id
     </select>
 
     <select id="selectDiseaseRecordDeleteList" resultType="com.dicadut.soms.domain.DiseaseRecord">

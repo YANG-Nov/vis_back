@@ -27,10 +27,9 @@ public interface DiseaseRecordService extends IService<DiseaseRecord> {
      * App添加病害后,添加病害页显示病害记录
      * @param taskId 任务id
      * @param componentId 构件id
-     * @param positionId 桩号id
      * @return 病害记录
      */
-    List<DiseaseRecordAppListDTO> getDiseaseRecordAppList(String taskId, String componentId, String positionId);
+    List<DiseaseRecordAppListDTO> getDiseaseRecordAppList(String taskId, String componentId);
 
     /**
      * App所要删除的病害记录查询

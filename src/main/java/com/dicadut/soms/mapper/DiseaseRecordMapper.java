@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface DiseaseRecordMapper extends BaseMapper<DiseaseRecord> {
 
-    List<DiseaseRecordAppListDTO> selectDiseaseRecordAppList(String taskId, String componentId, String positionId);
+    List<DiseaseRecordAppListDTO> selectDiseaseRecordAppList(String taskId, String componentId);
 
     List<DiseaseRecord> selectDiseaseRecordDeleteList(String taskId, String componentId, String positionId,String diseaseId);
 

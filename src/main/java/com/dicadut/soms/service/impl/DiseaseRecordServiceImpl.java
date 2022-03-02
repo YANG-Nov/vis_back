@@ -73,8 +73,8 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
 
     //App添加病害后,添加病害页显示病害记录
     @Override
-    public List<DiseaseRecordAppListDTO> getDiseaseRecordAppList(String taskId, String componentId, String positionId) {
-        return baseMapper.selectDiseaseRecordAppList(taskId, componentId, positionId);
+    public List<DiseaseRecordAppListDTO> getDiseaseRecordAppList(String taskId, String componentId) {
+        return baseMapper.selectDiseaseRecordAppList(taskId, componentId);
     }
 
     //App逻辑删除病害记录，查出要删除的数据

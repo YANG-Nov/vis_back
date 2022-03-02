@@ -163,8 +163,8 @@ public class DiseaseRecordController {
 
     @ApiOperation(value = "App添加病害后,添加病害页显示病害记录", tags = {"App","YANG","App已通"})
     @GetMapping("get_disease_record_list")
-    public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId) {
-        List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId, componentId, positionId);
+    public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId, @RequestParam String componentId) {
+        List<DiseaseRecordAppListDTO> diseaseRecordAppList = diseaseRecordService.getDiseaseRecordAppList(taskId, componentId);
         return ResponseViewModel.ok(diseaseRecordAppList);
     }
 
