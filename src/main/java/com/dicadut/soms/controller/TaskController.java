@@ -101,7 +101,7 @@ public class TaskController {
      * @author FanJane
      */
     @ApiOperation(value = "任务列表点查看按钮", tags = {"web", "任务列表页", "jane", "已通"}
-            , notes = "在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情")
+            , notes = "在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情，测试任务id：20220119000001")
     @GetMapping("/show_task_content/{taskId}")
     public ResponseViewModel<TaskContentDTO> getTaskContent(@PathVariable String taskId) {
         TaskContentDTO taskContentDTO = taskService.showTaskContent(taskId);

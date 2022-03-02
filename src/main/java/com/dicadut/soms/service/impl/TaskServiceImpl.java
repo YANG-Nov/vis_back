@@ -2,11 +2,8 @@ package com.dicadut.soms.service.impl;
 
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -23,6 +20,7 @@ import com.dicadut.soms.service.BusinessCodeService;
 import com.dicadut.soms.service.DictionaryService;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.util.TaskUtil;
+import com.dicadut.soms.util.TreeUtil;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.vo.InspectionScopeVO;
 import com.dicadut.soms.vo.TaskQueryVO;
@@ -199,7 +197,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     @Override
     public List<InspectorDTO> getInspectorList() {
-        // Wei_TODO 2022/2/24 一次查库得出所有数据，然后通过java构造前端要的格式， 优先级低一些ing//FIX
         List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
 
         return inspectorDTOList;
@@ -254,7 +251,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     @Override
     public void saveTask(TaskVO taskVO) {
-        // Wei_TODO 方法二 //FIX
 
         //自动生成任务id
         String taskId = businessCodeService.generateBusinessCode(SomsConstant.TASK);
@@ -346,42 +342,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         List<List<Tree<Integer>>> inspectPosition = new ArrayList<>();
         for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry : map.entrySet()) {
             //取得key和value
-            List<TreeNode<Integer>> nodeList = CollUtil.newArrayList();  // 所有树的节点列表，树枝列表
-            Set<Integer> hasAddedIdSet = new HashSet<>();   // 存放已经加入到树的节点，辅助的数据结构
             List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = entry.getValue();
-            for (TaskBridgeComponentDTO t : taskBridgeComponentDTOS) {
-                String[] xpathArray = t.getXpath().split("/");
-                String[] pathArray = TaskUtil.ArraysDelete(xpathArray, 1);
-                String[] xpathName = t.getXname().split("/");
-                String[] nameArray = TaskUtil.ArraysDelete(xpathName, 1);
-                for (int i = 0; i < pathArray.length; i++) {   // 遍历xpath中的每一级路径，构造树节点
-                    //获得此节点的id和父id
-                    if (i == 0) {
-                        Integer id = Integer.parseInt(pathArray[i]);
-                        String name = nameArray[i];
-                        Integer level = i;
-                        TreeNode<Integer> node = new TreeNode<>(id, 0, name, level);
-                        if (!hasAddedIdSet.contains(id)) {  // 将未加入树中的节点添加到树中
-                            // weight 存放level值
-                            nodeList.add(node);
-                            hasAddedIdSet.add(id);
-
-                        }
-                        continue;
-                    }
-                    Integer id = Integer.parseInt(pathArray[i]);
-                    Integer parentId = Integer.parseInt(pathArray[i - 1]);
-                    String name = nameArray[i];
-                    Integer level = i;
-                    TreeNode<Integer> node = new TreeNode<>(id, parentId, name, level); // weight 存放level值
-                    if (!hasAddedIdSet.contains(id)) {  // 将未加入树中的节点添加到树中
-                        nodeList.add(node);
-                        hasAddedIdSet.add(id);
-                    }
-
-                }
-            }
-            List<Tree<Integer>> treeList = TreeUtil.build(nodeList);    // 指定根节点，创建构件树
+            List<Tree<Integer>> treeList = TreeUtil.convertTaskBridgeComponentsToTree(taskBridgeComponentDTOS);
             inspectPosition.add(treeList);
         }
         taskContentDTO.setInspectionPosition(inspectPosition);
