@@ -262,9 +262,18 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         task.setId(taskId);
         task.setTaskStatus(TaskStatusEnum.WAIT_DISTRIBUTE.getValue());
 
+        //获得打卡位置拼成字符串加入构件DTO
+        List<SubTaskAddVO> subTaskAddVOS = taskVO.getSubTaskAddVOS();
+        for (SubTaskAddVO s:subTaskAddVOS) {
+            List<String> collect = s.getScanPositionDTOS().stream().map(ScanPositionDTO::getCodeName).collect(Collectors.toList());
+            String join = StringUtils.join(collect, ",");
+            s.setScanPosition(join);
+        }
+
+
         //插入任务表和任务构件表
         baseMapper.insert(task);
-        taskBridgeComponentMapper.addTaskComponent(taskId, taskVO.getComponentNumberDTOS());
+        taskBridgeComponentMapper.addTaskComponent(taskId, subTaskAddVOS);
 
 
     }
@@ -334,13 +343,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 Collectors.collectingAndThen(Collectors.toCollection(
                         () -> new TreeSet<>(Comparator.comparing(o -> o.getScanPosition()))), ArrayList::new));
         Set<String> scanPositionSet = TaskUtil.ArrayToSet(collect.stream().map(TaskBridgeComponentDTO::getScanPosition).collect(Collectors.toList()));
-        taskContentDTO.setScanPostion(scanPositionSet);
+        taskContentDTO.setScanPosition(scanPositionSet);
 
         //获得子任务
-        List<subTaskV0> subTaskV0s = new ArrayList<>();
+        List<SubTaskShowV0> SubTaskShowV0s = new ArrayList<>();
         Map<String, List<TaskBridgeComponentDTO>> map = taskBridgeComponentList.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getLocation));
         for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry : map.entrySet()) {
-            subTaskV0 subTaskV0 = new subTaskV0();
+            SubTaskShowV0 SubTaskShowV0 = new SubTaskShowV0();
             List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = entry.getValue();
             //获得巡检部位
             HashSet<String> compositionList = new HashSet<>();
@@ -350,11 +359,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             }
             String location = entry.getKey();
             String composition = StringUtils.join(compositionList.toArray(), "、");
-            subTaskV0.setInspectionPosition(location+composition);
+            SubTaskShowV0.setInspectionPosition(location+composition);
 
             //获得巡检路线
             String inspectionRoute = taskBridgeComponentDTOS.get(0).getInspectionRoute();
-            subTaskV0.setInspectionRoute(inspectionRoute);
+            SubTaskShowV0.setInspectionRoute(inspectionRoute);
 
             //获得巡检构件
             List<String> inspectionComponentNumber = new ArrayList<>();
@@ -369,10 +378,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 inspectionComponentNumber.add(componentName+":"+join);
 
             }
-            subTaskV0.setInspectionComponentNumber(inspectionComponentNumber);
-            subTaskV0s.add(subTaskV0);
+            SubTaskShowV0.setInspectionComponentNumber(inspectionComponentNumber);
+            SubTaskShowV0s.add(SubTaskShowV0);
         }
-        taskContentDTO.setSubTask(subTaskV0s);
+        taskContentDTO.setSubTask(SubTaskShowV0s);
 
 
         return taskContentDTO;

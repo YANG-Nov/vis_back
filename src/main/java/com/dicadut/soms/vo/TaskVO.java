@@ -1,6 +1,6 @@
 package com.dicadut.soms.vo;
 
-import com.dicadut.soms.dto.ComponentNumberDTO;
+import com.dicadut.soms.dto.SubTaskAddVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,8 +33,8 @@ public class TaskVO {
     private LocalDateTime recallTime;
     @ApiModelProperty(value = "养护工程师id，需要前端绑定账户")
     private String createBy;
-    @ApiModelProperty(value = "任务包含的构件编号")
-    private List<ComponentNumberDTO> componentNumberDTOS = new ArrayList<>();
+    @ApiModelProperty(value = "子任务列表")
+    private List<SubTaskAddVO> subTaskAddVOS = new ArrayList<>();
 
 }
 

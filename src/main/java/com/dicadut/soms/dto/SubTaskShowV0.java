@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2022-03-02 14:49
  */
 @Data
-public class subTaskV0 {
+public class SubTaskShowV0 {
     private String inspectionPosition;
     private String inspectionRoute;
     private List<String> inspectionComponentNumber = new ArrayList<>();

@@ -2,7 +2,7 @@ package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.domain.TaskBridgeComponent;
-import com.dicadut.soms.dto.ComponentNumberDTO;
+import com.dicadut.soms.dto.SubTaskAddVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public interface TaskBridgeComponentMapper extends BaseMapper<TaskBridgeComponen
      * @author FanJane
      */
     void addTaskComponent(@Param("taskId") String taskId,
-                          @Param("list") List<ComponentNumberDTO> componentNumberDTOList);
+                          @Param("list") List<SubTaskAddVO> subTaskAddVOS);
 
 
 }

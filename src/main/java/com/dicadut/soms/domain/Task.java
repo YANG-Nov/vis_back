@@ -51,6 +51,12 @@ public class Task implements Serializable {
     @ApiModelProperty(value = "养护工程师id")
     private String createBy;
 
+    @ApiModelProperty(value = "巡检范围起始桩号")
+    private String inspectionStart;
+
+    @ApiModelProperty(value = "巡检范围终止桩号")
+    private String inspectionEnd;
+
     @ApiModelProperty(value = "乐观锁")
     @Version
     private Integer version;

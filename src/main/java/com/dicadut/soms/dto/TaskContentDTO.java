@@ -23,6 +23,6 @@ public class TaskContentDTO {
     private String endTime;
     private String receiveTime;
     private String recallTime;
-    private Set<String> scanPostion;
-    private List<subTaskV0> subTask = new ArrayList<>();
+    private Set<String> scanPosition;
+    private List<SubTaskShowV0> subTask = new ArrayList<>();
 }
