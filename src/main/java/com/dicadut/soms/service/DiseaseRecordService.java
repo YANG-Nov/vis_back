@@ -2,9 +2,7 @@ package com.dicadut.soms.service;
 
 import com.dicadut.soms.domain.DiseaseRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dicadut.soms.dto.DiseaseDetailDTO;
-import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
-import com.dicadut.soms.dto.DiseaseRecordDTO;
+import com.dicadut.soms.dto.*;
 
 import java.util.List;
 
@@ -59,4 +57,6 @@ public interface DiseaseRecordService extends IService<DiseaseRecord> {
      * @param diseaseRecordDTO
      */
     void deleteDiseaseRecord(DiseaseRecordDTO diseaseRecordDTO);
+
+    List<DiseaseRecordTableDTO> getDiseaseRecordTable(String taskId);
 }

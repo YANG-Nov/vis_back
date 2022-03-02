@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dicadut.soms.domain.DiseaseRecord;
-import com.dicadut.soms.dto.DiseaseDetailDTO;
-import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
-import com.dicadut.soms.dto.DiseaseRecordDTO;
+import com.dicadut.soms.dto.*;
 import com.dicadut.soms.service.DiseaseRecordService;
 import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
@@ -154,7 +152,7 @@ public class DiseaseRecordController {
     @Data
     private static class DiseaseRecordReqVo extends DiseaseRecord {
     }
-    //TODO 添加更新两个接口二合一 先根据4个id进行批量非逻辑删除，然后批量添加 //FIX
+
     @ApiOperation(value = "App添加(更新)病害记录", tags = {"App","YANG","App已通"})
     @PostMapping("add_disease_records")
     public ResponseViewModel addDiseaseRecords(@RequestBody DiseaseRecordDTO diseaseRecordDTO) {
@@ -163,7 +161,6 @@ public class DiseaseRecordController {
         return ResponseViewModel.ok();
     }
 
-    //TODO App添加病害后,添加病害页显示病害记录 重点看  //FIX
     @ApiOperation(value = "App添加病害后,添加病害页显示病害记录", tags = {"App","YANG","App已通"})
     @GetMapping("get_disease_record_list")
     public ResponseViewModel<List<DiseaseRecordAppListDTO>> getDiseaseRecordAppList(@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId) {
@@ -171,7 +168,6 @@ public class DiseaseRecordController {
         return ResponseViewModel.ok(diseaseRecordAppList);
     }
 
-    //TODO APP添加病害后，点击病害记录，查看病害详情 重点看 //FIX
     @ApiOperation(value = "APP添加病害后，点击病害记录，查看病害详情", tags = {"App","YANG","App已通"})
     @GetMapping("get_disease_detail_list")
     public ResponseViewModel<DiseaseDetailDTO> getDiseaseDetailList (@RequestParam String taskId, @RequestParam String componentId, @RequestParam String positionId, @RequestParam String diseaseId){
@@ -189,8 +185,8 @@ public class DiseaseRecordController {
 
     @ApiOperation(value = "App添加病害后,任务详情页显示病害记录表", tags = {"App","YANG","App未通"})
     @GetMapping("get_disease_record_table")
-    public ResponseViewModel<Void> getDiseaseRecordTable(@RequestParam String taskId) {
-        //TODO 缺失接口：App任务详情页显示病害记录表
-        return ResponseViewModel.ok();
+    public ResponseViewModel<List<DiseaseRecordTableDTO>> getDiseaseRecordTable(@RequestParam String taskId) {
+        //TODO 缺失接口：App任务详情页显示病害记录表 //FIX
+        return ResponseViewModel.ok(diseaseRecordService.getDiseaseRecordTable(taskId));
     }
 }

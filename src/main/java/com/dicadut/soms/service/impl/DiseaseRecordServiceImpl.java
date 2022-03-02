@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -101,4 +102,46 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
 
         return diseaseDetailDTO;
     }
+
+    //TODO App添加病害后，显示病害记录表
+    @Override
+    public List<DiseaseRecordTableDTO> getDiseaseRecordTable(String taskId){
+        //从数据库中查出数据
+        List<DiseaseRecordTableListDTO> diseaseRecordTableList = baseMapper.selectDiseaseRecordTable(taskId);
+        //返回数据集合
+        List<DiseaseRecordTableDTO> list = new ArrayList<>();
+        //过渡map集合，key: 父构件 parentComponent, value: componentId、component、positionId、position、diseaseId、disease
+        Map<String, List<DiseaseRecordTableDTO.Item>> map = new HashMap<>();
+        //遍历数据库中封装一次查到的数据对象集合
+        for (DiseaseRecordTableListDTO diseaseRecordTableListDTO : diseaseRecordTableList){
+            //添加key：东引桥B匝道桥面系
+            String location = diseaseRecordTableListDTO.getLocation();
+            String parentComponent = diseaseRecordTableListDTO.getParentComponent();
+            String inspectionLocation = location+parentComponent;
+            map.putIfAbsent(inspectionLocation,new ArrayList<>());
+            //添加value：componentId、component、positionId、position、diseaseId、disease、taskId、location
+            DiseaseRecordTableDTO.Item of = new DiseaseRecordTableDTO.Item();
+            of.setComponentId(diseaseRecordTableListDTO.getComponentId());
+            of.setComponent(diseaseRecordTableListDTO.getComponent());
+            of.setPositionId(diseaseRecordTableListDTO.getPositionId());
+            of.setPosition(diseaseRecordTableListDTO.getPosition());
+            of.setDiseaseId(diseaseRecordTableListDTO.getDiseaseId());
+            of.setDisease(diseaseRecordTableListDTO.getDisease());
+            of.setTaskId(diseaseRecordTableListDTO.getTaskId());
+            map.get(inspectionLocation).add(of);
+        }
+        //遍历map集合
+        for (Map.Entry<String,List<DiseaseRecordTableDTO.Item>> entry : map.entrySet()){
+            //取得key和value
+            String inspectionLocation = entry.getKey();
+            List<DiseaseRecordTableDTO.Item> items = entry.getValue();
+            //赋值给需要返回的集合
+            DiseaseRecordTableDTO diseaseRecordTableDTO = new DiseaseRecordTableDTO();
+            diseaseRecordTableDTO.setInspectionLocation(inspectionLocation);
+            diseaseRecordTableDTO.setDiseaseRecord(items);
+            list.add(diseaseRecordTableDTO);
+        }
+        return list;
+    }
+
 }

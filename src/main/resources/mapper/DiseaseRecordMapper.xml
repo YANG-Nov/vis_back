@@ -64,4 +64,24 @@
           and component_id = #{componentId}
           and disease_id = #{diseaseId}
     </delete>
+
+    <select id="selectDiseaseRecordTable" resultType="com.dicadut.soms.dto.DiseaseRecordTableListDTO">
+        SELECT
+                dr.task_id,
+                b.location,
+                replace(substring(substring_index(c.xpath, '/', 3), char_length(substring_index(c.xpath, '/', 3-1)) + 1), '/', '') parent_component_id,		-- 二级构件id
+                replace(substring(substring_index(c.xname, '/', 3), char_length(substring_index(c.xname, '/', 3-1)) + 1), '/', '') parent_component,	-- 二级构件名称
+                dr.component_id,
+                c.`name` component,
+                dr.bridge_id position_id,
+                b.stake_or_truss_number position,
+                dr.disease_id,
+                d.`name` disease
+        FROM soms.t_disease_record dr
+                LEFT JOIN soms.t_bridge b on dr.bridge_id = b.id
+                LEFT JOIN soms.t_component c on dr.component_id = c.id
+                LEFT JOIN soms.t_disease d on dr.disease_id = d.id
+        WHERE task_id = #{taskId}
+        GROUP BY dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id
+    </select>
 </mapper>
