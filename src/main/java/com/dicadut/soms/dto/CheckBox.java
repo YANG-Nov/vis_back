@@ -16,6 +16,6 @@ import java.util.List;
 public class CheckBox<T> {
     private List<T> option = new ArrayList<>();
     @JsonProperty("default")
-    private List<T> selected = new ArrayList<>();
+    private List<String> selected = new ArrayList<>();
 
 }

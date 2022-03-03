@@ -407,7 +407,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         scanPositionDTOCheckBox.setOption(option);
         //获得该桩号范围内的打卡位置
         List<ScanPositionDTO> selected = baseMapper.getScanPositionList(inspectionScopeVO.getStart(),inspectionScopeVO.getEnd());
-        scanPositionDTOCheckBox.setSelected(selected);
+        List<String> codes = selected.stream().map(ScanPositionDTO::getCode).collect(Collectors.toList());
+        scanPositionDTOCheckBox.setSelected(codes);
         return scanPositionDTOCheckBox;
     }
 
