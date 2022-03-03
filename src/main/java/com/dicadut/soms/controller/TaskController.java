@@ -132,7 +132,7 @@ public class TaskController {
      * @author FanJane
      */
     @ApiOperation(value = "删除任务", tags = {"web", "任务列表页", "jane", "未通"})
-    @DeleteMapping("/remove_Task/{taskId}")
+    @DeleteMapping("/remove_task/{taskId}")
     public ResponseViewModel removeTask(@PathVariable String taskId) {
         taskService.removeTask(taskId);
         return ResponseViewModel.ok();
