@@ -100,4 +100,13 @@ public interface TaskService extends IService<Task> {
      * @author FanJane
      */
     CheckBox<ScanPositionDTO> getTaskScanPosition(InspectionScopeVO inspectionScopeVO);
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId
+     * @return void
+     * @author FanJane
+     */
+    void removeTask(String taskId);
 }

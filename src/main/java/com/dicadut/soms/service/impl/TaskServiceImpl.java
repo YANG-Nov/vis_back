@@ -51,6 +51,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     private DictionaryService dictionaryService;
 
 
+
     @Override
     public List<TaskDTO> getTaskStatusLatestList() {
         return baseMapper.selectTaskStatusLatestList();
@@ -410,6 +411,22 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         List<String> codes = selected.stream().map(ScanPositionDTO::getCode).collect(Collectors.toList());
         scanPositionDTOCheckBox.setSelected(codes);
         return scanPositionDTOCheckBox;
+    }
+
+    /**
+     * // Jane_TODO add description
+     * @author FanJane
+     * @param taskId
+     * @return void
+     */
+    @Override
+    public void removeTask(String taskId) {
+        //删除任务表
+        baseMapper.deleteById(taskId);
+        //删除bridge_component表
+        HashMap<String, Object> removeByTaskId= new HashMap<>();
+        removeByTaskId.put("task_id",taskId);
+        taskBridgeComponentMapper.deleteByMap(removeByTaskId);
     }
 
 }

@@ -124,6 +124,20 @@ public class TaskController {
         return ResponseViewModel.ok(checkBox);
     }
 
+    /**
+     * // Jane_TODO add 考虑事物吗
+     *
+     * @param taskId
+     * @return com.dicadut.soms.viewmodel.ResponseViewModel
+     * @author FanJane
+     */
+    @ApiOperation(value = "删除任务", tags = {"web", "任务列表页", "jane", "未通"})
+    @DeleteMapping("/remove_Task/{taskId}")
+    public ResponseViewModel removeTask(@PathVariable String taskId) {
+        taskService.removeTask(taskId);
+        return ResponseViewModel.ok();
+    }
+
 
     /**
      * @author fan_jane
