@@ -103,7 +103,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         return diseaseDetailDTO;
     }
 
-    //TODO App添加病害后，显示病害记录表
+    // App添加病害后，显示病害记录表
     @Override
     public List<DiseaseRecordTableDTO> getDiseaseRecordTable(String taskId){
         //从数据库中查出数据

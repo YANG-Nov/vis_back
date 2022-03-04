@@ -4,6 +4,7 @@ import cn.hutool.core.lang.tree.Tree;
 import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.ComponentPositionAppListDTO;
+import com.dicadut.soms.dto.TaskComponentAppDTO;
 import com.dicadut.soms.service.ComponentService;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
@@ -39,15 +40,15 @@ public class ComponentController {
         return ResponseViewModel.ok(frequencyLatestList);
 
     }
-    //TODO App添加病害前，选择构件列表需与web端显示内容一致
+    //TODO App添加病害前，选择构件列表需与web端显示内容一致 //FIX
     /**
      * App添加病害前，选择构件列表（巡检内容）
      * @param taskId 任务id
-     * @return 构件列表，树形结构
+     * @return 任务所包含的构件列表，带导航栏
      */
     @ApiOperation(value = "App添加病害前，选择构件列表（巡检内容）", tags = {"App", "YANG", "App未通"})
     @GetMapping("get_component_app_list")
-    public ResponseViewModel<List<Tree<Integer>>> getComponentAppList(@RequestParam String taskId) {
+    public ResponseViewModel<List<TaskComponentAppDTO>> getComponentAppList(@RequestParam String taskId) {
         return ResponseViewModel.ok(componentService.getComponentAppList(taskId));
     }
 

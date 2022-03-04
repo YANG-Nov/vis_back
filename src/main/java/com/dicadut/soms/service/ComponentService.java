@@ -6,6 +6,7 @@ import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.domain.Component;
 import com.dicadut.soms.dto.ComponentPositionAppListDTO;
+import com.dicadut.soms.dto.TaskComponentAppDTO;
 
 
 import java.util.List;
@@ -20,15 +21,15 @@ public interface ComponentService extends IService<Component> {
     /**
      * App添加病害前，选择构件列表（巡检内容）
      * @param taskId 任务id
-     * @return 构件列表，树形结构
+     * @return 任务所包含的构件列表，带导航栏
      */
-    List<Tree<Integer>> getComponentAppList(String taskId);
+    List<TaskComponentAppDTO> getComponentAppList(String taskId);
 
     /**
      * APP添加病害页面，选择构件位置
      * @param taskId 任务id
      * @param componentId 构件id
-     * @return  构件位置
+     * @return  构件所对应的桩号列表
      */
     List<ComponentPositionAppListDTO> getComponentPositionAppList(String taskId, String componentId);
 }

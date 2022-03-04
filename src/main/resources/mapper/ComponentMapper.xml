@@ -21,23 +21,29 @@
         from t_component
     </select>
 
-    <select id="selectComponentAppList" resultType="com.dicadut.soms.domain.Component">
-        select distinct c.*
-        from t_task_bridge_component tbc
-                     left join t_bridge_component bc on tbc.bridge_component_id = bc.id
-                     left join t_component c on bc.component_id = c.id
+    <select id="selectComponentAppList" resultType="com.dicadut.soms.dto.ComponentAppListDTO">
+        select
+                b.location,
+                replace(substring(substring_index(c.xname, '/', 3), char_length(substring_index(c.xname, '/', 3-1)) + 1), '/', '') parent_component,	-- 二级构件名称
+                c.id component_id,
+                c.`name` component
+        from soms.t_task_bridge_component tbc
+                left join soms.t_bridge_component bc on tbc.bridge_component_id = bc.id
+                left join soms.t_component c on bc.component_id = c.id
+                left join soms.t_bridge b on bc.bridge_id = b.id
         where task_id = #{taskId}
+        group by component_id
     </select>
 
     <select id="selectComponentPositionAppList" resultType="com.dicadut.soms.dto.ComponentPositionAppListDTO">
         SELECT
-            b.stake_or_truss_number as position,
-            b.id
+                b.stake_or_truss_number as position,
+                b.id
         FROM t_task_bridge_component tbc
-        LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
-        LEFT JOIN t_bridge b ON bc.bridge_id = b.id
+                LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
+                LEFT JOIN t_bridge b ON bc.bridge_id = b.id
         WHERE tbc.task_id = #{taskId}
-          AND bc.component_id = #{componentId}
+                AND bc.component_id = #{componentId}
     </select>
 
 </mapper>

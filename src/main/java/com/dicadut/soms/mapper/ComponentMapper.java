@@ -15,6 +15,6 @@ import java.util.List;
 public interface ComponentMapper extends BaseMapper<Component> {
 
     Integer selectCount();
-    List<Component> selectComponentAppList(String taskId);
+    List<ComponentAppListDTO> selectComponentAppList(String taskId);
     List<ComponentPositionAppListDTO> selectComponentPositionAppList(String taskId,String componentId);
 }
