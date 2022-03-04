@@ -53,7 +53,7 @@ public class TaskController {
      * @author FanJane
      */
     @ApiOperation(value = "添加任务", tags = {"web", "任务制定页", "jane", "已通"}
-            , notes = "选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储")
+            , notes = "选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储,createBy:'1483437418882392065'")
     @PostMapping("/add_task")
     public ResponseViewModel addTask(@RequestBody TaskVO taskVO) {
         if(CollectionUtils.isEmpty(taskVO.getSubTasks())){
