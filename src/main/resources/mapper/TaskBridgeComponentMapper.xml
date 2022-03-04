@@ -16,7 +16,7 @@
         INSERT INTO t_task_bridge_component
         (t_task_bridge_component.task_id,t_task_bridge_component.inspection_route,t_task_bridge_component.inspection_start,t_task_bridge_component.inspection_end,t_task_bridge_component.scan_position,t_task_bridge_component.bridge_component_id) values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{taskId},#{item.inspectionRoute},#{item.inspectionStart},#{item.inspectionEnd},#{item.scanPosition},#{item.componentNumberId})
+            (#{taskId},#{subTaskVO.inspectionRoute},#{subTaskVO.inspectionStart},#{subTaskVO.inspectionEnd},#{subTaskVO.scanPosition},#{item})
         </foreach>
     </insert>
 </mapper>

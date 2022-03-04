@@ -13,6 +13,7 @@ import com.dicadut.soms.vo.TaskVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -45,16 +46,19 @@ public class TaskController {
 
     /**
      * 选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储
-     * 前端传过来两级对象，第一级为任务信息，第二级为构件信息
+     * 前端传过来两级对象，第一级为任务信息，第二级为子任务构信息集合
      *
      * @param taskVO 添加的任务信息
      * @return //暂时没有 Jane_TODO 2022/2/24 后期需要优化
      * @author FanJane
      */
-    @ApiOperation(value = "添加任务", tags = {"web", "任务制定页", "jane", "未通"}
+    @ApiOperation(value = "添加任务", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储")
     @PostMapping("/add_task")
     public ResponseViewModel addTask(@RequestBody TaskVO taskVO) {
+        if(CollectionUtils.isEmpty(taskVO.getSubTasks())){
+            return ResponseViewModel.fail("添加失败，缺少子任务");
+        }
         taskService.saveTask(taskVO);
         return ResponseViewModel.ok();
     }
@@ -125,7 +129,7 @@ public class TaskController {
     }
 
     /**
-     * // Jane_TODO add 考虑事物吗
+     * // Jane_TODO add description考虑事物吗
      *
      * @param taskId
      * @return com.dicadut.soms.viewmodel.ResponseViewModel

@@ -8,11 +8,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dicadut.soms.domain.BridgeComponent;
+import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.enumeration.SomsConstant;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.enumeration.TypeNameEnum;
+import com.dicadut.soms.mapper.BridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskBridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.BusinessCodeService;
@@ -21,6 +24,7 @@ import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.util.TaskUtil;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.vo.InspectionScopeVO;
+import com.dicadut.soms.vo.SubTaskVO;
 import com.dicadut.soms.vo.TaskQueryVO;
 import com.dicadut.soms.vo.TaskVO;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +54,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Resource
     private DictionaryService dictionaryService;
 
+    @Resource
+    private BridgeComponentMapper bridgeComponentMapper;
 
 
     @Override
@@ -263,18 +269,31 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         task.setId(taskId);
         task.setTaskStatus(TaskStatusEnum.WAIT_DISTRIBUTE.getValue());
 
-        //获得打卡位置拼成字符串加入构件DTO
-        List<SubTaskAddVO> subTaskAddVOS = taskVO.getSubTaskAddVOS();
-        for (SubTaskAddVO s:subTaskAddVOS) {
-            List<String> collect = s.getScanPositionDTOS().stream().map(ScanPositionDTO::getCodeName).collect(Collectors.toList());
-            String join = StringUtils.join(collect, ",");
-            s.setScanPosition(join);
-        }
-
-
-        //插入任务表和任务构件表
+        //插入任务表
         baseMapper.insert(task);
-        taskBridgeComponentMapper.addTaskComponent(taskId, subTaskAddVOS);
+
+        //获得打卡位置拼成字符串加入构件DTO
+        List<SubTaskVO> subTaskVOS = taskVO.getSubTasks();
+        for (SubTaskVO subTaskVO : subTaskVOS) {
+            //获得打卡位置
+            String[] scanPositions = subTaskVO.getScanPositions();
+            //1.根据code查数据库返回codename
+            QueryWrapper<Dictionary> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.in("code", scanPositions);
+            List<Dictionary> dictionaries = dictionaryService.list(queryWrapper1);
+            List<String> collect = dictionaries.stream().map(Dictionary::getCodeName).collect(Collectors.toList());
+            String scanPosition = StringUtils.join(collect, ",");
+            subTaskVO.setScanPosition(scanPosition);
+
+            //插入任务桥构件表
+            String[] selectedComponents = subTaskVO.getSelectedComponents();
+            QueryWrapper<BridgeComponent> queryWrapper = new QueryWrapper<>();
+            queryWrapper.between("bridge_id", subTaskVO.getInspectionStart(), subTaskVO.getInspectionEnd()).in("component_id", selectedComponents);
+            List<BridgeComponent> bridgeComponents = bridgeComponentMapper.selectList(queryWrapper);
+            List<Long> collect1 = bridgeComponents.stream().map(BridgeComponent::getId).collect(Collectors.toList());
+            taskBridgeComponentMapper.addTaskComponent(taskId, subTaskVO, collect1);
+
+        }
 
 
     }
@@ -354,13 +373,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = entry.getValue();
             //获得巡检部位
             HashSet<String> compositionList = new HashSet<>();
-            for (TaskBridgeComponentDTO t: taskBridgeComponentDTOS) {
+            for (TaskBridgeComponentDTO t : taskBridgeComponentDTOS) {
                 String[] xName = t.getXname().split("/");
                 compositionList.add(xName[2]);
             }
             String location = entry.getKey();
             String composition = StringUtils.join(compositionList.toArray(), "、");
-            SubTaskShowV0.setInspectionPosition(location+composition);
+            SubTaskShowV0.setInspectionPosition(location + composition);
 
             //获得巡检路线
             String inspectionRoute = taskBridgeComponentDTOS.get(0).getInspectionRoute();
@@ -376,7 +395,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 //获得构件编号
                 List<String> stringList = value.stream().map(TaskBridgeComponentDTO::getComponentNumber).collect(Collectors.toList());
                 String join = StringUtils.join(stringList.toArray(), "、");
-                inspectionComponentNumber.add(componentName+":"+join);
+                inspectionComponentNumber.add(componentName + ":" + join);
 
             }
             SubTaskShowV0.setInspectionComponentNumber(inspectionComponentNumber);
@@ -391,7 +410,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     /**
-     *选择巡检范围后弹出所有打卡位置，并默认勾选构件包含的打卡位置
+     * 选择巡检范围后弹出所有打卡位置，并默认勾选构件包含的打卡位置
      *
      * @param inspectionScopeVO 巡检范围起始桩号
      * @return CheckBox <ScanPositionDTO> 显示打卡位置
@@ -407,7 +426,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
         scanPositionDTOCheckBox.setOption(option);
         //获得该桩号范围内的打卡位置
-        List<ScanPositionDTO> selected = baseMapper.getScanPositionList(inspectionScopeVO.getStart(),inspectionScopeVO.getEnd());
+        List<ScanPositionDTO> selected = baseMapper.getScanPositionList(inspectionScopeVO.getStart(), inspectionScopeVO.getEnd());
         List<String> codes = selected.stream().map(ScanPositionDTO::getCode).collect(Collectors.toList());
         scanPositionDTOCheckBox.setSelected(codes);
         return scanPositionDTOCheckBox;
@@ -415,17 +434,18 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     /**
      * // Jane_TODO add description
-     * @author FanJane
+     *
      * @param taskId
      * @return void
+     * @author FanJane
      */
     @Override
     public void removeTask(String taskId) {
         //删除任务表
         baseMapper.deleteById(taskId);
         //删除bridge_component表
-        HashMap<String, Object> removeByTaskId= new HashMap<>();
-        removeByTaskId.put("task_id",taskId);
+        HashMap<String, Object> removeByTaskId = new HashMap<>();
+        removeByTaskId.put("task_id", taskId);
         taskBridgeComponentMapper.deleteByMap(removeByTaskId);
     }
 

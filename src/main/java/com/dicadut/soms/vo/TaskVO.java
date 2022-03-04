@@ -1,7 +1,7 @@
 package com.dicadut.soms.vo;
 
-import com.dicadut.soms.dto.SubTaskAddVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,6 +18,7 @@ import java.util.List;
 @Data
 public class TaskVO {
     @ApiModelProperty(value = "任务类型: 1001000001 日常巡检, 1001000002 定期检查,1001000003 特殊检查 1001000004 养护维修  ")
+    @JsonProperty("jobType")
     private String taskType;
     @ApiModelProperty(value = "开始时间", example = "2021-09-30 13:00:00")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -27,6 +28,7 @@ public class TaskVO {
     private LocalDateTime endTime;
     @ApiModelProperty(value = "接收期限", example = "2021-09-30 13:00:00")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty("remindTime")
     private LocalDateTime receiveTime;
     @ApiModelProperty(value = "召回期限", example = "2021-09-30 13:00:00")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -34,7 +36,7 @@ public class TaskVO {
     @ApiModelProperty(value = "养护工程师id，需要前端绑定账户")
     private String createBy;
     @ApiModelProperty(value = "子任务列表")
-    private List<SubTaskAddVO> subTaskAddVOS = new ArrayList<>();
+    private List<SubTaskVO> subTasks= new ArrayList<>();
 
 }
 
