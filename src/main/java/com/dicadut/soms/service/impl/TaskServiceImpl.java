@@ -363,7 +363,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 Collectors.collectingAndThen(Collectors.toCollection(
                         () -> new TreeSet<>(Comparator.comparing(o -> o.getScanPosition()))), ArrayList::new));
         Set<String> scanPositionSet = TaskUtil.ArrayToSet(collect.stream().map(TaskBridgeComponentDTO::getScanPosition).collect(Collectors.toList()));
-        taskContentDTO.setScanPosition(scanPositionSet);
+        taskContentDTO.setScanPositions(scanPositionSet);
 
         //获得子任务
         List<SubTaskShowV0> SubTaskShowV0s = new ArrayList<>();
@@ -399,7 +399,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             SubTaskShowV0.setInspectionComponentNumbers(inspectionComponentNumbers);
             SubTaskShowV0s.add(SubTaskShowV0);
         }
-        taskContentDTO.setSubTask(SubTaskShowV0s);
+        taskContentDTO.setSubTasks(SubTaskShowV0s);
 
 
         return taskContentDTO;
