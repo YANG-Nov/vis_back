@@ -81,6 +81,7 @@
                 LEFT JOIN soms.t_component c on dr.component_id = c.id
                 LEFT JOIN soms.t_disease d on dr.disease_id = d.id
         WHERE task_id = #{taskId}
+            and dr.is_deleted = 0
         GROUP BY dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id
     </select>
 </mapper>
