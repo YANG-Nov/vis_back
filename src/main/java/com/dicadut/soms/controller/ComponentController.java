@@ -40,7 +40,7 @@ public class ComponentController {
         return ResponseViewModel.ok(frequencyLatestList);
 
     }
-    //TODO App添加病害前，选择构件列表需与web端显示内容一致 //FIX
+
     /**
      * App添加病害前，选择构件列表（巡检内容）
      * @param taskId 任务id
