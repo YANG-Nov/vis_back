@@ -50,9 +50,9 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
      * @return
      */
     @Override
-    public List<Tree<Integer>> getComponentList(String start, String end) {
+    public List<Tree<String>> getComponentList(String start, String end) {
         List<Component> components = baseMapper.selectBridgeCompositionList(start, end);    // 查询所有的桥梁部位
-        List<Tree<Integer>> treeList = TreeUtil.convertComponentsToTree(components);
+        List<Tree<String>> treeList = TreeUtil.convertComponentsToTree(components);
         return treeList;
     }
 

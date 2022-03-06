@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,18 +24,18 @@ public class TaskVO {
     @JsonProperty("jobFreq")
     private String inspectionRoute;
     @ApiModelProperty(value = "开始时间", example = "2021-09-30 13:00:00")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime startTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate startTime;
     @ApiModelProperty(value = "结束时间", example = "2021-09-30 14:00:00")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime endTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate endTime;
     @ApiModelProperty(value = "接收期限", example = "2021-09-30 13:00:00")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonProperty("remindTime")
-    private LocalDateTime receiveTime;
+    private LocalDate receiveTime;
     @ApiModelProperty(value = "召回期限", example = "2021-09-30 13:00:00")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime recallTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate recallTime;
     @ApiModelProperty(value = "养护工程师id，需要前端绑定账户")
     private String createBy;
     @ApiModelProperty(value = "子任务列表")

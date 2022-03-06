@@ -25,20 +25,20 @@ public class TreeUtil extends cn.hutool.core.lang.tree.TreeUtil {
      * @param components
      * @return
      */
-    public static List<Tree<Integer>> convertComponentsToTree(List<Component> components) {
-        List<TreeNode<Integer>> nodeList = CollUtil.newArrayList();  // 所有树的节点列表，树枝列表
-        Set<Integer> hasAddedIdSet = new HashSet<>();   // 存放已经加入到树的节点，辅助的数据结构
+    public static List<Tree<String>> convertComponentsToTree(List<Component> components) {
+        List<TreeNode<String>> nodeList = CollUtil.newArrayList();  // 所有树的节点列表，树枝列表
+        Set<String> hasAddedIdSet = new HashSet<>();   // 存放已经加入到树的节点，辅助的数据结构
 
         for (Component component : components) {
             String[] xpathArray = component.getXpath().split("/");
             String[] xnameArray = component.getXname().split("/");
             for (int i = 2; i < xpathArray.length; i++) {   // 遍历xpath中的每一级路径，构造树节点
-                Integer id = Integer.parseInt(xpathArray[i]);
-                Integer parentId = Integer.parseInt(xpathArray[i - 1]);
+                String id = xpathArray[i];
+                String parentId = xpathArray[i - 1];
                 String name = xnameArray[i];
                 Integer level = i - 1;
                 if (!hasAddedIdSet.contains(id)) {  // 将未加入树中的节点添加到树中
-                    TreeNode<Integer> node = new TreeNode<>(id, parentId, name, level); // weight 存放level值
+                    TreeNode<String> node = new TreeNode<>(id, parentId, name, level); // weight 存放level值
                     nodeList.add(node);
                     hasAddedIdSet.add(id);
                 }
@@ -53,8 +53,9 @@ public class TreeUtil extends cn.hutool.core.lang.tree.TreeUtil {
         treeNodeConfig.setParentIdKey("parentValue");
         treeNodeConfig.setNameKey("label");
         //转换器
-        List<Tree<Integer>> treeList = build(nodeList, 2001000000, treeNodeConfig,
+        List<Tree<String>> treeList = build(nodeList, "2001000000", treeNodeConfig,
                 (treeNode, tree) -> {
+                    String treeId = tree.getId();
                     tree.setId(treeNode.getId());
                     tree.setParentId(treeNode.getParentId());
                     tree.setWeight(treeNode.getWeight());

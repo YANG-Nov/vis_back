@@ -22,7 +22,7 @@ public interface BridgeService extends IService<Bridge> {
     @Deprecated
     List<StakeNumberDTO> getNumberList(String genre, String line);
 
-    List<Tree<Integer>> getComponentList(String start, String end);
+    List<Tree<String>> getComponentList(String start, String end);
 
     List<ComponentNumberDTO> getComponentNumberList(String start, String end, String id);
 

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -34,16 +35,16 @@ public class Task implements Serializable {
     private String taskStatus;
 
     @ApiModelProperty(value = "任务开始时间，精确到时")
-    private LocalDateTime startTime;
+    private LocalDate startTime;
 
     @ApiModelProperty(value = "任务截止时间，精确到时")
-    private LocalDateTime endTime;
+    private LocalDate endTime;
 
     @ApiModelProperty(value = "接受期限，精确到时")
-    private LocalDateTime receiveTime;
+    private LocalDate receiveTime;
 
     @ApiModelProperty(value = "召回期限，精确到时")
-    private LocalDateTime recallTime;
+    private LocalDate recallTime;
 
     @ApiModelProperty(value = "巡检员id")
     private String inspectorId;

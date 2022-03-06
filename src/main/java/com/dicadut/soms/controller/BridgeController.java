@@ -47,7 +47,7 @@ public class BridgeController {
     @ApiOperation(value = "制定任务页显示构件", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "传入id:B0-B16 起始桩号id12000，终止桩号id12016")
     @GetMapping("/get_component_number/{start}/{end}")
-    public ResponseViewModel<List<Tree<Integer>>> getComponentList(@PathVariable String start, @PathVariable String end) {
+    public ResponseViewModel<List<Tree<String>>> getComponentList(@PathVariable String start, @PathVariable String end) {
         return ResponseViewModel.ok(bridgeService.getComponentList(start, end));
     }
 
