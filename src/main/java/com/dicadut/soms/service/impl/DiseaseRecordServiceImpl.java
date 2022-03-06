@@ -91,7 +91,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         // 存放结果列表
         DiseaseDetailDTO diseaseDetailDTO = new DiseaseDetailDTO();
         // 过渡map集合，key: type, value: name、content、value、diseaseAttributeId、unit、type
-        Map<Integer, List<DiseaseDetailListDTO>> map = diseaseDetailList.stream().collect(Collectors.groupingBy(DiseaseDetailListDTO::getType)); // 通过 lambda 表达式实现，比之前代码更简洁
+        Map<String, List<DiseaseDetailListDTO>> map = diseaseDetailList.stream().collect(Collectors.groupingBy(DiseaseDetailListDTO::getType)); // 通过 lambda 表达式实现，比之前代码更简洁
 
         diseaseDetailDTO.setFeatureFields(map.getOrDefault(SomsConstant.FEATURE_FIELD, new ArrayList<>()));
         diseaseDetailDTO.setFeaturePopups(map.getOrDefault(SomsConstant.FEATURE_POPUP, new ArrayList<>()));
