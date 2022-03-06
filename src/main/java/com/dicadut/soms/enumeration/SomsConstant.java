@@ -15,10 +15,10 @@ public final class SomsConstant {
 //        diseaseDetailDTO.setDiseasePictures(map.getOrDefault(4, new ArrayList<>()));
 //        diseaseDetailDTO.setDiseaseVoices(map.getOrDefault(5, new ArrayList<>()));
 //        diseaseDetailDTO.setDiseaseTexts(map.getOrDefault(6, new ArrayList<>()));
-    public static final Integer FEATURE_FIELD = 1;
-    public static final Integer FEATURE_POPUP = 2;
-    public static final Integer FEATURE_RADIO = 3;
-    public static final Integer DISEASE_PICTURE = 4;
-    public static final Integer DISEASE_VOICE = 5;
-    public static final Integer DISEASE_TEXT = 6;
+    public static final String FEATURE_FIELD = "1";
+    public static final String FEATURE_POPUP = "2";
+    public static final String FEATURE_RADIO = "3";
+    public static final String DISEASE_PICTURE = "4";
+    public static final String DISEASE_VOICE = "5";
+    public static final String DISEASE_TEXT = "6";
 }
