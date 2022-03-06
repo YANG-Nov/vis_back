@@ -38,7 +38,7 @@
     <select id="selectComponentPositionAppList" resultType="com.dicadut.soms.dto.ComponentPositionAppListDTO">
         SELECT
                 b.stake_or_truss_number as position,
-                b.id
+                b.id as position_id
         FROM t_task_bridge_component tbc
                 LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
                 LEFT JOIN t_bridge b ON bc.bridge_id = b.id

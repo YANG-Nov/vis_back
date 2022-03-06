@@ -14,5 +14,5 @@ public class ComponentPositionAppListDTO {
     @ApiModelProperty("构件位置")
     private String position;
     @ApiModelProperty("构件位置id")
-    private String id;
+    private String positionId;
 }

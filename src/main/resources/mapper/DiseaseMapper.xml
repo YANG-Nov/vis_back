@@ -14,8 +14,8 @@
 
     <select id="selectDiseaseAppList" resultType="com.dicadut.soms.dto.DiseaseAppListDTO">
         select
-            d.name AS name,
-            d.id AS id
+            d.name,
+            d.id AS disease_id
         from t_component_disease cd
         JOIN t_disease d on cd.disease_id = d.id
         where cd.component_id = #{componentId}
@@ -24,7 +24,7 @@
     <select id="selectDiseaseAttributeAppList" resultType="com.dicadut.soms.dto.DiseaseAttributeListDTO">
         select
             da.name,
-            da.id,
+            da.id disease_attribute_id,
             da.value,
             da.type,
             da.unit

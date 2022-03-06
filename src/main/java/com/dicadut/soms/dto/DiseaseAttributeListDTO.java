@@ -8,7 +8,7 @@ public class DiseaseAttributeListDTO {
     @ApiModelProperty("病害特性名称")
     private String name;
     @ApiModelProperty("病害特性id")
-    private String id;
+    private String diseaseAttributeId;
     @ApiModelProperty("病害特性值")
     private String value;
     @ApiModelProperty("病害特性种类：1手动输入，2下拉框，3选择是否")

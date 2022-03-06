@@ -12,5 +12,5 @@ public class DiseaseAppListDTO {
     @ApiModelProperty("病害名称")
     private String name;
     @ApiModelProperty("病害id")
-    private String id;
+    private String diseaseId;
 }
