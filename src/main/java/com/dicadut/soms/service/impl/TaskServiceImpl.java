@@ -368,6 +368,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         //获得子任务
         List<SubTaskShowV0> SubTaskShowV0s = new ArrayList<>();
         Map<String, List<TaskBridgeComponentDTO>> map = taskBridgeComponentList.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getLocation));
+
         for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry : map.entrySet()) {
             SubTaskShowV0 SubTaskShowV0 = new SubTaskShowV0();
             List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = entry.getValue();
@@ -386,19 +387,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             SubTaskShowV0.setInspectionRoute(inspectionRoute);
 
             //获得巡检构件
-            List<String> inspectionComponentNumber = new ArrayList<>();
+            Map<String, String> inspectionComponentNumbers = new HashMap<>();
             Map<String, List<TaskBridgeComponentDTO>> listMap = taskBridgeComponentDTOS.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getComponentName));
             for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry1 : listMap.entrySet()) {
-                List<TaskBridgeComponentDTO> value = entry1.getValue();
-                //获得构件名称
-                String componentName = value.get(0).getComponentName();
                 //获得构件编号
+                List<TaskBridgeComponentDTO> value = entry1.getValue();
                 List<String> stringList = value.stream().map(TaskBridgeComponentDTO::getComponentNumber).collect(Collectors.toList());
                 String join = StringUtils.join(stringList.toArray(), "、");
-                inspectionComponentNumber.add(componentName + ":" + join);
-
+                inspectionComponentNumbers.putIfAbsent(entry1.getKey(),join);
             }
-            SubTaskShowV0.setInspectionComponentNumber(inspectionComponentNumber);
+            SubTaskShowV0.setInspectionComponentNumbers(inspectionComponentNumbers);
             SubTaskShowV0s.add(SubTaskShowV0);
         }
         taskContentDTO.setSubTask(SubTaskShowV0s);

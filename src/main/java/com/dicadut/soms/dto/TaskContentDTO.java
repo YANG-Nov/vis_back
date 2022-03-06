@@ -1,7 +1,9 @@
 package com.dicadut.soms.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -19,10 +21,13 @@ public class TaskContentDTO {
     private String inspectionFrequency;
     private String creatBy;
     private String inspector;
-    private String startTime;
-    private String endTime;
-    private String receiveTime;
-    private String recallTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
+
+    @JsonProperty("remindTime")
+    private LocalDate receiveTime;
+
+    private LocalDate recallTime;
     private Set<String> scanPosition;
     private List<SubTaskShowV0> subTask = new ArrayList<>();
 }
