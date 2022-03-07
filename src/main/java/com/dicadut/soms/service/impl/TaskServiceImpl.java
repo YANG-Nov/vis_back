@@ -380,16 +380,19 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             SubTaskShowV0.setInspectionRoute(inspectionRoute);
 
             //获得巡检构件
-            Map<String, String> inspectionComponentNumbers = new HashMap<>();
+            List<String> inspectionComponentNumber = new ArrayList<>();
             Map<String, List<TaskBridgeComponentDTO>> listMap = taskBridgeComponentDTOS.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getComponentName));
             for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry1 : listMap.entrySet()) {
+                //获得构件名称
+                String componentName = entry1.getKey();
                 //获得构件编号
                 List<TaskBridgeComponentDTO> value = entry1.getValue();
                 List<String> stringList = value.stream().map(TaskBridgeComponentDTO::getComponentNumber).collect(Collectors.toList());
                 String join = StringUtils.join(stringList.toArray(), "、");
-                inspectionComponentNumbers.putIfAbsent(entry1.getKey(),join);
+                inspectionComponentNumber.add(componentName + ":" + join);
+
             }
-            SubTaskShowV0.setInspectionComponentNumbers(inspectionComponentNumbers);
+            SubTaskShowV0.setInspectionComponentNumbers(inspectionComponentNumber);
             SubTaskShowV0s.add(SubTaskShowV0);
         }
         taskContentDTO.setSubTasks(SubTaskShowV0s);

@@ -2,8 +2,8 @@ package com.dicadut.soms.dto;
 
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author fan_jennifer
@@ -15,6 +15,5 @@ import java.util.Map;
 public class SubTaskShowV0 {
     private String inspectionPosition;
     private String inspectionRoute;
-    private Map<String, String> inspectionComponentNumbers = new HashMap<>();
-
+    private List<String> inspectionComponentNumbers = new ArrayList<>();
 }
