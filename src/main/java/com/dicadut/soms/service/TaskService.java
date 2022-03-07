@@ -50,7 +50,7 @@ public interface TaskService extends IService<Task> {
 
     List<InspectorDTO> getInspectorList();
 
-    List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency);
+    List<TaskAppListDTO> getTaskAppList(Integer taskStatus);
 
     /**
      * 选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储

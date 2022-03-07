@@ -49,44 +49,48 @@
 
 
     <select id="selectTaskEndTimeAppList" resultType="com.dicadut.soms.dto.TaskEndTimeAppListDTO">
-        SELECT
+        select
             t.id,
-            t.end_time
-        FROM t_task t
-        LEFT JOIN t_task_bridge_component tbc ON t.id = tbc.task_id
-        LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
-        WHERE (t.task_status,bc.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
-        GROUP BY t.id
+            t.end_time,
+            t.end_time rest_time
+        from soms.t_task t
+        where t.task_status = #{taskStatus}
+        group by t.id
     </select>
 
     <select id="selectTaskInspectionAppList" resultType="com.dicadut.soms.dto.TaskInspectionAppListDTO">
-        SELECT
+        select
             t.id,
-            bc.inspection_route,
-            MIN(bc.inspection_stake_number) inspection_stake_number_min,
-            MAX(bc.inspection_stake_number) inspection_stake_number_max
-        FROM t_task t
-        LEFT JOIN t_task_bridge_component tbc ON t.id = tbc.task_id
-        LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
-        WHERE (t.task_status,bc.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
-        GROUP BY t.id
+            tbc.inspection_route
+        from soms.t_task_bridge_component tbc
+        left join soms.t_task t on tbc.task_id = t.id
+        where task_status = #{taskStatus}
+        group by t.id
     </select>
 
     <select id="selectTaskDetailsAppList" resultType="com.dicadut.soms.dto.TaskDetailsAppListDTO">
-        SELECT
-            t.id,
-            b.location route,
-            MIN(b.stake_or_truss_number) stake_or_truss_number_min,
-            MAX(b.stake_or_truss_number) stake_or_truss_number_max,
-            replace(substring(substring_index(c.xname, '/', 3), char_length(substring_index(c.xname, '/', 3-1)) + 1), '/', '') level_two_parent_name	-- 二级构件名称
-        FROM t_task t
-        LEFT JOIN t_task_bridge_component tbc ON t.id = tbc.task_id
-        LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
-        LEFT JOIN t_bridge b ON bc.bridge_id = b.id
-        LEFT JOIN t_component c ON bc.component_id = c.id
-        WHERE (t.task_status,bc.inspection_frequency) = (#{taskStatus}, #{inspectionFrequency})
-          AND c.id != c.parent_id
-        GROUP BY t.id
+        select
+            a.id,
+            group_concat(a.cm) position
+        from
+            (
+                select
+                        distinct
+                        t.id,
+                        b.location ,
+                        replace(substring(substring_index(c.xname, '/', 3), char_length(substring_index(c.xname, '/', 3-1)) + 1), '/', '') component_name,
+                        concat(b.location, replace(substring(substring_index(c.xname, '/', 3), char_length(substring_index(c.xname, '/', 3-1)) + 1), '/', '')) cm
+                from
+                        soms.t_task t
+                            left join soms.t_task_bridge_component tbc on t.id = tbc.task_id
+                            left join soms.t_bridge_component bc on tbc.bridge_component_id = bc.id
+                            left join soms.t_bridge b on bc.bridge_id = b.id
+                            left join soms.t_component c on bc.component_id = c.id
+                where  t.task_status = 1002000004
+                    and c.id != c.parent_id
+                order by t.id
+            ) a
+        group by a.id
     </select>
 
     <select id="selectTaskStatusLatestList" resultType="com.dicadut.soms.dto.TaskDTO">

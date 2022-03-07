@@ -31,14 +31,11 @@ public interface TaskMapper extends BaseMapper<Task> {
     // Wei_TODO 2022/2/24 1状态提到Java层做 2查询层级改成韦雷哥代码
     List<InspectorDTO> selectInspectorList();
 
-    List<TaskEndTimeAppListDTO> selectTaskEndTimeAppList(@Param("taskStatus") Integer taskStatus,
-                                                         @Param("inspectionFrequency") Integer inspectionFrequency);
+    List<TaskEndTimeAppListDTO> selectTaskEndTimeAppList(@Param("taskStatus") Integer taskStatus);
 
-    List<TaskInspectionAppListDTO> selectTaskInspectionAppList(@Param("taskStatus") Integer taskStatus,
-                                                               @Param("inspectionFrequency") Integer inspectionFrequency);
+    List<TaskInspectionAppListDTO> selectTaskInspectionAppList(@Param("taskStatus") Integer taskStatus);
 
-    List<TaskDetailsAppListDTO> selectTaskDetailsAppList(@Param("taskStatus") Integer taskStatus,
-                                                         @Param("inspectionFrequency") Integer inspectionFrequency);
+    List<TaskDetailsAppListDTO> selectTaskDetailsAppList(@Param("taskStatus") Integer taskStatus);
 
     List<TaskDTO> selectTaskStatusLatestList();
 

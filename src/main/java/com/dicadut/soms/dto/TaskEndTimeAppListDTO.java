@@ -1,5 +1,7 @@
 package com.dicadut.soms.dto;
 
+import com.dicadut.soms.json.DeadLineSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,4 +19,7 @@ public class TaskEndTimeAppListDTO {
     private String id;
     @ApiModelProperty("截止时间")
     private String endTime;
+    @ApiModelProperty("剩余时间")
+    @JsonSerialize(using = DeadLineSerializer.class)
+    private String restTime;
 }

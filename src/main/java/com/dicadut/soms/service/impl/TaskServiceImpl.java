@@ -212,20 +212,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * App任务列表
      *
      * @param taskStatus          任务状态
-     * @param inspectionFrequency 巡检频率
      * @return
      */
-//    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency) {
-////        List<TaskAppListDTO> taskEndTimeAppList = baseMapper.selectTaskEndTimeAppList(taskStatus, inspectionFrequency);
-////        List<TaskAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus,inspectionFrequency);
-////        List<TaskAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus,inspectionFrequency);
-//        return taskEndTimeAppList;
-//    }
-    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, Integer inspectionFrequency) {
+    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus) {
         // 理论上这三个list的长度要一样，即任务数，否则可能有bug
-        List<TaskEndTimeAppListDTO> taskEndTimeAppList = baseMapper.selectTaskEndTimeAppList(taskStatus, inspectionFrequency);
-        List<TaskInspectionAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus, inspectionFrequency);
-        List<TaskDetailsAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus, inspectionFrequency);
+        List<TaskEndTimeAppListDTO> taskEndTimeAppList = baseMapper.selectTaskEndTimeAppList(taskStatus);
+        List<TaskInspectionAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus);
+        List<TaskDetailsAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus);
 
         List<TaskAppListDTO> taskAppListDTOList = new ArrayList();  // 存放结果列表
 

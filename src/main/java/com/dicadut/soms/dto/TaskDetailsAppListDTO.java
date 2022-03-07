@@ -19,16 +19,6 @@ import lombok.Data;
 public class TaskDetailsAppListDTO {
     @ApiModelProperty("任务编码")
     private String id;
-    @ApiModelProperty("构件所属匝道")
-    private String route;
-    @ApiModelProperty("构件所在桩号最小值")
-    @JsonSerialize(using = StakeNumberSerializer.class)
-    @JsonDeserialize(using = StakeNumberDeserializer.class)
-    private String stakeOrTrussNumberMin;
-    @ApiModelProperty("构件所在桩号最大值")
-    @JsonSerialize(using = StakeNumberSerializer.class)
-    @JsonDeserialize(using = StakeNumberDeserializer.class)
-    private String stakeOrTrussNumberMax;
-    @ApiModelProperty("二级构件名称")
-    private String levelTwoParentName;
+    @ApiModelProperty("构件所在位置")
+    private String position;
 }

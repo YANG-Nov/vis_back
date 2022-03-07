@@ -21,12 +21,4 @@ public class TaskInspectionAppListDTO {
     private String id;
     @ApiModelProperty("巡检路线")
     private String inspectionRoute;
-    @ApiModelProperty("巡检桩号最小值")
-    @JsonSerialize(using = StakeNumberSerializer.class)
-    @JsonDeserialize(using = StakeNumberDeserializer.class)
-    private String inspectionStakeNumberMin;
-    @ApiModelProperty("巡检桩号最大值")
-    @JsonSerialize(using = StakeNumberSerializer.class)
-    @JsonDeserialize(using = StakeNumberDeserializer.class)
-    private String inspectionStakeNumberMax;
 }

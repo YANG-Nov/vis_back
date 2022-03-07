@@ -229,8 +229,8 @@ public class TaskController {
     //TODO App任务列表需要根据原型加以更改，考虑多种构件情况
     @ApiOperation(value = "App任务列表", tags = {"App","YANG","App未通"})
     @GetMapping("get_task_app_list")
-    public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus, @RequestParam Integer inspectionFrequency) {
-        List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus, inspectionFrequency);
+    public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus) {
+        List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus);
         return ResponseViewModel.ok(taskAppList);
     }
 
