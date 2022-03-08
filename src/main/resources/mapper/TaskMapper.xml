@@ -245,4 +245,18 @@
         SET t.task_status = #{taskStatusIdGo}
         WHERE t.id = #{taskId}
     </update>
+
+    <select id="getPosition" resultType="com.dicadut.soms.dto.TaskBridgeComponentDTO">
+        SELECT CONCAT(b.location, c.xname, '/', b.stake_or_truss_number) xname,
+               CONCAT(b.main_or_approach, b.line, c.xpath, '/', bc.id)   xpath,
+               b.location,
+               c.`name`                                                  componentName,
+               b.stake_or_truss_number                                   componentNumber
+        FROM t_bridge_component bc
+                     LEFT JOIN t_component c ON c.id = bc.component_id
+                     LEFT JOIN t_bridge b ON b.id = bc.bridge_id
+                     LEFT JOIN t_dictionary d2 ON d2.`code` = bc.inspection_frequency
+        WHERE bc.bridge_id BETWEEN #{start} AND #{end}
+          AND FIND_IN_SET(bc.component_id, #{component})
+    </select>
 </mapper>

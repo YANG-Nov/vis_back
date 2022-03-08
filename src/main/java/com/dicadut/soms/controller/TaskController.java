@@ -63,6 +63,25 @@ public class TaskController {
         return ResponseViewModel.ok();
     }
 
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskVO
+     * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO>
+     * @author FanJane
+     */
+    @ApiOperation(value = "任务预览", tags = {"web", "任务制定页", "jane", "已通"}
+            , notes = "选择完构件后，点击确认添加,将前端传过来的表单封装后再传给前端进行弹窗显示,createBy:'1483437418882392065'")
+    @PostMapping("/show_task_preview")
+    public ResponseViewModel<TaskContentDTO> showTaskPreview(@RequestBody TaskVO taskVO) {
+        if (CollectionUtils.isEmpty(taskVO.getSubTasks())) {
+            return ResponseViewModel.fail("添加失败，缺少子任务");
+        }
+        TaskContentDTO taskPreview = taskService.getTaskPreview(taskVO);
+        return ResponseViewModel.ok(taskPreview);
+    }
+
+
     @ApiOperation("查询任务状态数量，扇形图")
     @GetMapping("getTaskStatus")
     @Deprecated

@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.BridgeComponent;
 import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.domain.Task;
+import com.dicadut.soms.domain.User;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.enumeration.SomsConstant;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
@@ -21,6 +22,7 @@ import com.dicadut.soms.mapper.TaskMapper;
 import com.dicadut.soms.service.BusinessCodeService;
 import com.dicadut.soms.service.DictionaryService;
 import com.dicadut.soms.service.TaskService;
+import com.dicadut.soms.service.UserService;
 import com.dicadut.soms.util.TaskUtil;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.vo.InspectionScopeVO;
@@ -56,6 +58,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Resource
     private BridgeComponentMapper bridgeComponentMapper;
+
+    @Resource
+    private UserService userService;
 
 
     @Override
@@ -380,18 +385,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             SubTaskShowV0.setInspectionRoute(inspectionRoute);
 
             //获得巡检构件
-            List<String> inspectionComponentNumber = new ArrayList<>();
-            Map<String, List<TaskBridgeComponentDTO>> listMap = taskBridgeComponentDTOS.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getComponentName));
-            for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry1 : listMap.entrySet()) {
-                //获得构件名称
-                String componentName = entry1.getKey();
-                //获得构件编号
-                List<TaskBridgeComponentDTO> value = entry1.getValue();
-                List<String> stringList = value.stream().map(TaskBridgeComponentDTO::getComponentNumber).collect(Collectors.toList());
-                String join = StringUtils.join(stringList.toArray(), "、");
-                inspectionComponentNumber.add(componentName + ":" + join);
-
-            }
+            List<String> inspectionComponentNumber = TaskUtil.getInspectionComponentNumbers(taskBridgeComponentDTOS);
             SubTaskShowV0.setInspectionComponentNumbers(inspectionComponentNumber);
             SubTaskShowV0s.add(SubTaskShowV0);
         }
@@ -430,7 +424,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * // Jane_TODO add description
      *
      * @param taskId
-     * @return void
      * @author FanJane
      */
     @Override
@@ -446,5 +439,64 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public void updateTaskStatus(String taskId,String taskStatusIdGo){
         baseMapper.updateTaskStatus(taskId,taskStatusIdGo);
+    }
+
+    @Override
+    public TaskContentDTO getTaskPreview(TaskVO taskVO) {
+        //获取表单需要的数据
+        TaskContentDTO taskContentDTO = new TaskContentDTO();
+        List<SubTaskShowV0> subTaskShowV0List = new ArrayList<>();
+
+        //1.获得任务时间
+        BeanUtils.copyProperties(taskVO, taskContentDTO);
+        //2.获得任务类型
+        QueryWrapper<Dictionary> taskTypeWrapper = new QueryWrapper<>();
+        Dictionary taskType = dictionaryService.getOne(taskTypeWrapper.eq("code", taskVO.getTaskType()));
+        taskContentDTO.setTaskType(taskType.getCodeName());
+        //3.获得任务制定人
+
+        User createBy = userService.getById(taskVO.getCreateBy());
+        taskContentDTO.setCreatBy(createBy.getRealName());
+        //4.获得巡检频率
+        QueryWrapper<Dictionary> frequencyWrapper = new QueryWrapper<>();
+        Dictionary frequency = dictionaryService.getOne(frequencyWrapper.eq("code", taskVO.getInspectionFrequency()));
+        taskContentDTO.setInspectionFrequency(frequency.getCodeName());
+        //5.设定任务状态
+        taskContentDTO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW.getLabel());
+        //将数据库封装调用写好的方法
+
+
+        //获得打卡点位置
+        List<SubTaskVO> subTasks = taskVO.getSubTasks();
+        Set<String> scanPositionSet = new HashSet<>();
+        for (SubTaskVO subTaskVO : subTasks) {
+            SubTaskShowV0 subTaskShowV0 = new SubTaskShowV0();
+            //获得打卡点位置
+            scanPositionSet.addAll(Arrays.asList(subTaskVO.getScanPositions()));
+            //获得巡检部位
+            HashSet<String> compositionList = new HashSet<>();
+            String selectedComponents = StringUtils.join(subTaskVO.getSelectedComponents(), ",");
+            List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = baseMapper.getPosition(subTaskVO.getInspectionStart()
+                    ,subTaskVO.getInspectionEnd(),selectedComponents);
+            for (TaskBridgeComponentDTO t : taskBridgeComponentDTOS) {
+                String[] xName = t.getXname().split("/");
+                compositionList.add(xName[2]);
+            }
+            String location = taskBridgeComponentDTOS.get(0).getLocation();
+            String composition = StringUtils.join(compositionList.toArray(), "、");
+            subTaskShowV0.setInspectionPosition(location + composition);
+            //获得巡检路线
+            subTaskShowV0.setInspectionRoute(subTaskVO.getInspectionRoute());
+            //获得巡检构件
+            List<String> inspectionComponentNumbers = TaskUtil.getInspectionComponentNumbers(taskBridgeComponentDTOS);
+            subTaskShowV0.setInspectionComponentNumbers( inspectionComponentNumbers);
+            subTaskShowV0List.add(subTaskShowV0);
+        }
+        taskContentDTO.setScanPositions(scanPositionSet);
+
+        taskContentDTO.setSubTasks(subTaskShowV0List);
+
+
+        return taskContentDTO;
     }
 }

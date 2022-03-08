@@ -112,8 +112,18 @@ public interface TaskService extends IService<Task> {
 
     /**
      * 对任务状态进行更新操作
-     * @param taskId 要更新状态的任务id
+     *
+     * @param taskId         要更新状态的任务id
      * @param taskStatusIdGo 要更新到的目标状态
      */
     void updateTaskStatus(String taskId, String taskStatusIdGo);
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskVO
+     * @return void
+     * @author FanJane
+     */
+    TaskContentDTO getTaskPreview(TaskVO taskVO);
 }

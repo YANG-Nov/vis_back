@@ -1,10 +1,13 @@
 package com.dicadut.soms.util;
 
+import com.dicadut.soms.dto.TaskBridgeComponentDTO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author fan_jane
@@ -101,6 +104,21 @@ public class TaskUtil {
 
     }
 
+    public static List<String> getInspectionComponentNumbers(List<TaskBridgeComponentDTO> taskBridgeComponentDTOS) {
+        List<String> inspectionComponentNumber = new ArrayList<>();
+        Map<String, List<TaskBridgeComponentDTO>> listMap = taskBridgeComponentDTOS.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getComponentName));
+        for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry1 : listMap.entrySet()) {
+            //获得构件名称
+            String componentName = entry1.getKey();
+            //获得构件编号
+            List<TaskBridgeComponentDTO> value = entry1.getValue();
+            List<String> stringList = value.stream().map(TaskBridgeComponentDTO::getComponentNumber).collect(Collectors.toList());
+            String join = StringUtils.join(stringList.toArray(), "、");
+            inspectionComponentNumber.add(componentName + ":" + join);
+
+        }
+        return inspectionComponentNumber;
+    }
 }
 
 
