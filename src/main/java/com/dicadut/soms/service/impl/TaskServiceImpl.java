@@ -492,7 +492,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             subTaskShowV0.setInspectionComponentNumbers( inspectionComponentNumbers);
             subTaskShowV0List.add(subTaskShowV0);
         }
-        taskContentDTO.setScanPositions(scanPositionSet);
+
+        QueryWrapper<Dictionary> scanWrapper = new QueryWrapper<>();
+        List<Dictionary> scan = dictionaryService.list(scanWrapper.in("code", scanPositionSet));
+        taskContentDTO.setScanPositions(scan.stream().map(Dictionary::getCodeName).collect(Collectors.toSet()));
 
         taskContentDTO.setSubTasks(subTaskShowV0List);
 
