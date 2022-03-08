@@ -462,7 +462,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         Dictionary frequency = dictionaryService.getOne(frequencyWrapper.eq("code", taskVO.getInspectionFrequency()));
         taskContentDTO.setInspectionFrequency(frequency.getCodeName());
         //5.设定任务状态
-        taskContentDTO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW.getLabel());
+        taskContentDTO.setTaskStatus(TaskStatusEnum.WAIT_RECEIVE.getLabel());
         //将数据库封装调用写好的方法
 
 
