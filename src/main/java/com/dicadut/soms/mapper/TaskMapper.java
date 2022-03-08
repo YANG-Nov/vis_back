@@ -108,4 +108,6 @@ public interface TaskMapper extends BaseMapper<Task> {
      * @author FanJane
      */
     List<ScanPositionDTO> getScanPositionList(@Param("start") String start, @Param("end") String end);
+
+    void updateTaskStatus(@Param("taskId") String taskId, @Param("taskStatusIdGo") String taskStatusIdGo);
 }

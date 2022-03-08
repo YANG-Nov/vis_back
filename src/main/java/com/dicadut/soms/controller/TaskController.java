@@ -241,11 +241,17 @@ public class TaskController {
         return ResponseViewModel.ok(taskScanPositionAppList);
     }
 
+    /**
+     * 对任务状态进行更新操作
+     * @param taskId 要更新状态的任务id
+     * @param taskStatusIdGo 要更新到的目标状态
+     * @return
+     */
     @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App未通"})
     @PostMapping("/update_task")
-    public ResponseViewModel updateTask(@RequestParam String taskId,@RequestParam String taskStatusIdGo) {
-        //TODO 缺失接口：App更新任务状态
-        //前端传taskId、taskStatusIdGo两个值 进行更新
+    public ResponseViewModel updateTaskStatus(@RequestParam String taskId,@RequestParam String taskStatusIdGo) {
+        //TODO 缺失接口：App更新任务状态 //FIX
+        taskService.updateTaskStatus(taskId,taskStatusIdGo);
         return ResponseViewModel.ok();
     }
 }

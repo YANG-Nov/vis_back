@@ -239,4 +239,10 @@
                      LEFT JOIN t_dictionary d ON bc.scan_position = d.`code`
         WHERE b.id BETWEEN #{start} AND #{end};
     </select>
+
+    <update id="updateTaskStatus" parameterType="com.dicadut.soms.domain.Task">
+        UPDATE soms.t_task t
+        SET t.task_status = #{taskStatusIdGo}
+        WHERE t.id = #{taskId}
+    </update>
 </mapper>

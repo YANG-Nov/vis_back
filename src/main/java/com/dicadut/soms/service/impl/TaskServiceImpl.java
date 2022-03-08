@@ -443,4 +443,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         taskBridgeComponentMapper.deleteByMap(removeByTaskId);
     }
 
+    @Override
+    public void updateTaskStatus(String taskId,String taskStatusIdGo){
+        baseMapper.updateTaskStatus(taskId,taskStatusIdGo);
+    }
 }
