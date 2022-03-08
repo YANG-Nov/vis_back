@@ -86,7 +86,7 @@
                             left join soms.t_bridge_component bc on tbc.bridge_component_id = bc.id
                             left join soms.t_bridge b on bc.bridge_id = b.id
                             left join soms.t_component c on bc.component_id = c.id
-                where  t.task_status = 1002000004
+                where  t.task_status = #{taskStatus}
                     and c.id != c.parent_id
                 order by t.id
             ) a
