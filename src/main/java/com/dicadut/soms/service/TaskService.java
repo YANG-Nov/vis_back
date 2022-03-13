@@ -126,4 +126,13 @@ public interface TaskService extends IService<Task> {
      * @author FanJane
      */
     TaskContentDTO getTaskPreview(TaskVO taskVO);
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId
+     * @return com.dicadut.soms.dto.TaskContentDTO
+     * @author FanJane
+     */
+    TaskContentDTO getUpdateTask(String taskId);
 }

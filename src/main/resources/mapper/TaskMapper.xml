@@ -261,4 +261,40 @@
         WHERE bc.bridge_id BETWEEN #{start} AND #{end}
           AND FIND_IN_SET(bc.component_id, #{component})
     </select>
+
+    <select id="getUpdateTaskList" resultType="com.dicadut.soms.dto.TaskBridgeComponentDTO">
+        SELECT tbc.task_id,
+               t.start_time,
+               t.end_time,
+               t.recall_time,
+               t.receive_time,
+               t.create_by,
+               t.task_type,
+               t.inspector_id                                            inspector,
+               bc.inspection_frequency                                   inspectionFrequency,
+               tbc.inspection_start,
+               tbc.inspection_end,
+               bc.component_id,
+               CONCAT(b.location, c.xname, '/', b.stake_or_truss_number) xname,
+               CONCAT(b.main_or_approach, b.line, c.xpath, '/', bc.id)   xpath,
+               d2.code_name                                              y,
+               b.location,
+               u.real_name                                               inspector,
+               tbc.scan_position,
+               c.`name`                                                 componentName,
+               b.stake_or_truss_number                                   componentNumber,
+               tbc.inspection_route
+        FROM t_task_bridge_component tbc
+                     LEFT JOIN t_bridge_component bc ON tbc.bridge_component_id = bc.id
+                     LEFT JOIN t_component c ON c.id = bc.component_id
+                     LEFT JOIN t_bridge b ON b.id = bc.bridge_id
+                     LEFT JOIN t_task t ON t.id = tbc.task_id
+                     LEFT JOIN t_dictionary d ON d.`code` = t.task_type
+                     LEFT JOIN t_dictionary d1 ON d1.`code` = t.task_status
+                     LEFT JOIN t_dictionary d2 ON d2.`code` = bc.inspection_frequency
+                     LEFT JOIN t_user u ON u.id = t.inspector_id
+                     LEFT JOIN t_user u1 ON u1.id = t.create_by
+        WHERE tbc.task_id = #{taskId}
+
+    </select>
 </mapper>

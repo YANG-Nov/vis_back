@@ -55,12 +55,29 @@ public class TaskController {
     @ApiOperation(value = "添加任务", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储,createBy:'1483437418882392065'")
     @PostMapping("/add_task")
-    public ResponseViewModel<PageResult<AmendingTaskDTO>> addTask(@RequestBody TaskVO taskVO) {
-        if(CollectionUtils.isEmpty(taskVO.getSubTasks())){
+    public ResponseViewModel addTask(@RequestBody TaskVO taskVO) {
+        if (CollectionUtils.isEmpty(taskVO.getSubTasks())) {
             return ResponseViewModel.fail("添加失败，缺少子任务");
         }
         taskService.saveTask(taskVO);
-        return ResponseViewModel.ok(taskService.getAmendingTaskList(1,10,new TaskQueryVO()));
+        return ResponseViewModel.ok();
+    }
+
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId
+     * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO>
+     * @author FanJane
+     */
+    @ApiOperation(value = "修改任务", tags = {"web", "任务列表页", "jane", "已通"}
+            , notes = "点击修改任务任务回显")
+    @PostMapping("/update_task/{taskId}")
+    public ResponseViewModel<TaskContentDTO> updateTask(@PathVariable String taskId) {
+        TaskContentDTO taskContentDTO = taskService.getUpdateTask(taskId);
+        return ResponseViewModel.ok(taskContentDTO);
+
     }
 
     /**
@@ -205,7 +222,7 @@ public class TaskController {
         return ResponseViewModel.ok(taskService.getThisYearTaskListBySingleSql(startTime, endTime));
     }
 
-    @ApiOperation(value = "本月巡检任务统计，APP首页", tags = {"App","YANG","App已通"})
+    @ApiOperation(value = "本月巡检任务统计，APP首页", tags = {"App", "YANG", "App已通"})
     @GetMapping("get_task_statistic_App")
     public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
         return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
@@ -246,14 +263,14 @@ public class TaskController {
     }
 
     //TODO App任务列表需要根据原型加以更改，考虑多种构件情况 //FIX
-    @ApiOperation(value = "App任务列表", tags = {"App","YANG","App未通"})
+    @ApiOperation(value = "App任务列表", tags = {"App", "YANG", "App未通"})
     @GetMapping("get_task_app_list")
     public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus) {
         List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus);
         return ResponseViewModel.ok(taskAppList);
     }
 
-    @ApiOperation(value = "App任务对应的打卡点", tags = {"App","YANG","App已通"})
+    @ApiOperation(value = "App任务对应的打卡点", tags = {"App", "YANG", "App已通"})
     @GetMapping("get_task_scan_position_app_list")
     public ResponseViewModel<List<TaskScanPositionAppListDTO>> getTaskScanPositionAppList(@RequestParam String taskId) {
         List<TaskScanPositionAppListDTO> taskScanPositionAppList = taskService.getTaskScanPositionAppList(taskId);
@@ -262,15 +279,16 @@ public class TaskController {
 
     /**
      * 对任务状态进行更新操作
-     * @param taskId 要更新状态的任务id
+     *
+     * @param taskId         要更新状态的任务id
      * @param taskStatusIdGo 要更新到的目标状态
      * @return
      */
     @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App未通"})
-    @PostMapping("/update_task")
-    public ResponseViewModel updateTaskStatus(@RequestParam String taskId,@RequestParam String taskStatusIdGo) {
+    @PostMapping("/update_task_status")
+    public ResponseViewModel updateTaskStatus(@RequestParam String taskId, @RequestParam String taskStatusIdGo) {
         //TODO 缺失接口：App更新任务状态 //FIX
-        taskService.updateTaskStatus(taskId,taskStatusIdGo);
+        taskService.updateTaskStatus(taskId, taskStatusIdGo);
         return ResponseViewModel.ok();
     }
 }

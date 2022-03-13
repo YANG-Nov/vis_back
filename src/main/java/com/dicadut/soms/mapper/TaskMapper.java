@@ -124,4 +124,12 @@ public interface TaskMapper extends BaseMapper<Task> {
                                              @Param(("end")) String inspectionEnd,
                                              @Param("component") String selectedComponents);
 
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId
+     * @return java.util.List<com.dicadut.soms.dto.TaskBridgeComponentDTO>
+     * @author FanJane
+     */
+    List<TaskBridgeComponentDTO> getUpdateTaskList(String taskId);
 }

@@ -15,5 +15,7 @@ import java.util.List;
 public class SubTaskShowV0 {
     private String inspectionPosition;
     private String inspectionRoute;
+    private String inspectionStart;
+    private String inspectionEnd;
     private List<String> inspectionComponentNumbers = new ArrayList<>();
 }
