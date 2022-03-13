@@ -30,6 +30,9 @@ public class AmendingTaskDTO {
     @ApiModelProperty(value = "巡检员姓名")
     private String inspectorName;
 
+    @ApiModelProperty(value = "制定任务姓名")
+    private String createBy;
+
     @ApiModelProperty(value = "巡检部位")
     private String inspectionPosition;
 
