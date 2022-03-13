@@ -209,6 +209,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public List<InspectorDTO> getInspectorList() {
         List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
+        int i = 1;
+        for (InspectorDTO inspectorDTO: inspectorDTOList) {
+            inspectorDTO.setKey(i++);
+        }
 
         return inspectorDTOList;
     }

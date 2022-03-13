@@ -24,4 +24,7 @@ public class InspectorDTO {
     @ApiModelProperty(value = "巡检部位")
     private String inspectionPosition;
 
+    @ApiModelProperty(value = "index")
+    private Integer key;
+
 }
