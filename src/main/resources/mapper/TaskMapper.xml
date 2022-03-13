@@ -103,15 +103,17 @@
 
     <select id="getAmendingTaskListByePageQuery" resultType="com.dicadut.soms.dto.AmendingTaskDTO">
         SELECT DISTINCT
-            t.id taskId,
-            dd.code_name taskType,
-            t.start_time startTime,
-            t.end_time endTime,
-            CONCAT(b.location,cc.`name`) inspectionPosition,
-            u.real_name inspectorName,
-            d.code_name taskStatus
+        t.id taskId,
+        dd.code_name taskType,
+        t.start_time startTime,
+        t.end_time endTime,
+        CONCAT(b.location,cc.`name`) inspectionPosition,
+        u.real_name inspectorName,
+        d.code_name taskStatus,
+        u1.real_name createBy
         FROM t_task t
         LEFT JOIN t_user u ON t.inspector_id = u.id
+        LEFT JOIN t_user u1 ON t.create_by = u1.id
         LEFT JOIN t_task_bridge_component tc ON t.id = tc.task_id
         LEFT JOIN t_bridge_component bc ON tc.bridge_component_id = bc.id
         LEFT JOIN t_component c ON bc.component_id = c.id

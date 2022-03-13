@@ -3,7 +3,7 @@ package com.dicadut.soms.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author fan_jennifer
@@ -22,13 +22,16 @@ public class AmendingTaskDTO {
     private String taskStatus;
 
     @ApiModelProperty(value = "任务开始时间，精确到时")
-    private LocalDateTime startTime;
+    private LocalDate startTime;
 
     @ApiModelProperty(value = "任务截止时间，精确到时")
-    private LocalDateTime endTime;
+    private LocalDate endTime;
 
     @ApiModelProperty(value = "巡检员姓名")
     private String inspectorName;
+
+    @ApiModelProperty(value = "制定任务姓名")
+    private String createBy;
 
     @ApiModelProperty(value = "巡检部位")
     private String inspectionPosition;

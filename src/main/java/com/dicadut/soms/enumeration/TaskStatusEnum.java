@@ -11,12 +11,12 @@ import java.util.Map;
  * @date 2022-01-01 23:50:18
  */
 public enum TaskStatusEnum {
-    WAIT_RECEIVE("1001000001", "待领取"),
-    INSPECTING("1001000002", "进行中"),
-    WAIT_REVIEW("1001000003", "待审核"),
-    WAIT_DISTRIBUTE("1001000004", "待分配"),
-    WAIT_RETRANSMIT("1001000005", "待重传"),
-    FINISH("1001000006", "已完成"),
+    WAIT_RECEIVE("1002000001", "待领取"),
+    INSPECTING("1002000002", "进行中"),
+    WAIT_REVIEW("1002000003", "待审核"),
+    WAIT_DISTRIBUTE("1002000004", "待分配"),
+    WAIT_RETRANSMIT("1002000005", "待重传"),
+    FINISH("1002000006", "已完成"),
     ;
 
     private String value;
