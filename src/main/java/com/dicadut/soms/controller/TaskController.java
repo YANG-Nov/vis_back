@@ -56,11 +56,28 @@ public class TaskController {
             , notes = "选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储,createBy:'1483437418882392065'")
     @PostMapping("/add_task")
     public ResponseViewModel addTask(@RequestBody TaskVO taskVO) {
-        if(CollectionUtils.isEmpty(taskVO.getSubTasks())){
+        if (CollectionUtils.isEmpty(taskVO.getSubTasks())) {
             return ResponseViewModel.fail("添加失败，缺少子任务");
         }
         taskService.saveTask(taskVO);
         return ResponseViewModel.ok();
+    }
+
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId
+     * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO>
+     * @author FanJane
+     */
+    @ApiOperation(value = "修改任务", tags = {"web", "任务列表页", "jane", "已通"}
+            , notes = "点击修改任务任务回显")
+    @PostMapping("/update_task/{taskId}")
+    public ResponseViewModel<TaskContentDTO> updateTask(@PathVariable String taskId) {
+        TaskContentDTO taskContentDTO = taskService.getUpdateTask(taskId);
+        return ResponseViewModel.ok(taskContentDTO);
+
     }
 
     /**
@@ -268,7 +285,7 @@ public class TaskController {
      * @return
      */
     @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App未通"})
-    @PostMapping("/update_task")
+    @PostMapping("/update_task_status")
     public ResponseViewModel updateTaskStatus(@RequestParam String taskId, @RequestParam String taskStatusIdGo) {
         //TODO 缺失接口：App更新任务状态 //FIX
         taskService.updateTaskStatus(taskId, taskStatusIdGo);

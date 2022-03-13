@@ -1,9 +1,7 @@
 package com.dicadut.soms.service;
 
 
-import com.dicadut.soms.dto.ComponentNumberDTO;
 import com.dicadut.soms.vo.TaskQueryVO;
-import com.dicadut.soms.vo.TaskVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Radium
@@ -49,26 +44,7 @@ public class TaskServiceTest {
         log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
     }
 
-    @Test
-    public void saveTask() {
-        TaskVO taskVO = new TaskVO();
-        List<ComponentNumberDTO> objects = new ArrayList<>();
-        ComponentNumberDTO componentNumberDTO = new ComponentNumberDTO();
-        componentNumberDTO.setNumber("32432");
-        componentNumberDTO.setId("2");
-        objects.add(componentNumberDTO);
-        taskVO.setStartTime(LocalDateTime.now());
-        taskVO.setTaskType("1001000001");
-        taskVO.setEndTime(LocalDateTime.now());
-        taskVO.setRecallTime(LocalDateTime.now());
-        taskVO.setReceiveTime(LocalDateTime.now());
-        taskVO.setCreateBy("1448237380441845762");
-        taskVO.setComponentNumberDTOS(objects);
 
-        log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
-        taskService.saveTask(taskVO);
-        log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
-    }
     @Test
     public void distributeTask() {
         log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
@@ -99,6 +75,12 @@ public class TaskServiceTest {
     public void showTaskContent() {
         log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
         log.info("{}", taskService.showTaskContent("2"));
+        log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
+    }
+
+    @Test public  void  getUpdateTask(){
+        log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
+        log.info("{}", taskService.getUpdateTask("20220119000001"));
         log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
     }
 

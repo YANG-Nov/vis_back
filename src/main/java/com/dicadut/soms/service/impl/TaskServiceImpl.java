@@ -361,7 +361,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         BeanUtils.copyProperties(taskBridgeComponentDTO, taskContentDTO);
 
         //获得打卡点位置
-        ArrayList<TaskBridgeComponentDTO> collect = taskBridgeComponentList.stream().collect(
+        List<TaskBridgeComponentDTO> collect = taskBridgeComponentList.stream().collect(
                 Collectors.collectingAndThen(Collectors.toCollection(
                         () -> new TreeSet<>(Comparator.comparing(o -> o.getScanPosition()))), ArrayList::new));
         Set<String> scanPositionSet = TaskUtil.ArrayToSet(collect.stream().map(TaskBridgeComponentDTO::getScanPosition).collect(Collectors.toList()));
@@ -505,5 +505,55 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
 
         return taskContentDTO;
+    }
+
+    @Override
+    public TaskContentDTO getUpdateTask(String taskId) {
+        TaskContentDTO taskContentDTO = new TaskContentDTO();
+        List<TaskBridgeComponentDTO> taskBridgeComponentList = baseMapper.getUpdateTaskList(taskId);
+
+        //获得任务信息
+        TaskBridgeComponentDTO taskBridgeComponentDTO = taskBridgeComponentList.get(0);
+        BeanUtils.copyProperties(taskBridgeComponentDTO, taskContentDTO);
+
+        //获得打卡点位置
+        List<TaskBridgeComponentDTO> collect = taskBridgeComponentList.stream().collect(
+                Collectors.collectingAndThen(Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(o -> o.getScanPosition()))), ArrayList::new));
+
+        Set<String> scanPositionSet = collect.stream().map(TaskBridgeComponentDTO::getScanPosition).collect(Collectors.toSet());
+        Set<String> strings= new HashSet<>();
+        for (String s: scanPositionSet ) {
+            String[] split = s.split(",");
+            List<String> strings1 = Arrays.asList(split);
+            strings.addAll(strings1);
+        }
+        QueryWrapper<Dictionary> queryWrapper = new QueryWrapper<>();
+        List<Dictionary> codeName = dictionaryService.list(queryWrapper.in("code_name", strings));
+        Set<String> collect1 = codeName.stream().map(Dictionary::getCode).collect(Collectors.toSet());
+        taskContentDTO.setScanPositions(collect1);
+
+        //获得子任务
+        List<SubTaskShowV0> SubTaskShowV0s = new ArrayList<>();
+        Map<String, List<TaskBridgeComponentDTO>> map = taskBridgeComponentList.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getLocation));
+
+        for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry : map.entrySet()) {
+            SubTaskShowV0 SubTaskShowV0 = new SubTaskShowV0();
+            List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = entry.getValue();
+            //获得巡检起始桩号
+            SubTaskShowV0.setInspectionStart(taskBridgeComponentDTOS.get(0).getInspectionStart());
+            SubTaskShowV0.setInspectionEnd(taskBridgeComponentDTOS.get(0).getInspectionEnd());
+            //获得巡检构件
+            Set<String> inspectionComponentNumber = taskBridgeComponentDTOS.stream().map(TaskBridgeComponentDTO::getComponentId).collect(Collectors.toSet());
+            List<String> ls=new ArrayList(inspectionComponentNumber);
+            SubTaskShowV0.setInspectionComponentNumbers(ls);
+            SubTaskShowV0s.add(SubTaskShowV0);
+        }
+        taskContentDTO.setSubTasks(SubTaskShowV0s);
+
+
+        return taskContentDTO;
+
+
     }
 }
