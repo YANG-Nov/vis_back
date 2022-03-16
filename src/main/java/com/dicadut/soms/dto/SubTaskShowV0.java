@@ -2,9 +2,6 @@ package com.dicadut.soms.dto;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author fan_jennifer
  * @version 1.0
@@ -17,5 +14,5 @@ public class SubTaskShowV0 {
     private String inspectionRoute;
     private String inspectionStart;
     private String inspectionEnd;
-    private List<String> inspectionComponentNumbers = new ArrayList<>();
+    private String[] selectedComponents;
 }

@@ -390,7 +390,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
             //获得巡检构件
             List<String> inspectionComponentNumber = TaskUtil.getInspectionComponentNumbers(taskBridgeComponentDTOS);
-            SubTaskShowV0.setInspectionComponentNumbers(inspectionComponentNumber);
+
+            SubTaskShowV0.setSelectedComponents(inspectionComponentNumber.toArray(new String[inspectionComponentNumber.size()]));
             SubTaskShowV0s.add(SubTaskShowV0);
         }
         taskContentDTO.setSubTasks(SubTaskShowV0s);
@@ -493,7 +494,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             subTaskShowV0.setInspectionRoute(subTaskVO.getInspectionRoute());
             //获得巡检构件
             List<String> inspectionComponentNumbers = TaskUtil.getInspectionComponentNumbers(taskBridgeComponentDTOS);
-            subTaskShowV0.setInspectionComponentNumbers( inspectionComponentNumbers);
+            subTaskShowV0.setSelectedComponents(inspectionComponentNumbers.toArray(new String[inspectionComponentNumbers.size()]));
             subTaskShowV0List.add(subTaskShowV0);
         }
 
@@ -545,8 +546,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             SubTaskShowV0.setInspectionEnd(taskBridgeComponentDTOS.get(0).getInspectionEnd());
             //获得巡检构件
             Set<String> inspectionComponentNumber = taskBridgeComponentDTOS.stream().map(TaskBridgeComponentDTO::getComponentId).collect(Collectors.toSet());
-            List<String> ls=new ArrayList(inspectionComponentNumber);
-            SubTaskShowV0.setInspectionComponentNumbers(ls);
+            SubTaskShowV0.setSelectedComponents(inspectionComponentNumber.toArray(new String[inspectionComponentNumber.size()]));
             SubTaskShowV0s.add(SubTaskShowV0);
         }
         taskContentDTO.setSubTasks(SubTaskShowV0s);

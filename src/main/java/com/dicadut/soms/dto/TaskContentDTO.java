@@ -16,8 +16,11 @@ import java.util.Set;
 @Data
 public class TaskContentDTO {
     private String taskId;
+    @JsonProperty("jobType")
     private String taskType;
+    @JsonProperty("jobStatus")
     private String taskStatus;
+    @JsonProperty("jobFreq")
     private String inspectionFrequency;
     private String creatBy;
     private String inspector;
