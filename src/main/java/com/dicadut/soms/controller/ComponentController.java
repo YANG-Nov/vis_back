@@ -1,7 +1,5 @@
 package com.dicadut.soms.controller;
 
-import cn.hutool.core.lang.tree.Tree;
-import com.dicadut.soms.dto.ComponentAppListDTO;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.dto.ComponentPositionAppListDTO;
 import com.dicadut.soms.dto.TaskComponentAppDTO;

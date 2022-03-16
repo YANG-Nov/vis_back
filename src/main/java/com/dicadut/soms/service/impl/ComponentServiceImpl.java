@@ -27,11 +27,10 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     public List<ComponentDTO> getFrequencyList() {
 
         List<Component> components = baseMapper.selectList(null);
-        int value = 0;
         List<ComponentDTO> componentDTOS = new ArrayList<>();
-        for (int i = 0; i < components.size(); i++) {
+        for (Component component : components) {
             ComponentDTO componentDTO = new ComponentDTO();
-            BeanUtils.copyProperties(components.get(i), componentDTO);
+            BeanUtils.copyProperties(component, componentDTO);
             //componentDTO.setValue(++value);
             componentDTOS.add(componentDTO);
         }

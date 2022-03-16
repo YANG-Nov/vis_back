@@ -2,10 +2,8 @@ package com.dicadut.soms.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.time.OffsetDateTime;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

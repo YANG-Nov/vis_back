@@ -19,20 +19,6 @@ public class TaskUtil {
      * Jane_TODO 2022/2/24 需要完善，异常处理等
      * 将一次查询到的数据集合，封装到二级层级对象中
      *
-     * @param es
-     * @param first
-     * @param second
-     * @param sourceId
-     * @param targetId
-     * @param <T>
-     * @param <E>
-     * @param <A>
-     * @return
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     * @throws NoSuchFieldException
      */
     public static <T, E, A> List<T> convert(List<E> es, Class<T> first, Class<A> second, String sourceId, String targetId) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
 
@@ -41,14 +27,13 @@ public class TaskUtil {
         // 过渡map集合，key: 主引桥+匝道（location）, value: 桩号对象列表（id,name）
         Map<String, List<A>> map = new HashMap<>();
 
-        ;
+
 
         //遍历数据库中封装一次查到的数据对象集合
         for (E e : es) {
             //Class<T> aClass = (Class<T>) t.getClass();
             //取到e里的id，如果map里没有id就创建一个
             Class<E> aClass = (Class<E>) e.getClass();
-            Field[] fields = aClass.getDeclaredFields();
             Field id = aClass.getDeclaredField(sourceId);
             id.setAccessible(true);
             String stringId = (String) id.get(e);
@@ -57,7 +42,7 @@ public class TaskUtil {
             //key 为id.get（添加构件）
             A a1 = second.getDeclaredConstructor().newInstance();
             BeanUtils.copyProperties(e, a1);
-            map.get(stringId).add((A) a1);
+            map.get(stringId).add(a1);
         }
 
         //遍历map集合
@@ -78,9 +63,7 @@ public class TaskUtil {
     }
 
     public static String[] ArraysDelete(String[] strings, int i) {
-        for (int j = i; j < strings.length - 1; j++) {
-            strings[j] = strings[j + 1];
-        }
+        if (strings.length - 1 - i >= 0) System.arraycopy(strings, i + 1, strings, i, strings.length - 1 - i);
         String[] y = new String[strings.length - 1];
         System.arraycopy(strings, 0, y, 0, strings.length - 1);
         return y;
@@ -93,11 +76,7 @@ public class TaskUtil {
         for (String s : strings
         ) {
             String[] split = s.split(",");
-            for (String d : split) {
-
-                set.add(d);
-
-            }
+            Collections.addAll(set, split);
 
         }
         return set;
@@ -112,8 +91,7 @@ public class TaskUtil {
             String componentName = entry1.getKey();
             //获得构件编号
             List<TaskBridgeComponentDTO> value = entry1.getValue();
-            List<String> stringList = value.stream().map(TaskBridgeComponentDTO::getComponentNumber).collect(Collectors.toList());
-            String join = StringUtils.join(stringList.toArray(), "、");
+            String join = StringUtils.join(value.stream().map(TaskBridgeComponentDTO::getComponentNumber).toArray(), "、");
             inspectionComponentNumber.add(componentName + ":" + join);
 
         }
