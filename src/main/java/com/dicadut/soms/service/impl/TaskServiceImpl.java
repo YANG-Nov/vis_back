@@ -72,8 +72,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 根据taskStatus获取任务列表， 如taskStatus为null或空串，则获取所有任务列表
      *
      * @param taskStatus 参考 TaskStatusEnum 的定义
-     * @return
+     * @return 任务列表
      */
+    @Deprecated
     private List<TaskDisplayDTO> getTaskDisplayList(String taskStatus) {
         QueryWrapper<Task> wrapper = new QueryWrapper<>();
         if (StrUtil.isNotBlank(taskStatus)) {
@@ -83,8 +84,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         List<Task> tasks = baseMapper.selectList(wrapper);
         List<TaskDisplayDTO> taskDisplayDTOS = new ArrayList<>();
 
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+        for (Task task : tasks) {
             TaskDisplayDTO taskDisplayDTO = new TaskDisplayDTO();
             BeanUtils.copyProperties(task, taskDisplayDTO);//需要类型也一致吗
             taskDisplayDTOS.add(taskDisplayDTO);
@@ -97,16 +97,19 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
 
     @Override
+    @Deprecated
     public List<TaskDisplayDTO> getUnclaimedTaskList() {
         return getTaskDisplayList(TaskStatusEnum.WAIT_RECEIVE.getValue());
     }
 
     @Override
+    @Deprecated
     public List<TaskDisplayDTO> getAreInspectionTaskList() {
         return getTaskDisplayList(TaskStatusEnum.INSPECTING.getValue());
     }
 
     @Override
+    @Deprecated
     public List<TaskDisplayDTO> getCompletedTaskList() {
         return getTaskDisplayList(TaskStatusEnum.WAIT_REVIEW.getValue());
     }
@@ -116,9 +119,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 该方法首先将所有本年度的任务都从数据库中读取到内存，然后再在内存中统计各类状态的任务数，对于小数据场景可行，但大数据场景会
      * 导致性能很低下，甚至不可用，后续我再提供一个新的方法做参考
      *
-     * @param startTime
-     * @param endTime
-     * @return
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return 年度列表
      */
     @Override
     public TaskStatisticDTO getThisYearTaskList(String startTime, String endTime) {
@@ -142,9 +145,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 法二：
      * 该方法直接通过查数据库进行统计，总共查数据库5次，实现时引入xml配置文件，通过在xml中写sql实现查询功能，请跟进理解和学习。
      *
-     * @param startTime
-     * @param endTime
-     * @return
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return 年度列表
      */
     @Override
     public TaskStatisticDTO getThisYearTaskListByMultiSql(String startTime, String endTime) {
@@ -161,9 +164,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 法三：
      * 该方法直接通过查数据库进行统计，总共查数据库1次，性能最优。
      *
-     * @param startTime
-     * @param endTime
-     * @return
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return 年度列表
      */
     @Override
     public TaskStatisticDTO getThisYearTaskListBySingleSql(String startTime, String endTime) {
@@ -240,7 +243,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 并设置状态为待分配
      *
      * @param taskVO 添加的任务信息
-     * @return 暂时没有 Jane_TODO 2022/2/24 后期需要优化
+     * 暂时没有 Jane_TODO 2022/2/24 需要优化
      * @author FanJane
      */
     @Override
@@ -291,8 +294,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 添加任务中的巡检人员
      * 并设置状态为待领取
      *
-     * @param taskId
-     * @param userId
+     * @param taskId 任务id
+     * @param userId  巡检人员id
      * @author fan_jane
      */
     @Override
@@ -310,18 +313,18 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     @Override
     @Deprecated
-    public TaskContentDTO getTaskContent(String taskId) {
+    public TaskContentDTO<SubTaskShowV0> getTaskContent(String taskId) {
 
         //获得巡检部位 主引桥+匝道+桥面系/上下部结构
-        TaskContentDTO taskContentDTO = new TaskContentDTO();
+        //TaskContentDTO taskContentDTO = new TaskContentDTO();
         //taskContentDTO.setInspectionPosition(baseMapper.getInspectionPosition(taskId));
 
         //获取该任务包含的构件id集合
-        List<String> componentList = baseMapper.getComponentList(taskId);
+        //List<String> componentList = baseMapper.getComponentList(taskId);
 
         //查询当前id的构件范围
         //taskContentDTO.setChildren(baseMapper.getComponentNumberRange(componentList, taskId));
-        return taskContentDTO;
+        return null;
     }
 
     @Override
@@ -332,7 +335,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     /**
      * // Jane_TODO add description
      *
-     * @param taskId
+     * @param taskId 任务id
      * @return com.dicadut.soms.dto.TaskContentDTO
      * @author FanJane
      */
@@ -349,7 +352,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         //获得打卡点位置
         List<TaskBridgeComponentDTO> collect = taskBridgeComponentList.stream().collect(
                 Collectors.collectingAndThen(Collectors.toCollection(
-                        () -> new TreeSet<>(Comparator.comparing(o -> o.getScanPosition()))), ArrayList::new));
+                        () -> new TreeSet<>(Comparator.comparing(TaskBridgeComponentDTO::getScanPosition))), ArrayList::new));
         Set<String> scanPositionSet = TaskUtil.ArrayToSet(collect.stream().map(TaskBridgeComponentDTO::getScanPosition).collect(Collectors.toList()));
         taskContentDTO.setScanPositions(scanPositionSet);
 
@@ -400,8 +403,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         CheckBox<ScanPositionDTO> scanPositionDTOCheckBox = new CheckBox<>();
         //获得所有打卡位置
         List<TypeNameDTO> typeNameDTOS = dictionaryService.getTypeNames(TypeNameEnum.SCAN_POSITION.getValue());
-        List<ScanPositionDTO> option = new ArrayList<>();
-        option.addAll(typeNameDTOS);
+        List<ScanPositionDTO> option = new ArrayList<>(typeNameDTOS);
 
         scanPositionDTOCheckBox.setOption(option);
         //获得该桩号范围内的打卡位置
@@ -414,7 +416,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     /**
      * // Jane_TODO add description
      *
-     * @param taskId
+     * @param taskId 任务id
      * @author FanJane
      */
     @Override

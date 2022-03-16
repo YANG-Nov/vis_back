@@ -47,7 +47,7 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
      *
      * @param start 起始桩号
      * @param end   结束桩号
-     * @return
+     * @return 选择构件列表
      */
     @Override
     public List<Tree<String>> getComponentList(String start, String end) {
@@ -109,7 +109,7 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
     /**
      * 测试公共代码
      *
-     * @return
+     * @return 匝道位置
      */
     @Override
     public List<LineLocationDTO> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {

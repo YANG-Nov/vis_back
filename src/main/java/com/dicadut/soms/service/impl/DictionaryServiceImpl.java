@@ -25,7 +25,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
     /**
      * 该方法通过前方路径参数得到的类型返回所属的类型名称
      *
-     * @param type
+     * @param type 类型id
      * @return 任务类型名称或构件频率名称列表
      */
 

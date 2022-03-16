@@ -57,7 +57,7 @@ public interface TaskService extends IService<Task> {
      * 前端传过来两级对象，第一级为任务信息，第二级为构件信息
      *
      * @param taskVO 添加的任务信息
-     * @return //暂时没有 Jane_TODO 2022/2/24 后期需要优化
+     * //暂时没有 Jane_TODO 2022/2/24 后期需要优化
      * @author FanJane
      */
     void saveTask(TaskVO taskVO);
@@ -73,7 +73,7 @@ public interface TaskService extends IService<Task> {
      * @author FanJane
      */
     @Deprecated
-    TaskContentDTO getTaskContent(String taskId);
+    TaskContentDTO<SubTaskShowV0> getTaskContent(String taskId);
 
     /**
      * App任务对应的打卡点
@@ -86,7 +86,7 @@ public interface TaskService extends IService<Task> {
     /**
      * // Jane_TODO add description
      *
-     * @param taskId
+     * @param taskId 任务id
      * @return com.dicadut.soms.dto.TaskContentDTO
      * @author FanJane
      */
@@ -104,8 +104,7 @@ public interface TaskService extends IService<Task> {
     /**
      * // Jane_TODO add description
      *
-     * @param taskId
-     * @return void
+     * @param taskId 任务id
      * @author FanJane
      */
     void removeTask(String taskId);
@@ -121,8 +120,8 @@ public interface TaskService extends IService<Task> {
     /**
      * // Jane_TODO add description
      *
-     * @param taskVO
-     * @return void
+     * @param taskVO 任务表单
+     * @return  任务预览
      * @author FanJane
      */
     TaskContentDTO<SubTaskShowV0> getTaskPreview(TaskVO taskVO);
@@ -130,8 +129,8 @@ public interface TaskService extends IService<Task> {
     /**
      * // Jane_TODO add description
      *
-     * @param taskId
-     * @return com.dicadut.soms.dto.TaskContentDTO
+     * @param taskId 任务id
+     * @return 任务列表
      * @author FanJane
      */
     TaskContentDTO<SubTaskUpdateV0> getUpdateTask(String taskId);
