@@ -8,10 +8,7 @@ import com.dicadut.soms.service.DiseaseRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -88,14 +85,37 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
     public DiseaseDetailDTO getDiseaseDetailList(String taskId, String componentId, String positionId, String diseaseId) {
         //从数据库中查出数据
         List<DiseaseDetailListDTO> diseaseDetailList = baseMapper.selectDiseaseList(taskId, componentId, positionId, diseaseId);
+        String p = null;
+        String c = null;
+        for (DiseaseDetailListDTO diseaseDetailListDTO : diseaseDetailList) {
+            if (diseaseDetailListDTO.getDiseaseAttributeId() != null) {
+                p = diseaseDetailListDTO.getDiseaseAttributeId();
+                c = diseaseDetailListDTO.getContent();
+            }
+        }
+        List<DiseaseDetailListDTO> diseaseAttributeList = baseMapper.selectDiseaseAttributeList(p);
+        for(DiseaseDetailListDTO diseaseAttributeDTO : diseaseAttributeList){
+            if (Objects.equals(diseaseAttributeDTO.getDiseaseAttributeId(), p)){
+                diseaseAttributeDTO.setChecked("1");
+                diseaseAttributeDTO.setContent(c);
+            }else {
+                diseaseAttributeDTO.setChecked("0");
+            }
+        }
+
         // 存放结果列表
         DiseaseDetailDTO diseaseDetailDTO = new DiseaseDetailDTO();
         // 过渡map集合，key: type, value: name、content、value、diseaseAttributeId、unit、type
         Map<String, List<DiseaseDetailListDTO>> map = diseaseDetailList.stream().collect(Collectors.groupingBy(DiseaseDetailListDTO::getType)); // 通过 lambda 表达式实现，比之前代码更简洁
-
+        Map<String, List<DiseaseDetailListDTO>> map1 = diseaseAttributeList.stream().collect(Collectors.groupingBy(DiseaseDetailListDTO::getType));
         diseaseDetailDTO.setFeatureFields(map.getOrDefault(SomsConstant.FEATURE_FIELD, new ArrayList<>()));
+
         diseaseDetailDTO.setFeaturePopups(map.getOrDefault(SomsConstant.FEATURE_POPUP, new ArrayList<>()));
+        diseaseDetailDTO.setFeaturePopups(map1.getOrDefault(SomsConstant.FEATURE_POPUP, new ArrayList<>()));
+
         diseaseDetailDTO.setFeatureRadios(map.getOrDefault(SomsConstant.FEATURE_RADIO, new ArrayList<>()));
+        diseaseDetailDTO.setFeatureRadios(map1.getOrDefault(SomsConstant.FEATURE_RADIO, new ArrayList<>()));
+
         diseaseDetailDTO.setDiseasePictures(map.getOrDefault(SomsConstant.DISEASE_PICTURE, new ArrayList<>()));
         diseaseDetailDTO.setDiseaseVoices(map.getOrDefault(SomsConstant.DISEASE_VOICE, new ArrayList<>()));
         diseaseDetailDTO.setDiseaseTexts(map.getOrDefault(SomsConstant.DISEASE_TEXT, new ArrayList<>()));

@@ -55,6 +55,23 @@
           and dr.is_deleted = 0
     </select>
 
+    <select id="selectDiseaseAttributeList" resultType="com.dicadut.soms.dto.DiseaseDetailListDTO">
+        select
+                da.id diseaseAttributeId,
+                da.`name`,
+                da.type,
+                da.`value`,
+                da.unit
+        from t_disease_attribute da
+        where `group` in
+              (
+                    select
+                            `group`
+                    from t_disease_attribute
+                    where id = #{diseaseAttributeId}
+              );
+    </select>
+
     <delete id="deleteDiseaseRecord">
         DELETE
         FROM soms.t_disease_record
