@@ -134,8 +134,6 @@ public class TaskController {
     }
 
 
-
-
     /**
      * 在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情
      * 前端传过来当前行的任务id，
@@ -281,18 +279,19 @@ public class TaskController {
         return ResponseViewModel.ok(taskScanPositionAppList);
     }
 
+
     /**
      * 对任务状态进行更新操作
      *
-     * @param taskId         要更新状态的任务id
-     * @param taskStatusIdGo 要更新到的目标状态
-     * @return
+     * @param taskStatusVO 任务状态任务id
+     * @return  responseViewModel
      */
-    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App未通"})
+    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App已通", "web", "未通"}
+            , notes = "变更任务状态，taskId 20220119000001 , taskStatusIdGo 召回（主动）  1002000008  ")
     @PostMapping("/update_task_status")
-    public ResponseViewModel updateTaskStatus(@RequestParam String taskId, @RequestParam String taskStatusIdGo) {
+    public ResponseViewModel updateTaskStatus(@RequestBody TaskStatusVO taskStatusVO) {
         //TODO 缺失接口：App更新任务状态 //FIX
-        taskService.updateTaskStatus(taskId, taskStatusIdGo);
+        taskService.updateTaskStatus(taskStatusVO.getTaskId(), taskStatusVO.getTaskStatusIdGo());
         return ResponseViewModel.ok();
     }
 }
