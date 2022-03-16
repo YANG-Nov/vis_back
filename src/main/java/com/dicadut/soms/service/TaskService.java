@@ -90,7 +90,7 @@ public interface TaskService extends IService<Task> {
      * @return com.dicadut.soms.dto.TaskContentDTO
      * @author FanJane
      */
-    TaskContentDTO showTaskContent(String taskId);
+    TaskContentDTO<SubTaskShowV0> showTaskContent(String taskId);
 
     /**
      * 选择巡检范围后弹出所有打卡位置，并默认勾选构件包含的打卡位置
@@ -125,7 +125,7 @@ public interface TaskService extends IService<Task> {
      * @return void
      * @author FanJane
      */
-    TaskContentDTO getTaskPreview(TaskVO taskVO);
+    TaskContentDTO<SubTaskShowV0> getTaskPreview(TaskVO taskVO);
 
     /**
      * // Jane_TODO add description

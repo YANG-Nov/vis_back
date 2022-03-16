@@ -67,7 +67,7 @@ public class TaskController {
     /**
      * // Jane_TODO add description
      *
-     * @param taskId
+     * @param taskId 当前任务id
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO>
      * @author FanJane
      */
@@ -83,18 +83,18 @@ public class TaskController {
     /**
      * // Jane_TODO add description
      *
-     * @param taskVO
+     * @param taskVO 提交任务表单
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO>
      * @author FanJane
      */
     @ApiOperation(value = "任务预览", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "选择完构件后，点击确认添加,将前端传过来的表单封装后再传给前端进行弹窗显示,createBy:'1483437418882392065'")
     @PostMapping("/show_task_preview")
-    public ResponseViewModel<TaskContentDTO> showTaskPreview(@RequestBody TaskVO taskVO) {
+    public ResponseViewModel<TaskContentDTO<SubTaskShowV0>> showTaskPreview(@RequestBody TaskVO taskVO) {
         if (CollectionUtils.isEmpty(taskVO.getSubTasks())) {
             return ResponseViewModel.fail("添加失败，缺少子任务");
         }
-        TaskContentDTO taskPreview = taskService.getTaskPreview(taskVO);
+        TaskContentDTO<SubTaskShowV0> taskPreview = taskService.getTaskPreview(taskVO);
         return ResponseViewModel.ok(taskPreview);
     }
 
@@ -119,7 +119,7 @@ public class TaskController {
      * 添加完任务之后，跳转到任务列表页，显示需要修改分配的任务
      * 前端传过来查询条件对象，返回带分页的任务列表
      *
-     * @param pageParam
+     * @param pageParam 带分页的对象
      * @return 带分页的任务列表
      * @author fan_jane
      */
@@ -147,8 +147,8 @@ public class TaskController {
     @ApiOperation(value = "任务列表点查看按钮", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情，测试任务id：20220119000001")
     @GetMapping("/show_task_content/{taskId}")
-    public ResponseViewModel<TaskContentDTO> getTaskContent(@PathVariable String taskId) {
-        TaskContentDTO taskContentDTO = taskService.showTaskContent(taskId);
+    public ResponseViewModel<TaskContentDTO<SubTaskShowV0>> getTaskContent(@PathVariable String taskId) {
+        TaskContentDTO<SubTaskShowV0> taskContentDTO = taskService.showTaskContent(taskId);
         return ResponseViewModel.ok(taskContentDTO);
 
     }
@@ -171,7 +171,7 @@ public class TaskController {
     /**
      * // Jane_TODO add description考虑事物吗
      *
-     * @param taskId
+     * @param taskId 删除此任务的id
      * @return com.dicadut.soms.viewmodel.ResponseViewModel
      * @author FanJane
      */
@@ -253,8 +253,8 @@ public class TaskController {
      * 添加完任务后，跳转到任务列表页面，进行任务人员分配
      * 前端穿过来当前任务id和人员id，后端修改任务表里的人员字段和任务状态字段
      *
-     * @param taskId
-     * @param userId
+     * @param taskId 任务id
+     * @param userId 巡检员id
      * @return 无
      * @author fan_jane
      */

@@ -337,9 +337,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * @author FanJane
      */
     @Override
-    public TaskContentDTO showTaskContent(String taskId) {
+    public TaskContentDTO<SubTaskShowV0> showTaskContent(String taskId) {
         // Wei_TODO 2022/2/24 底层实现得改//FIX
-        TaskContentDTO taskContentDTO = new TaskContentDTO();
+        TaskContentDTO<SubTaskShowV0> taskContentDTO = new TaskContentDTO();
         List<TaskBridgeComponentDTO> taskBridgeComponentList = baseMapper.getTaskBridgeComponentList(taskId);
 
         //获得任务信息
@@ -433,9 +433,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public TaskContentDTO getTaskPreview(TaskVO taskVO) {
+    public TaskContentDTO<SubTaskShowV0> getTaskPreview(TaskVO taskVO) {
         //获取表单需要的数据
-        TaskContentDTO taskContentDTO = new TaskContentDTO();
+        TaskContentDTO<SubTaskShowV0> taskContentDTO = new TaskContentDTO();
         List<SubTaskShowV0> subTaskShowV0List = new ArrayList<>();
 
         //1.获得任务时间
