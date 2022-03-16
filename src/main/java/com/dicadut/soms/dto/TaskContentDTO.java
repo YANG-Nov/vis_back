@@ -14,7 +14,7 @@ import java.util.Set;
  * @date 2022-01-19 19:48
  */
 @Data
-public class TaskContentDTO {
+public class TaskContentDTO<E> {
     private String taskId;
     @JsonProperty("jobType")
     private String taskType;
@@ -32,5 +32,5 @@ public class TaskContentDTO {
 
     private LocalDate recallTime;
     private Set<String> scanPositions;
-    private List<SubTaskShowV0> subTasks = new ArrayList<>();
+    private List<E> subTasks = new ArrayList<>();
 }

@@ -74,8 +74,8 @@ public class TaskController {
     @ApiOperation(value = "修改任务", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "点击修改任务任务回显")
     @PostMapping("/update_task/{taskId}")
-    public ResponseViewModel<TaskContentDTO> updateTask(@PathVariable String taskId) {
-        TaskContentDTO taskContentDTO = taskService.getUpdateTask(taskId);
+    public ResponseViewModel<TaskContentDTO<SubTaskUpdateV0>> updateTask(@PathVariable String taskId) {
+        TaskContentDTO<SubTaskUpdateV0> taskContentDTO = taskService.getUpdateTask(taskId);
         return ResponseViewModel.ok(taskContentDTO);
 
     }

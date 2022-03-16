@@ -509,8 +509,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public TaskContentDTO getUpdateTask(String taskId) {
-        TaskContentDTO taskContentDTO = new TaskContentDTO();
+    public TaskContentDTO<SubTaskUpdateV0> getUpdateTask(String taskId) {
+        TaskContentDTO<SubTaskUpdateV0> taskContentDTO = new TaskContentDTO();
         List<TaskBridgeComponentDTO> taskBridgeComponentList = baseMapper.getUpdateTaskList(taskId);
 
         //获得任务信息
@@ -520,7 +520,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         //获得打卡点位置
         List<TaskBridgeComponentDTO> collect = taskBridgeComponentList.stream().collect(
                 Collectors.collectingAndThen(Collectors.toCollection(
-                        () -> new TreeSet<>(Comparator.comparing(o -> o.getScanPosition()))), ArrayList::new));
+                        () -> new TreeSet<>(Comparator.comparing(TaskBridgeComponentDTO::getScanPosition))), ArrayList::new));
 
         Set<String> scanPositionSet = collect.stream().map(TaskBridgeComponentDTO::getScanPosition).collect(Collectors.toSet());
         Set<String> strings= new HashSet<>();
@@ -535,21 +535,28 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         taskContentDTO.setScanPositions(collect1);
 
         //获得子任务
-        List<SubTaskShowV0> SubTaskShowV0s = new ArrayList<>();
+        List<SubTaskUpdateV0> subTaskUpdateV0s = new ArrayList<>();
         Map<String, List<TaskBridgeComponentDTO>> map = taskBridgeComponentList.stream().collect(Collectors.groupingBy(TaskBridgeComponentDTO::getLocation));
 
         for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry : map.entrySet()) {
-            SubTaskShowV0 SubTaskShowV0 = new SubTaskShowV0();
+            SubTaskUpdateV0 subTaskUpdateV0 = new SubTaskUpdateV0();
             List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = entry.getValue();
             //获得巡检起始桩号
-            SubTaskShowV0.setInspectionStart(taskBridgeComponentDTOS.get(0).getInspectionStart());
-            SubTaskShowV0.setInspectionEnd(taskBridgeComponentDTOS.get(0).getInspectionEnd());
+            String[] inspectionStart;
+            inspectionStart = new String[2];
+            inspectionStart[0] = taskBridgeComponentDTOS.get(0).getLocation();
+            inspectionStart[1] = taskBridgeComponentDTOS.get(0).getInspectionStart();
+            subTaskUpdateV0.setInspectionStart(inspectionStart);
+            String[] inspectionEnd;
+            inspectionEnd = new String[2];
+            inspectionEnd[0] = taskBridgeComponentDTOS.get(0).getLocation();
+            inspectionEnd[1] = taskBridgeComponentDTOS.get(0).getInspectionEnd();
+            subTaskUpdateV0.setInspectionEnd(inspectionEnd);
             //获得巡检构件
-            Set<String> inspectionComponentNumber = taskBridgeComponentDTOS.stream().map(TaskBridgeComponentDTO::getComponentId).collect(Collectors.toSet());
-            SubTaskShowV0.setSelectedComponents(inspectionComponentNumber.toArray(new String[inspectionComponentNumber.size()]));
-            SubTaskShowV0s.add(SubTaskShowV0);
+            subTaskUpdateV0.setSelectedComponents(taskBridgeComponentDTOS.stream().map(TaskBridgeComponentDTO::getComponentId).distinct().toArray(String[]::new));
+            subTaskUpdateV0s.add(subTaskUpdateV0);
         }
-        taskContentDTO.setSubTasks(SubTaskShowV0s);
+        taskContentDTO.setSubTasks(subTaskUpdateV0s);
 
 
         return taskContentDTO;

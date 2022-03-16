@@ -134,5 +134,5 @@ public interface TaskService extends IService<Task> {
      * @return com.dicadut.soms.dto.TaskContentDTO
      * @author FanJane
      */
-    TaskContentDTO getUpdateTask(String taskId);
+    TaskContentDTO<SubTaskUpdateV0> getUpdateTask(String taskId);
 }
