@@ -109,13 +109,8 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         Map<String, List<DiseaseDetailListDTO>> map = diseaseDetailList.stream().collect(Collectors.groupingBy(DiseaseDetailListDTO::getType)); // 通过 lambda 表达式实现，比之前代码更简洁
         Map<String, List<DiseaseDetailListDTO>> map1 = diseaseAttributeList.stream().collect(Collectors.groupingBy(DiseaseDetailListDTO::getType));
         diseaseDetailDTO.setFeatureFields(map.getOrDefault(SomsConstant.FEATURE_FIELD, new ArrayList<>()));
-
-        diseaseDetailDTO.setFeaturePopups(map.getOrDefault(SomsConstant.FEATURE_POPUP, new ArrayList<>()));
         diseaseDetailDTO.setFeaturePopups(map1.getOrDefault(SomsConstant.FEATURE_POPUP, new ArrayList<>()));
-
-        diseaseDetailDTO.setFeatureRadios(map.getOrDefault(SomsConstant.FEATURE_RADIO, new ArrayList<>()));
         diseaseDetailDTO.setFeatureRadios(map1.getOrDefault(SomsConstant.FEATURE_RADIO, new ArrayList<>()));
-
         diseaseDetailDTO.setDiseasePictures(map.getOrDefault(SomsConstant.DISEASE_PICTURE, new ArrayList<>()));
         diseaseDetailDTO.setDiseaseVoices(map.getOrDefault(SomsConstant.DISEASE_VOICE, new ArrayList<>()));
         diseaseDetailDTO.setDiseaseTexts(map.getOrDefault(SomsConstant.DISEASE_TEXT, new ArrayList<>()));
