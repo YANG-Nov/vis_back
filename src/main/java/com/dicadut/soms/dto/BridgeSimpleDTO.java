@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * @author Radium
  * @version 1.0.0
- * @date 2022-02-19 15:54:10
+ * @date 2022-02-19
  */
 @Data
 public class BridgeSimpleDTO {
