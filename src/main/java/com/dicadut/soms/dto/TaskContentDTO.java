@@ -22,7 +22,7 @@ public class TaskContentDTO<E> {
     private String taskStatus;
     @JsonProperty("jobFreq")
     private String inspectionFrequency;
-    private String creatBy;
+    private String createBy;
     private String inspector;
     private LocalDate startTime;
     private LocalDate endTime;

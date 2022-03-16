@@ -447,7 +447,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         //3.获得任务制定人
 
         User createBy = userService.getById(taskVO.getCreateBy());
-        taskContentDTO.setCreatBy(createBy.getRealName());
+        taskContentDTO.setCreateBy(createBy.getRealName());
         //4.获得巡检频率
         QueryWrapper<Dictionary> frequencyWrapper = new QueryWrapper<>();
         Dictionary frequency = dictionaryService.getOne(frequencyWrapper.eq("code", taskVO.getInspectionFrequency()));
