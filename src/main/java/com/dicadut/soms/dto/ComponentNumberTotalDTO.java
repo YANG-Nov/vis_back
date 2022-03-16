@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @author fan_jennifer
  * @version 1.0
- * @date 2022-01-19 19:53
+ * @date 2022-01-19
  */
 @Data
 public class ComponentNumberTotalDTO {
