@@ -54,8 +54,6 @@ public interface TaskMapper extends BaseMapper<Task> {
     void addInspectorToTask(@Param("taskId") String taskId,
                             @Param("userId") String userId);
 
-    IPage<AmendingTaskDTO> getAmendingTaskListByePageQuery(IPage<AmendingTaskDTO> page, @Param("taskQueryVO") TaskQueryVO taskQueryVO);
-
     /**
      * 根据当前任务id查询任务构件编号表，桥梁构件关联表，，构件表，桥梁表
      *
@@ -132,4 +130,14 @@ public interface TaskMapper extends BaseMapper<Task> {
      * @author FanJane
      */
     List<TaskBridgeComponentDTO> getUpdateTaskList(String taskId);
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param page
+     * @param taskQueryVO
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.dicadut.soms.dto.TaskSetDTO>
+     * @author FanJane
+     */
+    IPage<TaskSetDTO> getTaskList(IPage<TaskSetDTO> page, @Param("taskQueryVO") TaskQueryVO taskQueryVO);
 }

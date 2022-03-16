@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @date 2022-01-19 12:56
  */
 @Data
-public class AmendingTaskDTO {
+public class TaskSetDTO {
     @ApiModelProperty(value = "任务")
     private String taskId;
 

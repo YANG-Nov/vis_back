@@ -32,7 +32,7 @@ public interface TaskService extends IService<Task> {
      * @return PageResult<AmendingTaskDTO>
      * @author fan_jane
      */
-    PageResult<AmendingTaskDTO> getAmendingTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO);
+    PageResult<TaskSetDTO> getTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO);
 
     List<TaskDisplayDTO> getUnclaimedTaskList();
 

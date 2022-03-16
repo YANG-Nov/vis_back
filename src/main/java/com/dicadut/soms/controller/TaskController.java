@@ -123,14 +123,18 @@ public class TaskController {
      * @return 带分页的任务列表
      * @author fan_jane
      */
-    @ApiOperation(value = "显示待分配任务列表", tags = {"web", "任务列表页", "jane", "已通"}
-            , notes = "添加完任务之后，跳转到任务列表页，显示需要修改分配的任务")
-    @PostMapping("get_amending_task_list")
-    public ResponseViewModel<PageResult<AmendingTaskDTO>> getAmendingTaskList(
+    @ApiOperation(value = "显示任务列表", tags = {"web", "任务列表页", "jane", "已通"}
+            , notes = "制定任务页列表，任务管理页列表taskStatus(总列表 managing_id 1004000002" +
+            ", 待领取 wait_receive 1002000001，任务审核 1003000001） 记录任务页列表taskStatus（巡检记录 FINISH 1002000006）")
+    @PostMapping("/get_task_list")
+    public ResponseViewModel<PageResult<TaskSetDTO>> getTaskList(
             @RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {
-        return ResponseViewModel.ok(taskService.getAmendingTaskList(pageParam.getPageNo(), pageParam.getPageSize()
+        return ResponseViewModel.ok(taskService.getTaskList(pageParam.getPageNo(), pageParam.getPageSize()
                 , pageParam.getParam()));
     }
+
+
+
 
     /**
      * 在添加完任务之后跳转的到任务列表例，点击查看按钮，查看该行任务详情

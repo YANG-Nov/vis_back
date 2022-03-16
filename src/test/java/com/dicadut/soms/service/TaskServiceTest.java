@@ -58,7 +58,7 @@ public class TaskServiceTest {
 //        taskQueryVO.setTaskType("1001000001");
 //        taskQueryVO.setTaskStatus("1002000004");
         log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
-        log.info("{}", taskService.getAmendingTaskList(1, 2,taskQueryVO));
+        log.info("{}", taskService.getTaskList(1, 2,taskQueryVO));
         log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
     }
     @Test

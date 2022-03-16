@@ -94,21 +94,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return taskDisplayDTOS;
     }
 
-    /**
-     * 前端传过来查询条件对象，返回带分页的任务列表
-     *
-     * @param currentPage 第几页
-     * @param pageSize    页大小
-     * @param taskQueryVO 查询条件
-     * @return 带分页插件的任务列表
-     * @author fan_jane
-     */
-    @Override
-    public PageResult<AmendingTaskDTO> getAmendingTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
-        IPage<AmendingTaskDTO> page = new Page<>(currentPage, pageSize);
-        baseMapper.getAmendingTaskListByePageQuery(page, taskQueryVO);
-        return PageResult.buildPage(page);
-    }
+
 
     @Override
     public List<TaskDisplayDTO> getUnclaimedTaskList() {
@@ -563,4 +549,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
 
     }
+
+    @Override
+    public PageResult<TaskSetDTO> getTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
+        IPage<TaskSetDTO> page = new Page<>(currentPage, pageSize);
+        if(TaskStatusEnum.RETRANSMIT.getValue().equals(taskQueryVO.getTaskStatus())){
+            taskQueryVO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW_AGAIN.getValue()+","+TaskStatusEnum.WAIT_RETRANSMIT.getValue()+","+TaskStatusEnum.WAIT_REVIEW.getValue());
+        }
+        baseMapper.getTaskList(page, taskQueryVO);
+        return PageResult.buildPage(page);
+    }
+
+
 }
