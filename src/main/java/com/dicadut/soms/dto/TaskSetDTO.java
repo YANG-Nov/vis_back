@@ -1,5 +1,6 @@
 package com.dicadut.soms.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
  * @version 1.0
  * @date 2022-01-19 12:56
  */
+@ApiModel("数据库中查到返给前端列表")
 @Data
 public class TaskSetDTO {
     @ApiModelProperty(value = "任务")

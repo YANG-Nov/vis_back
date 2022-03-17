@@ -4,7 +4,7 @@ import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.domain.Bridge;
 import com.dicadut.soms.dto.ComponentNumberDTO;
-import com.dicadut.soms.dto.LineLocationDTO;
+import com.dicadut.soms.dto.LineLocationVO;
 import com.dicadut.soms.dto.StakeNumberDTO;
 
 import java.lang.reflect.InvocationTargetException;
@@ -26,7 +26,7 @@ public interface BridgeService extends IService<Bridge> {
 
     List<ComponentNumberDTO> getComponentNumberList(String start, String end, String id);
 
-    List<LineLocationDTO> getLocationList();
+    List<LineLocationVO> getLocationList();
 
     /**
      * 测试
@@ -38,7 +38,7 @@ public interface BridgeService extends IService<Bridge> {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    List<LineLocationDTO> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+    List<LineLocationVO> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
 
 }

@@ -572,8 +572,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * // Jane_TODO add description
      *
      * @param currentPage 当前页
-     * @param pageSize  每页显示数量
-     * @param taskQueryVO  查询条件
+     * @param pageSize    每页显示数量
+     * @param taskQueryVO 查询条件
      * @return 带分页的任务列表
      * @author FanJane
      */
@@ -581,10 +581,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public PageResult<TaskSetDTO> getTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
         IPage<TaskSetDTO> page = new Page<>(currentPage, pageSize);
         if (TaskStatusEnum.RETRANSMIT.getValue().equals(taskQueryVO.getTaskStatus())) {
-            taskQueryVO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW_AGAIN.getValue() + "," + TaskStatusEnum.WAIT_RETRANSMIT.getValue() + "," + TaskStatusEnum.WAIT_REVIEW.getValue());
+            taskQueryVO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW_AGAIN.getValue() + "," +
+                    TaskStatusEnum.WAIT_RETRANSMIT.getValue() + "," + TaskStatusEnum.WAIT_REVIEW.getValue());
         }
         if (TaskStatusEnum.INSPECTING.getValue().equals(taskQueryVO.getTaskStatus())) {
             taskQueryVO.setTaskStatus(TaskStatusEnum.INSPECTING.getValue() + "," + TaskStatusEnum.WAIT_INSPECTION.getValue());
+        }
+        if (TaskStatusEnum.MANAGING_TASK.getValue().equals(taskQueryVO.getTaskStatus())) {
+            taskQueryVO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW_AGAIN.getValue() + "," +
+                    TaskStatusEnum.WAIT_RETRANSMIT.getValue() + "," + TaskStatusEnum.WAIT_REVIEW.getValue() + "," +
+                    TaskStatusEnum.WAIT_RECEIVE + "," + TaskStatusEnum.INSPECTING + "," + TaskStatusEnum.WAIT_INSPECTION);
         }
         baseMapper.getTaskList(page, taskQueryVO);
         return PageResult.buildPage(page);

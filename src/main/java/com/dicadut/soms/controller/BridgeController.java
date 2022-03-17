@@ -3,7 +3,7 @@ package com.dicadut.soms.controller;
 
 import cn.hutool.core.lang.tree.Tree;
 import com.dicadut.soms.dto.ComponentNumberDTO;
-import com.dicadut.soms.dto.LineLocationDTO;
+import com.dicadut.soms.dto.LineLocationVO;
 import com.dicadut.soms.service.BridgeService;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
@@ -82,7 +82,7 @@ public class BridgeController {
      */
     @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane", "已通"})
     @GetMapping("/show_location")
-    public ResponseViewModel<List<LineLocationDTO>> getLocationList() {
+    public ResponseViewModel<List<LineLocationVO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());
     }
 
@@ -99,7 +99,7 @@ public class BridgeController {
     @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane", "测试"})
     @GetMapping("/show_location_test")
     @Deprecated
-    public ResponseViewModel<List<LineLocationDTO>> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public ResponseViewModel<List<LineLocationVO>> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         return ResponseViewModel.ok(bridgeService.getLocationListTest());
     }
 }

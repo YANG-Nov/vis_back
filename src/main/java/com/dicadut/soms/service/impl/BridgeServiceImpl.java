@@ -6,7 +6,7 @@ import com.dicadut.soms.domain.Bridge;
 import com.dicadut.soms.domain.Component;
 import com.dicadut.soms.dto.BridgeSimpleDTO;
 import com.dicadut.soms.dto.ComponentNumberDTO;
-import com.dicadut.soms.dto.LineLocationDTO;
+import com.dicadut.soms.dto.LineLocationVO;
 import com.dicadut.soms.dto.StakeNumberDTO;
 import com.dicadut.soms.mapper.BridgeMapper;
 import com.dicadut.soms.service.BridgeService;
@@ -66,12 +66,12 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
     }
 
     @Override
-    public List<LineLocationDTO> getLocationList() {
+    public List<LineLocationVO> getLocationList() {
         //一次查询数据库，将所有用到的数据封装到一级过渡对象当中
         List<BridgeSimpleDTO> bridgeSimpleDTOList = baseMapper.selectLocationList();
 
         //返回数据集合
-        List<LineLocationDTO> list = new ArrayList<>();
+        List<LineLocationVO> list = new ArrayList<>();
 
         // 过渡map集合，key: 主引桥+匝道（location）, value: 桩号对象列表（id,name）
         Map<String, List<StakeNumberDTO>> map = new HashMap<>();
@@ -96,11 +96,11 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
             List<StakeNumberDTO> stakeNumberDTOList = entry.getValue();
 
             //赋值给需要返回的集合
-            LineLocationDTO lineLocationDTO = new LineLocationDTO();
-            lineLocationDTO.setLabel(location);
-            lineLocationDTO.setValue(location);
-            lineLocationDTO.setChildren(stakeNumberDTOList);
-            list.add(lineLocationDTO);
+            LineLocationVO lineLocationVO = new LineLocationVO();
+            lineLocationVO.setLabel(location);
+            lineLocationVO.setValue(location);
+            lineLocationVO.setChildren(stakeNumberDTOList);
+            list.add(lineLocationVO);
         }
 
         return list;
@@ -112,12 +112,12 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
      * @return 匝道位置
      */
     @Override
-    public List<LineLocationDTO> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<LineLocationVO> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         //一次查询数据库，将所有用到的数据封装到一级过渡对象当中
         List<BridgeSimpleDTO> bridgeSimpleDTOList = baseMapper.selectLocationList();
 
 
-        List<LineLocationDTO> list = TaskUtil.convert(bridgeSimpleDTOList, LineLocationDTO.class, BridgeSimpleDTO.class,"location","label");
+        List<LineLocationVO> list = TaskUtil.convert(bridgeSimpleDTOList, LineLocationVO.class, BridgeSimpleDTO.class,"location","label");
 
         return list;
 
