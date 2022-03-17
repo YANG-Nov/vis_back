@@ -437,13 +437,20 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * @author FanJane
      */
     @Override
+    @Transactional
     public void removeTask(String taskId) {
         //删除任务表
-        baseMapper.deleteById(taskId);
+        int deleteRaws = baseMapper.deleteById(taskId);
+        if (deleteRaws <= 0){
+            throw new TaskException(20001,"删除失败,没有这条任务");
+        }
         //删除bridge_component表
         HashMap<String, Object> removeByTaskId = new HashMap<>();
         removeByTaskId.put("task_id", taskId);
-        taskBridgeComponentMapper.deleteByMap(removeByTaskId);
+        int updateRaws = taskBridgeComponentMapper.deleteByMap(removeByTaskId);
+        if (updateRaws <= 0){
+            throw new TaskException(20001,"删除失败,没有这条任务");
+        }
     }
 
     @Override
