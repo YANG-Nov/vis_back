@@ -588,9 +588,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             taskQueryVO.setTaskStatus(TaskStatusEnum.INSPECTING.getValue() + "," + TaskStatusEnum.WAIT_INSPECTION.getValue());
         }
         if (TaskStatusEnum.MANAGING_TASK.getValue().equals(taskQueryVO.getTaskStatus())) {
-            taskQueryVO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW_AGAIN.getValue() + "," +
-                    TaskStatusEnum.WAIT_RETRANSMIT.getValue() + "," + TaskStatusEnum.WAIT_REVIEW.getValue() + "," +
-                    TaskStatusEnum.WAIT_RECEIVE + "," + TaskStatusEnum.INSPECTING + "," + TaskStatusEnum.WAIT_INSPECTION);
+            taskQueryVO.setTaskStatus(TaskStatusEnum.MANAGING_TASK.getLabel());
         }
         baseMapper.getTaskList(page, taskQueryVO);
         return PageResult.buildPage(page);
