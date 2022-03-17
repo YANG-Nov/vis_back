@@ -27,7 +27,7 @@ public interface TaskBridgeComponentMapper extends BaseMapper<TaskBridgeComponen
      */
     void addTaskComponent(@Param("taskId") String taskId,
                           @Param("subTaskVO") SubTaskVO subTaskVO,
-                          @Param("list") List<Long> selectedComponents);
+                          @Param("list") List<String> selectedComponents);
 
 
 

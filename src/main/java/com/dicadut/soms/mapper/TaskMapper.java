@@ -144,4 +144,7 @@ public interface TaskMapper extends BaseMapper<Task> {
     void updateTaskReceiveTime(String taskId, String taskReceiveTime);
 
     void updateTaskFinishTime(String taskId, String taskFinishTime);
+
+    List<SelectedComponentsDTO> selectComponents(@Param("start") String inspectionStart, @Param("end") String inspectionEnd,
+                                                 @Param("selectedComponents")String selectedComponents);
 }

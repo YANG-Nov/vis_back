@@ -310,5 +310,15 @@
 
     </select>
 
-
+    <select id="selectComponents" resultType="com.dicadut.soms.dto.SelectedComponentsDTO">
+        SELECT
+                b.location,
+                cc.`name`,
+                bc.id
+        FROM t_bridge_component bc
+                     LEFT JOIN t_bridge b ON b.id = bc.bridge_id
+                     LEFT JOIN t_component c ON c.id = bc.component_id
+                     LEFT JOIN t_component cc ON cc.id = c.parent_id
+        WHERE bc.bridge_id BETWEEN #{start} AND #{end} AND FIND_IN_SET(bc.component_id,#{taskId});
+    </select>
 </mapper>

@@ -92,7 +92,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
 
-
     @Override
     @Deprecated
     public List<TaskDisplayDTO> getUnclaimedTaskList() {
@@ -117,7 +116,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 导致性能很低下，甚至不可用，后续我再提供一个新的方法做参考
      *
      * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param endTime   结束时间
      * @return 年度列表
      */
     @Override
@@ -143,7 +142,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 该方法直接通过查数据库进行统计，总共查数据库5次，实现时引入xml配置文件，通过在xml中写sql实现查询功能，请跟进理解和学习。
      *
      * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param endTime   结束时间
      * @return 年度列表
      */
     @Override
@@ -162,7 +161,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 该方法直接通过查数据库进行统计，总共查数据库1次，性能最优。
      *
      * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param endTime   结束时间
      * @return 年度列表
      */
     @Override
@@ -196,7 +195,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public List<InspectorDTO> getInspectorList() {
         List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
         int i = 1;
-        for (InspectorDTO inspectorDTO: inspectorDTOList) {
+        for (InspectorDTO inspectorDTO : inspectorDTOList) {
             inspectorDTO.setKey(i++);
         }
 
@@ -206,7 +205,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     /**
      * App任务列表
      *
-     * @param taskStatus          任务状态
+     * @param taskStatus 任务状态
      * @return
      */
     public List<TaskAppListDTO> getTaskAppList(Integer taskStatus) {
@@ -240,7 +239,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 并设置状态为待分配
      *
      * @param taskVO 添加的任务信息
-     * 暂时没有 Jane_TODO 2022/2/24 需要优化
+     *               暂时没有 Jane_TODO 2022/2/24 需要优化
      * @author FanJane
      */
     @Override
@@ -257,31 +256,42 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         task.setId(taskId);
         task.setTaskStatus(TaskStatusEnum.WAIT_DISTRIBUTE.getValue());
 
-        //插入任务表
-        baseMapper.insert(task);
+        //获得巡检部位
+        List<String> inspectionPositions = new ArrayList<>();
 
         //获得打卡位置拼成字符串加入构件DTO
         List<SubTaskVO> subTaskVOS = taskVO.getSubTasks();
         for (SubTaskVO subTaskVO : subTaskVOS) {
+            //获得起始终止桩号
+            String inspectionEnd = subTaskVO.getInspectionEnd();
+            String inspectionStart = subTaskVO.getInspectionStart();
+            String selectedComponents = StringUtils.join(subTaskVO.getSelectedComponents(), ",");
+            List<SelectedComponentsDTO> selectedComponentsDTOS = baseMapper.selectComponents(inspectionStart, inspectionEnd, selectedComponents);
             //获得打卡位置
             String[] scanPositions = subTaskVO.getScanPositions();
             //1.根据code查数据库返回codename
-            QueryWrapper<Dictionary> queryWrapper1 = new QueryWrapper<>();
-            queryWrapper1.in("code", scanPositions);
-            List<Dictionary> dictionaries = dictionaryService.list(queryWrapper1);
+            QueryWrapper<Dictionary> scanWrapper = new QueryWrapper<>();
+            scanWrapper.in("code", scanPositions);
+            List<Dictionary> dictionaries = dictionaryService.list(scanWrapper);
             List<String> collect = dictionaries.stream().map(Dictionary::getCodeName).collect(Collectors.toList());
             String scanPosition = StringUtils.join(collect, ",");
             subTaskVO.setScanPosition(scanPosition);
+            //子任务获得巡检位置
+            String location = selectedComponentsDTOS.get(0).getLocation();
+            List<String> positions = selectedComponentsDTOS.stream().map(SelectedComponentsDTO::getName).distinct().collect(Collectors.toList());
+            String locationPositions = location + String.join("、", positions);
+            inspectionPositions.add(locationPositions);
 
-            //插入任务桥构件表
-            String[] selectedComponents = subTaskVO.getSelectedComponents();
-            QueryWrapper<BridgeComponent> queryWrapper = new QueryWrapper<>();
-            queryWrapper.between("bridge_id", subTaskVO.getInspectionStart(), subTaskVO.getInspectionEnd()).in("component_id", selectedComponents);
-            List<BridgeComponent> bridgeComponents = bridgeComponentMapper.selectList(queryWrapper);
-            List<Long> collect1 = bridgeComponents.stream().map(BridgeComponent::getId).collect(Collectors.toList());
-            taskBridgeComponentMapper.addTaskComponent(taskId, subTaskVO, collect1);
-
+            //获得桥构件id
+            List<String> bridgeComponentId = selectedComponentsDTOS.stream().map(SelectedComponentsDTO::getId).distinct().collect(Collectors.toList());
+            //插入任务构件表
+            taskBridgeComponentMapper.addTaskComponent(taskId, subTaskVO, bridgeComponentId);
         }
+        //获得任务的所有巡检位置
+        String inspectionPosition = String.join(";" + inspectionPositions);
+        task.setInspectionPosition(inspectionPosition);
+        //插入任务表
+        baseMapper.insert(task);
 
 
     }
@@ -292,7 +302,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 并设置状态为待领取
      *
      * @param taskId 任务id
-     * @param userId  巡检人员id
+     * @param userId 巡检人员id
      * @author fan_jane
      */
     @Override
@@ -427,18 +437,18 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public void updateTaskStatus(String taskId,String taskStatusIdGo){
-        baseMapper.updateTaskStatus(taskId,taskStatusIdGo);
+    public void updateTaskStatus(String taskId, String taskStatusIdGo) {
+        baseMapper.updateTaskStatus(taskId, taskStatusIdGo);
     }
 
     @Override
-    public void updateReceiveTime(String taskId,String taskReceiveTime){
-        baseMapper.updateTaskReceiveTime(taskId,taskReceiveTime);
+    public void updateReceiveTime(String taskId, String taskReceiveTime) {
+        baseMapper.updateTaskReceiveTime(taskId, taskReceiveTime);
     }
 
     @Override
-    public void updateFinishTime(String taskId,String taskFinishTime){
-        baseMapper.updateTaskFinishTime(taskId,taskFinishTime);
+    public void updateFinishTime(String taskId, String taskFinishTime) {
+        baseMapper.updateTaskFinishTime(taskId, taskFinishTime);
     }
 
     @Override
@@ -477,7 +487,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             HashSet<String> compositionList = new HashSet<>();
             String selectedComponents = StringUtils.join(subTaskVO.getSelectedComponents(), ",");
             List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = baseMapper.getPosition(subTaskVO.getInspectionStart()
-                    ,subTaskVO.getInspectionEnd(),selectedComponents);
+                    , subTaskVO.getInspectionEnd(), selectedComponents);
             for (TaskBridgeComponentDTO t : taskBridgeComponentDTOS) {
                 String[] xName = t.getXname().split("/");
                 compositionList.add(xName[2]);
@@ -518,8 +528,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                         () -> new TreeSet<>(Comparator.comparing(TaskBridgeComponentDTO::getScanPosition))), ArrayList::new));
 
         Set<String> scanPositionSet = collect.stream().map(TaskBridgeComponentDTO::getScanPosition).collect(Collectors.toSet());
-        Set<String> strings= new HashSet<>();
-        for (String s: scanPositionSet ) {
+        Set<String> strings = new HashSet<>();
+        for (String s : scanPositionSet) {
             String[] split = s.split(",");
             List<String> strings1 = Arrays.asList(split);
             strings.addAll(strings1);
@@ -562,11 +572,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public PageResult<TaskSetDTO> getTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
         IPage<TaskSetDTO> page = new Page<>(currentPage, pageSize);
-        if(TaskStatusEnum.RETRANSMIT.getValue().equals(taskQueryVO.getTaskStatus())){
-            taskQueryVO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW_AGAIN.getValue()+","+TaskStatusEnum.WAIT_RETRANSMIT.getValue()+","+TaskStatusEnum.WAIT_REVIEW.getValue());
+        if (TaskStatusEnum.RETRANSMIT.getValue().equals(taskQueryVO.getTaskStatus())) {
+            taskQueryVO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW_AGAIN.getValue() + "," + TaskStatusEnum.WAIT_RETRANSMIT.getValue() + "," + TaskStatusEnum.WAIT_REVIEW.getValue());
         }
-        if(TaskStatusEnum.INSPECTING.getValue().equals(taskQueryVO.getTaskStatus())){
-            taskQueryVO.setTaskStatus(TaskStatusEnum.INSPECTING.getValue()+","+TaskStatusEnum.WAIT_INSPECTION.getValue());
+        if (TaskStatusEnum.INSPECTING.getValue().equals(taskQueryVO.getTaskStatus())) {
+            taskQueryVO.setTaskStatus(TaskStatusEnum.INSPECTING.getValue() + "," + TaskStatusEnum.WAIT_INSPECTION.getValue());
         }
         baseMapper.getTaskList(page, taskQueryVO);
         return PageResult.buildPage(page);
