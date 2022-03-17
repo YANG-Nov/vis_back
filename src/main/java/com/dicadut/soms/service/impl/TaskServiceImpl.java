@@ -15,6 +15,7 @@ import com.dicadut.soms.dto.*;
 import com.dicadut.soms.enumeration.SomsConstant;
 import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.enumeration.TypeNameEnum;
+import com.dicadut.soms.exception.TaskException;
 import com.dicadut.soms.mapper.BridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskBridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskMapper;
@@ -29,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.NumberFormat;
@@ -242,6 +244,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * @author FanJane
      */
     @Override
+    @Transactional
     public void saveTask(TaskVO taskVO) {
 
         //自动生成任务id
@@ -281,17 +284,25 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             String locationPositions = location + String.join("、", positions);
             inspectionPositions.add(locationPositions);
 
+
+
             //获得桥构件id
             List<String> bridgeComponentId = selectedComponentsDTOS.stream().map(SelectedComponentsDTO::getId).distinct().collect(Collectors.toList());
             //插入任务构件表
-            taskBridgeComponentMapper.addTaskComponent(taskId, subTaskVO, bridgeComponentId);
+            int addRows = taskBridgeComponentMapper.addTaskComponent(taskId, subTaskVO, bridgeComponentId);
+            if(addRows <= 0){
+               throw new TaskException(20001,"添加失败");
+            }
+
         }
         //获得任务的所有巡检位置
-        String inspectionPosition = String.join(";" + inspectionPositions);
+        String inspectionPosition = StringUtils.join(inspectionPositions,";");
         task.setInspectionPosition(inspectionPosition);
         //插入任务表
-        baseMapper.insert(task);
-
+        int insertRaws = baseMapper.insert(task);
+        if(insertRaws <= 0){
+            throw new TaskException(20001,"添加失败");
+        }
 
     }
 
