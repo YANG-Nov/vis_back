@@ -123,7 +123,7 @@ public class TaskController {
      */
     @ApiOperation(value = "显示任务列表", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "制定任务页列表，任务管理页列表taskStatus(总列表 managing_id 1004000002 待领取 wait_receive 1002000001" +
-            ", 正在巡检 inspecting 1002000002，任务审核 1003000001） 记录任务页列表taskStatus（巡检记录 FINISH 1002000006）")
+            ", 正在巡检 inspecting 1002000002，待巡检 1002000003 ，任务审核 1003000001） 记录任务页列表taskStatus（巡检记录 FINISH 1002000006）")
     @PostMapping("/get_task_list")
     public ResponseViewModel<PageResult<TaskSetDTO>> getTaskList(
             @RequestBody(required = false) PageParam<TaskQueryVO> pageParam) {

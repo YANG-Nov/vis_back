@@ -581,11 +581,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public PageResult<TaskSetDTO> getTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
         IPage<TaskSetDTO> page = new Page<>(currentPage, pageSize);
         if (TaskStatusEnum.RETRANSMIT.getValue().equals(taskQueryVO.getTaskStatus())) {
-            taskQueryVO.setTaskStatus(TaskStatusEnum.WAIT_REVIEW_AGAIN.getValue() + "," +
-                    TaskStatusEnum.WAIT_RETRANSMIT.getValue() + "," + TaskStatusEnum.WAIT_REVIEW.getValue());
-        }
-        if (TaskStatusEnum.INSPECTING.getValue().equals(taskQueryVO.getTaskStatus())) {
-            taskQueryVO.setTaskStatus(TaskStatusEnum.INSPECTING.getValue() + "," + TaskStatusEnum.WAIT_INSPECTION.getValue());
+            taskQueryVO.setTaskStatus(TaskStatusEnum.RETRANSMIT.getLabel());
         }
         if (TaskStatusEnum.MANAGING_TASK.getValue().equals(taskQueryVO.getTaskStatus())) {
             taskQueryVO.setTaskStatus(TaskStatusEnum.MANAGING_TASK.getLabel());
