@@ -9,7 +9,7 @@
         <result column="task_status" property="taskStatus"/>
         <result column="start_time" property="startTime"/>
         <result column="end_time" property="endTime"/>
-        <result column="receive_time" property="receiveTime"/>
+        <result column="remind_time" property="remindTime"/>
         <result column="recall_time" property="recallTime"/>
         <result column="inspector_id" property="inspectorId"/>
         <result column="create_by" property="createBy"/>
@@ -180,8 +180,8 @@
 
     <insert id="addTask" parameterType="com.dicadut.soms.vo.TaskVO">
         INSERT INTO t_task
-            (`id`,`task_type`,`task_status`,`start_time`,`end_time`,`receive_time`,`recall_time`,`create_by`)
-        values(#{taskId},#{taskVO.taskType},'1002000004',#{taskVO.startTime},#{taskVO.endTime},#{taskVO.receiveTime},
+            (`id`,`task_type`,`task_status`,`start_time`,`end_time`,`remind_time`,`recall_time`,`create_by`)
+        values(#{taskId},#{taskVO.taskType},'1002000004',#{taskVO.startTime},#{taskVO.endTime},#{taskVO.remindTime},
                #{taskVO.recallTime},#{taskVO.createBy})
     </insert>
 
@@ -208,7 +208,7 @@
                t.start_time,
                t.end_time,
                t.recall_time,
-               t.receive_time,
+               t.remind_time,
                CONCAT(b.location, c.xname, '/', b.stake_or_truss_number) xname,
                CONCAT(b.main_or_approach, b.line, c.xpath, '/', bc.id)   xpath,
                d.code_name                                               taskType,
@@ -267,7 +267,7 @@
                t.start_time,
                t.end_time,
                t.recall_time,
-               t.receive_time,
+               t.remind_time,
                t.create_by,
                t.task_type,
                t.inspector_id                                            inspector,

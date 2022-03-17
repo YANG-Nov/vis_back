@@ -20,7 +20,7 @@ public class TaskBridgeComponentDTO {
     private String inspector;
     private LocalDate startTime;
     private LocalDate endTime;
-    private LocalDate receiveTime;
+    private LocalDate remindTime;
     private LocalDate recallTime;
     private String location;
     private String xname;

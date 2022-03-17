@@ -31,8 +31,7 @@ public class TaskVO {
     private LocalDate endTime;
     @ApiModelProperty(value = "接收期限", example = "2021-09-30 13:00:00")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @JsonProperty("remindTime")
-    private LocalDate receiveTime;
+    private LocalDate remindTime;
     @ApiModelProperty(value = "召回期限", example = "2021-09-30 13:00:00")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate recallTime;

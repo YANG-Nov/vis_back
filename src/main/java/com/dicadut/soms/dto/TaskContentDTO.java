@@ -26,9 +26,7 @@ public class TaskContentDTO<E> {
     private String inspector;
     private LocalDate startTime;
     private LocalDate endTime;
-
-    @JsonProperty("remindTime")
-    private LocalDate receiveTime;
+    private LocalDate remindTime;
 
     private LocalDate recallTime;
     private Set<String> scanPositions;

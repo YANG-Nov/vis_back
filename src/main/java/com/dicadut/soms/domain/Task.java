@@ -41,10 +41,16 @@ public class Task implements Serializable {
     private LocalDate endTime;
 
     @ApiModelProperty(value = "接受期限，精确到时")
-    private LocalDate receiveTime;
+    private LocalDate remindTime;
 
     @ApiModelProperty(value = "召回期限，精确到时")
     private LocalDate recallTime;
+
+    @ApiModelProperty(value = "任务领取时间，精确到时")
+    private LocalDateTime receiveTime;
+
+    @ApiModelProperty(value = "任务完成时间，精确到时")
+    private LocalDateTime finishTime;
 
     @ApiModelProperty(value = "巡检员id")
     private String inspectorId;
