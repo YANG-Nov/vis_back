@@ -16,10 +16,10 @@ public class TaskSetDTO {
     private String taskId;
 
     @ApiModelProperty(value = "任务类型: type=1001")
-    private String taskType;
+    private String taskType;//jobType Jane_TODO 2022/3/17
 
     @ApiModelProperty(value = "任务状态: type=1002")
-    private String taskStatus;
+    private String taskStatus;//jobStatus Jane_TODO 2022/3/17
 
     @ApiModelProperty(value = "任务开始时间，精确到时")
     private LocalDate startTime;
@@ -28,7 +28,7 @@ public class TaskSetDTO {
     private LocalDate endTime;
 
     @ApiModelProperty(value = "巡检员姓名")
-    private String inspectorName;
+    private String inspectorName;//Jane_TODO 2022/3/17
 
     @ApiModelProperty(value = "制定任务姓名")
     private String createBy;

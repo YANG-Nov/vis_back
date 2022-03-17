@@ -21,4 +21,8 @@ public final class SomsConstant {
     public static final String DISEASE_PICTURE = "4";
     public static final String DISEASE_VOICE = "5";
     public static final String DISEASE_TEXT = "6";
+
+    //dictionary
+    public static final String TYPE = "type";
+
 }

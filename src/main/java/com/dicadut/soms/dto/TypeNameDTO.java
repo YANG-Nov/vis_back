@@ -1,5 +1,6 @@
 package com.dicadut.soms.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 /**
@@ -7,8 +8,9 @@ import lombok.Data;
  * @version 1.0
  * @date 2022-01-06 21:53
  */
+@ApiModel("返给前端任务类型和构件频率")
 @Data
 public class TypeNameDTO extends ScanPositionDTO {
-    private String codeName;
-    private String code;
+    private String codeName;//Jane_TODO 2022/3/17 label
+    private String code;//Jane_TODO 2022/3/17 value
 }

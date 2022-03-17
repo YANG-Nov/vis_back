@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dicadut.soms.domain.BridgeComponent;
 import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.domain.User;
@@ -569,6 +568,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     }
 
+    /**
+     * // Jane_TODO add description
+     *
+     * @param currentPage 当前页
+     * @param pageSize  每页显示数量
+     * @param taskQueryVO  查询条件
+     * @return 带分页的任务列表
+     * @author FanJane
+     */
     @Override
     public PageResult<TaskSetDTO> getTaskList(Integer currentPage, Integer pageSize, TaskQueryVO taskQueryVO) {
         IPage<TaskSetDTO> page = new Page<>(currentPage, pageSize);

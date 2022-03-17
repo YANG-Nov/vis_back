@@ -1,14 +1,18 @@
 package com.dicadut.soms.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.dto.TypeNameDTO;
+import com.dicadut.soms.enumeration.SomsConstant;
 import com.dicadut.soms.mapper.DictionaryMapper;
 import com.dicadut.soms.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -31,6 +35,14 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
 
     @Override
     public List<TypeNameDTO> getTypeNames(String type) {
-        return baseMapper.selectCodeNameListByType(type);
+        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
+        List<Dictionary> dictionaries = baseMapper.selectList(dictionaryQueryWrapper.eq(SomsConstant.TYPE, type));
+
+        List<TypeNameDTO> typeNameDTOS = dictionaries.stream().map(dictionary -> {
+            TypeNameDTO typeNameDTO = new TypeNameDTO();
+            BeanUtils.copyProperties(dictionary,typeNameDTO);
+            return typeNameDTO;
+        }).collect(Collectors.toList());
+        return typeNameDTOS;
     }
 }
