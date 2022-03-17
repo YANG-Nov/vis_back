@@ -3,6 +3,7 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
+import com.dicadut.soms.exception.TaskException;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
@@ -90,7 +91,7 @@ public class TaskController {
     @PostMapping("/show_task_preview")
     public ResponseViewModel<TaskContentDTO<SubTaskShowV0>> showTaskPreview(@RequestBody TaskVO taskVO) {
         if (CollectionUtils.isEmpty(taskVO.getSubTasks())) {
-            return ResponseViewModel.fail("添加失败，缺少子任务");
+            throw new TaskException(20001,"添加失败，缺少构件");
         }
         TaskContentDTO<SubTaskShowV0> taskPreview = taskService.getTaskPreview(taskVO);
         return ResponseViewModel.ok(taskPreview);
