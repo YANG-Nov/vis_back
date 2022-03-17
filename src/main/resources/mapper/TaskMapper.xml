@@ -131,6 +131,7 @@
         <if test="taskQueryVO.taskType != null and taskQueryVO.taskType != ''">
             AND FIND_IN_SET(t.task_type, #{taskQueryVO.taskType})
         </if>
+        AND t.is_deleted = 0
         group by t.id
     </select>
 
