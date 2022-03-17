@@ -140,4 +140,8 @@ public interface TaskMapper extends BaseMapper<Task> {
      * @author FanJane
      */
     IPage<TaskSetDTO> getTaskList(IPage<TaskSetDTO> page, @Param("taskQueryVO") TaskQueryVO taskQueryVO);
+
+    void updateTaskReceiveTime(String taskId, String taskReceiveTime);
+
+    void updateTaskFinishTime(String taskId, String taskFinishTime);
 }

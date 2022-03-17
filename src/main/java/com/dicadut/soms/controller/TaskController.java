@@ -7,9 +7,7 @@ import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.viewmodel.PageParam;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
-import com.dicadut.soms.vo.InspectionScopeVO;
-import com.dicadut.soms.vo.TaskQueryVO;
-import com.dicadut.soms.vo.TaskVO;
+import com.dicadut.soms.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -264,7 +262,6 @@ public class TaskController {
         return ResponseViewModel.ok();
     }
 
-    //TODO App任务列表需要根据原型加以更改，考虑多种构件情况 //FIX
     @ApiOperation(value = "App任务列表", tags = {"App", "YANG", "App未通"})
     @GetMapping("get_task_app_list")
     public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus) {
@@ -286,12 +283,25 @@ public class TaskController {
      * @param taskStatusVO 任务状态任务id
      * @return  responseViewModel
      */
-    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App已通", "web", "未通"}
+    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App已通", "web", "已通"}
             , notes = "变更任务状态，taskId 20220119000001 , taskStatusIdGo 召回（主动）  1002000008  ")
     @PostMapping("/update_task_status")
     public ResponseViewModel updateTaskStatus(@RequestBody TaskStatusVO taskStatusVO) {
-        //TODO 缺失接口：App更新任务状态 //FIX
         taskService.updateTaskStatus(taskStatusVO.getTaskId(), taskStatusVO.getTaskStatusIdGo());
+        return ResponseViewModel.ok();
+    }
+
+    @ApiOperation(value = "添加任务领取时间", tags = {"App", "YANG", "App已通", "web", "未通"})
+    @PostMapping("update_receive_time")
+    public ResponseViewModel updateReceiveTime(@RequestBody TaskReceiveTimeVO taskReceiveTimeVO){
+        taskService.updateReceiveTime(taskReceiveTimeVO.getTaskId(),taskReceiveTimeVO.getTaskReceiveTime());
+        return ResponseViewModel.ok();
+    }
+
+    @ApiOperation(value = "添加巡检完成时间", tags = {"App", "YANG", "App已通", "web", "未通"})
+    @PostMapping("update_finish_time")
+    public ResponseViewModel updateFinishTime(@RequestBody TaskFinishTimeVO taskFinishTimeVO){
+        taskService.updateFinishTime(taskFinishTimeVO.getTaskId(),taskFinishTimeVO.getTaskFinishTime());
         return ResponseViewModel.ok();
     }
 }

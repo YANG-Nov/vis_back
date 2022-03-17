@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.viewmodel.PageResult;
-import com.dicadut.soms.vo.InspectionScopeVO;
-import com.dicadut.soms.vo.TaskQueryVO;
-import com.dicadut.soms.vo.TaskVO;
+import com.dicadut.soms.vo.*;
 
 import java.util.List;
 
@@ -134,4 +132,18 @@ public interface TaskService extends IService<Task> {
      * @author FanJane
      */
     TaskContentDTO<SubTaskUpdateV0> getUpdateTask(String taskId);
+
+    /**
+     * 存储任务领取时间
+     * @param taskId 任务id
+     * @param taskReceiveTime 任务领取时间
+     */
+    void updateReceiveTime(String taskId, String taskReceiveTime);
+
+    /**
+     * 存储巡检完成时间
+     * @param taskId 任务id
+     * @param taskFinishTime 巡检完成时间
+     */
+    void updateFinishTime(String taskId, String taskFinishTime);
 }

@@ -1,6 +1,5 @@
-package com.dicadut.soms.dto;
+package com.dicadut.soms.vo;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import lombok.Data;
 
 /**

@@ -248,6 +248,18 @@
         WHERE t.id = #{taskId}
     </update>
 
+    <update id="updateTaskReceiveTime" parameterType="com.dicadut.soms.domain.Task">
+        UPDATE soms.t_task t
+        SET t.receive_time = #{taskReceiveTime}
+        WHERE t.id = #{taskId}
+    </update>
+
+    <update id="updateTaskFinishTime" parameterType="com.dicadut.soms.domain.Task">
+        UPDATE soms.t_task t
+        SET t.finish_time = #{taskFinishTime}
+        WHERE t.id = #{taskId}
+    </update>
+
     <select id="getPosition" resultType="com.dicadut.soms.dto.TaskBridgeComponentDTO">
         SELECT CONCAT(b.location, c.xname, '/', b.stake_or_truss_number) xname,
                CONCAT(b.main_or_approach, b.line, c.xpath, '/', bc.id)   xpath,

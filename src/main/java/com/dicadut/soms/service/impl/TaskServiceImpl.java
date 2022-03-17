@@ -25,10 +25,7 @@ import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.service.UserService;
 import com.dicadut.soms.util.TaskUtil;
 import com.dicadut.soms.viewmodel.PageResult;
-import com.dicadut.soms.vo.InspectionScopeVO;
-import com.dicadut.soms.vo.SubTaskVO;
-import com.dicadut.soms.vo.TaskQueryVO;
-import com.dicadut.soms.vo.TaskVO;
+import com.dicadut.soms.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -432,6 +429,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public void updateTaskStatus(String taskId,String taskStatusIdGo){
         baseMapper.updateTaskStatus(taskId,taskStatusIdGo);
+    }
+
+    @Override
+    public void updateReceiveTime(String taskId,String taskReceiveTime){
+        baseMapper.updateTaskReceiveTime(taskId,taskReceiveTime);
+    }
+
+    @Override
+    public void updateFinishTime(String taskId,String taskFinishTime){
+        baseMapper.updateTaskFinishTime(taskId,taskFinishTime);
     }
 
     @Override

@@ -46,6 +46,9 @@ public class Task implements Serializable {
     @ApiModelProperty(value = "召回期限，精确到时")
     private LocalDate recallTime;
 
+    @ApiModelProperty(value = "巡检部位")
+    private LocalDate inspectionPosition;
+
     @ApiModelProperty(value = "任务领取时间，精确到时")
     private LocalDateTime receiveTime;
 
@@ -57,6 +60,9 @@ public class Task implements Serializable {
 
     @ApiModelProperty(value = "养护工程师id")
     private String createBy;
+
+    @ApiModelProperty(value = "任务审核意见")
+    private LocalDate reviewOpinion;
 
     @ApiModelProperty(value = "乐观锁")
     @Version
@@ -73,6 +79,4 @@ public class Task implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-
-
 }
