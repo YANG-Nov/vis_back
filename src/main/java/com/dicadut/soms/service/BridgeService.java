@@ -24,8 +24,16 @@ public interface BridgeService extends IService<Bridge> {
 
     List<Tree<String>> getComponentList(String start, String end);
 
+    @Deprecated
     List<ComponentNumberDTO> getComponentNumberList(String start, String end, String id);
 
+    /**
+     * // Jane_TODO add description
+     *
+     * @param
+     * @return java.util.List<com.dicadut.soms.dto.LineLocationVO>
+     * @author FanJane
+     */
     List<LineLocationVO> getLocationList();
 
     /**
@@ -38,6 +46,7 @@ public interface BridgeService extends IService<Bridge> {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
+    @Deprecated
     List<LineLocationVO> getLocationListTest() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
 

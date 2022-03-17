@@ -75,12 +75,13 @@ public class BridgeController {
      * 桩号选择下拉框接口的
      * 使用场景: 创建任务时，桩号选择下来框用到该接口（开始桩号及结束桩号都要调用该接口）
      * 输入参数：无
+     * Jane_TODO 2022/3/17 /get_inspection_scope
      *
      * @return 带层级结构的桩号列表数据，第一级是匝道(location)，第二级是桩号(id,number)
      * SQL: select b.id, b.stake_or_truss_number, b.location from t_bridge b;
      * @author fan_jane
      */
-    @ApiOperation(value = "制定任务页显示桩号选择下拉框", tags = {"web", "任务制定页", "jane", "已通"})
+    @ApiOperation(value = "制定任务页显示巡检范围", tags = {"web", "任务制定页", "jane", "已通"})
     @GetMapping("/show_location")
     public ResponseViewModel<List<LineLocationVO>> getLocationList() {
         return ResponseViewModel.ok(bridgeService.getLocationList());

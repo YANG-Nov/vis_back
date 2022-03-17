@@ -1,5 +1,6 @@
 package com.dicadut.soms.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -14,7 +15,9 @@ import java.util.List;
 @Data
 @ApiModel("传给前端匝道和匝道包含的桩号")
 public class LineLocationVO {
-    private String value;
-    private String label;
+    @JsonProperty("value")
+    private String id;
+    @JsonProperty("label")
+    private String location;
     private List<StakeNumberDTO> children = new ArrayList<>();
 }

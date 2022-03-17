@@ -97,8 +97,8 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
 
             //赋值给需要返回的集合
             LineLocationVO lineLocationVO = new LineLocationVO();
-            lineLocationVO.setLabel(location);
-            lineLocationVO.setValue(location);
+            lineLocationVO.setLocation(location);
+            lineLocationVO.setId(location);
             lineLocationVO.setChildren(stakeNumberDTOList);
             list.add(lineLocationVO);
         }
