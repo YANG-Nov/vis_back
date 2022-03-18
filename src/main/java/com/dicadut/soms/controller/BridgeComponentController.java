@@ -1,6 +1,7 @@
 package com.dicadut.soms.controller;
 
 import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "任务桥构件接口")
 @RestController
+@CrossOrigin
 @RequestMapping("/t_task_bridge_component")
 public class BridgeComponentController {
 }

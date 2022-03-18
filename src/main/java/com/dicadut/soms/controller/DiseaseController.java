@@ -27,6 +27,7 @@ import java.util.List;
 @Api(tags = "病害接口")
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("disease")
 public class DiseaseController {
 

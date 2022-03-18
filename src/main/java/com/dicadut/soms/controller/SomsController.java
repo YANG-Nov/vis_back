@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "_智慧运维系统接口")
 @Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/welcome")
 public class SomsController {

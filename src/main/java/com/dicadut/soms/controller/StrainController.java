@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Api(tags = "_北大桥应力传感器接口")
 @Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class StrainController {

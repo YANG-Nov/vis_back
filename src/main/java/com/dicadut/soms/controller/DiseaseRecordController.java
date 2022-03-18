@@ -40,6 +40,7 @@ import java.util.List;
  */
 @Api(tags = "病害记录接口")
 @Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/disease_record")
 public class DiseaseRecordController {

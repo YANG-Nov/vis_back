@@ -32,6 +32,7 @@ import java.util.List;
 @Api(tags = "用户接口")
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 
 public class UserController {

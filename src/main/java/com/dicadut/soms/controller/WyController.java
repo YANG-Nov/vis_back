@@ -6,10 +6,7 @@ import com.dicadut.soms.service.WyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,6 +19,7 @@ import java.util.List;
 @Api(tags = "_大连湾大桥位移传感器接口")
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class WyController {
     @Resource

@@ -39,6 +39,7 @@ import java.util.List;
  */
 @Api(tags = "任务桥构件接口")
 @RestController
+@CrossOrigin
 @RequestMapping("/t_task_bridge_component")
 public class TaskBridgeComponentController {
 

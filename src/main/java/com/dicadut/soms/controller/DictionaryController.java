@@ -26,6 +26,7 @@ import java.util.List;
 @Api(tags = "字典接口")
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("/dictionary")
 public class DictionaryController {
 

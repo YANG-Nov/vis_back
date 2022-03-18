@@ -20,6 +20,7 @@ import java.util.List;
 @Api(tags = "构件接口")
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("/component")
 public class ComponentController {
 
