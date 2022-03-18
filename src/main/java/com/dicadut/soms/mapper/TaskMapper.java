@@ -51,7 +51,7 @@ public interface TaskMapper extends BaseMapper<Task> {
                  @Param("taskVO") TaskVO taskVO);
 
 
-    void addInspectorToTask(@Param("taskId") String taskId,
+    int addInspectorToTask(@Param("taskId") String taskId,
                             @Param("userId") String userId);
 
     /**

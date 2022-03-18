@@ -317,7 +317,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     @Override
     public void distributeTask(String taskId, String userId) {
-        baseMapper.addInspectorToTask(taskId, userId);
+        int updateRaws = baseMapper.addInspectorToTask(taskId, userId);
+        if (updateRaws <= 0){
+            throw new TaskException(20001,"分配人员失败");
+        }
     }
 
     /**
