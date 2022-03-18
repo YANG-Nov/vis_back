@@ -116,6 +116,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         diseaseDetailDTO.setDiseaseVideos(map.getOrDefault(SomsConstant.DISEASE_VIDEO, new ArrayList<>()));
         diseaseDetailDTO.setDiseaseVoices(map.getOrDefault(SomsConstant.DISEASE_VOICE, new ArrayList<>()));
         diseaseDetailDTO.setDiseaseTexts(map.getOrDefault(SomsConstant.DISEASE_TEXT, new ArrayList<>()));
+        diseaseDetailDTO.setDiseaseReviewOpinion(map.getOrDefault(SomsConstant.DISEASE_REVIEW_OPINION, new ArrayList<>()));
 
         return diseaseDetailDTO;
     }

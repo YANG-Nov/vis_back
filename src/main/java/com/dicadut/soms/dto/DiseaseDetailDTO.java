@@ -20,4 +20,5 @@ public class DiseaseDetailDTO {
     private List<DiseaseDetailListDTO> diseaseVideos = new ArrayList<>();
     private List<DiseaseDetailListDTO> diseaseVoices = new ArrayList<>();
     private List<DiseaseDetailListDTO> diseaseTexts = new ArrayList<>();
+    private List<DiseaseDetailListDTO> diseaseReviewOpinion = new ArrayList<>();
 }
