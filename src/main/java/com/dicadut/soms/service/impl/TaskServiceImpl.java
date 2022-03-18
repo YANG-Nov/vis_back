@@ -455,7 +455,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public void updateTaskStatus(String taskId, String taskStatusIdGo) {
-        baseMapper.updateTaskStatus(taskId, taskStatusIdGo);
+        int updateRaws = baseMapper.updateTaskStatus(taskId, taskStatusIdGo);
+        if(updateRaws <= 0){
+            throw new TaskException(20001,"修改失败");
+        }
     }
 
     @Override

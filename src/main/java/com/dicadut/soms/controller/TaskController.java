@@ -292,14 +292,14 @@ public class TaskController {
         return ResponseViewModel.ok();
     }
 
-    @ApiOperation(value = "添加任务领取时间", tags = {"App", "YANG", "App已通", "web", "未通"})
+    @ApiOperation(value = "添加任务领取时间", tags = {"App", "YANG", "App已通"})
     @PostMapping("update_receive_time")
     public ResponseViewModel updateReceiveTime(@RequestBody TaskReceiveTimeVO taskReceiveTimeVO){
         taskService.updateReceiveTime(taskReceiveTimeVO.getTaskId(),taskReceiveTimeVO.getTaskReceiveTime());
         return ResponseViewModel.ok();
     }
 
-    @ApiOperation(value = "添加巡检完成时间", tags = {"App", "YANG", "App已通", "web", "未通"})
+    @ApiOperation(value = "添加巡检完成时间", tags = {"App", "YANG", "App已通"})
     @PostMapping("update_finish_time")
     public ResponseViewModel updateFinishTime(@RequestBody TaskFinishTimeVO taskFinishTimeVO){
         taskService.updateFinishTime(taskFinishTimeVO.getTaskId(),taskFinishTimeVO.getTaskFinishTime());
