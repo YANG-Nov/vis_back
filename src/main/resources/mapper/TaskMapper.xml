@@ -322,4 +322,35 @@
                      LEFT JOIN t_component cc ON cc.id = c.parent_id
         WHERE bc.bridge_id BETWEEN #{start} AND #{end} AND FIND_IN_SET(bc.component_id,#{selectedComponents});
     </select>
+
+    <select id="getTaskDiseaseList" resultType="com.dicadut.soms.dto.TaskDiseaseDTO">
+        SELECT
+                t.task_type,
+                t.task_status,
+                t.start_time,
+                t.end_time,
+                t.remind_time,
+                t.recall_time,
+                t.inspection_position,
+                t.receive_time,
+                t.finish_time,
+                t.inspector_id,
+                t.create_by,
+                t.scan_positions,
+                t.review_opinion,
+                t.inspection_frequency,
+                t.id        taskId,
+                dr.bridge_id,
+                dr.component_id,
+                dr.disease_id,
+                dr.type,
+                dr.disease_attribute_id,
+                dr.content,
+                da.`value`,
+                da.unit
+        from t_task t
+                     LEFT JOIN soms.t_disease_record dr ON t.id = dr.task_id
+                     left join soms.t_disease_attribute da on dr.disease_attribute_id = da.id
+        WHERE t.id = #{taskId}
+    </select>
 </mapper>

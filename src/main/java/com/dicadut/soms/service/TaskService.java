@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.viewmodel.PageResult;
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.vo.*;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -55,7 +59,7 @@ public interface TaskService extends IService<Task> {
      * 前端传过来两级对象，第一级为任务信息，第二级为构件信息
      *
      * @param taskVO 添加的任务信息
-     * //暂时没有 Jane_TODO 2022/2/24 后期需要优化
+     *               //暂时没有 Jane_TODO 2022/2/24 后期需要优化
      * @author FanJane
      */
     void saveTask(TaskVO taskVO);
@@ -119,7 +123,7 @@ public interface TaskService extends IService<Task> {
      * // Jane_TODO add description
      *
      * @param taskVO 任务表单
-     * @return  任务预览
+     * @return 任务预览
      * @author FanJane
      */
     TaskContentDTO<SubTaskShowV0> getTaskPreview(TaskVO taskVO);
@@ -135,15 +139,34 @@ public interface TaskService extends IService<Task> {
 
     /**
      * 存储任务领取时间
-     * @param taskId 任务id
+     *
+     * @param taskId          任务id
      * @param taskReceiveTime 任务领取时间
      */
     void updateReceiveTime(String taskId, String taskReceiveTime);
 
     /**
      * 存储巡检完成时间
-     * @param taskId 任务id
+     *
+     * @param taskId         任务id
      * @param taskFinishTime 巡检完成时间
      */
     void updateFinishTime(String taskId, String taskFinishTime);
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId 任务id
+     * @return Jane_TODO 2022/3/18
+     * @author FanJane
+     */
+    List<InspectorDTO> getWaitReviewTask(String taskId);
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId
+     * @return java.util.List<com.dicadut.soms.dto.InspectorDTO>
+     * @author FanJane
+     */
+    TaskContentDTO getTaskRecord(String taskId);
 }

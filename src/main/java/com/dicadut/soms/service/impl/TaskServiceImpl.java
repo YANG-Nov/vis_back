@@ -12,9 +12,7 @@ import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.domain.User;
 import com.dicadut.soms.dto.*;
-import com.dicadut.soms.enumeration.SomsConstant;
-import com.dicadut.soms.enumeration.TaskStatusEnum;
-import com.dicadut.soms.enumeration.TypeNameEnum;
+import com.dicadut.soms.enumeration.*;
 import com.dicadut.soms.exception.TaskException;
 import com.dicadut.soms.mapper.BridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskBridgeComponentMapper;
@@ -23,11 +21,13 @@ import com.dicadut.soms.service.BusinessCodeService;
 import com.dicadut.soms.service.DictionaryService;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.service.UserService;
+import com.dicadut.soms.util.CopyUtils;
 import com.dicadut.soms.util.TaskUtil;
 import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.scripting.xmltags.ForEachSqlNode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -263,21 +263,25 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
         //获得打卡位置拼成字符串加入构件DTO
         List<SubTaskVO> subTaskVOS = taskVO.getSubTasks();
+        Set<String> scanTask = new HashSet<>();
         for (SubTaskVO subTaskVO : subTaskVOS) {
             //获得起始终止桩号
             String inspectionEnd = subTaskVO.getInspectionEnd();
             String inspectionStart = subTaskVO.getInspectionStart();
             String selectedComponents = StringUtils.join(subTaskVO.getSelectedComponents(), ",");
+
             List<SelectedComponentsDTO> selectedComponentsDTOS = baseMapper.selectComponents(inspectionStart, inspectionEnd, selectedComponents);
             //获得打卡位置
             String[] scanPositions = subTaskVO.getScanPositions();
-            //1.根据code查数据库返回codename
-            QueryWrapper<Dictionary> scanWrapper = new QueryWrapper<>();
-            scanWrapper.in("code", scanPositions);
-            List<Dictionary> dictionaries = dictionaryService.list(scanWrapper);
-            List<String> collect = dictionaries.stream().map(Dictionary::getCodeName).collect(Collectors.toList());
-            String scanPosition = StringUtils.join(collect, ",");
+            Set<String> scanSubTask = new HashSet<>();
+            for (String st: scanPositions){
+                String label = ScanPositionEnum.getEnum(st).getLabel();
+                scanSubTask.add(label);
+                scanTask.add(label);
+            }
+            String scanPosition = StringUtils.join(scanSubTask, ",");
             subTaskVO.setScanPosition(scanPosition);
+
             //子任务获得巡检位置
             String location = selectedComponentsDTOS.get(0).getLocation();
             List<String> positions = selectedComponentsDTOS.stream().map(SelectedComponentsDTO::getName).distinct().collect(Collectors.toList());
@@ -285,23 +289,25 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             inspectionPositions.add(locationPositions);
 
 
-
             //获得桥构件id
             List<String> bridgeComponentId = selectedComponentsDTOS.stream().map(SelectedComponentsDTO::getId).distinct().collect(Collectors.toList());
             //插入任务构件表
             int addRows = taskBridgeComponentMapper.addTaskComponent(taskId, subTaskVO, bridgeComponentId);
-            if(addRows <= 0){
-               throw new TaskException(20001,"添加失败");
+            if (addRows <= 0) {
+                throw new TaskException(20001, "添加失败");
             }
 
         }
         //获得任务的所有巡检位置
-        String inspectionPosition = StringUtils.join(inspectionPositions,";");
+        String inspectionPosition = StringUtils.join(inspectionPositions, ";");
         task.setInspectionPosition(inspectionPosition);
+        String scanPositions = StringUtils.join(scanTask, ",");
+        task.setScanPositions(scanPositions);
+
         //插入任务表
         int insertRaws = baseMapper.insert(task);
-        if(insertRaws <= 0){
-            throw new TaskException(20001,"添加失败");
+        if (insertRaws <= 0) {
+            throw new TaskException(20001, "添加失败");
         }
 
     }
@@ -318,8 +324,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public void distributeTask(String taskId, String userId) {
         int updateRaws = baseMapper.addInspectorToTask(taskId, userId);
-        if (updateRaws <= 0){
-            throw new TaskException(20001,"分配人员失败");
+        if (updateRaws <= 0) {
+            throw new TaskException(20001, "分配人员失败");
         }
     }
 
@@ -444,23 +450,23 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public void removeTask(String taskId) {
         //删除任务表
         int deleteRaws = baseMapper.deleteById(taskId);
-        if (deleteRaws <= 0){
-            throw new TaskException(20001,"删除失败,没有这条任务");
+        if (deleteRaws <= 0) {
+            throw new TaskException(20001, "删除失败,没有这条任务");
         }
         //删除bridge_component表
         HashMap<String, Object> removeByTaskId = new HashMap<>();
         removeByTaskId.put("task_id", taskId);
         int updateRaws = taskBridgeComponentMapper.deleteByMap(removeByTaskId);
-        if (updateRaws <= 0){
-            throw new TaskException(20001,"删除失败,没有这条任务");
+        if (updateRaws <= 0) {
+            throw new TaskException(20001, "删除失败,没有这条任务");
         }
     }
 
     @Override
     public void updateTaskStatus(String taskId, String taskStatusIdGo) {
         int updateRaws = baseMapper.updateTaskStatus(taskId, taskStatusIdGo);
-        if(updateRaws <= 0){
-            throw new TaskException(20001,"修改失败");
+        if (updateRaws <= 0) {
+            throw new TaskException(20001, "修改失败");
         }
     }
 
@@ -472,6 +478,43 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public void updateFinishTime(String taskId, String taskFinishTime) {
         baseMapper.updateTaskFinishTime(taskId, taskFinishTime);
+    }
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId 任务id
+     * @return Jane_TODO 2022/3/18
+     * @author FanJane
+     */
+    @Override
+    public List<InspectorDTO> getWaitReviewTask(String taskId) {
+        //获得所有数据
+        List<TaskDiseaseDTO> taskDiseaseDTOS = baseMapper.getTaskDiseaseList(taskId);
+
+        return null;
+    }
+
+    @Override
+    public TaskContentDTO getTaskRecord(String taskId) {
+        List<TaskDiseaseDTO> taskDiseaseDTOS = baseMapper.getTaskDiseaseList(taskId);
+        TaskContentDTO taskContentDTO = new TaskContentDTO<>();
+        //task
+        //BeanUtils.copyProperties(taskDiseaseDTOS.get(0),taskContentDTO);
+        //taskContentDTO.setTaskStatus(taskDiseaseDTOS.
+        // get(0).getTaskStatus());
+        TaskDiseaseDTO taskDiseaseDTO = taskDiseaseDTOS.get(0);
+        try {
+            CopyUtils.copyProperties(taskDiseaseDTO,taskContentDTO);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        String[] split = taskDiseaseDTO.getScanPositions().split(",");
+        Set<String> scanPositions = new HashSet<>(Arrays.asList(split));
+
+        taskContentDTO.setScanPositions(scanPositions);
+
+        return taskContentDTO;
     }
 
     @Override

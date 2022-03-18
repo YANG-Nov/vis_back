@@ -306,4 +306,40 @@ public class TaskController {
         taskService.updateFinishTime(taskFinishTimeVO.getTaskId(),taskFinishTimeVO.getTaskFinishTime());
         return ResponseViewModel.ok();
     }
+
+
+
+
+
+
+    /**
+     * // Jane_TODO add description wait finish
+     *
+     * @param taskId
+     * @return com.dicadut.soms.viewmodel.ResponseViewModel<java.util.List < com.dicadut.soms.dto.InspectorDTO>>
+     * @author FanJane
+     */
+    @ApiOperation(value = "获得待审核任务表单", tags = {"web", "任务列表页", "jane", "未通"}
+            , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
+    @GetMapping("/get_wait_review_task/(taskId)")
+
+    public ResponseViewModel<List<InspectorDTO>> getWaitReviewTask(@PathVariable String taskId) {
+        List<InspectorDTO> taskUserDistributeList = taskService.getWaitReviewTask(taskId);
+        return ResponseViewModel.ok(taskUserDistributeList);
+    }
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId
+     * @return com.dicadut.soms.viewmodel.ResponseViewModel<java.util.List < com.dicadut.soms.dto.InspectorDTO>>
+     * @author FanJane
+     */
+    @ApiOperation(value = "获得任务记录", tags = {"web", "任务列表页", "jane", "未通"}
+            , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
+    @GetMapping("/get_task_record/{taskId}")
+    public ResponseViewModel<TaskContentDTO> getTaskRecord(@PathVariable String taskId) {
+        TaskContentDTO taskUserDistributeList = taskService.getTaskRecord(taskId);
+        return ResponseViewModel.ok(taskUserDistributeList);
+    }
 }

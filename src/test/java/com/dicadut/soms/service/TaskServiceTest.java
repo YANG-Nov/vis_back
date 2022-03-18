@@ -24,6 +24,13 @@ public class TaskServiceTest {
     private TaskService taskService;
 
     @Test
+    public void getTaskRecord() {
+        log.info("#### 启动单元测试 getThisYearTaskList");
+        log.info("{}", taskService.getTaskRecord("20220119000001"));
+        log.info("#### 结束单元测试 getThisYearTaskList");
+    }
+
+    @Test
     public void getThisYearTaskList() {
         log.info("#### 启动单元测试 getThisYearTaskList");
         log.info("{}", taskService.getThisYearTaskList("2021-01-01 00:00:00", "2021-12-31 23:59:59"));

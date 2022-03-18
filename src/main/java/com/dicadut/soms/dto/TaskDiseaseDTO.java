@@ -1,28 +1,20 @@
-package com.dicadut.soms.domain;
+package com.dicadut.soms.dto;
 
 import com.baomidou.mybatisplus.annotation.*;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
  * @author fan_jennifer
- * @create 2021-10-2021/10/22 14:12
+ * @version 1.0
+ * @description Jane_TODO
+ * @date 2022-03-18 13:38
  */
 @Data
-@TableName("t_task")
-@NoArgsConstructor
-@AllArgsConstructor
-@ApiModel(value="Task对象", description="任务表")
-public class Task implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class TaskDiseaseDTO {
 
     @ApiModelProperty(value = "任务id: 格式 yyyyMMddxxxxxx，长度14位, 支持每日最多生成999999个任务")
     @TableId
@@ -50,10 +42,6 @@ public class Task implements Serializable {
     private String inspectionPosition;
     @ApiModelProperty(value = "巡检部位")
     private String inspectionFrequency;
-
-    @ApiModelProperty(value = "打卡位置")
-    private String scanPositions;
-
     @ApiModelProperty(value = "任务领取时间，精确到时")
     private LocalDateTime receiveTime;
 
@@ -68,20 +56,39 @@ public class Task implements Serializable {
 
     @ApiModelProperty(value = "任务审核意见")
     private String reviewOpinion;
+    @ApiModelProperty(value = "打卡位置")
+    private String scanPositions;
 
-    @ApiModelProperty(value = "乐观锁")
-    @Version
-    private Integer version;
+    //diseaseRecord
 
-    @ApiModelProperty(value = "逻辑删, 0未删, 1已删")
-    @TableLogic
-    private Integer isDeleted;
+    @ApiModelProperty(value = "任务编号")
+    private String taskId;
 
-    @ApiModelProperty(value = "创建时间")
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    @ApiModelProperty(value = "构件id")
+    private String componentId;
 
-    @ApiModelProperty(value = "更新时间")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
+    @ApiModelProperty(value = "桥桩号id")
+    private String bridgeId;
+
+    @ApiModelProperty(value = "病害种类id")
+    private String diseaseId;
+
+    @ApiModelProperty(value = "病害记录种类：(1)输入框,(2)下拉框,(3)单选框,(4)照片/视频,(5)语音,(6)文本")
+    private Integer type;
+
+    @ApiModelProperty(value = "病害属性id")
+    private String diseaseAttributeId;
+
+    @ApiModelProperty(value = "病害记录内容")
+    private String content;
+
+    //diseaseAttribute
+    private String name;
+    private String group;
+    private String value;
+    private String uint;
+
+
+
+
 }
