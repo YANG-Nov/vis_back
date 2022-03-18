@@ -26,6 +26,7 @@ import java.util.List;
 @Api(tags = "任务接口")
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("/task")
 public class TaskController {
 
