@@ -34,6 +34,7 @@ public class DiseaseRecordDTO {
     private List<Item> featurePopups;
     private List<Item> featureRadios;
     private List<Item> diseasePictures;
+    private List<Item> diseaseVideos;
     private List<Item> diseaseVoices;
     private List<Item> diseaseTexts;
 

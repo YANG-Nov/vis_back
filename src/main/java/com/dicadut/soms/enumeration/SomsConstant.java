@@ -19,8 +19,9 @@ public final class SomsConstant {
     public static final String FEATURE_POPUP = "2";
     public static final String FEATURE_RADIO = "3";
     public static final String DISEASE_PICTURE = "4";
-    public static final String DISEASE_VOICE = "5";
-    public static final String DISEASE_TEXT = "6";
+    public static final String DISEASE_VIDEO = "5";
+    public static final String DISEASE_VOICE = "6";
+    public static final String DISEASE_TEXT = "7";
 
     //dictionary
     public static final String TYPE = "type";

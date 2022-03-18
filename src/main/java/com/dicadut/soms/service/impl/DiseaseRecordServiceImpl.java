@@ -35,6 +35,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         items.addAll(diseaseRecordDTO.getFeaturePopups());
         items.addAll(diseaseRecordDTO.getFeatureRadios());
         items.addAll(diseaseRecordDTO.getDiseasePictures());
+        items.addAll(diseaseRecordDTO.getDiseaseVideos());
         items.addAll(diseaseRecordDTO.getDiseaseVoices());
         items.addAll(diseaseRecordDTO.getDiseaseTexts());
 
@@ -112,6 +113,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         diseaseDetailDTO.setFeaturePopups(map1.getOrDefault(SomsConstant.FEATURE_POPUP, new ArrayList<>()));
         diseaseDetailDTO.setFeatureRadios(map1.getOrDefault(SomsConstant.FEATURE_RADIO, new ArrayList<>()));
         diseaseDetailDTO.setDiseasePictures(map.getOrDefault(SomsConstant.DISEASE_PICTURE, new ArrayList<>()));
+        diseaseDetailDTO.setDiseaseVideos(map.getOrDefault(SomsConstant.DISEASE_VIDEO, new ArrayList<>()));
         diseaseDetailDTO.setDiseaseVoices(map.getOrDefault(SomsConstant.DISEASE_VOICE, new ArrayList<>()));
         diseaseDetailDTO.setDiseaseTexts(map.getOrDefault(SomsConstant.DISEASE_TEXT, new ArrayList<>()));
 

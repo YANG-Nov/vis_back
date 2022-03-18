@@ -17,6 +17,7 @@ public class DiseaseDetailDTO {
     private List<DiseaseDetailListDTO> featurePopups = new ArrayList<>();
     private List<DiseaseDetailListDTO> featureRadios = new ArrayList<>();
     private List<DiseaseDetailListDTO> diseasePictures = new ArrayList<>();
+    private List<DiseaseDetailListDTO> diseaseVideos = new ArrayList<>();
     private List<DiseaseDetailListDTO> diseaseVoices = new ArrayList<>();
     private List<DiseaseDetailListDTO> diseaseTexts = new ArrayList<>();
 }
