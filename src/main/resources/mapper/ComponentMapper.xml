@@ -46,4 +46,12 @@
                 AND bc.component_id = #{componentId}
     </select>
 
+    <select id="selectComponentNumberAppList" resultType="com.dicadut.soms.dto.ComponentNumberAppListDTO">
+        SELECT
+                bc.id componentNumberId,
+                bc.order_number componentNumber
+        FROM soms.t_bridge_component bc
+        WHERE
+                (bc.component_id,bc.bridge_id) = (#{componentId},#{positionId})
+    </select>
 </mapper>

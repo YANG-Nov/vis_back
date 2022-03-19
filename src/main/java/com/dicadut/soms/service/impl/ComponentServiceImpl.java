@@ -89,4 +89,15 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     public List<ComponentPositionAppListDTO> getComponentPositionAppList(String taskId, String componentId) {
         return baseMapper.selectComponentPositionAppList(taskId, componentId);
     }
+
+    /**
+     * APP添加病害页面，选择构件编号
+     * @param componentId 构件id
+     * @param positionId 位置id
+     * @return 构件所对应的该桩号下的构件编号
+     */
+    @Override
+    public List<ComponentNumberAppListDTO> getComponentNumberAppList(String componentId, String positionId) {
+        return baseMapper.selectComponentNumberAppList(componentId, positionId);
+    }
 }

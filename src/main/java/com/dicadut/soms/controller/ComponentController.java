@@ -1,6 +1,7 @@
 package com.dicadut.soms.controller;
 
 import com.dicadut.soms.dto.ComponentDTO;
+import com.dicadut.soms.dto.ComponentNumberAppListDTO;
 import com.dicadut.soms.dto.ComponentPositionAppListDTO;
 import com.dicadut.soms.dto.TaskComponentAppDTO;
 import com.dicadut.soms.service.ComponentService;
@@ -63,5 +64,19 @@ public class ComponentController {
             , @RequestParam String componentId) {
         List<ComponentPositionAppListDTO> componentPositionAppList = componentService.getComponentPositionAppList(taskId, componentId);
         return ResponseViewModel.ok(componentPositionAppList);
+    }
+
+    /**
+     * APP添加病害页面，选择构件编号
+     * @param componentId 构件id
+     * @param positionId 位置id
+     * @return 构件所对应的该桩号下的构件编号
+     */
+    @ApiOperation(value = "APP添加病害页面，选择构件编号", tags = {"App","YANG","App未通"})
+    @GetMapping("get_component_number_app_list")
+    public ResponseViewModel<List<ComponentNumberAppListDTO>> getComponentNumberAppList(@RequestParam String componentId
+            , @RequestParam String positionId) {
+        List<ComponentNumberAppListDTO> componentNumberAppList = componentService.getComponentNumberAppList(componentId, positionId);
+        return ResponseViewModel.ok(componentNumberAppList);
     }
 }

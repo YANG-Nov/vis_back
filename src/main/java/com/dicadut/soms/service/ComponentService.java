@@ -3,6 +3,7 @@ package com.dicadut.soms.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.ComponentDTO;
 import com.dicadut.soms.domain.Component;
+import com.dicadut.soms.dto.ComponentNumberAppListDTO;
 import com.dicadut.soms.dto.ComponentPositionAppListDTO;
 import com.dicadut.soms.dto.TaskComponentAppDTO;
 
@@ -30,4 +31,12 @@ public interface ComponentService extends IService<Component> {
      * @return  构件所对应的桩号列表
      */
     List<ComponentPositionAppListDTO> getComponentPositionAppList(String taskId, String componentId);
+
+    /**
+     * APP添加病害页面，选择构件编号
+     * @param componentId 构件id
+     * @param positionId 位置id
+     * @return 构件所对应的该桩号下的构件编号
+     */
+    List<ComponentNumberAppListDTO> getComponentNumberAppList(String componentId, String positionId);
 }
