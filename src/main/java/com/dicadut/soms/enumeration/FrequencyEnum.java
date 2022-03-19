@@ -1,8 +1,8 @@
 package com.dicadut.soms.enumeration;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import com.dicadut.soms.dto.TypeNameDTO;
+
+import java.util.*;
 
 /**
  * @author fan_jennifer
@@ -49,5 +49,15 @@ public enum FrequencyEnum {
 
     public static FrequencyEnum getEnum(String value) {
         return codeEnumMap.get(value);
+    }
+    public static List<TypeNameDTO> getAllEnum(){
+        List<TypeNameDTO> typeNameDTOs = new ArrayList<>();
+        for (Map.Entry<String, FrequencyEnum> entry : codeEnumMap.entrySet()) {
+            TypeNameDTO typeNameDTO = new TypeNameDTO();
+            typeNameDTO.setCode(entry.getKey());
+            typeNameDTO.setCodeName(findByValue(entry.getKey()));
+            typeNameDTOs.add(typeNameDTO);
+        }
+        return typeNameDTOs;
     }
 }

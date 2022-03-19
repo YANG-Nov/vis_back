@@ -1,9 +1,9 @@
 package com.dicadut.soms.enumeration;
 
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import com.dicadut.soms.dto.TypeNameDTO;
+
+import java.util.*;
 
 /**
  * @author Radium
@@ -48,6 +48,17 @@ public enum TaskTypeEnum {
     }
 
     public static TaskTypeEnum getEnum(String value) {
+
         return codeEnumMap.get(value);
+    }
+    public static List<TypeNameDTO> getAllEnum(){
+        List<TypeNameDTO> typeNameDTOs = new ArrayList<>();
+        for (Map.Entry<String, TaskTypeEnum> entry : codeEnumMap.entrySet()) {
+            TypeNameDTO typeNameDTO = new TypeNameDTO();
+            typeNameDTO.setCode(entry.getKey());
+            typeNameDTO.setCodeName(findByValue(entry.getKey()));
+            typeNameDTOs.add(typeNameDTO);
+        }
+        return typeNameDTOs;
     }
 }

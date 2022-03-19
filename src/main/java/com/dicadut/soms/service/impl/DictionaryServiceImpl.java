@@ -1,18 +1,19 @@
 package com.dicadut.soms.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.dto.TypeNameDTO;
-import com.dicadut.soms.enumeration.SomsConstant;
+import com.dicadut.soms.enumeration.FrequencyEnum;
+
+import com.dicadut.soms.enumeration.TaskTypeEnum;
+import com.dicadut.soms.enumeration.TypeNameEnum;
+import com.dicadut.soms.exception.TaskException;
 import com.dicadut.soms.mapper.DictionaryMapper;
 import com.dicadut.soms.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -35,14 +36,14 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
 
     @Override
     public List<TypeNameDTO> getTypeNames(String type) {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        List<Dictionary> dictionaries = baseMapper.selectList(dictionaryQueryWrapper.eq(SomsConstant.TYPE, type));
+        if (TypeNameEnum.COMPONENT_INSPECTION_FREQUENCY.getValue().equals(type)) {
+            return FrequencyEnum.getAllEnum();
+        }
+        if (TypeNameEnum.TASK_TYPE.getValue().equals(type)) {
+            return TaskTypeEnum.getAllEnum();
+        }
+        throw new TaskException(20001, "输入类型错误");
 
-        List<TypeNameDTO> typeNameDTOS = dictionaries.stream().map(dictionary -> {
-            TypeNameDTO typeNameDTO = new TypeNameDTO();
-            BeanUtils.copyProperties(dictionary,typeNameDTO);
-            return typeNameDTO;
-        }).collect(Collectors.toList());
-        return typeNameDTOS;
     }
+
 }
