@@ -2,6 +2,7 @@ package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.domain.TaskBridgeComponent;
+import com.dicadut.soms.dto.BridgeComponentTest;
 import com.dicadut.soms.vo.SubTaskVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,7 +29,13 @@ public interface TaskBridgeComponentMapper extends BaseMapper<TaskBridgeComponen
     int addTaskComponent(@Param("taskId") String taskId,
                           @Param("subTaskVO") SubTaskVO subTaskVO,
                           @Param("list") List<String> selectedComponents);
-
-
+    //改bridgeComponent表
+    List<BridgeComponentTest> getBridgeComponentList();
+    //改bridgeComponent表
+    void setName(@Param("bridge") String bridgeId,@Param("component") String componentId,@Param("str") String str);
+    //改bridgeComponent表
+    List<BridgeComponentTest> getBridgeComponentParentList();
+    //改bridgeComponent表
+    void setBridgePosition(@Param("bridge") String bridgeId,@Param("component") String componentId,@Param("str") String str);
 
 }

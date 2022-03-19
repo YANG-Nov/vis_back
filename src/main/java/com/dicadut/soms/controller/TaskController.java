@@ -331,12 +331,12 @@ public class TaskController {
     /**
      * // Jane_TODO add description
      *
-     * @param taskId
-     * @return com.dicadut.soms.viewmodel.ResponseViewModel<java.util.List < com.dicadut.soms.dto.InspectorDTO>>
+     * @param taskId 任务id
+     * @return
      * @author FanJane
      */
-    @ApiOperation(value = "获得任务记录", tags = {"web", "任务列表页", "jane", "未通"}
-            , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
+    @ApiOperation(value = "获得任务记录", tags = {"web", "巡检记录页", "jane", "未通"}
+            , notes = "巡检记录页点查看获得任务以及病害记录")
     @GetMapping("/get_task_record/{taskId}")
     public ResponseViewModel<TaskContentDTO> getTaskRecord(@PathVariable String taskId) {
         TaskContentDTO taskUserDistributeList = taskService.getTaskRecord(taskId);

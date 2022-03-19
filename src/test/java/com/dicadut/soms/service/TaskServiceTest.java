@@ -23,10 +23,20 @@ public class TaskServiceTest {
     @Resource
     private TaskService taskService;
 
+    @Resource
+    private  TaskBridgeComponentService taskBridgeComponentService;
+
     @Test
-    public void getTaskRecord() {
+    public void setName() {
         log.info("#### 启动单元测试 getThisYearTaskList");
-        log.info("{}", taskService.getTaskRecord("20220119000001"));
+        log.info("{}", taskBridgeComponentService.getName());
+        log.info("#### 结束单元测试 getThisYearTaskList");
+    }
+
+    @Test
+    public void setBridgePosition() {
+        log.info("#### 启动单元测试 getThisYearTaskList");
+        log.info("{}", taskBridgeComponentService.setBridgePosition());
         log.info("#### 结束单元测试 getThisYearTaskList");
     }
 
@@ -90,6 +100,11 @@ public class TaskServiceTest {
         log.info("{}", taskService.getUpdateTask("20220119000001"));
         log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
     }
-
+    @Test
+    public void getTaskRecord() {
+        log.info("#### 启动单元测试 getThisYearTaskList");
+        log.info("{}", taskService.getTaskRecord("20220119000001"));
+        log.info("#### 结束单元测试 getThisYearTaskList");
+    }
 
 }

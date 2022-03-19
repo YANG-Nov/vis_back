@@ -496,24 +496,30 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public TaskContentDTO getTaskRecord(String taskId) {
+    public TaskContentDTO<DiseaseRecordVO> getTaskRecord(String taskId) {
         List<TaskDiseaseDTO> taskDiseaseDTOS = baseMapper.getTaskDiseaseList(taskId);
-        TaskContentDTO taskContentDTO = new TaskContentDTO<>();
+        TaskContentDTO<DiseaseRecordVO> taskContentDTO = new TaskContentDTO<>();
         //task
-        //BeanUtils.copyProperties(taskDiseaseDTOS.get(0),taskContentDTO);
-        //taskContentDTO.setTaskStatus(taskDiseaseDTOS.
-        // get(0).getTaskStatus());
         TaskDiseaseDTO taskDiseaseDTO = taskDiseaseDTOS.get(0);
         try {
             CopyUtils.copyProperties(taskDiseaseDTO,taskContentDTO);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        //Set<string> scanPositions
         String[] split = taskDiseaseDTO.getScanPositions().split(",");
         Set<String> scanPositions = new HashSet<>(Arrays.asList(split));
-
         taskContentDTO.setScanPositions(scanPositions);
+        //disease record
+        List<TaskDiseaseDTO> collect = taskDiseaseDTOS.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(TaskDiseaseDTO::getRecordId))), ArrayList::new));
+        List<DiseaseRecordVO> diseaseRecordVOs = new ArrayList<>();
+        for (TaskDiseaseDTO d: collect) {
+            DiseaseRecordVO diseaseRecordVO = new DiseaseRecordVO();
+            BeanUtils.copyProperties(d,diseaseRecordVO);
+            diseaseRecordVOs.add(diseaseRecordVO);
+        }
 
+        taskContentDTO.setSubTasks(diseaseRecordVOs);
         return taskContentDTO;
     }
 

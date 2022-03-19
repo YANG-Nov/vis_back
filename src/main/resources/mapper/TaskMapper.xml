@@ -347,10 +347,21 @@
                 dr.disease_attribute_id,
                 dr.content,
                 da.`value`,
-                da.unit
+                da.unit,
+                bc.component_number,
+                b.location,
+                bc.bridge_position,
+                d.`name`,
+                dr.record_id,
+                dr.attribute
+
         from t_task t
                      LEFT JOIN soms.t_disease_record dr ON t.id = dr.task_id
                      left join soms.t_disease_attribute da on dr.disease_attribute_id = da.id
-        WHERE t.id = #{taskId}
+                     LEFT JOIN t_task_bridge_component tbc ON tbc.task_id = t.id
+                     LEFT JOIN t_bridge_component bc ON bc.id = tbc.bridge_component_id
+                     LEFT JOIN t_bridge b ON dr.bridge_id = b.id
+                     LEFT JOIN t_disease d ON d.id = dr.disease_id
+        where t.id = #{taskId}
     </select>
 </mapper>

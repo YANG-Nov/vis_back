@@ -73,6 +73,12 @@ public class TaskDiseaseDTO {
     @ApiModelProperty(value = "病害种类id")
     private String diseaseId;
 
+
+    private String recordId;
+
+    private String attribute;
+
+
     @ApiModelProperty(value = "病害记录种类：(1)输入框,(2)下拉框,(3)单选框,(4)照片/视频,(5)语音,(6)文本")
     private Integer type;
 
@@ -83,10 +89,22 @@ public class TaskDiseaseDTO {
     private String content;
 
     //diseaseAttribute
-    private String name;
     private String group;
     private String value;
     private String uint;
+
+    //component
+    private String componentNumber;
+    private String bridgePosition;
+
+    //bridge
+    private String location;
+
+
+
+    //disease
+    private String name;
+
 
 
 

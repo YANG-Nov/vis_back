@@ -19,4 +19,38 @@
             (#{taskId},#{subTaskVO.inspectionRoute},#{subTaskVO.inspectionStart},#{subTaskVO.inspectionEnd},#{subTaskVO.scanPosition},#{item})
         </foreach>
     </insert>
+
+    <select id="getBridgeComponentList" resultType="com.dicadut.soms.dto.BridgeComponentTest">
+        SELECT
+                bc.bridge_id,
+                bc.component_id,
+                b.stake_or_truss_number,
+                c.`name`
+        FROM t_bridge_component bc
+                     LEFT JOIN t_bridge b ON b.id = bc.bridge_id
+                     LEFT JOIN t_component c ON c.id = bc.component_id
+        WHERE 1 = 1
+    </select>
+
+    <update id="setName">
+        UPDATE t_bridge_component bc
+        SET `name` = #{str}
+        WHERE bc.component_id = #{component} AND bc.bridge_id = #{bridge}
+    </update>
+
+    <select id="getBridgeComponentParentList" resultType="com.dicadut.soms.dto.BridgeComponentTest">
+        SELECT
+                bc.bridge_id,
+                bc.component_id,
+                c.parent_id
+
+        FROM `t_bridge_component` bc
+                     LEFT JOIN t_component c ON c.id = bc.component_id
+    </select>
+
+    <update id="setBridgePosition">
+        UPDATE t_bridge_component bc
+        SET `bridge_position` = #{str}
+        WHERE bc.component_id = #{component} AND bc.bridge_id = #{bridge}
+    </update>
 </mapper>
