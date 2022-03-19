@@ -52,7 +52,7 @@ public interface TaskMapper extends BaseMapper<Task> {
 
 
     int addInspectorToTask(@Param("taskId") String taskId,
-                            @Param("userId") String userId);
+                           @Param("userId") String userId);
 
     /**
      * 根据当前任务id查询任务构件编号表，桥梁构件关联表，，构件表，桥梁表
@@ -146,5 +146,15 @@ public interface TaskMapper extends BaseMapper<Task> {
     void updateTaskFinishTime(String taskId, String taskFinishTime);
 
     List<SelectedComponentsDTO> selectComponents(@Param("start") String inspectionStart, @Param("end") String inspectionEnd,
-                                                 @Param("selectedComponents")String selectedComponents);
+                                                 @Param("selectedComponents") String selectedComponents);
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskId 任务id
+     * @return Jane_TODO 2022/3/18
+     * @author FanJane
+     */
+    List<TaskDiseaseDTO> getTaskDiseaseList(String taskId);
+
 }
