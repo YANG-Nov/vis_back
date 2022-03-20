@@ -20,7 +20,7 @@ public class DiseaseRecordVO {
     //bridge
     private String location;
     //diseaseRecord
-    private String recordId;
+    private Integer recordId;
     private String attribute;
 
 }

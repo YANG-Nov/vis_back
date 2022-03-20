@@ -352,15 +352,13 @@
                 b.location,
                 bc.bridge_position,
                 d.`name`,
-                dr.record_id,
-                dr.attribute
+                dr.record_id
 
-        from t_task t
+        FROM t_task t
                      LEFT JOIN soms.t_disease_record dr ON t.id = dr.task_id
                      left join soms.t_disease_attribute da on dr.disease_attribute_id = da.id
-                     LEFT JOIN t_task_bridge_component tbc ON tbc.task_id = t.id
-                     LEFT JOIN t_bridge_component bc ON bc.id = tbc.bridge_component_id
-                     LEFT JOIN t_bridge b ON dr.bridge_id = b.id
+                     LEFT JOIN t_bridge_component bc ON dr.component_id = bc.component_id AND dr.bridge_id = bc.bridge_id AND dr.order_number =bc.order_number
+                     LEFT JOIN t_bridge b ON b.id = dr.bridge_id
                      LEFT JOIN t_disease d ON d.id = dr.disease_id
         where t.id = #{taskId}
     </select>

@@ -509,6 +509,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public TaskContentDTO<DiseaseRecordVO> getTaskRecord(String taskId) {
+        //得到当前task的所有record
         List<TaskDiseaseDTO> taskDiseaseDTOS = baseMapper.getTaskDiseaseList(taskId);
         TaskContentDTO<DiseaseRecordVO> taskContentDTO = new TaskContentDTO<>();
         //task
@@ -525,11 +526,38 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         taskContentDTO.setScanPositions(scanPositions);
 
         //disease record
-        List<TaskDiseaseDTO> collect = taskDiseaseDTOS.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(TaskDiseaseDTO::getRecordId))), ArrayList::new));
+        //得到去重得仅有一个recordId得record
+        List<TaskDiseaseDTO> onlyRecords = taskDiseaseDTOS.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(TaskDiseaseDTO::getRecordId))), ArrayList::new));
         List<DiseaseRecordVO> diseaseRecordVOs = new ArrayList<>();
-        for (TaskDiseaseDTO d : collect) {
+        //得到库里的每一个唯一的record_id记录
+        for (TaskDiseaseDTO only : onlyRecords) {
+            Integer recordId = only.getRecordId();
+            Set<String> strings = new HashSet<>();
+            //从所有病害记录中得到当前record_id的所有病害记录
+            List<TaskDiseaseDTO> diseaseRecordDeleteList = taskDiseaseDTOS.stream().filter(t -> t.getRecordId().equals(recordId)).collect(Collectors.toList());
+
+            for (TaskDiseaseDTO s : diseaseRecordDeleteList) {
+                String type = s.getType().toString();
+
+                if (SomsConstant.FEATURE_FIELD.equals(type)) {
+                    String diseaseAttributeId = s.getDiseaseAttributeId();
+                    String content = s.getContent();
+                    String st = DiseaseAttributeEnum.findByValue(diseaseAttributeId) + ":" + content + DiseaseUnitEnum.findByValue(diseaseAttributeId);
+                    strings.add(st);
+                }
+                if (SomsConstant.FEATURE_POPUP.equals(type)||SomsConstant.FEATURE_RADIO.equals(type)) {
+                    String content = s.getContent();
+                    String st = DiseaseAttributeEnum.findByValue(type) + ":" + content;
+                    strings.add(st);
+                }
+            }
+            String join = StringUtils.join(strings, ";");
+
+
             DiseaseRecordVO diseaseRecordVO = new DiseaseRecordVO();
-            BeanUtils.copyProperties(d, diseaseRecordVO);
+            BeanUtils.copyProperties(only, diseaseRecordVO);
+
+            diseaseRecordVO.setAttribute(join);
             diseaseRecordVOs.add(diseaseRecordVO);
         }
         taskContentDTO.setSubTasks(diseaseRecordVOs);

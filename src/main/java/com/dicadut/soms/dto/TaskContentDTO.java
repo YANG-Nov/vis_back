@@ -36,7 +36,8 @@ public class TaskContentDTO<E> {
     private String createBy;
 
     @EnumMapper(AllEnum.class)
-    private String inspector;
+    @JsonProperty("inspector")
+    private String inspectorId;
 
     private LocalDate startTime;
     private LocalDate endTime;

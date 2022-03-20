@@ -74,9 +74,8 @@ public class TaskDiseaseDTO {
     private String diseaseId;
 
 
-    private String recordId;
+    private Integer recordId;
 
-    private String attribute;
 
 
     @ApiModelProperty(value = "病害记录种类：(1)输入框,(2)下拉框,(3)单选框,(4)照片/视频,(5)语音,(6)文本")

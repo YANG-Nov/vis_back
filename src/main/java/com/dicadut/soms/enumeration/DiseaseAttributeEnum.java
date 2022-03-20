@@ -34,7 +34,10 @@ public enum DiseaseAttributeEnum {
     ACCUMULATED_AREA("12001", "累计面积"),
     TOTAL_AREA("12101", "总面积"),
     BUCKLING_LENGTH("12201", "翘曲长度"),
-    COMPONENT_AMOUNT("12301", "构件数");
+    COMPONENT_AMOUNT("12301", "构件数"),
+    EXTENT("2", "程度"),
+    JUDGE("3", "判断");
+
 
 
     private String value;//key
