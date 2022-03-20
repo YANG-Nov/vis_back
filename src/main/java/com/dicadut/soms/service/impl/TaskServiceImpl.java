@@ -663,5 +663,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return PageResult.buildPage(page);
     }
 
+    @Override
+    public TaskReviewOpinionDTO getTaskReviewOpinion(String taskId){
+        TaskReviewOpinionDTO taskReviewOpinionDTO = baseMapper.selectTaskReviewOpinion(taskId);
+        return taskReviewOpinionDTO;
+    }
 
 }

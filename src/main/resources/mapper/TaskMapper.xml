@@ -364,4 +364,11 @@
                      LEFT JOIN t_disease d ON d.id = dr.disease_id
         where t.id = #{taskId}
     </select>
+
+    <select id="selectTaskReviewOpinion" resultType="com.dicadut.soms.dto.TaskReviewOpinionDTO">
+        SELECT
+            t.review_opinion
+        FROM soms.t_task t
+        WHERE t.id = #{taskId}
+    </select>
 </mapper>
