@@ -31,5 +31,7 @@ public class DiseaseRecordTableDTO {
         private String diseaseId;
         private String disease;
         private Integer recordId;
+        private Integer orderNumber;
+        private String highlight;
     }
 }

@@ -11,5 +11,5 @@ import lombok.Data;
 @Data
 public class ComponentNumberAppListDTO {
     private String OrderNumberId;
-    private String OrderNumber;
+    private Integer OrderNumber;
 }

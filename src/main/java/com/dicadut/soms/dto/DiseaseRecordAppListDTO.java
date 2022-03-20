@@ -41,8 +41,10 @@ public class DiseaseRecordAppListDTO {
     private List<Item> featurePopups = new ArrayList<>();
     private List<Item> featureRadios = new ArrayList<>();
     private List<Item> diseasePictures = new ArrayList<>();
+    private List<Item> diseaseVideos = new ArrayList<>();
     private List<Item> diseaseVoices = new ArrayList<>();
     private List<Item> diseaseTexts = new ArrayList<>();
+    private List<Item> diseaseReviewOpinion = new ArrayList<>();
     @Data
     public class Item {
         @ApiModelProperty(value = "病害属性id")

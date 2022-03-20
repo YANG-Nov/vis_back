@@ -61,7 +61,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         saveBatch(list);
     }
 
-    //App添加病害记录前，先通过4个id查出病害记录并删除
+    //App添加病害记录前，先通过2个id查出病害记录并删除
     @Override
     public void deleteDiseaseRecord(DiseaseRecordDTO diseaseRecordDTO) {
         String taskId = diseaseRecordDTO.getTaskId();
@@ -146,6 +146,8 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
             of.setDiseaseId(diseaseRecordTableListDTO.getDiseaseId());
             of.setDisease(diseaseRecordTableListDTO.getDisease());
             of.setTaskId(diseaseRecordTableListDTO.getTaskId());
+            of.setRecordId(diseaseRecordTableListDTO.getRecordId());
+            of.setOrderNumber(diseaseRecordTableListDTO.getOrderNumber());
             map.get(inspectionLocation).add(of);
         }
         //遍历map集合

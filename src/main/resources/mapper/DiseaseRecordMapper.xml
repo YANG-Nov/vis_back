@@ -33,7 +33,7 @@
         LEFT JOIN t_disease d on dr.disease_id = d.id
         where (dr.task_id,dr.component_id) = (#{taskId},#{componentId})
           and dr.is_deleted = 0
-        GROUP BY bridge_id,disease_id
+        GROUP BY dr.record_id
     </select>
 
     <select id="selectDiseaseRecordDeleteList" resultType="com.dicadut.soms.domain.DiseaseRecord">
@@ -93,7 +93,8 @@
                 b.stake_or_truss_number position,
                 dr.disease_id,
                 d.`name` disease,
-                dr.record_id
+                dr.record_id,
+                dr.order_number
         FROM soms.t_disease_record dr
                 LEFT JOIN soms.t_bridge b on dr.bridge_id = b.id
                 LEFT JOIN soms.t_component c on dr.component_id = c.id
