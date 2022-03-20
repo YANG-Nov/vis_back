@@ -26,5 +26,7 @@ public final class SomsConstant {
 
     //dictionary
     public static final String TYPE = "type";
+    //task_bridge_component
+    public static final String TASK_ID = "task_id";
 
 }

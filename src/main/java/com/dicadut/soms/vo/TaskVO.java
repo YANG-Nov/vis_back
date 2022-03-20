@@ -21,7 +21,8 @@ public class TaskVO {
     @JsonProperty("jobType")
     private String taskType;
     @ApiModelProperty(value = "task的id")
-    private String taskId;
+    @JsonProperty("taskId")
+    private String id;
     @ApiModelProperty(value = "巡检人员id")
     private String inspector;
     @ApiModelProperty(value = "任务类型: 1001000001 日常巡检, 1001000002 定期检查,1001000003 特殊检查 1001000004 养护维修  ")

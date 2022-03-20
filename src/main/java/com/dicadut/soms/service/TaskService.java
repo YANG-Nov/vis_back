@@ -126,7 +126,7 @@ public interface TaskService extends IService<Task> {
      * @return 任务预览
      * @author FanJane
      */
-    TaskContentDTO<SubTaskShowV0> getTaskPreview(TaskVO taskVO);
+    TaskContentDTO<SubTaskShowV0> getTaskPreview(TaskVO taskVO) ;
 
     /**
      * // Jane_TODO add description
