@@ -42,6 +42,9 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
         if (TypeNameEnum.TASK_TYPE.getValue().equals(type)) {
             return TaskTypeEnum.getAllEnum();
         }
+        if(TypeNameEnum.SCAN_POSITION.getValue().equals(type)){
+            return TaskTypeEnum.getAllEnum();
+        }
         throw new TaskException(20001, "输入类型错误");
 
     }
