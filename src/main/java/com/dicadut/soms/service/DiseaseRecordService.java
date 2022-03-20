@@ -34,22 +34,18 @@ public interface DiseaseRecordService extends IService<DiseaseRecord> {
     /**
      * App所要删除的病害记录查询
      * @param taskId 任务id
-     * @param componentId 构件id
-     * @param positionId 位置id
-     * @param diseaseId 病害id
+     * @param recordId 病害记录id
      * @return 所要删除的病害记录list
      */
-    List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, String componentId, String positionId,String diseaseId);
+    List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, Integer recordId);
 
     /**
      * App添加病害后,点击病害记录显示病害详情
      * @param taskId 任务id
-     * @param componentId 构件id
-     * @param positionId 位置id
-     * @param diseaseId 病害id
+     * @param recordId 病害记录id
      * @return 显示病害详情
      */
-    DiseaseDetailDTO getDiseaseDetailList(String taskId, String componentId, String positionId, String diseaseId);
+    DiseaseDetailDTO getDiseaseDetailList(String taskId, Integer recordId);
 
     /**
      * 批量删除病害（非逻辑删）

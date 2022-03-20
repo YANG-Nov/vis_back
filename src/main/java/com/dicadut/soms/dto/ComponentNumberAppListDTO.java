@@ -10,6 +10,6 @@ import lombok.Data;
  */
 @Data
 public class ComponentNumberAppListDTO {
-    private String ComponentNumberId;
-    private String ComponentNumber;
+    private String OrderNumberId;
+    private String OrderNumber;
 }

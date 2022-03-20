@@ -32,6 +32,10 @@ public class DiseaseRecordAppListDTO {
     private String positionId;
     @ApiModelProperty("构件id")
     private String componentId;
+    @ApiModelProperty("构件编号")
+    private Integer orderNumber;
+    @ApiModelProperty("病害记录id")
+    private Integer recordId;
 
     private List<Item> featureFields = new ArrayList<>();
     private List<Item> featurePopups = new ArrayList<>();

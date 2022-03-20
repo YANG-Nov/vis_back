@@ -25,7 +25,9 @@
             b.stake_or_truss_number position,
             dr.disease_id,
             d.name disease,
-            dr.component_id
+            dr.component_id,
+            dr.order_number,
+            dr.record_id
         from t_disease_record dr
         LEFT JOIN t_bridge b on dr.bridge_id = b.id
         LEFT JOIN t_disease d on dr.disease_id = d.id
@@ -38,7 +40,7 @@
         SELECT
             *
         FROM soms.t_disease_record
-        WHERE (task_id,component_id,bridge_id,disease_id)=(#{taskId},#{componentId},#{positionId},#{diseaseId})
+        WHERE (task_id,record_id)=(#{taskId},#{recordId})
     </select>
 
     <select id="selectDiseaseList" resultType="com.dicadut.soms.dto.DiseaseDetailListDTO">
@@ -51,7 +53,7 @@
                 da.unit
         from soms.t_disease_record dr
         left join soms.t_disease_attribute da on dr.disease_attribute_id = da.id
-        where (dr.task_id,dr.component_id,dr.bridge_id,dr.disease_id) = (#{taskId},#{componentId},#{positionId},#{diseaseId})
+        where (dr.task_id,dr.record_id) = (#{taskId},#{recordId})
           and dr.is_deleted = 0
     </select>
 
@@ -94,7 +96,8 @@
                 dr.bridge_id position_id,
                 b.stake_or_truss_number position,
                 dr.disease_id,
-                d.`name` disease
+                d.`name` disease,
+                dr.record_id
         FROM soms.t_disease_record dr
                 LEFT JOIN soms.t_bridge b on dr.bridge_id = b.id
                 LEFT JOIN soms.t_component c on dr.component_id = c.id

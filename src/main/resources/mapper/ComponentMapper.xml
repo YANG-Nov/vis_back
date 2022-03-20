@@ -48,8 +48,8 @@
 
     <select id="selectComponentNumberAppList" resultType="com.dicadut.soms.dto.ComponentNumberAppListDTO">
         SELECT
-                bc.id componentNumberId,
-                bc.order_number componentNumber
+                bc.id orderNumberId,
+                bc.order_number
         FROM soms.t_bridge_component bc
         WHERE
                 (bc.component_id,bc.bridge_id) = (#{componentId},#{positionId})

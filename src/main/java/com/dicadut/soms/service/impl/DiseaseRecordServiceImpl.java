@@ -81,15 +81,15 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
 
     //App逻辑删除病害记录，查出要删除的数据
     @Override
-    public List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, String componentId, String positionId, String diseaseId) {
-        return baseMapper.selectDiseaseRecordDeleteList(taskId, componentId, positionId, diseaseId);
+    public List<DiseaseRecord> getDiseaseRecordDeleteList(String taskId, Integer recordId) {
+        return baseMapper.selectDiseaseRecordDeleteList(taskId, recordId);
     }
 
     //App添加病害后,点击病害记录显示病害详情
     @Override
-    public DiseaseDetailDTO getDiseaseDetailList(String taskId, String componentId, String positionId, String diseaseId) {
+    public DiseaseDetailDTO getDiseaseDetailList(String taskId, Integer recordId) {
         //从数据库中查出数据
-        List<DiseaseDetailListDTO> diseaseDetailList = baseMapper.selectDiseaseList(taskId, componentId, positionId, diseaseId);
+        List<DiseaseDetailListDTO> diseaseDetailList = baseMapper.selectDiseaseList(taskId, recordId);
         String p = null;
         String c = null;
         for (DiseaseDetailListDTO diseaseDetailListDTO : diseaseDetailList) {
