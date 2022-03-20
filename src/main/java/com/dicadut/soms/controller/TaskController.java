@@ -57,9 +57,7 @@ public class TaskController {
             , notes = "选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储,createBy:'1483437418882392065'")
     @PostMapping("/add_task")
     public ResponseViewModel addTask(@RequestBody TaskVO taskVO) {
-        if (CollectionUtils.isEmpty(taskVO.getSubTasks())) {
-            return ResponseViewModel.fail("添加失败，缺少子任务");
-        }
+
         taskService.saveTask(taskVO);
         return ResponseViewModel.ok();
     }
@@ -84,6 +82,22 @@ public class TaskController {
     /**
      * // Jane_TODO add description
      *
+     * @param
+     * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO < com.dicadut.soms.vo.SubTaskUpdateV0>>
+     * @author FanJane
+     */
+    @ApiOperation(value = "修改任务", tags = {"web", "任务列表页", "jane", "未通"}
+            , notes = "点击修改任务任务回显")
+    @PostMapping("/submit_update_task")
+    public ResponseViewModel<TaskContentDTO<SubTaskUpdateV0>> submit_UpdateTask(@RequestBody TaskVO taskVO) {
+        taskService.submitUpdateTask(taskVO);
+        return ResponseViewModel.ok();
+
+    }
+
+    /**
+     * // Jane_TODO add description
+     *
      * @param taskVO 提交任务表单
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO>
      * @author FanJane
@@ -93,7 +107,7 @@ public class TaskController {
     @PostMapping("/show_task_preview")
     public ResponseViewModel<TaskContentDTO<SubTaskShowV0>> showTaskPreview(@RequestBody TaskVO taskVO) {
         if (CollectionUtils.isEmpty(taskVO.getSubTasks())) {
-            throw new TaskException(20001,"添加失败，缺少构件");
+            throw new TaskException(20001, "添加失败，缺少构件");
         }
         TaskContentDTO<SubTaskShowV0> taskPreview = taskService.getTaskPreview(taskVO);
         return ResponseViewModel.ok(taskPreview);
@@ -284,7 +298,7 @@ public class TaskController {
      * 对任务状态进行更新操作
      *
      * @param taskStatusVO 任务状态任务id
-     * @return  responseViewModel
+     * @return responseViewModel
      */
     @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App已通", "web", "已通"}
             , notes = "变更任务状态，taskId 20220119000001 , taskStatusIdGo 召回（主动）  1002000008  ")
@@ -296,21 +310,17 @@ public class TaskController {
 
     @ApiOperation(value = "添加任务领取时间", tags = {"App", "YANG", "App已通"})
     @PostMapping("update_receive_time")
-    public ResponseViewModel updateReceiveTime(@RequestBody TaskReceiveTimeVO taskReceiveTimeVO){
-        taskService.updateReceiveTime(taskReceiveTimeVO.getTaskId(),taskReceiveTimeVO.getTaskReceiveTime());
+    public ResponseViewModel updateReceiveTime(@RequestBody TaskReceiveTimeVO taskReceiveTimeVO) {
+        taskService.updateReceiveTime(taskReceiveTimeVO.getTaskId(), taskReceiveTimeVO.getTaskReceiveTime());
         return ResponseViewModel.ok();
     }
 
     @ApiOperation(value = "添加巡检完成时间", tags = {"App", "YANG", "App已通"})
     @PostMapping("update_finish_time")
-    public ResponseViewModel updateFinishTime(@RequestBody TaskFinishTimeVO taskFinishTimeVO){
-        taskService.updateFinishTime(taskFinishTimeVO.getTaskId(),taskFinishTimeVO.getTaskFinishTime());
+    public ResponseViewModel updateFinishTime(@RequestBody TaskFinishTimeVO taskFinishTimeVO) {
+        taskService.updateFinishTime(taskFinishTimeVO.getTaskId(), taskFinishTimeVO.getTaskFinishTime());
         return ResponseViewModel.ok();
     }
-
-
-
-
 
 
     /**
@@ -346,13 +356,14 @@ public class TaskController {
 
     /**
      * 根据任务id获得该任务审核意见（其他意见）
+     *
      * @param taskId 任务id
      * @return 该任务审核意见
      */
     @ApiOperation(value = "根据任务id获得该任务审核意见（其他意见）", tags = {"App", "YANG", "未通"})
     @GetMapping("get_task_review_opinion")
-    public ResponseViewModel<TaskReviewOpinionDTO> getTaskReviewOpinion (@RequestParam String taskId){
+    public ResponseViewModel<TaskReviewOpinionDTO> getTaskReviewOpinion(@RequestParam String taskId) {
         TaskReviewOpinionDTO taskReviewOpinionDTO = taskService.getTaskReviewOpinion(taskId);
-        return  ResponseViewModel.ok(taskReviewOpinionDTO);
+        return ResponseViewModel.ok(taskReviewOpinionDTO);
     }
 }

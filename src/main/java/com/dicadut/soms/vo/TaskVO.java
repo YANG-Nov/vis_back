@@ -20,19 +20,23 @@ public class TaskVO {
     @ApiModelProperty(value = "任务类型: 1001000001 日常巡检, 1001000002 定期检查,1001000003 特殊检查 1001000004 养护维修  ")
     @JsonProperty("jobType")
     private String taskType;
+    @ApiModelProperty(value = "task的id")
+    private String taskId;
+    @ApiModelProperty(value = "巡检人员id")
+    private String inspector;
     @ApiModelProperty(value = "任务类型: 1001000001 日常巡检, 1001000002 定期检查,1001000003 特殊检查 1001000004 养护维修  ")
     @JsonProperty("jobFreq")
     private String inspectionFrequency;
-    @ApiModelProperty(value = "开始时间", example = "2021-09-30 13:00:00")
+    @ApiModelProperty(value = "开始时间", example = "2021-09-30")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startTime;
-    @ApiModelProperty(value = "结束时间", example = "2021-09-30 14:00:00")
+    @ApiModelProperty(value = "结束时间", example = "2021-09-30")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endTime;
-    @ApiModelProperty(value = "接收期限", example = "2021-09-30 13:00:00")
+    @ApiModelProperty(value = "接收期限", example = "2021-09-30")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate remindTime;
-    @ApiModelProperty(value = "召回期限", example = "2021-09-30 13:00:00")
+    @ApiModelProperty(value = "召回期限", example = "2021-09-30")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate recallTime;
     @ApiModelProperty(value = "养护工程师id，需要前端绑定账户")

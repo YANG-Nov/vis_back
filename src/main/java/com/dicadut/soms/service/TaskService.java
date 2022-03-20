@@ -176,4 +176,13 @@ public interface TaskService extends IService<Task> {
      * @return 该任务审核意见
      */
     TaskReviewOpinionDTO getTaskReviewOpinion(String taskId);
+
+    /**
+     * // Jane_TODO add description
+     *
+     * @param taskVO
+     * @return void
+     * @author FanJane
+     */
+    void submitUpdateTask(TaskVO taskVO);
 }
