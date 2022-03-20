@@ -360,7 +360,7 @@ public class TaskController {
      * @param taskId 任务id
      * @return 该任务审核意见
      */
-    @ApiOperation(value = "根据任务id获得该任务审核意见（其他意见）", tags = {"App", "YANG", "未通"})
+    @ApiOperation(value = "根据任务id获得该任务审核意见（其他意见）", tags = {"App", "YANG", "App未通"})
     @GetMapping("get_task_review_opinion")
     public ResponseViewModel<TaskReviewOpinionDTO> getTaskReviewOpinion(@RequestParam String taskId) {
         TaskReviewOpinionDTO taskReviewOpinionDTO = taskService.getTaskReviewOpinion(taskId);
