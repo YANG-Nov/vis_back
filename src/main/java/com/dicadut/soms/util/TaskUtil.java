@@ -91,7 +91,7 @@ public class TaskUtil {
             String componentName = entry1.getKey();
             //获得构件编号
             List<TaskBridgeComponentDTO> value = entry1.getValue();
-            String join = StringUtils.join(value.stream().map(TaskBridgeComponentDTO::getComponentNumber).toArray(), "、");
+            String join = StringUtils.join(value.stream().map(TaskBridgeComponentDTO::getComponentNumber).distinct().toArray(), "、");
             inspectionComponentNumber.add(componentName + ":" + join);
 
         }
