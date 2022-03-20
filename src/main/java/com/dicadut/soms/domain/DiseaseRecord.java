@@ -41,14 +41,23 @@ public class DiseaseRecord extends Model<DiseaseRecord> {
     @ApiModelProperty(value = "桥桩号id")
     private String bridgeId;
 
+    @ApiModelProperty(value = "构件编号")
+    private Integer orderNumber;
+
     @ApiModelProperty(value = "病害种类id")
     private String diseaseId;
+
+    @ApiModelProperty(value = "该条任务下病害记录id")
+    private Integer recordId;
 
     @ApiModelProperty(value = "病害记录种类：(1)输入框,(2)下拉框,(3)单选框,(4)照片/视频,(5)语音,(6)文本")
     private Integer type;
 
     @ApiModelProperty(value = "病害属性id")
     private String diseaseAttributeId;
+
+    @ApiModelProperty(value = "拼接后的病害属性")
+    private String attribute;
 
     @ApiModelProperty(value = "病害记录内容")
     private String content;

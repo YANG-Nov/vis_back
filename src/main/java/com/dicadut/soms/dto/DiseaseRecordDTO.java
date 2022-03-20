@@ -28,8 +28,10 @@ public class DiseaseRecordDTO {
 
     private String taskId;
     private String componentId;
+    private Integer orderNumber;
     private String positionId;
     private String diseaseId;
+    private Integer recordId;
     private List<Item> featureFields;
     private List<Item> featurePopups;
     private List<Item> featureRadios;

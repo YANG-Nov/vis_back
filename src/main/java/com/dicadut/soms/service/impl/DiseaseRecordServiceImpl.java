@@ -46,8 +46,10 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
                 DiseaseRecord diseaseRecord = new DiseaseRecord();
                 diseaseRecord.setDiseaseId(diseaseRecordDTO.getDiseaseId());
                 diseaseRecord.setComponentId(diseaseRecordDTO.getComponentId());
+                diseaseRecord.setOrderNumber(diseaseRecordDTO.getOrderNumber());
                 diseaseRecord.setTaskId(diseaseRecordDTO.getTaskId());
                 diseaseRecord.setBridgeId(diseaseRecordDTO.getPositionId());
+                diseaseRecord.setRecordId(diseaseRecordDTO.getRecordId());
                 diseaseRecord.setDiseaseAttributeId(item.getDiseaseAttributeId());
                 diseaseRecord.setContent(item.getContent());
                 diseaseRecord.setType(item.getType());
@@ -64,9 +66,11 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
     public void deleteDiseaseRecord(DiseaseRecordDTO diseaseRecordDTO) {
         String taskId = diseaseRecordDTO.getTaskId();
         String componentId = diseaseRecordDTO.getComponentId();
+        Integer orderNumber = diseaseRecordDTO.getOrderNumber();
         String positionId = diseaseRecordDTO.getPositionId();
         String diseaseId = diseaseRecordDTO.getDiseaseId();
-        baseMapper.deleteDiseaseRecord(taskId,componentId,positionId,diseaseId);
+        Integer recordId = diseaseRecordDTO.getRecordId();
+        baseMapper.deleteDiseaseRecord(taskId,componentId,orderNumber,positionId,diseaseId,recordId);
     }
 
     //App添加病害后,添加病害页显示病害记录
