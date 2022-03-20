@@ -65,12 +65,8 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
     @Override
     public void deleteDiseaseRecord(DiseaseRecordDTO diseaseRecordDTO) {
         String taskId = diseaseRecordDTO.getTaskId();
-        String componentId = diseaseRecordDTO.getComponentId();
-        Integer orderNumber = diseaseRecordDTO.getOrderNumber();
-        String positionId = diseaseRecordDTO.getPositionId();
-        String diseaseId = diseaseRecordDTO.getDiseaseId();
         Integer recordId = diseaseRecordDTO.getRecordId();
-        baseMapper.deleteDiseaseRecord(taskId,componentId,orderNumber,positionId,diseaseId,recordId);
+        baseMapper.deleteDiseaseRecord(taskId, recordId);
     }
 
     //App添加病害后,添加病害页显示病害记录

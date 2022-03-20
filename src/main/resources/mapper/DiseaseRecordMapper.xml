@@ -78,10 +78,6 @@
         DELETE
         FROM soms.t_disease_record
         WHERE task_id = #{taskId}
-          and bridge_id = #{positionId}
-          and component_id = #{componentId}
-          and order_number = #{orderNumber}
-          and disease_id = #{diseaseId}
           and record_id = #{recordId}
     </delete>
 
