@@ -39,6 +39,7 @@ public class TaskController {
      */
     @ApiOperation("测试功能，查询表中所有数据")
     @GetMapping("find_all")
+    @Deprecated
     public List<Task> findAllTask() {
         //调用service的方法实现查询所有的操作返回list集合，方法名称可能和mapper不一样，但是内容都一样
         List<Task> list = taskService.list(null);
@@ -300,7 +301,7 @@ public class TaskController {
      * @param taskStatusVO 任务状态任务id
      * @return responseViewModel
      */
-    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App已通", "web", "已通"}
+    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App已通", "web", "未通"}
             , notes = "变更任务状态，taskId 20220119000001 , taskStatusIdGo 召回（主动）  1002000008  ")
     @PostMapping("/update_task_status")
     public ResponseViewModel updateTaskStatus(@RequestBody TaskStatusVO taskStatusVO) {
