@@ -135,16 +135,22 @@
         group by t.id
     </select>
 
-    <select id="selectInspectorList" resultType="com.dicadut.soms.dto.InspectorDTO">
-        SELECT DISTINCT u.id,u.real_name `name`, t.id taskId,d.`code_name` taskStatus,t.start_time startTime, t.end_time endTime,CONCAT(b.location,cc.`name`) inspectionPosition
+    <select id="selectInspectorList" resultType="com.dicadut.soms.dto.InspectorTaskDTO">
+        SELECT
+                u.id,
+                u.real_name,
+                t.id  taskId,
+                t.task_type,
+                t.task_status,
+                t.start_time,
+                t.end_time,
+                t.finish_time,
+                t.receive_time,
+                t.create_by,
+                t.inspection_position
+
         FROM t_user u
-        LEFT JOIN t_task t ON u.id = t.inspector_id
-        LEFT JOIN t_task_bridge_component tc ON t.id = tc.task_id
-        LEFT JOIN t_bridge_component bc ON tc.bridge_component_id = bc.id
-        LEFT JOIN t_bridge b ON b.id=bc.bridge_id
-        LEFT JOIN t_component c ON bc.component_id = c.id
-        LEFT JOIN t_component cc ON c.parent_id = cc.id
-        LEFT JOIN t_dictionary d ON t.task_status = d.`code`
+                     LEFT JOIN t_task t ON u.id = t.inspector_id
         WHERE u.`duty` = '2'
     </select>
 

@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.domain.Task;
-import com.dicadut.soms.domain.User;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.enumeration.*;
 import com.dicadut.soms.exception.TaskException;
@@ -27,7 +26,6 @@ import com.dicadut.soms.viewmodel.PageResult;
 import com.dicadut.soms.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.scripting.xmltags.ForEachSqlNode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +33,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.lang.reflect.InvocationTargetException;
 import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -195,14 +194,21 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * @author fan_jane
      */
     @Override
-    public List<InspectorDTO> getInspectorList() {
-        List<InspectorDTO> inspectorDTOList = baseMapper.selectInspectorList();
+    public List<InspectorTaskDTO> getInspectorList() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        List<InspectorTaskDTO> inspectorTaskDTOList = baseMapper.selectInspectorList();
+
+        List<InspectorTaskDTO> inspectorTaskDTOS = TaskUtil.oneLevelConvertToTwo(inspectorTaskDTOList, InspectorTaskDTO.class, TaskSetDTO.class, "id", "id");
+
+
         int i = 1;
-        for (InspectorDTO inspectorDTO : inspectorDTOList) {
-            inspectorDTO.setKey(i++);
+        for (InspectorTaskDTO inspectorTaskDTO : inspectorTaskDTOS) {
+            inspectorTaskDTO.setCreateBy(UserEnum.findByValue(inspectorTaskDTO.getCreateBy()));
+            inspectorTaskDTO.setKey(i++);
+
+            inspectorTaskDTO.setAmount(inspectorTaskDTO.getChildren().size());
         }
 
-        return inspectorDTOList;
+        return inspectorTaskDTOS;
     }
 
     /**
@@ -500,7 +506,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * @author FanJane
      */
     @Override
-    public List<InspectorDTO> getWaitReviewTask(String taskId) {
+    public List<InspectorTaskDTO> getWaitReviewTask(String taskId) {
         //获得所有数据
         List<TaskDiseaseDTO> taskDiseaseDTOS = baseMapper.getTaskDiseaseList(taskId);
 

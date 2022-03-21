@@ -1,5 +1,8 @@
 package com.dicadut.soms.dto;
 
+import com.dicadut.soms.Annotation.EnumMapper;
+import com.dicadut.soms.enumeration.AllEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,9 +20,11 @@ public class TaskSetDTO {
     @ApiModelProperty(value = "任务")
     private String taskId;
 
+
+    @EnumMapper(AllEnum.class)
     @ApiModelProperty(value = "任务类型: type=1001")
     private String taskType;//jobType Jane_TODO 2022/3/17
-
+    @EnumMapper(AllEnum.class)
     @ApiModelProperty(value = "任务状态: type=1002")
     private String taskStatus;//jobStatus Jane_TODO 2022/3/17
 
@@ -30,8 +35,9 @@ public class TaskSetDTO {
     private LocalDate endTime;
 
     @ApiModelProperty(value = "巡检员姓名")
-    private String inspectorName;//Jane_TODO 2022/3/17
-
+    @JsonProperty("inspectorName")
+    private String realName;//Jane_TODO 2022/3/17
+    @EnumMapper(AllEnum.class)
     @ApiModelProperty(value = "制定任务姓名")
     private String createBy;
 

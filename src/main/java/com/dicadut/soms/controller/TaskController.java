@@ -16,7 +16,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.websocket.server.PathParam;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -256,8 +256,8 @@ public class TaskController {
     @ApiOperation(value = "任务分配获取所有巡检人员", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
     @GetMapping("/get_inspector_list")
-    public ResponseViewModel<List<InspectorDTO>> getInspectorList() {
-        List<InspectorDTO> taskUserDistributeList = taskService.getInspectorList();
+    public ResponseViewModel<List<InspectorTaskDTO>> getInspectorList() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        List<InspectorTaskDTO> taskUserDistributeList = taskService.getInspectorList();
         return ResponseViewModel.ok(taskUserDistributeList);
     }
 
@@ -334,8 +334,8 @@ public class TaskController {
             , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
     @GetMapping("/get_wait_review_task/(taskId)")
 
-    public ResponseViewModel<List<InspectorDTO>> getWaitReviewTask(@PathVariable String taskId) {
-        List<InspectorDTO> taskUserDistributeList = taskService.getWaitReviewTask(taskId);
+    public ResponseViewModel<List<InspectorTaskDTO>> getWaitReviewTask(@PathVariable String taskId) {
+        List<InspectorTaskDTO> taskUserDistributeList = taskService.getWaitReviewTask(taskId);
         return ResponseViewModel.ok(taskUserDistributeList);
     }
 

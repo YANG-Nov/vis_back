@@ -117,7 +117,7 @@ public class BridgeServiceImpl extends ServiceImpl<BridgeMapper, Bridge> impleme
         List<BridgeSimpleDTO> bridgeSimpleDTOList = baseMapper.selectLocationList();
 
 
-        List<LineLocationVO> list = TaskUtil.convert(bridgeSimpleDTOList, LineLocationVO.class, BridgeSimpleDTO.class,"location","label");
+        List<LineLocationVO> list = TaskUtil.oneLevelConvertToTwo(bridgeSimpleDTOList, LineLocationVO.class, BridgeSimpleDTO.class,"location","label");
 
         return list;
 

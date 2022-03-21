@@ -29,7 +29,7 @@ public interface TaskMapper extends BaseMapper<Task> {
                                                            @Param("endTime") String endTime);
 
     // Wei_TODO 2022/2/24 1状态提到Java层做 2查询层级改成韦雷哥代码
-    List<InspectorDTO> selectInspectorList();
+    List<InspectorTaskDTO> selectInspectorList();
 
     List<TaskEndTimeAppListDTO> selectTaskEndTimeAppList(@Param("taskStatus") Integer taskStatus);
 

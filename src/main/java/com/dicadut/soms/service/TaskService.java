@@ -4,12 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.viewmodel.PageResult;
-import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.vo.*;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -50,7 +47,7 @@ public interface TaskService extends IService<Task> {
 
     TaskStatisticAppDTO getThisMonthTaskListBySingleSql(String startTime, String endTime);
 
-    List<InspectorDTO> getInspectorList();
+    List<InspectorTaskDTO> getInspectorList() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
     List<TaskAppListDTO> getTaskAppList(Integer taskStatus);
 
@@ -159,7 +156,7 @@ public interface TaskService extends IService<Task> {
      * @return Jane_TODO 2022/3/18
      * @author FanJane
      */
-    List<InspectorDTO> getWaitReviewTask(String taskId);
+    List<InspectorTaskDTO> getWaitReviewTask(String taskId);
 
     /**
      * // Jane_TODO add description

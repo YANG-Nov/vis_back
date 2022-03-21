@@ -18,18 +18,16 @@ public class TaskUtil {
     /**
      * Jane_TODO 2022/2/24 需要完善，异常处理等
      * 将一次查询到的数据集合，封装到二级层级对象中
-     *
      */
-    public static <T, E, A> List<T> convert(List<E> es, Class<T> first, Class<A> second, String sourceId, String targetId) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
+    public static <T, E, A> List<T> oneLevelConvertToTwo(List<E> es, Class<T> first, Class<A> second, String sourceId, String targetId) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
 
         //方法返回值
         List<T> list = new ArrayList<>();
         // 过渡map集合，key: 主引桥+匝道（location）, value: 桩号对象列表（id,name）
-        Map<String, List<A>> map = new HashMap<>();
+        Map<String, List<E>> mapAll = new HashMap<>();
+        Map<String, List<A>> mapSecond = new HashMap<>();
 
-
-
-        //遍历数据库中封装一次查到的数据对象集合
+        //遍历数据库中用map集合来封装一次查到的数据对象集合，string为id
         for (E e : es) {
             //Class<T> aClass = (Class<T>) t.getClass();
             //取到e里的id，如果map里没有id就创建一个
@@ -37,31 +35,37 @@ public class TaskUtil {
             Field id = aClass.getDeclaredField(sourceId);
             id.setAccessible(true);
             String stringId = (String) id.get(e);
-            map.putIfAbsent(stringId, new ArrayList<>());
+            mapAll.putIfAbsent(stringId, new ArrayList<>());
+            mapSecond.putIfAbsent(stringId, new ArrayList<>());
+
+            //key 为id.get（添加构件）
+            mapAll.get(stringId).add(e);
 
             //key 为id.get（添加构件）
             A a1 = second.getDeclaredConstructor().newInstance();
-            BeanUtils.copyProperties(e, a1);
-            map.get(stringId).add(a1);
+            CopyUtils.copyProperties(e, a1);
+            mapSecond.get(stringId).add(a1);
         }
 
+        
         //遍历map集合
-        for (Map.Entry<String, List<A>> entry : map.entrySet()) {
-            //取得key和value
+        for (Map.Entry<String, List<E>> entry : mapAll.entrySet()) {
             String key = entry.getKey();
-            List<A> value = entry.getValue();
+            //取得key和value,取得id和当前id包含的集合
+            List<E> value = entry.getValue();
+            //new一个第一层级的对象
             T t1 = first.getDeclaredConstructor().newInstance();
-            Field id = first.getDeclaredField(targetId);
-            id.setAccessible(true);
-            id.set(t1, key);
+            BeanUtils.copyProperties(value.get(0), t1);
             Field children = first.getDeclaredField("children");
             children.setAccessible(true);
-            children.set(t1, value);
+            List<A> as = mapSecond.get(key);
+            children.set(t1, as);
             list.add(t1);
         }
         return list;
     }
 
+    //删除数组中的数
     public static String[] ArraysDelete(String[] strings, int i) {
         if (strings.length - 1 - i >= 0) System.arraycopy(strings, i + 1, strings, i, strings.length - 1 - i);
         String[] y = new String[strings.length - 1];
