@@ -5,6 +5,7 @@ import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.dto.TypeNameDTO;
 import com.dicadut.soms.enumeration.FrequencyEnum;
 
+import com.dicadut.soms.enumeration.ScanPositionEnum;
 import com.dicadut.soms.enumeration.TaskTypeEnum;
 import com.dicadut.soms.enumeration.TypeNameEnum;
 import com.dicadut.soms.exception.TaskException;
@@ -43,7 +44,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
             return TaskTypeEnum.getAllEnum();
         }
         if(TypeNameEnum.SCAN_POSITION.getValue().equals(type)){
-            return TaskTypeEnum.getAllEnum();
+            return ScanPositionEnum.getAllEnum();
         }
         throw new TaskException(20001, "输入类型错误");
 
