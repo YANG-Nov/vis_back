@@ -4,6 +4,7 @@ import com.dicadut.soms.domain.DiseaseRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.dto.DiseaseDetailListDTO;
 import com.dicadut.soms.dto.DiseaseRecordAppListDTO;
+import com.dicadut.soms.dto.DiseaseRecordHighlightDTO;
 import com.dicadut.soms.dto.DiseaseRecordTableListDTO;
 
 
@@ -30,4 +31,6 @@ public interface DiseaseRecordMapper extends BaseMapper<DiseaseRecord> {
     void deleteDiseaseRecord(String taskId, Integer recordId);
 
     List<DiseaseRecordTableListDTO> selectDiseaseRecordTable(String taskId);
+
+    List<DiseaseRecordHighlightDTO> selectDiseaseRecordHighlight(String taskId);
 }

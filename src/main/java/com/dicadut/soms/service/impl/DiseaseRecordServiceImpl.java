@@ -126,6 +126,9 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
     public List<DiseaseRecordTableDTO> getDiseaseRecordTable(String taskId){
         //从数据库中查出数据
         List<DiseaseRecordTableListDTO> diseaseRecordTableList = baseMapper.selectDiseaseRecordTable(taskId);
+        //从数据库中查出需高亮显示的record_id，并转换为set
+        List<DiseaseRecordHighlightDTO> diseaseRecordHighlightList = baseMapper.selectDiseaseRecordHighlight(taskId);
+        HashSet<DiseaseRecordHighlightDTO> set=new HashSet<>(diseaseRecordHighlightList);
         //返回数据集合
         List<DiseaseRecordTableDTO> list = new ArrayList<>();
         //过渡map集合，key: eg:东引桥B匝道桥面系, value: componentId、component、positionId、position、diseaseId、disease、taskId
@@ -148,6 +151,12 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
             of.setTaskId(diseaseRecordTableListDTO.getTaskId());
             of.setRecordId(diseaseRecordTableListDTO.getRecordId());
             of.setOrderNumber(diseaseRecordTableListDTO.getOrderNumber());
+            of.setHighlight("0");
+            for(DiseaseRecordHighlightDTO diseaseRecordHighlightDTO : set) {
+                if (Objects.equals(diseaseRecordTableListDTO.getRecordId(), diseaseRecordHighlightDTO.getRecordId())) {
+                    of.setHighlight("1");
+                }
+            }
             map.get(inspectionLocation).add(of);
         }
         //遍历map集合

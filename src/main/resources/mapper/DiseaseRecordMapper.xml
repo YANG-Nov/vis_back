@@ -103,4 +103,13 @@
             and dr.is_deleted = 0
         GROUP BY dr.record_id
     </select>
+
+    <select id="selectDiseaseRecordHighlight" resultType="com.dicadut.soms.dto.DiseaseRecordHighlightDTO">
+        SELECT
+                record_id
+        FROM
+                soms.t_disease_record
+        WHERE type=8
+          and task_id = #{taskId}
+    </select>
 </mapper>
