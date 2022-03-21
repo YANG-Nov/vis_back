@@ -16,7 +16,7 @@ public class InspectorTaskDTO {
     @ApiModelProperty("巡检员id")
     private String id;
     @ApiModelProperty("巡检员姓名")
-    @JsonProperty("inspectorName")
+    @JsonProperty("name")
     private String realName;
     @ApiModelProperty("数量")
     private Integer amount;
