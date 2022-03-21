@@ -128,10 +128,13 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         List<DiseaseRecordTableListDTO> diseaseRecordTableList = baseMapper.selectDiseaseRecordTable(taskId);
         //从数据库中查出需高亮显示的record_id，并转换为set
         List<DiseaseRecordHighlightDTO> diseaseRecordHighlightList = baseMapper.selectDiseaseRecordHighlight(taskId);
-        HashSet<DiseaseRecordHighlightDTO> set=new HashSet<>(diseaseRecordHighlightList);
+        Set<String> set = new HashSet<>();
+        for(DiseaseRecordHighlightDTO diseaseRecordHighlightDTO : diseaseRecordHighlightList){
+            set.add(Integer.toString(diseaseRecordHighlightDTO.getRecordId()));
+        }
         //返回数据集合
         List<DiseaseRecordTableDTO> list = new ArrayList<>();
-        //过渡map集合，key: eg:东引桥B匝道桥面系, value: componentId、component、positionId、position、diseaseId、disease、taskId
+        //过渡map集合，key: eg:东引桥B匝道桥面系, value: componentId、component、positionId、position、diseaseId、disease、taskId、recordId、orderNumber、highlight
         Map<String, List<DiseaseRecordTableDTO.Item>> map = new HashMap<>();
         //遍历数据库中封装一次查到的数据对象集合
         for (DiseaseRecordTableListDTO diseaseRecordTableListDTO : diseaseRecordTableList){
@@ -151,11 +154,11 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
             of.setTaskId(diseaseRecordTableListDTO.getTaskId());
             of.setRecordId(diseaseRecordTableListDTO.getRecordId());
             of.setOrderNumber(diseaseRecordTableListDTO.getOrderNumber());
-            of.setHighlight("0");
-            for(DiseaseRecordHighlightDTO diseaseRecordHighlightDTO : set) {
-                if (Objects.equals(diseaseRecordTableListDTO.getRecordId(), diseaseRecordHighlightDTO.getRecordId())) {
-                    of.setHighlight("1");
-                }
+            boolean contains = set.contains(Integer.toString(diseaseRecordTableListDTO.getRecordId()));
+            if(contains){
+                of.setHighlight("1");
+            }else{
+                of.setHighlight("0");
             }
             map.get(inspectionLocation).add(of);
         }
