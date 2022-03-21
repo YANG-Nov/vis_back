@@ -108,7 +108,7 @@
         t.start_time startTime,
         t.end_time endTime,
         t.inspection_position,
-        u.real_name inspectorName,
+        u.real_name,
         d.code_name taskStatus,
         u1.real_name createBy
         FROM t_task t
