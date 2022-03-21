@@ -86,8 +86,8 @@ public class TaskController {
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO < com.dicadut.soms.vo.SubTaskUpdateV0>>
      * @author FanJane
      */
-    @ApiOperation(value = "修改任务", tags = {"web", "任务列表页", "jane", "未通"}
-            , notes = "点击修改任务任务回显")
+    @ApiOperation(value = "提交修改的任务", tags = {"web", "任务列表页", "jane", "未通"}
+            , notes = "任务回显，点提交传到后端")
     @PostMapping("/submit_update_task")
     public ResponseViewModel<TaskContentDTO<SubTaskUpdateV0>> submit_UpdateTask(@RequestBody TaskVO taskVO) {
         taskService.submitUpdateTask(taskVO);
@@ -253,7 +253,7 @@ public class TaskController {
      * @return 带层级结构的人员列表，一级是人员信息，二级是对应的任务信息
      * @author fan_jane
      */
-    @ApiOperation(value = "任务分配获取所有巡检人员", tags = {"web", "任务列表页", "jane", "已通"}
+    @ApiOperation(value = "任务分配获取所有巡检人员", tags = {"web", "任务列表页", "jane", "未通"}
             , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
     @GetMapping("/get_inspector_list")
     public ResponseViewModel<List<InspectorTaskDTO>> getInspectorList() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -271,7 +271,7 @@ public class TaskController {
      * @return 无
      * @author fan_jane
      */
-    @ApiOperation(value = "任务制定页点击人员分配分配任务", tags = {"web", "任务列表页", "jane", "未通"}
+    @ApiOperation(value = "任务制定页点击人员分配分配任务", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
     @GetMapping("distribute_task/{taskId}/{userId}")
     public ResponseViewModel distributeTask(@PathVariable String taskId, @PathVariable String userId) {
