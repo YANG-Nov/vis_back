@@ -223,7 +223,7 @@
                d2.code_name                                              inspectionFrequency,
                b.location,
                u.real_name                                               inspector,
-               u1.real_name                                              creatBy,
+               u1.real_name                                              createBy,
                tbc.scan_position,
                c.`name`                                                 componentName,
                b.stake_or_truss_number                                   componentNumber,

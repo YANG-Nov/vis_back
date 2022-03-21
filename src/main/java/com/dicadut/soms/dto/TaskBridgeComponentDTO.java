@@ -16,7 +16,7 @@ public class TaskBridgeComponentDTO {
     private String taskType;
     private String taskStatus;
     private String inspectionFrequency;
-    private String creatBy;
+    private String createBy;
     private String inspector;
     private LocalDate startTime;
     private LocalDate endTime;
