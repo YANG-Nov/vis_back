@@ -28,8 +28,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         if (diseaseRecordDTO == null) {
             return;
         }
-        //查出目前该任务下最大record_id
-
+        //创造record_id
         Integer recordId = 0;
         if(diseaseRecordDTO.getRecordId() == 0){
             DiseaseRecordIdMaxDTO diseaseRecordIdMaxDTO = baseMapper.selectDiseaseRecordIdMax(diseaseRecordDTO.getTaskId());
