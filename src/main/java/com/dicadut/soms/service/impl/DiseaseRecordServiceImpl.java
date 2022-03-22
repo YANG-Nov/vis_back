@@ -28,7 +28,9 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
         if (diseaseRecordDTO == null) {
             return;
         }
-
+        //查出目前该任务下最大record_id
+        DiseaseRecordIdMaxDTO diseaseRecordIdMaxDTO = baseMapper.selectDiseaseRecordIdMax(diseaseRecordDTO.getTaskId());
+        Integer recordIdMax = diseaseRecordIdMaxDTO.getRecordIdMax();
         // 1. 将6个list合并到1个list上
         List<DiseaseRecordDTO.Item> items = new ArrayList<>();
         items.addAll(diseaseRecordDTO.getFeatureFields());
@@ -49,7 +51,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
                 diseaseRecord.setOrderNumber(diseaseRecordDTO.getOrderNumber());
                 diseaseRecord.setTaskId(diseaseRecordDTO.getTaskId());
                 diseaseRecord.setBridgeId(diseaseRecordDTO.getPositionId());
-                diseaseRecord.setRecordId(diseaseRecordDTO.getRecordId());
+                diseaseRecord.setRecordId(recordIdMax + 1);
                 diseaseRecord.setDiseaseAttributeId(item.getDiseaseAttributeId());
                 diseaseRecord.setContent(item.getContent());
                 diseaseRecord.setType(item.getType());

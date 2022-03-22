@@ -112,4 +112,11 @@
         WHERE type=8
           and task_id = #{taskId}
     </select>
+
+    <select id="selectDiseaseRecordIdMax" resultType="com.dicadut.soms.dto.DiseaseRecordIdMaxDTO">
+        SELECT
+                MAX(record_id) record_id_max
+        FROM soms.t_disease_record
+        WHERE task_id = #{taskId}
+    </select>
 </mapper>
