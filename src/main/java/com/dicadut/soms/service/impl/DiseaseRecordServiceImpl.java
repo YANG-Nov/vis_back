@@ -29,8 +29,18 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
             return;
         }
         //查出目前该任务下最大record_id
-        DiseaseRecordIdMaxDTO diseaseRecordIdMaxDTO = baseMapper.selectDiseaseRecordIdMax(diseaseRecordDTO.getTaskId());
-        Integer recordIdMax = diseaseRecordIdMaxDTO.getRecordIdMax();
+
+        Integer recordId = 0;
+        if(diseaseRecordDTO.getRecordId() == 0){
+            DiseaseRecordIdMaxDTO diseaseRecordIdMaxDTO = baseMapper.selectDiseaseRecordIdMax(diseaseRecordDTO.getTaskId());
+            if(diseaseRecordIdMaxDTO != null){
+                recordId = diseaseRecordIdMaxDTO.getRecordIdMax() + 1;
+            }else {
+                recordId = 1;
+            }
+        }else{
+            recordId = diseaseRecordDTO.getRecordId();
+        }
         // 1. 将6个list合并到1个list上
         List<DiseaseRecordDTO.Item> items = new ArrayList<>();
         items.addAll(diseaseRecordDTO.getFeatureFields());
@@ -51,7 +61,7 @@ public class DiseaseRecordServiceImpl extends ServiceImpl<DiseaseRecordMapper, D
                 diseaseRecord.setOrderNumber(diseaseRecordDTO.getOrderNumber());
                 diseaseRecord.setTaskId(diseaseRecordDTO.getTaskId());
                 diseaseRecord.setBridgeId(diseaseRecordDTO.getPositionId());
-                diseaseRecord.setRecordId(recordIdMax + 1);
+                diseaseRecord.setRecordId(recordId);
                 diseaseRecord.setDiseaseAttributeId(item.getDiseaseAttributeId());
                 diseaseRecord.setContent(item.getContent());
                 diseaseRecord.setType(item.getType());
