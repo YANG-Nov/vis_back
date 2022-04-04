@@ -5,6 +5,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -532,6 +533,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             List<TaskDiseaseReviewVO.Item> text = new ArrayList<>();
             List<TaskDiseaseReviewVO.Item> media = new ArrayList<>();
             Map<String, List<String>> mapAll = new HashMap<>();
+            taskDiseaseReviewVO.setRecordId(value.get(0).getRecordId());
             text.add(new TaskDiseaseReviewVO.Item("病害名称", value.get(0).getName()));
             text.add(new TaskDiseaseReviewVO.Item("构建及编号", value.get(0).getComponentNumber() + "-" + value.get(0).getOrderNumber()));
             for (TaskDiseaseDTO s : value) {
@@ -850,6 +852,22 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public TaskDetailAppVO getTaskDetailApp(String taskId) {
         return null;
+    }
+
+    //先简单写一个
+    @Override
+    public void rejectTask(OpinionVO opinionVO) {
+        //修改任务状态
+        updateTaskStatus(opinionVO.getTaskId(),TaskStatusEnum.WAIT_RETRANSMIT.getValue());
+        //判断增加其他意见
+        if (StrUtil.isNotBlank(opinionVO.getOtherOpinion())) {
+            UpdateWrapper<Task> taskUpdateWrapper = new UpdateWrapper<>();
+            taskUpdateWrapper.eq("id",opinionVO.getTaskId());
+            taskUpdateWrapper.set("review_opinion",opinionVO.getOtherOpinion());
+        }
+        //添加审核意见
+
+
     }
 }
 

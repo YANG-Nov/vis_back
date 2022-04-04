@@ -184,4 +184,12 @@ public interface TaskService extends IService<Task> {
     void submitUpdateTask(TaskVO taskVO);
 
     TaskDetailAppVO getTaskDetailApp(String taskId);
+
+    /**
+     * // Jane_TODO add description
+     * @author FanJane
+     * @param opinionVO
+     * @return void
+     */
+    void rejectTask(OpinionVO opinionVO);
 }

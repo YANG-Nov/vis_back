@@ -3,6 +3,7 @@ package com.dicadut.soms.controller;
 
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
+import com.dicadut.soms.enumeration.TaskStatusEnum;
 import com.dicadut.soms.exception.TaskException;
 import com.dicadut.soms.service.TaskService;
 import com.dicadut.soms.viewmodel.PageParam;
@@ -378,5 +379,26 @@ public class TaskController {
     public ResponseViewModel<TaskDetailAppVO> getTaskDetailApp(@RequestParam String taskId) {
         TaskDetailAppVO taskDetailAppVO = taskService.getTaskDetailApp(taskId);
         return ResponseViewModel.ok(taskDetailAppVO);
+    }
+
+    @ApiOperation(value = "通过任务审核", tags = {"web", "任务列表页", "jane", "未通"}
+            , notes = "没有返回建议通过任务审核")
+    @GetMapping("/pass/{taskId}")
+
+    public ResponseViewModel<TaskContentDTO> passTask(@PathVariable String taskId) {
+        taskService.updateTaskStatus(taskId, TaskStatusEnum.FINISH.getValue());
+        return ResponseViewModel.ok();
+    }
+
+    @ApiOperation(value = "退回任务", tags = {"web", "任务列表页", "jane", "未通"}
+            , notes = "没有返回建议通过任务审核")
+    @GetMapping("/reject/")
+
+    public ResponseViewModel<TaskContentDTO> rejectTask(@RequestBody OpinionVO opinionVO) {
+        if (CollectionUtils.isEmpty(opinionVO.getReviewOpinions())) {
+            throw new TaskException(20001, "添加失败，审核意见");
+        }
+        taskService.rejectTask(opinionVO);
+        return ResponseViewModel.ok();
     }
 }

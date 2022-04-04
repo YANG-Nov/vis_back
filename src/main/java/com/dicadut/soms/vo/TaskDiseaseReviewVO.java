@@ -16,6 +16,7 @@ public class TaskDiseaseReviewVO {
 
     private List<TaskDiseaseReviewVO.Item> text;
     private List<TaskDiseaseReviewVO.Item> media;
+    private Integer recordId;
 
 
     @Data
