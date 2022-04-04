@@ -56,9 +56,6 @@ public class DiseaseRecord extends Model<DiseaseRecord> {
     @ApiModelProperty(value = "病害属性id")
     private String diseaseAttributeId;
 
-    @ApiModelProperty(value = "拼接后的病害属性")
-    private String attribute;
-
     @ApiModelProperty(value = "病害记录内容")
     private String content;
 

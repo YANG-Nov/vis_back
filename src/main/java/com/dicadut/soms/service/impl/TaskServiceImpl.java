@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Dictionary;
+import com.dicadut.soms.domain.DiseaseRecord;
 import com.dicadut.soms.domain.Task;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.enumeration.*;
@@ -17,10 +18,7 @@ import com.dicadut.soms.exception.TaskException;
 import com.dicadut.soms.mapper.BridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskBridgeComponentMapper;
 import com.dicadut.soms.mapper.TaskMapper;
-import com.dicadut.soms.service.BusinessCodeService;
-import com.dicadut.soms.service.DictionaryService;
-import com.dicadut.soms.service.TaskService;
-import com.dicadut.soms.service.UserService;
+import com.dicadut.soms.service.*;
 import com.dicadut.soms.util.CopyUtils;
 import com.dicadut.soms.util.TaskUtil;
 import com.dicadut.soms.viewmodel.PageResult;
@@ -58,6 +56,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Resource
     private BridgeComponentMapper bridgeComponentMapper;
+
+    @Resource
+    private DiseaseRecordService diseaseRecordService;
 
     @Resource
     private UserService userService;
@@ -856,6 +857,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     //先简单写一个
     @Override
+    @Transactional
     public void rejectTask(OpinionVO opinionVO) {
         //修改任务状态
         updateTaskStatus(opinionVO.getTaskId(),TaskStatusEnum.WAIT_RETRANSMIT.getValue());
@@ -864,9 +866,26 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             UpdateWrapper<Task> taskUpdateWrapper = new UpdateWrapper<>();
             taskUpdateWrapper.eq("id",opinionVO.getTaskId());
             taskUpdateWrapper.set("review_opinion",opinionVO.getOtherOpinion());
+            boolean update = update(taskUpdateWrapper);
+            if (!update){
+                throw new TaskException(20001, "保存失败");
+            }
         }
         //添加审核意见
+        for (Map.Entry<Integer, String> entry : opinionVO.getReviewOpinions().entrySet()) {
+            QueryWrapper<DiseaseRecord> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("task_id",opinionVO.getTaskId()).eq("record_id",entry.getKey());
 
+            DiseaseRecord diseaseRecord = diseaseRecordService.list(queryWrapper).get(0);
+            diseaseRecord.setType(Integer.valueOf(SomsConstant.DISEASE_REVIEW_OPINION));
+            diseaseRecord.setContent(entry.getValue());
+            diseaseRecord.setId(null);
+            diseaseRecord.setDiseaseAttributeId("");
+            boolean save = diseaseRecordService.save(diseaseRecord);
+            if (!save){
+                throw new TaskException(20001, "保存失败");
+            }
+        }
 
     }
 }

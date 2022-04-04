@@ -392,8 +392,7 @@ public class TaskController {
 
     @ApiOperation(value = "退回任务", tags = {"web", "任务列表页", "jane", "未通"}
             , notes = "没有返回建议通过任务审核")
-    @GetMapping("/reject/")
-
+    @PostMapping("/reject")
     public ResponseViewModel<TaskContentDTO> rejectTask(@RequestBody OpinionVO opinionVO) {
         if (CollectionUtils.isEmpty(opinionVO.getReviewOpinions())) {
             throw new TaskException(20001, "添加失败，审核意见");
