@@ -3,6 +3,7 @@ package com.dicadut.soms.dto;
 
 import com.dicadut.soms.Annotation.EnumMapper;
 import com.dicadut.soms.enumeration.AllEnum;
+import com.dicadut.soms.vo.TaskDiseaseReviewVO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -46,6 +47,10 @@ public class TaskContentDTO<E> {
     private LocalDateTime finishTime;
 
     private LocalDate recallTime;
+    @JsonProperty("mapRoute")
+    private String inspectionPosition;//待定
     private Set<String> scanPositions;
     private List<E> subTasks = new ArrayList<>();
+    private List<TaskDiseaseReviewVO> diseases = new ArrayList<>();
+
 }

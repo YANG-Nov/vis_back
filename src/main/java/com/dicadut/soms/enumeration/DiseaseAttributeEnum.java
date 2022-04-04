@@ -36,7 +36,8 @@ public enum DiseaseAttributeEnum {
     BUCKLING_LENGTH("12201", "翘曲长度"),
     COMPONENT_AMOUNT("12301", "构件数"),
     EXTENT("2", "程度"),
-    JUDGE("3", "判断");
+    JUDGE("3", "判断"),
+    Other_Disc("7", "其他描述");
 
 
 

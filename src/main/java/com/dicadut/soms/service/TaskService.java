@@ -156,7 +156,7 @@ public interface TaskService extends IService<Task> {
      * @return Jane_TODO 2022/3/18
      * @author FanJane
      */
-    List<InspectorTaskDTO> getWaitReviewTask(String taskId);
+    TaskContentDTO getWaitReviewTask(String taskId);
 
     /**
      * // Jane_TODO add description

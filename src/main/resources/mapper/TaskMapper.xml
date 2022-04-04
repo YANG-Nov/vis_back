@@ -358,8 +358,8 @@
                 b.location,
                 bc.bridge_position,
                 d.`name`,
-                dr.record_id
-
+                dr.record_id,
+                dr.order_number
         FROM t_task t
                      LEFT JOIN soms.t_disease_record dr ON t.id = dr.task_id
                      left join soms.t_disease_attribute da on dr.disease_attribute_id = da.id

@@ -506,13 +506,61 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * @author FanJane
      */
     @Override
-    public List<InspectorTaskDTO> getWaitReviewTask(String taskId) {
-        //获得所有数据
+    public TaskContentDTO getWaitReviewTask(String taskId) {
+        //得到当前task的所有record
         List<TaskDiseaseDTO> taskDiseaseDTOS = baseMapper.getTaskDiseaseList(taskId);
+        TaskContentDTO taskContentDTO = new TaskContentDTO<>();
+        //task
+        TaskDiseaseDTO taskDiseaseDTO = taskDiseaseDTOS.get(0);
+        try {
+            CopyUtils.copyProperties(taskDiseaseDTO, taskContentDTO);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        //Set<string> scanPositions
+        String[] split = taskDiseaseDTO.getScanPositions().split(",");
+        Set<String> scanPositions = new HashSet<>(Arrays.asList(split));
+        taskContentDTO.setScanPositions(scanPositions);
 
-        return null;
+        //disease
+        List<TaskDiseaseReviewVO> diseases = new ArrayList<>();
+        Map<Integer, List<TaskDiseaseDTO>> collect = taskDiseaseDTOS.stream().collect(Collectors.groupingBy(TaskDiseaseDTO::getRecordId));
+        //获得不同病害记录的信息
+        for (Map.Entry<Integer, List<TaskDiseaseDTO>> disease : collect.entrySet()) {
+            TaskDiseaseReviewVO taskDiseaseReviewVO = new TaskDiseaseReviewVO();
+            List<TaskDiseaseDTO> value = disease.getValue();
+            List<TaskDiseaseReviewVO.Item> text = new ArrayList<>();
+            List<TaskDiseaseReviewVO.Item> media = new ArrayList<>();
+            Map<String, List<String>> mapAll = new HashMap<>();
+            text.add(new TaskDiseaseReviewVO.Item("病害名称", value.get(0).getName()));
+            text.add(new TaskDiseaseReviewVO.Item("构建及编号", value.get(0).getComponentNumber() + "-" + value.get(0).getOrderNumber()));
+            for (TaskDiseaseDTO s : value) {
+                String type = s.getType().toString();
+                String content = s.getContent();
+
+                if (SomsConstant.FEATURE_FIELD.equals(type)) {
+                    String diseaseAttributeId = s.getDiseaseAttributeId();
+                    text.add(new TaskDiseaseReviewVO.Item(DiseaseAttributeEnum.findByValue(diseaseAttributeId), content + DiseaseUnitEnum.findByValue(diseaseAttributeId)));
+                }
+                if (SomsConstant.FEATURE_POPUP.equals(type)||SomsConstant.FEATURE_RADIO.equals(type)||SomsConstant.DISEASE_TEXT.equals(type)||SomsConstant.DISEASE_REVIEW_OPINION.equals(type)) {
+                    text.add(new TaskDiseaseReviewVO.Item(DiseaseAttributeEnum.findByValue(type), content ));
+                }
+                if (SomsConstant.DISEASE_PICTURE.equals(type)||SomsConstant.DISEASE_VIDEO.equals(type)||SomsConstant.DISEASE_VOICE.equals(type)) {
+                    mapAll.putIfAbsent(type, new ArrayList<>());
+                    mapAll.get(type).add(content);
+                }
+            }
+            for (Map.Entry<String, List<String>> m : mapAll.entrySet()) {
+                media.add(new TaskDiseaseReviewVO.Item(DiseaseRecordTypeEnum.findByValue(m.getKey()),m.getValue()));
+            }
+            taskDiseaseReviewVO.setText(text);
+            taskDiseaseReviewVO.setMedia(media);
+            diseases.add(taskDiseaseReviewVO);
+        }
+        taskContentDTO.setDiseases(diseases);
+
+        return taskContentDTO;
     }
-
     @Override
     public TaskContentDTO<DiseaseRecordVO> getTaskRecord(String taskId) {
         //得到当前task的所有record

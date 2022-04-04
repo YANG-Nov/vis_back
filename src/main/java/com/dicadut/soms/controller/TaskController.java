@@ -325,18 +325,18 @@ public class TaskController {
 
 
     /**
-     * // Jane_TODO add description wait finish
+     * //
      *
      * @param taskId
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<java.util.List < com.dicadut.soms.dto.InspectorDTO>>
      * @author FanJane
      */
     @ApiOperation(value = "获得待审核任务表单", tags = {"web", "任务列表页", "jane", "未通"}
-            , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
-    @GetMapping("/get_wait_review_task/(taskId)")
+            , notes = "点审核获得任务和病害信息测试任务id20220401000001")
+    @GetMapping("/get_wait_review_task/{taskId}")
 
-    public ResponseViewModel<List<InspectorTaskDTO>> getWaitReviewTask(@PathVariable String taskId) {
-        List<InspectorTaskDTO> taskUserDistributeList = taskService.getWaitReviewTask(taskId);
+    public ResponseViewModel<TaskContentDTO> getWaitReviewTask(@PathVariable String taskId) {
+        TaskContentDTO taskUserDistributeList = taskService.getWaitReviewTask(taskId);
         return ResponseViewModel.ok(taskUserDistributeList);
     }
 
