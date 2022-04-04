@@ -158,4 +158,6 @@ public interface TaskMapper extends BaseMapper<Task> {
     List<TaskDiseaseDTO> getTaskDiseaseList(String taskId);
 
     TaskReviewOpinionDTO selectTaskReviewOpinion(String taskId);
+
+    TaskDetailAppDTO selectTaskDetailApp(String taskId);
 }

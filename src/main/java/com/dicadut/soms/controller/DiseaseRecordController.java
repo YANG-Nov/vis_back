@@ -176,7 +176,7 @@ public class DiseaseRecordController {
         return ResponseViewModel.ok();
     }
 
-    @ApiOperation(value = "App添加病害后,任务详情页显示病害记录表", tags = {"App","YANG","App未通"})
+    @ApiOperation(value = "App添加病害后,任务详情页显示病害记录表", tags = {"App","YANG","App已通"})
     @GetMapping("get_disease_record_table")
     public ResponseViewModel<List<DiseaseRecordTableDTO>> getDiseaseRecordTable(@RequestParam String taskId) {
         return ResponseViewModel.ok(diseaseRecordService.getDiseaseRecordTable(taskId));

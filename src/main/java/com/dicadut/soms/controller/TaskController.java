@@ -280,7 +280,7 @@ public class TaskController {
         return ResponseViewModel.ok();
     }
 
-    @ApiOperation(value = "App任务列表", tags = {"App", "YANG", "App未通"})
+    @ApiOperation(value = "App任务列表", tags = {"App", "YANG", "App已通"})
     @GetMapping("get_task_app_list")
     public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus) {
         List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus);
@@ -361,10 +361,22 @@ public class TaskController {
      * @param taskId 任务id
      * @return 该任务审核意见
      */
-    @ApiOperation(value = "根据任务id获得该任务审核意见（其他意见）", tags = {"App", "YANG", "App未通"})
+    @ApiOperation(value = "根据任务id获得该任务审核意见（其他意见）", tags = {"App", "YANG", "App已通"})
     @GetMapping("get_task_review_opinion")
     public ResponseViewModel<TaskReviewOpinionDTO> getTaskReviewOpinion(@RequestParam String taskId) {
         TaskReviewOpinionDTO taskReviewOpinionDTO = taskService.getTaskReviewOpinion(taskId);
         return ResponseViewModel.ok(taskReviewOpinionDTO);
+    }
+
+    /**
+     * 根据任务id获得该任务详情（移动端）
+     * @param taskId 任务id
+     * @return 该任务详情
+     */
+    @ApiOperation(value = "根据任务id获得该任务详情（移动端）", tags = {"App", "YANG", "App未通"})
+    @GetMapping("get_task_details_app")
+    public ResponseViewModel<TaskDetailAppVO> getTaskDetailApp(@RequestParam String taskId) {
+        TaskDetailAppVO taskDetailAppVO = taskService.getTaskDetailApp(taskId);
+        return ResponseViewModel.ok(taskDetailAppVO);
     }
 }

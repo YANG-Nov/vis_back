@@ -46,7 +46,7 @@ public class ComponentController {
      * @param taskId 任务id
      * @return 任务所包含的构件列表，带导航栏
      */
-    @ApiOperation(value = "App添加病害前，选择构件列表（巡检内容）", tags = {"App", "YANG", "App未通"})
+    @ApiOperation(value = "App添加病害前，选择构件列表（巡检内容）", tags = {"App", "YANG", "App已通"})
     @GetMapping("get_component_app_list")
     public ResponseViewModel<List<TaskComponentAppDTO>> getComponentAppList(@RequestParam String taskId) {
         return ResponseViewModel.ok(componentService.getComponentAppList(taskId));
@@ -72,7 +72,7 @@ public class ComponentController {
      * @param positionId 位置id
      * @return 构件所对应的该桩号下的构件编号
      */
-    @ApiOperation(value = "APP添加病害页面，选择构件编号", tags = {"App","YANG","App未通"})
+    @ApiOperation(value = "APP添加病害页面，选择构件编号", tags = {"App","YANG","App已通"})
     @GetMapping("get_component_number_app_list")
     public ResponseViewModel<List<ComponentNumberAppListDTO>> getComponentNumberAppList(@RequestParam String componentId
             , @RequestParam String positionId) {

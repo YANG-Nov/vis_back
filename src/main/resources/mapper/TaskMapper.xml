@@ -375,4 +375,30 @@
         FROM soms.t_task t
         WHERE t.id = #{taskId}
     </select>
+
+    <select id="selectTaskDetailApp" resultType="com.dicadut.soms.dto.TaskDetailAppDTO">
+        SELECT
+                t.id,
+                d.code_name task_type,
+                t.receive_time,
+                t.finish_time,
+                t.start_time,
+                t.end_time,
+                b.location,
+                replace(substring(substring_index(c.xname, '/', 3), char_length(substring_index(c.xname, '/', 3-1)) + 1), '/', '') parent_name,
+                tbc.inspection_route,
+                t.scan_positions,
+                u.real_name creat_by,
+                c.`name` component_name,
+                b.stake_or_truss_number,
+                bc.order_number
+        FROM soms.t_task t
+                     LEFT JOIN soms.t_dictionary d on t.task_type = d.`code`
+                     LEFT JOIN soms.t_task_bridge_component tbc on t.id = tbc.task_id
+                     LEFT JOIN soms.t_bridge_component bc on tbc.bridge_component_id = bc.id
+                     LEFT JOIN soms.t_bridge b on bc.bridge_id = b.id
+                     LEFT JOIN soms.t_component c on bc.component_id = c.id
+                     LEFT JOIN soms.t_user u on t.create_by = u.id
+        WHERE t.id = #{taskId}
+    </select>
 </mapper>

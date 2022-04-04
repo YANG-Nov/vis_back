@@ -182,4 +182,6 @@ public interface TaskService extends IService<Task> {
      * @author FanJane
      */
     void submitUpdateTask(TaskVO taskVO);
+
+    TaskDetailAppVO getTaskDetailApp(String taskId);
 }
