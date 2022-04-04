@@ -486,7 +486,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public void updateTaskStatus(String taskId, String taskStatusIdGo) {
         int updateRaws = baseMapper.updateTaskStatus(taskId, taskStatusIdGo);
         if (updateRaws <= 0) {
-            throw new TaskException(20001, "修改失败");
+            throw new TaskException(20001, "任务id不对，修改失败");
         }
     }
 
@@ -876,7 +876,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             QueryWrapper<DiseaseRecord> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("task_id",opinionVO.getTaskId()).eq("record_id",entry.getKey());
 
-            DiseaseRecord diseaseRecord = diseaseRecordService.list(queryWrapper).get(0);
+
+            DiseaseRecord diseaseRecord = null;
+            try {
+                diseaseRecord = diseaseRecordService.list(queryWrapper).get(0);
+            } catch (Exception e) {
+                throw new TaskException(20001,"输入id有误");
+            }
+
+
             diseaseRecord.setType(Integer.valueOf(SomsConstant.DISEASE_REVIEW_OPINION));
             diseaseRecord.setContent(entry.getValue());
             diseaseRecord.setId(null);
