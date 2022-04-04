@@ -385,8 +385,17 @@ public class TaskController {
             , notes = "没有返回建议通过任务审核")
     @GetMapping("/pass/{taskId}")
 
-    public ResponseViewModel<TaskContentDTO> passTask(@PathVariable String taskId) {
+    public ResponseViewModel passTask(@PathVariable String taskId) {
         taskService.updateTaskStatus(taskId, TaskStatusEnum.FINISH.getValue());
+        return ResponseViewModel.ok();
+    }
+
+    @ApiOperation(value = "召回任务", tags = {"web", "任务列表页", "jane", "未通"}
+            , notes = "召回")
+    @GetMapping("/recall/{taskId}")
+
+    public ResponseViewModel recallTask(@PathVariable String taskId) {
+        taskService.updateTaskStatus(taskId, TaskStatusEnum.MAN_RECALL.getValue());
         return ResponseViewModel.ok();
     }
 
