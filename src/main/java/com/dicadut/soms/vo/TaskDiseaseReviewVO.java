@@ -16,12 +16,13 @@ public class TaskDiseaseReviewVO {
 
     private List<TaskDiseaseReviewVO.Item> text;
     private List<TaskDiseaseReviewVO.Item> media;
-    private Integer recordId;
+    private String recordId;
 
 
     @Data
     @AllArgsConstructor
     public static class Item {
+        //Jane_TODO 2022/4/4 加个type
         private String label;
         private Object value ;
     }

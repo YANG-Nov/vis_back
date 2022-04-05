@@ -534,7 +534,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             List<TaskDiseaseReviewVO.Item> text = new ArrayList<>();
             List<TaskDiseaseReviewVO.Item> media = new ArrayList<>();
             Map<String, List<String>> mapAll = new HashMap<>();
-            taskDiseaseReviewVO.setRecordId(value.get(0).getRecordId());
+            taskDiseaseReviewVO.setRecordId(value.get(0).getRecordId()+"");
             text.add(new TaskDiseaseReviewVO.Item("病害名称", value.get(0).getName()));
             text.add(new TaskDiseaseReviewVO.Item("构建及编号", value.get(0).getComponentNumber() + "-" + value.get(0).getOrderNumber()));
             for (TaskDiseaseDTO s : value) {
