@@ -44,6 +44,7 @@
                 LEFT JOIN t_bridge b ON bc.bridge_id = b.id
         WHERE tbc.task_id = #{taskId}
                 AND bc.component_id = #{componentId}
+        group by b.stake_or_truss_number
     </select>
 
     <select id="selectComponentNumberAppList" resultType="com.dicadut.soms.dto.ComponentNumberAppListDTO">
