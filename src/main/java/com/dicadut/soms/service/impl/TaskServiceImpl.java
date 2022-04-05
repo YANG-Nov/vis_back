@@ -852,8 +852,51 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     //TODO 根据任务id获得该任务详情（移动端）
     @Override
     public TaskDetailAppVO getTaskDetailApp(String taskId) {
+        //从数据库中查出数据
+        List<TaskDetailAppDTO> taskDetailAppDTOS = baseMapper.selectTaskDetailApp(taskId);
+        //返回数据集合
+        TaskDetailAppVO taskDetailAppVO = new TaskDetailAppVO();
 
-        return null;
+        TaskDetailAppDTO taskDetailAppDTO = taskDetailAppDTOS.get(0);
+        taskDetailAppVO.setId(taskDetailAppDTO.getId());
+        taskDetailAppVO.setTaskType(taskDetailAppDTO.getTaskType());
+        taskDetailAppVO.setReceiveTime(taskDetailAppDTO.getReceiveTime());
+        taskDetailAppVO.setFinishTime(taskDetailAppDTO.getFinishTime());
+        taskDetailAppVO.setInspectionTime(taskDetailAppDTO.getStartTime()+"~"+taskDetailAppDTO.getEndTime());
+        taskDetailAppVO.setInspectionPosition(taskDetailAppDTO.getLocation()+taskDetailAppDTO.getParentName());
+        taskDetailAppVO.setInspectionRoute(taskDetailAppDTO.getInspectionRoute());
+        taskDetailAppVO.setScanPositions(taskDetailAppDTO.getScanPositions());
+        taskDetailAppVO.setCreatBy(taskDetailAppDTO.getCreatBy());
+
+        //过渡map集合，key: eg:东引桥B匝道桥面系, value: componentId、component
+        Map<String, List<TaskDetailAppVO.Item.child>> map = new HashMap<>();
+        //遍历数据库中封装一次查到的数据对象集合
+        for (TaskDetailAppDTO taskDetailAppDTO1 : taskDetailAppDTOS){
+            //添加key：eg:东引桥B匝道桥面系
+            String location = taskDetailAppDTO1.getLocation();
+            String parentName = taskDetailAppDTO1.getParentName();
+            String inspectionLocation = location+parentName;
+            map.putIfAbsent(inspectionLocation,new ArrayList<>());
+            //添加value：componentName、componentNumber
+            TaskDetailAppVO.Item.child of = new TaskDetailAppVO.Item.child();
+            of.setComponentName(taskDetailAppDTO1.getComponentName());
+            of.setComponentNumber(taskDetailAppDTO1.getComponentNumber());
+            map.get(inspectionLocation).add(of);
+        }
+        //遍历map集合
+        List<TaskDetailAppVO.Item> objects = new ArrayList<>();
+        for (Map.Entry<String,List<TaskDetailAppVO.Item.child>> entry : map.entrySet()){
+            //取得key和value
+            String inspectionLocation = entry.getKey();
+            List<TaskDetailAppVO.Item.child> items = entry.getValue();
+            //赋值给需要返回的集合
+            TaskDetailAppVO.Item taskDetailAppVOItem = new TaskDetailAppVO.Item();
+            taskDetailAppVOItem.setInspectionLocation(inspectionLocation);
+            taskDetailAppVOItem.setComponentList(items);
+            objects.add(taskDetailAppVOItem); //空指针
+        }
+        taskDetailAppVO.setPosition(objects);
+        return taskDetailAppVO;
     }
 
     //先简单写一个

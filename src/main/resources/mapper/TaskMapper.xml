@@ -392,8 +392,7 @@
                 t.scan_positions,
                 u.real_name creat_by,
                 c.`name` component_name,
-                b.stake_or_truss_number,
-                bc.order_number
+                GROUP_CONCAT(CONCAT(b.stake_or_truss_number,'-',bc.order_number)) component_number
         FROM soms.t_task t
                      LEFT JOIN soms.t_dictionary d on t.task_type = d.`code`
                      LEFT JOIN soms.t_task_bridge_component tbc on t.id = tbc.task_id
@@ -402,5 +401,6 @@
                      LEFT JOIN soms.t_component c on bc.component_id = c.id
                      LEFT JOIN soms.t_user u on t.create_by = u.id
         WHERE t.id = #{taskId}
+        GROUP BY c.`name`
     </select>
 </mapper>

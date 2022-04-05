@@ -159,5 +159,5 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     TaskReviewOpinionDTO selectTaskReviewOpinion(String taskId);
 
-    TaskDetailAppDTO selectTaskDetailApp(String taskId);
+    List<TaskDetailAppDTO> selectTaskDetailApp(String taskId);
 }

@@ -5,6 +5,7 @@ import com.dicadut.soms.json.StakeNumberSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * @ Author     ：Yang
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @ Description：App端查看任务详情（数据库查出的结果）
  * @Version: 1.0.0$
  */
+@Data
 public class TaskDetailAppDTO {
     @ApiModelProperty("任务id")
     private String id;
@@ -37,10 +39,10 @@ public class TaskDetailAppDTO {
     private String creatBy;
     @ApiModelProperty("构件")
     private String componentName;
-    @ApiModelProperty("构件桩号")
+
+    @ApiModelProperty("构件编号")
     @JsonSerialize(using = StakeNumberSerializer.class)
     @JsonDeserialize(using = StakeNumberDeserializer.class)
-    private String stakeOrTrussNumber;
-    @ApiModelProperty("构件顺序")
-    private String orderNumber;
+    private String componentNumber;
+
 }
