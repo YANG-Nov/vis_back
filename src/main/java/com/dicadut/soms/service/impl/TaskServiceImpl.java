@@ -893,7 +893,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             TaskDetailAppVO.Item taskDetailAppVOItem = new TaskDetailAppVO.Item();
             taskDetailAppVOItem.setInspectionLocation(inspectionLocation);
             taskDetailAppVOItem.setComponentList(items);
-            objects.add(taskDetailAppVOItem); //空指针
+            objects.add(taskDetailAppVOItem);
         }
         taskDetailAppVO.setPosition(objects);
         return taskDetailAppVO;
