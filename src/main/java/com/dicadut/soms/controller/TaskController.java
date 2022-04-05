@@ -303,7 +303,8 @@ public class TaskController {
      * @return responseViewModel
      */
     @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App已通", "web", "未通"}
-            , notes = "变更任务状态，taskId 20220119000001 , taskStatusIdGo 召回（主动）  1002000008  ")
+            , notes = "变更任务状态，taskId 20220119000001 , taskStatusIdGo 召回（主动）  1002000008  " +
+            "1002000001待领取，1002000002正在巡检，1002000003待审核，1002000004待分配，1002000005待重传，1002000006巡检完成，1002000007自动召回，1002000008主动召回，1002000009待巡检，1002000010待重审")
     @PostMapping("/update_task_status")
     public ResponseViewModel updateTaskStatus(@RequestBody TaskStatusVO taskStatusVO) {
         taskService.updateTaskStatus(taskStatusVO.getTaskId(), taskStatusVO.getTaskStatusIdGo());
