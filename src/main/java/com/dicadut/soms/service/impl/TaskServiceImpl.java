@@ -852,6 +852,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     //TODO 根据任务id获得该任务详情（移动端）
     @Override
     public TaskDetailAppVO getTaskDetailApp(String taskId) {
+
         return null;
     }
 

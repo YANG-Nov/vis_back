@@ -367,6 +367,8 @@
                      LEFT JOIN t_bridge b ON b.id = dr.bridge_id
                      LEFT JOIN t_disease d ON d.id = dr.disease_id
         where t.id = #{taskId}
+        and dr.is_deleted = 0
+        and t.is_deleted = 0
     </select>
 
     <select id="selectTaskReviewOpinion" resultType="com.dicadut.soms.dto.TaskReviewOpinionDTO">
