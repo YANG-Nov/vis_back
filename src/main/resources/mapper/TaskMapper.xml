@@ -382,8 +382,8 @@
         SELECT
                 t.id,
                 d.code_name task_type,
-                t.receive_time,
-                t.finish_time,
+                t.remind_time,
+                t.recall_time,
                 t.start_time,
                 t.end_time,
                 b.location,

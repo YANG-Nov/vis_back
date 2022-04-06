@@ -860,8 +860,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         TaskDetailAppDTO taskDetailAppDTO = taskDetailAppDTOS.get(0);
         taskDetailAppVO.setId(taskDetailAppDTO.getId());
         taskDetailAppVO.setTaskType(taskDetailAppDTO.getTaskType());
-        taskDetailAppVO.setReceiveTime(taskDetailAppDTO.getReceiveTime());
-        taskDetailAppVO.setFinishTime(taskDetailAppDTO.getFinishTime());
+        taskDetailAppVO.setRecallTime(taskDetailAppDTO.getRecallTime());
+        taskDetailAppVO.setRemindTime(taskDetailAppDTO.getRemindTime());
         taskDetailAppVO.setInspectionTime(taskDetailAppDTO.getStartTime()+"~"+taskDetailAppDTO.getEndTime());
         taskDetailAppVO.setInspectionPosition(taskDetailAppDTO.getLocation()+taskDetailAppDTO.getParentName());
         taskDetailAppVO.setInspectionRoute(taskDetailAppDTO.getInspectionRoute());
