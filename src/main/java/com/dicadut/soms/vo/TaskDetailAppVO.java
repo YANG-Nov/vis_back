@@ -22,10 +22,10 @@ public class TaskDetailAppVO {
     private String id;
     @ApiModelProperty("任务类型")
     private String taskType;
-    @ApiModelProperty("完成期限")
+    @ApiModelProperty("领取期限")
     private String recallTime;
-    @ApiModelProperty("领取时间")
-    private String remindTime;
+    @ApiModelProperty("完成期限")
+    private String finishDeadline;
     @ApiModelProperty("巡检时间")
     private String inspectionTime;
     @ApiModelProperty("巡检部位")

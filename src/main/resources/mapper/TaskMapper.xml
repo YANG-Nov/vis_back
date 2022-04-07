@@ -382,7 +382,7 @@
         SELECT
                 t.id,
                 d.code_name task_type,
-                t.remind_time,
+                t.end_time finish_deadline,
                 t.recall_time,
                 t.start_time,
                 t.end_time,

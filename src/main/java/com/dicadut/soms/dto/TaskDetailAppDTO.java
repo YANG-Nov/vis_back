@@ -19,10 +19,10 @@ public class TaskDetailAppDTO {
     private String id;
     @ApiModelProperty("任务类型")
     private String taskType;
-    @ApiModelProperty("完成期限")
-    private String recallTime;
     @ApiModelProperty("领取期限")
-    private String remindTime;
+    private String recallTime;
+    @ApiModelProperty("完成期限")
+    private String finishDeadline;
     @ApiModelProperty("开始时间")
     private String startTime;
     @ApiModelProperty("结束时间")
