@@ -192,4 +192,12 @@ public interface TaskService extends IService<Task> {
      * @return void
      */
     void rejectTask(OpinionVO opinionVO);
+
+    /**
+     * // Jane_TODO add description
+     * @author FanJane
+     * @param taskRecordIdVO
+     * @return com.dicadut.soms.vo.TaskDiseaseReviewVO
+     */
+    TaskDiseaseReviewVO getDiseaseDetail(TaskRecordIdVO taskRecordIdVO);
 }

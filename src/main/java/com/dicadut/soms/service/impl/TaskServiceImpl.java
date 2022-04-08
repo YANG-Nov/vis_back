@@ -940,5 +940,39 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         }
 
     }
+
+    @Override
+    public TaskDiseaseReviewVO getDiseaseDetail(TaskRecordIdVO taskRecordIdVO) {
+        List<TaskDiseaseDTO> taskDiseaseDTOS = baseMapper.getOneRecordDisease(taskRecordIdVO.getTaskId(),taskRecordIdVO.getRecordId());
+        TaskDiseaseReviewVO taskDiseaseReviewVO = new TaskDiseaseReviewVO();
+        List<TaskDiseaseReviewVO.Item> text = new ArrayList<>();
+        List<TaskDiseaseReviewVO.Item> media = new ArrayList<>();
+        Map<String, List<String>> mapAll = new HashMap<>();
+        taskDiseaseReviewVO.setRecordId(taskDiseaseDTOS.get(0).getRecordId()+"");
+        text.add(new TaskDiseaseReviewVO.Item("病害名称", taskDiseaseDTOS.get(0).getName()));
+        text.add(new TaskDiseaseReviewVO.Item("构建及编号", taskDiseaseDTOS.get(0).getComponentNumber() + "-" + taskDiseaseDTOS.get(0).getOrderNumber()));
+        for (TaskDiseaseDTO s : taskDiseaseDTOS) {
+            String type = s.getType().toString();
+            String content = s.getContent();
+
+            if (SomsConstant.FEATURE_FIELD.equals(type)) {
+                String diseaseAttributeId = s.getDiseaseAttributeId();
+                text.add(new TaskDiseaseReviewVO.Item(DiseaseAttributeEnum.findByValue(diseaseAttributeId), content + DiseaseUnitEnum.findByValue(diseaseAttributeId)));
+            }
+            if (SomsConstant.FEATURE_POPUP.equals(type)||SomsConstant.FEATURE_RADIO.equals(type)||SomsConstant.DISEASE_TEXT.equals(type)||SomsConstant.DISEASE_REVIEW_OPINION.equals(type)) {
+                text.add(new TaskDiseaseReviewVO.Item(DiseaseAttributeEnum.findByValue(type), content ));
+            }
+            if (SomsConstant.DISEASE_PICTURE.equals(type)||SomsConstant.DISEASE_VIDEO.equals(type)||SomsConstant.DISEASE_VOICE.equals(type)) {
+                mapAll.putIfAbsent(type, new ArrayList<>());
+                mapAll.get(type).add(content);
+            }
+        }
+        for (Map.Entry<String, List<String>> m : mapAll.entrySet()) {
+            media.add(new TaskDiseaseReviewVO.Item(DiseaseRecordTypeEnum.findByValue(m.getKey()),m.getValue()));
+        }
+        taskDiseaseReviewVO.setText(text);
+        taskDiseaseReviewVO.setMedia(media);
+        return taskDiseaseReviewVO;
+    }
 }
 

@@ -403,4 +403,47 @@
         WHERE t.id = #{taskId}
         GROUP BY c.`name`
     </select>
+
+    <select id="getOneRecordDisease" resultType="com.dicadut.soms.dto.TaskDiseaseDTO">
+        SELECT
+                t.task_type,
+                t.task_status,
+                t.start_time,
+                t.end_time,
+                t.remind_time,
+                t.recall_time,
+                t.inspection_position,
+                t.receive_time,
+                t.finish_time,
+                t.inspector_id,
+                t.create_by,
+                t.scan_positions,
+                t.review_opinion,
+                t.inspection_frequency,
+                t.id        taskId,
+                dr.bridge_id,
+                dr.component_id,
+                dr.disease_id,
+                dr.type,
+                dr.disease_attribute_id,
+                dr.content,
+                da.`value`,
+                da.unit,
+                bc.component_number,
+                b.location,
+                bc.bridge_position,
+                d.`name`,
+                dr.record_id,
+                dr.order_number
+        FROM t_task t
+                     LEFT JOIN soms.t_disease_record dr ON t.id = dr.task_id
+                     left join soms.t_disease_attribute da on dr.disease_attribute_id = da.id
+                     LEFT JOIN t_bridge_component bc ON dr.component_id = bc.component_id AND dr.bridge_id = bc.bridge_id AND dr.order_number =bc.order_number
+                     LEFT JOIN t_bridge b ON b.id = dr.bridge_id
+                     LEFT JOIN t_disease d ON d.id = dr.disease_id
+        where t.id = #{taskId}
+          and dr.record_id = #{recordId}
+          and dr.is_deleted = 0
+          and t.is_deleted = 0
+    </select>
 </mapper>

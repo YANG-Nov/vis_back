@@ -341,6 +341,21 @@ public class TaskController {
         TaskContentDTO taskUserDistributeList = taskService.getWaitReviewTask(taskId);
         return ResponseViewModel.ok(taskUserDistributeList);
     }
+    /**
+     * //
+     *
+     * @param taskRecordIdVO
+     * @return com.dicadut.soms.viewmodel.ResponseViewModel<java.util.List < com.dicadut.soms.dto.InspectorDTO>>
+     * @author FanJane
+     */
+    @ApiOperation(value = "获得一条任务的病害信息", tags = {"web", "任务列表页", "jane", "未通"}
+            , notes = "任务：id20220320000004，记录id：2")
+    @PostMapping("/get_disease_detail")
+
+    public ResponseViewModel<TaskDiseaseReviewVO> getDiseaseDetail(@RequestBody TaskRecordIdVO taskRecordIdVO) {
+        TaskDiseaseReviewVO taskDiseaseReviewVO = taskService.getDiseaseDetail(taskRecordIdVO);
+        return ResponseViewModel.ok(taskDiseaseReviewVO);
+    }
 
     /**
      * // Jane_TODO add description
