@@ -1,5 +1,6 @@
 package com.dicadut.soms.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -10,5 +11,6 @@ import lombok.Data;
  */
 @Data
 public class TaskStatusDTO {
+    @ApiModelProperty("任务状态")
     private String taskStatus;
 }
