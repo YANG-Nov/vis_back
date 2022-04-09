@@ -200,4 +200,11 @@ public interface TaskService extends IService<Task> {
      * @return com.dicadut.soms.vo.TaskDiseaseReviewVO
      */
     TaskDiseaseReviewVO getDiseaseDetail(TaskRecordIdVO taskRecordIdVO);
+
+    /**
+     * 根据task_id获得任务状态值
+     * @param taskId 任务id
+     * @return 任务状态
+     */
+    TaskStatusDTO getTaskStatus(String taskId);
 }

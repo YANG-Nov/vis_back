@@ -446,4 +446,10 @@
           and dr.is_deleted = 0
           and t.is_deleted = 0
     </select>
+
+    <select id="selectTaskStatus" resultType="com.dicadut.soms.dto.TaskStatusDTO">
+        SELECT task_status
+        FROM t_task
+        WHERE id = #{taskId}
+    </select>
 </mapper>

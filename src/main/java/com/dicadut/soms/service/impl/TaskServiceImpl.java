@@ -849,7 +849,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     }
 
-    //TODO 根据任务id获得该任务详情（移动端）
     @Override
     public TaskDetailAppVO getTaskDetailApp(String taskId) {
         //从数据库中查出数据
@@ -973,6 +972,12 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         taskDiseaseReviewVO.setText(text);
         taskDiseaseReviewVO.setMedia(media);
         return taskDiseaseReviewVO;
+    }
+
+    @Override
+    public TaskStatusDTO getTaskStatus(String taskId) {
+        TaskStatusDTO taskStatusDTO = baseMapper.selectTaskStatus(taskId);
+        return taskStatusDTO;
     }
 }
 

@@ -425,4 +425,16 @@ public class TaskController {
         taskService.rejectTask(opinionVO);
         return ResponseViewModel.ok();
     }
+
+    /**
+     * 根据任务id获得该任务状态值
+     * @param taskId 任务id
+     * @return 任务状态
+     */
+    @ApiOperation(value = "根据任务id获得该任务状态值", tags = {"App", "YANG", "App已通"})
+    @GetMapping("get_task_status")
+    public ResponseViewModel<TaskStatusDTO> getTaskStatus(@RequestParam String taskId) {
+        TaskStatusDTO taskStatusDTO = taskService.getTaskStatus(taskId);
+        return ResponseViewModel.ok(taskStatusDTO);
+    }
 }
