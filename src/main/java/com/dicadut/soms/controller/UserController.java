@@ -105,23 +105,16 @@ public class UserController {
 
     @ApiOperation("手机号登陆")
     @PostMapping("/login/phone")
-    public ResponseViewModel<String> loginPhone(@RequestBody UserDTO userDTO) {
-        log.info("用户登陆 {}", userDTO);
-
-        ResponseViewModel<UserDTO> responseViewModel = new ResponseViewModel<>();
-        User user = new User();
-        BeanUtil.copyProperties(userDTO, user);
-
+    public ResponseViewModel<String> loginPhone(@RequestParam String phone,@RequestParam String password) {
         User one = userService.getOne(new QueryWrapper<User>()
-                .eq("phone", user.getPhone())
-                .eq("password", user.getPassword())
+                .eq("phone", phone)
+                .eq("password", password)
         );
         if (one != null) {
-            return ResponseViewModel.ok("success");
+            return ResponseViewModel.ok(one.getId());
         } else {
-            return ResponseViewModel.ok("fail");
+            return ResponseViewModel.ok("手机号或密码有误");
         }
-
     }
 
 
