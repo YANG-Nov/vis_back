@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/welcome")
 public class SomsController {
 
-    @ApiOperation("测试接口actions")
+    @ApiOperation("测试接口")
     @GetMapping
     public ResponseViewModel<String> getUsrCurrentJobModel() {
         return ResponseViewModel.ok("欢迎使用大连理工大学桥隧智慧运维系统，当前版本 1.0.0");
