@@ -113,7 +113,7 @@ public class UserController {
         if (one != null) {
             return ResponseViewModel.ok(one.getId());
         } else {
-            return ResponseViewModel.ok("手机号或密码有误");
+            return ResponseViewModel.ok("fail");
         }
     }
 
