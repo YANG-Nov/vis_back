@@ -22,7 +22,7 @@ jobs:
       - name: Deploy to Server
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: /build/libs/soms-1.0.0.jar
+          local: build/libs/soms-1.0.0.jar
           remote: /data/deploy/soms-1.0.0.jar
           host: '139.9.157.89' # 你的公网地
           username: root # 阿里云登录后默认为 root 用户，并且所在文件夹为 root
