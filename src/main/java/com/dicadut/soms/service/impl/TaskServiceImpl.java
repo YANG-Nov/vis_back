@@ -478,7 +478,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         removeByTaskId.put("task_id", taskId);
         int updateRaws = taskBridgeComponentMapper.deleteByMap(removeByTaskId);
         if (updateRaws <= 0) {
-            throw new TaskException(20001, "删除失败,没有这条任务");
+            throw new TaskException(20001, "删除失败,没有构件");
         }
     }
 
@@ -935,6 +935,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
 
             DiseaseRecord diseaseRecord = null;
+            //获得
             try {
                 diseaseRecord = diseaseRecordService.list(queryWrapper).get(0);
             } catch (Exception e) {
