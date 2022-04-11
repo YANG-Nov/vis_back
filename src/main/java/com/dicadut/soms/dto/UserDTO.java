@@ -18,7 +18,7 @@ public class UserDTO {
     @ApiModelProperty(value = "用户id", example = "23863422-8b51-4084-80b7-e419483f82b9")
     private String id;
     @ApiModelProperty(value = "账户名", example = "breeze")
-    private String username;
+    private String userName;
     @ApiModelProperty(value = "用户姓名", example = "风清扬")
     private String realName;
     @ApiModelProperty(value = "手机号", example = "18012345678")

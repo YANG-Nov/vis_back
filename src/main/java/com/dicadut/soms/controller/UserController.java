@@ -35,21 +35,20 @@ public class UserController {
 
     @ApiOperation("用户注册")
     @PostMapping("/register")
-    public ResponseViewModel<UserDTO> register(@RequestBody UserDTO userDTO) {
-        log.info("用户注册 {}", userDTO);
+    public ResponseViewModel<User> register(@RequestBody User user) {
+        log.info("用户注册 {}", user);
 
-        ResponseViewModel<UserDTO> responseViewModel = new ResponseViewModel<>();
-        User user = new User();
-        BeanUtil.copyProperties(userDTO, user);
+//        User user = new User();
+//        BeanUtil.copyProperties(userDTO, user);
         userService.save(user);
-        return ResponseViewModel.ok(userDTO);
+        return ResponseViewModel.ok();
 
     }
 
     @ApiOperation("用户名是否已存在")
     @PostMapping("/isExist")
     public ResponseViewModel<UserDTO> iSExist(@RequestBody UserDTO userDTO) {
-        User one = userService.getOne(new QueryWrapper<User>().eq("username", userDTO.getUsername()));
+        User one = userService.getOne(new QueryWrapper<User>().eq("username", userDTO.getUserName()));
 
         if (one == null) {
             return ResponseViewModel.ok(userDTO);
@@ -91,7 +90,7 @@ public class UserController {
         BeanUtil.copyProperties(userDTO, user);
 
         User one = userService.getOne(new QueryWrapper<User>()
-                .eq("username", user.getUsername())
+                .eq("username", user.getUserName())
                 .eq("password", user.getPassword())
         );
         if (one != null) {
@@ -111,7 +110,7 @@ public class UserController {
                 .eq("password", password)
         );
         if (one != null) {
-            return ResponseViewModel.ok(one.getId());
+            return ResponseViewModel.ok();
         } else {
             return ResponseViewModel.ok("fail");
         }

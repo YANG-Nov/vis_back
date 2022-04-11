@@ -1,13 +1,10 @@
 package com.dicadut.soms.domain;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -18,10 +15,14 @@ import java.util.Date;
 @Data
 @TableName("t_user")
 public class User {
+
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "用户id", example = "23863422-8b51-4084-80b7-e419483f82b9")
-    private String id;
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    private Long id;
     @ApiModelProperty(value = "账户名", example = "breeze")
-    private String username;
+    private String userName;
     @ApiModelProperty(value = "用户姓名", example = "风清扬")
     private String realName;
     @ApiModelProperty(value = "手机号", example = "18012345678")
@@ -51,10 +52,10 @@ public class User {
 
     @ApiModelProperty(value = "创建时间", example = "2021-09-30 13:00:00")
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty(value = "更新时间", example = "2021-09-30 14:00:00")
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
 }
