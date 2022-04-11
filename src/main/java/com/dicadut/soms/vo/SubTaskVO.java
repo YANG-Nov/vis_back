@@ -15,7 +15,6 @@ import lombok.Data;
 @ApiModel("接受前端传过来的子任务")
 public class SubTaskVO {
     @ApiModelProperty(value = "巡检路线")
-    @JsonProperty("remark")
     private String inspectionRoute;
     @ApiModelProperty(value = "巡检范围起始桩号")
     private String inspectionStart;
