@@ -110,6 +110,7 @@
         FROM
                 soms.t_disease_record
         WHERE type=8
+            and content != ""
           and task_id = #{taskId}
     </select>
 
