@@ -705,20 +705,34 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         for (Map.Entry<String, List<TaskBridgeComponentDTO>> entry : map.entrySet()) {
             SubTaskUpdateV0 subTaskUpdateV0 = new SubTaskUpdateV0();
             List<TaskBridgeComponentDTO> taskBridgeComponentDTOS = entry.getValue();
+            TaskBridgeComponentDTO taskBridgeComponent = taskBridgeComponentDTOS.get(0);
             //获得巡检起始桩号
             String[] inspectionStart;
             inspectionStart = new String[2];
-            inspectionStart[0] = taskBridgeComponentDTOS.get(0).getLocation();
-            inspectionStart[1] = taskBridgeComponentDTOS.get(0).getInspectionStart();
+            inspectionStart[0] = taskBridgeComponent.getLocation();
+            inspectionStart[1] = taskBridgeComponent.getInspectionStart();
             subTaskUpdateV0.setInspectionStart(inspectionStart);
             String[] inspectionEnd;
             inspectionEnd = new String[2];
-            inspectionEnd[0] = taskBridgeComponentDTOS.get(0).getLocation();
-            inspectionEnd[1] = taskBridgeComponentDTOS.get(0).getInspectionEnd();
+            inspectionEnd[0] = taskBridgeComponent.getLocation();
+            inspectionEnd[1] = taskBridgeComponent.getInspectionEnd();
             subTaskUpdateV0.setInspectionEnd(inspectionEnd);
             //获得巡检构件
             subTaskUpdateV0.setSelectedComponents(taskBridgeComponentDTOS.stream().map(TaskBridgeComponentDTO::getComponentId).distinct().toArray(String[]::new));
+            //获得巡检路线
+            String inspectionRoute = taskBridgeComponent.getInspectionRoute();
+            subTaskUpdateV0.setInspectionRoute(inspectionRoute);
+            //获得打卡点位置
+            String scanPosition = taskBridgeComponent.getScanPosition();
+            String[] split = scanPosition.split(",");
+            for (int j = 0; j <split.length; j++) {
+                split[j] = ScanPositionEnum.findByLabel(split[j]);
+            }
+            subTaskUpdateV0.setScanPosition(split);
             subTaskUpdateV0s.add(subTaskUpdateV0);
+
+
+
         }
         taskContentDTO.setSubTasks(subTaskUpdateV0s);
 

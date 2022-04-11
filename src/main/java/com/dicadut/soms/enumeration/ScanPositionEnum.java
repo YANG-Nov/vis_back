@@ -50,6 +50,10 @@ public enum ScanPositionEnum {
         return Arrays.stream(values()).filter(e -> e.getValue().equals(value)).findAny().map(ScanPositionEnum::getLabel).orElse("");
     }
 
+    public static String findByLabel(String label) {
+        return Arrays.stream(values()).filter(e -> e.getLabel().equals(label)).findAny().map(ScanPositionEnum::getValue).orElse("");
+    }
+
     public static ScanPositionEnum getEnum(String value) {
         return codeEnumMap.get(value);
     }

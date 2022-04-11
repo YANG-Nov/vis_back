@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 public class SubTaskUpdateV0 {
     private String inspectionPosition;
+    private String[] scanPosition;
     private String inspectionRoute;
     private String[] inspectionStart;
     private String[] inspectionEnd;

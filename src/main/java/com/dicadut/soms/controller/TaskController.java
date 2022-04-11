@@ -72,7 +72,7 @@ public class TaskController {
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO>
      * @author FanJane
      */
-    @ApiOperation(value = "修改任务", tags = {"web", "任务列表页", "jane", "已通"}
+    @ApiOperation(value = "修改任务回显", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "点击修改任务任务回显")
     @PostMapping("/update_task/{taskId}")
     public ResponseViewModel<TaskContentDTO<SubTaskUpdateV0>> updateTask(@PathVariable String taskId) {
