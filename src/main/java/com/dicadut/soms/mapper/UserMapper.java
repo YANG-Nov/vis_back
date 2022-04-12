@@ -9,4 +9,5 @@ import com.dicadut.soms.domain.User;
  * @create 2021-10-12 13:54
  */
 public interface UserMapper extends BaseMapper<User> {
+    void updateUserStatus(String userId, String userStatusGo);
 }

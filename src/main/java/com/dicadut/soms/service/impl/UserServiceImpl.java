@@ -85,4 +85,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         return list;
     }
+
+    @Override
+    public void updateUserStatus(String userId, String userStatusGo) {
+        baseMapper.updateUserStatus(userId, userStatusGo);
+    }
 }

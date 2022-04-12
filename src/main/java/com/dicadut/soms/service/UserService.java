@@ -16,4 +16,5 @@ public interface UserService extends IService<User> {
     List<UserStatusDTO> getStatusMaintainerList();
     List<UserStatusDTO> getStatusInspectorList();
 
+    void updateUserStatus(String userId, String userStatusGo);
 }

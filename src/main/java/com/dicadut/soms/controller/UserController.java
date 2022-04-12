@@ -8,6 +8,7 @@ import com.dicadut.soms.dto.UserDTO;
 import com.dicadut.soms.dto.UserStatusDTO;
 import com.dicadut.soms.service.UserService;
 import com.dicadut.soms.viewmodel.ResponseViewModel;
+import com.dicadut.soms.vo.UserStatusVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -174,6 +175,14 @@ public class UserController {
         List<UserStatusDTO> statusMaintainerList = userService.getStatusMaintainerList();
         return ResponseViewModel.ok(statusMaintainerList);
 
+    }
+
+    @ApiOperation(value = "更新人员工作状态", tags = {"App", "YANG", "App未通"}
+            , notes = "2001000001工作中 2001000002空闲中")
+    @PostMapping("/update_user_status")
+    public ResponseViewModel updateUserStatus(@RequestBody UserStatusVO userStatusVO) {
+        userService.updateUserStatus(userStatusVO.getUserId(), userStatusVO.getUserStatusGo());
+        return ResponseViewModel.ok();
     }
 }
 
