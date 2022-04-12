@@ -239,6 +239,8 @@
                      LEFT JOIN t_user u ON u.id = t.inspector_id
                      LEFT JOIN t_user u1 ON u1.id = t.create_by
         WHERE tbc.task_id = #{taskId}
+          and tbc.is_deleted = 0
+          and t.is_deleted = 0
     </select>
 
     <select id="getScanPositionList" resultType="com.dicadut.soms.dto.ScanPositionDTO">
@@ -314,6 +316,8 @@
                      LEFT JOIN t_user u ON u.id = t.inspector_id
                      LEFT JOIN t_user u1 ON u1.id = t.create_by
         WHERE tbc.task_id = #{taskId}
+          and tbc.is_deleted = 0
+          and t.is_deleted = 0
 
     </select>
 
