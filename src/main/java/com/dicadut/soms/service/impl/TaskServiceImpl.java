@@ -181,7 +181,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
         double p1 = taskStatisticAppDTO.getFinishCount();
         double p2 = taskStatisticAppDTO.getTotalCount();
-        double p3 = p1 / p2;
+        double p3 = p1 / p2 * 100;
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMinimumFractionDigits(1);
         taskStatisticAppDTO.setFinishPercentage(nf.format(p3));
