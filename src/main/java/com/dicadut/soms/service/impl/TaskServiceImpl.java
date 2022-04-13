@@ -175,9 +175,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     //APP首页报表
     @Override
-    public TaskStatisticAppDTO getThisMonthTaskListBySingleSql(String startTime, String endTime) {
+    public TaskStatisticAppDTO getThisMonthTaskListBySingleSql(String startTime, String endTime, String userId) {
 
-        TaskStatisticAppDTO taskStatisticAppDTO = baseMapper.selectTaskStatisticAppByTaskStatus(startTime, endTime);
+        TaskStatisticAppDTO taskStatisticAppDTO = baseMapper.selectTaskStatisticAppByTaskStatus(startTime, endTime, userId);
 
         double p1 = taskStatisticAppDTO.getFinishCount();
         double p2 = taskStatisticAppDTO.getTotalCount();
@@ -219,11 +219,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * @param taskStatus 任务状态
      * @return
      */
-    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus) {
+    public List<TaskAppListDTO> getTaskAppList(Integer taskStatus, String userId) {
         // 理论上这三个list的长度要一样，即任务数，否则可能有bug
-        List<TaskEndTimeAppListDTO> taskEndTimeAppList = baseMapper.selectTaskEndTimeAppList(taskStatus);
-        List<TaskInspectionAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus);
-        List<TaskDetailsAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus);
+        List<TaskEndTimeAppListDTO> taskEndTimeAppList = baseMapper.selectTaskEndTimeAppList(taskStatus,userId);
+        List<TaskInspectionAppListDTO> taskInspectionAppList = baseMapper.selectTaskInspectionAppList(taskStatus,userId);
+        List<TaskDetailsAppListDTO> taskDetailsAppList = baseMapper.selectTaskDetailsAppList(taskStatus,userId);
 
         List<TaskAppListDTO> taskAppListDTOList = new ArrayList();  // 存放结果列表
 

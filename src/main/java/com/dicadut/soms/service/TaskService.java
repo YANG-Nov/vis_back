@@ -45,11 +45,11 @@ public interface TaskService extends IService<Task> {
 
     TaskStatisticDTO getThisYearTaskListBySingleSql(String startTime, String endTime);
 
-    TaskStatisticAppDTO getThisMonthTaskListBySingleSql(String startTime, String endTime);
+    TaskStatisticAppDTO getThisMonthTaskListBySingleSql(String startTime, String endTime, String userId);
 
     List<InspectorTaskDTO> getInspectorList() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
-    List<TaskAppListDTO> getTaskAppList(Integer taskStatus);
+    List<TaskAppListDTO> getTaskAppList(Integer taskStatus, String userId);
 
     /**
      * 选择完构件后，点击确认添加，将任务和任务构件信息传输到数据库存储

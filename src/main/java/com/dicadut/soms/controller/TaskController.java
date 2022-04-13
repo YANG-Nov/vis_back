@@ -243,8 +243,8 @@ public class TaskController {
 
     @ApiOperation(value = "本月巡检任务统计，APP首页", tags = {"App", "YANG", "App已通"})
     @GetMapping("get_task_statistic_App")
-    public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime) {
-        return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime));
+    public ResponseViewModel<TaskStatisticAppDTO> getThisMonthTaskListBySingleSql(@RequestParam String startTime, @RequestParam String endTime, @RequestParam String userId) {
+        return ResponseViewModel.ok(taskService.getThisMonthTaskListBySingleSql(startTime, endTime, userId));
     }
 
 
@@ -283,8 +283,8 @@ public class TaskController {
 
     @ApiOperation(value = "App任务列表", tags = {"App", "YANG", "App已通"})
     @GetMapping("get_task_app_list")
-    public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus) {
-        List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus);
+    public ResponseViewModel<List<TaskAppListDTO>> getTaskAppList(@RequestParam Integer taskStatus, @RequestParam String userId) {
+        List<TaskAppListDTO> taskAppList = taskService.getTaskAppList(taskStatus, userId);
         return ResponseViewModel.ok(taskAppList);
     }
 

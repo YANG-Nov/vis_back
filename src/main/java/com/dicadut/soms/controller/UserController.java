@@ -105,13 +105,13 @@ public class UserController {
 
     @ApiOperation("手机号登录")
     @PostMapping("/login/phone")
-    public ResponseViewModel<String> loginPhone(@RequestParam String phone,@RequestParam String password) {
+    public Object loginPhone(@RequestParam String phone, @RequestParam String password) {
         User one = userService.getOne(new QueryWrapper<User>()
                 .eq("phone", phone)
                 .eq("password", password)
         );
         if (one != null) {
-            return ResponseViewModel.ok();
+            return ResponseViewModel.ok(one.getId());
         } else {
             return ResponseViewModel.ok("fail");
         }

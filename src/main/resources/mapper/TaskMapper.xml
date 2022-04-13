@@ -44,7 +44,9 @@
             count(*) total_count,
             sum(if(t.task_status = 1002000006,1,0)) finish_count
         from t_task t
-        where t.create_time between #{startTime} and #{endTime}
+        where t.inspector_id = #{userId}
+            and t.is_deleted = 0
+            and t.create_time between #{startTime} and #{endTime}
     </select>
 
 
@@ -55,6 +57,8 @@
             t.end_time rest_time
         from soms.t_task t
         where t.task_status = #{taskStatus}
+            and t.inspector_id = #{userId}
+            and t.is_deleted = 0
         group by t.id
     </select>
 
@@ -65,6 +69,8 @@
         from soms.t_task_bridge_component tbc
         left join soms.t_task t on tbc.task_id = t.id
         where task_status = #{taskStatus}
+            and t.inspector_id = #{userId}
+            and t.is_deleted = 0
         group by t.id
     </select>
 
@@ -88,6 +94,8 @@
                             left join soms.t_component c on bc.component_id = c.id
                 where  t.task_status = #{taskStatus}
                     and c.id != c.parent_id
+                    and t.inspector_id = #{userId}
+                    and t.is_deleted = 0
                 order by t.id
             ) a
         group by a.id

@@ -26,16 +26,17 @@ public interface TaskMapper extends BaseMapper<Task> {
                                                      @Param("endTime") String endTime);
 
     TaskStatisticAppDTO selectTaskStatisticAppByTaskStatus(@Param("startTime") String startTime,
-                                                           @Param("endTime") String endTime);
+                                                           @Param("endTime") String endTime,
+                                                           @Param("userId") String userId);
 
     // Wei_TODO 2022/2/24 1状态提到Java层做 2查询层级改成韦雷哥代码
     List<InspectorTaskDTO> selectInspectorList();
 
-    List<TaskEndTimeAppListDTO> selectTaskEndTimeAppList(@Param("taskStatus") Integer taskStatus);
+    List<TaskEndTimeAppListDTO> selectTaskEndTimeAppList(@Param("taskStatus") Integer taskStatus, @Param("userId") String userId);
 
-    List<TaskInspectionAppListDTO> selectTaskInspectionAppList(@Param("taskStatus") Integer taskStatus);
+    List<TaskInspectionAppListDTO> selectTaskInspectionAppList(@Param("taskStatus") Integer taskStatus, @Param("userId") String userId);
 
-    List<TaskDetailsAppListDTO> selectTaskDetailsAppList(@Param("taskStatus") Integer taskStatus);
+    List<TaskDetailsAppListDTO> selectTaskDetailsAppList(@Param("taskStatus") Integer taskStatus, @Param("userId") String userId);
 
     List<TaskDTO> selectTaskStatusLatestList();
 
