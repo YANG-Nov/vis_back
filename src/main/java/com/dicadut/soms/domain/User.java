@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @author Yang
@@ -20,7 +19,7 @@ public class User {
 
     @ApiModelProperty(value = "用户id", example = "23863422-8b51-4084-80b7-e419483f82b9")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private Long id;
+    private String id;
     @ApiModelProperty(value = "账户名", example = "breeze")
     private String userName;
     @ApiModelProperty(value = "用户姓名", example = "风清扬")

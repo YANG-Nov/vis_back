@@ -179,14 +179,17 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
         TaskStatisticAppDTO taskStatisticAppDTO = baseMapper.selectTaskStatisticAppByTaskStatus(startTime, endTime, userId);
 
-        double p1 = taskStatisticAppDTO.getFinishCount();
-        double p2 = taskStatisticAppDTO.getTotalCount();
-        double p3 = p1 / p2 * 100;
-        NumberFormat nf = NumberFormat.getInstance();
-        nf.setMinimumFractionDigits(1);
-        taskStatisticAppDTO.setFinishPercentage(nf.format(p3));
+        if(taskStatisticAppDTO.getFinishCount() != null){
+            double p1 = taskStatisticAppDTO.getFinishCount();
+            double p2 = taskStatisticAppDTO.getTotalCount();
+            double p3 = p1 / p2 * 100;
+            NumberFormat nf = NumberFormat.getInstance();
+            nf.setMinimumFractionDigits(1);
+            taskStatisticAppDTO.setFinishPercentage(nf.format(p3));
 
-        return taskStatisticAppDTO;
+            return taskStatisticAppDTO;
+        }
+        return null;
     }
 
     /**
