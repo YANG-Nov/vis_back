@@ -23,7 +23,7 @@ public class TaskUtil {
 
         //方法返回值
         List<T> list = new ArrayList<>();
-        // 过渡map集合，key: 主引桥+匝道（location）, value: 桩号对象列表（id,name）
+        // 过渡map集合
         Map<String, List<E>> mapAll = new HashMap<>();
         Map<String, List<A>> mapSecond = new HashMap<>();
 
@@ -35,13 +35,12 @@ public class TaskUtil {
             Field id = aClass.getDeclaredField(sourceId);
             id.setAccessible(true);
             String stringId = (String) id.get(e);
+            //根据id值封装map一级
             mapAll.putIfAbsent(stringId, new ArrayList<>());
-            mapSecond.putIfAbsent(stringId, new ArrayList<>());
-
-            //key 为id.get（添加构件）
             mapAll.get(stringId).add(e);
 
-            //key 为id.get（添加构件）
+            //根据id值封装map二级
+            mapSecond.putIfAbsent(stringId, new ArrayList<>());
             A a1 = second.getDeclaredConstructor().newInstance();
             CopyUtils.copyProperties(e, a1);
             mapSecond.get(stringId).add(a1);
