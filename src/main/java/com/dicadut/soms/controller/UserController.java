@@ -103,6 +103,12 @@ public class UserController {
 
     }
 
+    /**
+     * 手机号登录
+     * @param phone 手机号
+     * @param password 密码
+     * @return userId
+     */
     @ApiOperation("手机号登录")
     @PostMapping("/login/phone")
     public Object loginPhone(@RequestParam String phone, @RequestParam String password) {
