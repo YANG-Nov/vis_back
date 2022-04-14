@@ -186,10 +186,12 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMinimumFractionDigits(1);
             taskStatisticAppDTO.setFinishPercentage(nf.format(p3));
-
-            return taskStatisticAppDTO;
+        }else {
+            taskStatisticAppDTO.setTotalCount(0);
+            taskStatisticAppDTO.setFinishCount(0);
+            taskStatisticAppDTO.setFinishPercentage("0");
         }
-        return null;
+        return taskStatisticAppDTO;
     }
 
     /**
