@@ -211,8 +211,14 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         for (InspectorTaskDTO inspectorTaskDTO : inspectorTaskDTOS) {
             inspectorTaskDTO.setCreateBy(UserEnum.findByValue(inspectorTaskDTO.getCreateBy()));
             inspectorTaskDTO.setKey(i++);
-
             inspectorTaskDTO.setAmount(inspectorTaskDTO.getChildren().size());
+            if (inspectorTaskDTO.getChildren().get(0).getTaskId() == null){
+                inspectorTaskDTO.setChildren(null);
+                inspectorTaskDTO.setAmount(0);
+            }
+
+
+
         }
 
         return inspectorTaskDTOS;

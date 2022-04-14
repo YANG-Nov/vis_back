@@ -41,6 +41,7 @@ public class InspectorTaskDTO {
     @ApiModelProperty(value = "巡检部位")
     private String createBy;
 
+    @JsonProperty("tasks")
     List<TaskSetDTO> children = new ArrayList<>();
 
 
