@@ -221,4 +221,13 @@ public interface TaskService extends IService<Task> {
  * @return void
  */
     void redistributeTask(String taskId);
+
+    /**
+     * // Jane_TODO add description
+     * @author FanJane
+     * @param taskId
+     * @param  value
+     * @return void
+     */
+    void passTask(String taskId);
 }

@@ -402,7 +402,7 @@ public class TaskController {
     @GetMapping("/pass/{taskId}")
 
     public ResponseViewModel passTask(@PathVariable String taskId) {
-        taskService.updateTaskStatus(taskId, TaskStatusEnum.FINISH.getValue());
+        taskService.passTask(taskId);
         return ResponseViewModel.ok();
     }
 

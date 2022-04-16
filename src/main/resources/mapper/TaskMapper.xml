@@ -130,9 +130,15 @@
         LEFT JOIN t_dictionary d ON t.task_status = d.`code`
         LEFT JOIN t_dictionary dd ON t.task_type =dd.`code`
         WHERE 1 = 1
+
         <if test="taskQueryVO.taskStatus != null and taskQueryVO.taskStatus != ''">
-            AND FIND_IN_SET(t.task_status, #{taskQueryVO.taskStatus})
-            AND is_recorded = 0
+            <if test="taskQueryVO.taskStatus == '1002000006'">
+                AND is_recorded = 1
+            </if>
+            <if test="taskQueryVO.taskStatus != '1002000006'">
+                AND FIND_IN_SET(t.task_status, #{taskQueryVO.taskStatus})
+                AND is_recorded = 0
+            </if>
         </if>
         <if test="taskQueryVO.taskStatus == null or taskQueryVO.taskStatus == ''">
             AND t.task_status in ('1002000004','1002000007','1002000008')

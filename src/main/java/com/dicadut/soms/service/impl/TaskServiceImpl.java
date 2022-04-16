@@ -1065,5 +1065,17 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         //将原来的任务终止
         endTask(taskId);
     }
+
+    @Override
+    public void passTask(String taskId) {
+        UpdateWrapper<Task> taskUpdateWrapper = new UpdateWrapper<>();
+        taskUpdateWrapper.eq("id",taskId);
+        taskUpdateWrapper.set("is_recorded",1);
+        taskUpdateWrapper.set("task_status", TaskStatusEnum.FINISH.getValue());
+        boolean update = update(taskUpdateWrapper);
+        if (!update) {
+            throw new TaskException(20001, "任务id不对，修改失败");
+        }
+    }
 }
 
