@@ -530,6 +530,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
+            String[] split = task.getScanPositions().split(",");
+            taskContentDTO.setScanPositions(new HashSet<>(Arrays.asList(split)));
             return taskContentDTO;
         }
 
