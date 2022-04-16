@@ -1056,18 +1056,21 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * @return void
      */
     @Override
+    @Transactional
     public void redistributeTask(String taskId) {
         //复制一条新的任务
         Task taskOld = getById(taskId);
         Task task = new Task();
         BeanUtils.copyProperties(taskOld,task);
-        task.setId(businessCodeService.generateBusinessCode(SomsConstant.TASK));
+        String id = businessCodeService.generateBusinessCode(SomsConstant.TASK);
+        task.setId(id);
         task.setTaskStatus(TaskStatusEnum.WAIT_DISTRIBUTE.getValue());
         baseMapper.insert(task);
 
         QueryWrapper<TaskBridgeComponent> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("task_id",taskId);
         List<TaskBridgeComponent> taskBridgeComponents = taskBridgeComponentMapper.selectList(queryWrapper);
+        taskBridgeComponents.forEach(c -> {c.setTaskId(id);c.setId(null);});
         taskBridgeComponentService.saveBatch(taskBridgeComponents);
 
         //将原来的任务终止

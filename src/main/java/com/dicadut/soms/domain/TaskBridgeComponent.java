@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -45,7 +46,13 @@ public class TaskBridgeComponent extends Model<TaskBridgeComponent> {
     /**
      * 桥梁构件关联id
      */
+
     private Integer bridgeComponentId;
+
+    private String scanPosition;
+
+    private String inspectionRoute;
+
 
     @Version
     private Integer version;
@@ -59,12 +66,16 @@ public class TaskBridgeComponent extends Model<TaskBridgeComponent> {
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private LocalDateTime createTime;
     /**
      * 更新时间
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+    private LocalDateTime updateTime;
+
+    private String inspectionStart;
+
+    private String inspectionEnd;
 
 
 }
