@@ -532,6 +532,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             }
             String[] split = task.getScanPositions().split(",");
             taskContentDTO.setScanPositions(new HashSet<>(Arrays.asList(split)));
+            taskContentDTO.setTaskId(task.getId());
             return taskContentDTO;
         }
 
