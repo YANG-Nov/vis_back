@@ -207,4 +207,11 @@ public interface TaskService extends IService<Task> {
      * @return 任务状态
      */
     TaskStatusDTO getTaskStatus(String taskId);
+/**
+ * // Jane_TODO add description
+ * @author FanJane
+ * @param taskId
+ * @return void
+ */
+    void endTask(String taskId);
 }

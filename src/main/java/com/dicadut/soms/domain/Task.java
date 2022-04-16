@@ -77,6 +77,9 @@ public class Task implements Serializable {
     @TableLogic
     private Integer isDeleted;
 
+    @ApiModelProperty(value = "移入记录表, 0未移入, 1已移入")
+    private Integer isRecorded;
+
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;

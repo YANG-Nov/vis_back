@@ -1030,5 +1030,21 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         TaskStatusDTO taskStatusDTO = baseMapper.selectTaskStatus(taskId);
         return taskStatusDTO;
     }
+/**
+ * // Jane_TODO add description
+ * @author FanJane
+ * @param taskId
+ * @return void
+ */
+    @Override
+    public void endTask(String taskId) {
+        UpdateWrapper<Task> taskUpdateWrapper = new UpdateWrapper<>();
+        taskUpdateWrapper.eq("id",taskId);
+        taskUpdateWrapper.set("is_recorded",1);
+        boolean update = update(taskUpdateWrapper);
+        if (!update){
+            throw new TaskException(20001, "终止失败，没有这条任务");
+        }
+    }
 }
 

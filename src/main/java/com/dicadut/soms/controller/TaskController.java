@@ -437,4 +437,13 @@ public class TaskController {
         TaskStatusDTO taskStatusDTO = taskService.getTaskStatus(taskId);
         return ResponseViewModel.ok(taskStatusDTO);
     }
+
+    @ApiOperation(value = "任务制定页终止任务", tags = {"web", "任务制定页", "jane", "未通"}
+            , notes = "终止召回和自动召回的任务id20220415000001")
+    @GetMapping("/end_task/{taskId}")
+
+    public ResponseViewModel endTask(@PathVariable String taskId) {
+        taskService.endTask(taskId);
+        return ResponseViewModel.ok();
+    }
 }
