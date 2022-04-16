@@ -4,6 +4,7 @@ package com.dicadut.soms.dto;
 import com.dicadut.soms.Annotation.EnumMapper;
 import com.dicadut.soms.enumeration.AllEnum;
 import com.dicadut.soms.vo.TaskDiseaseReviewVO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -43,7 +44,9 @@ public class TaskContentDTO<E> {
     private LocalDate startTime;
     private LocalDate endTime;
     private LocalDate remindTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime receiveTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime finishTime;
 
     private LocalDate recallTime;

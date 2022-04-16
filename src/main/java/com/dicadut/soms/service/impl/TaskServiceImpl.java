@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.domain.Dictionary;
 import com.dicadut.soms.domain.DiseaseRecord;
 import com.dicadut.soms.domain.Task;
+import com.dicadut.soms.domain.TaskBridgeComponent;
 import com.dicadut.soms.dto.*;
 import com.dicadut.soms.enumeration.*;
 import com.dicadut.soms.exception.TaskException;
@@ -47,7 +48,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Resource
     private TaskBridgeComponentMapper taskBridgeComponentMapper;
-
+    @Resource
+    private TaskBridgeComponentService taskBridgeComponentService;
     @Resource
     private BusinessCodeService businessCodeService;
 
@@ -1062,6 +1064,12 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         task.setId(businessCodeService.generateBusinessCode(SomsConstant.TASK));
         task.setTaskStatus(TaskStatusEnum.WAIT_DISTRIBUTE.getValue());
         baseMapper.insert(task);
+
+        QueryWrapper<TaskBridgeComponent> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("task_id",taskId);
+        List<TaskBridgeComponent> taskBridgeComponents = taskBridgeComponentMapper.selectList(queryWrapper);
+        taskBridgeComponentService.saveBatch(taskBridgeComponents);
+
         //将原来的任务终止
         endTask(taskId);
     }
