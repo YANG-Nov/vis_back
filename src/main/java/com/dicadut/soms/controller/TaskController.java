@@ -446,4 +446,13 @@ public class TaskController {
         taskService.endTask(taskId);
         return ResponseViewModel.ok();
     }
+
+    @ApiOperation(value = "任务制定页再分配任务", tags = {"web", "任务制定页", "jane", "未通"}
+            , notes = "终止召回和自动召回的任务id20220415000001")
+    @GetMapping("/redistribute_task/{taskId}")
+
+    public ResponseViewModel redistributeTask(@PathVariable String taskId) {
+        taskService.redistributeTask(taskId);
+        return ResponseViewModel.ok();
+    }
 }

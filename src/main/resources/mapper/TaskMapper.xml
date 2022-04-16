@@ -132,12 +132,15 @@
         WHERE 1 = 1
         <if test="taskQueryVO.taskStatus != null and taskQueryVO.taskStatus != ''">
             AND FIND_IN_SET(t.task_status, #{taskQueryVO.taskStatus})
+            AND is_recorded = 0
         </if>
         <if test="taskQueryVO.taskStatus == null or taskQueryVO.taskStatus == ''">
             AND t.task_status in ('1002000004','1002000007','1002000008')
+            AND is_recorded = 0
         </if>
         <if test="taskQueryVO.taskType != null and taskQueryVO.taskType != ''">
             AND FIND_IN_SET(t.task_type, #{taskQueryVO.taskType})
+            AND is_recorded = 0
         </if>
         AND t.is_deleted = 0
         group by t.id

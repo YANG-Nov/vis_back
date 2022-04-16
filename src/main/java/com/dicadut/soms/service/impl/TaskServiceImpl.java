@@ -1046,5 +1046,24 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             throw new TaskException(20001, "终止失败，没有这条任务");
         }
     }
+
+    /**
+     * // Jane_TODO add description
+     * @author FanJane
+     * @param taskId
+     * @return void
+     */
+    @Override
+    public void redistributeTask(String taskId) {
+        //复制一条新的任务
+        Task taskOld = getById(taskId);
+        Task task = new Task();
+        BeanUtils.copyProperties(taskOld,task);
+        task.setId(businessCodeService.generateBusinessCode(SomsConstant.TASK));
+        task.setTaskStatus(TaskStatusEnum.WAIT_DISTRIBUTE.getValue());
+        baseMapper.insert(task);
+        //将原来的任务终止
+        endTask(taskId);
+    }
 }
 
