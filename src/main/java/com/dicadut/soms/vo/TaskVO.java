@@ -36,10 +36,10 @@ public class TaskVO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endTime;
     @ApiModelProperty(value = "接收期限", example = "2021-09-30")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime remindTime;
     @ApiModelProperty(value = "召回期限", example = "2021-09-30")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime recallTime;
     @ApiModelProperty(value = "养护工程师id，需要前端绑定账户")
     private String createBy;
