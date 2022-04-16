@@ -523,6 +523,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         //得到当前task的所有record
         List<TaskDiseaseDTO> taskDiseaseDTOS = baseMapper.getTaskDiseaseList(taskId);
         TaskContentDTO taskContentDTO = new TaskContentDTO<>();
+        if(taskDiseaseDTOS == null || CollectionUtils.isEmpty(taskDiseaseDTOS)){
+            Task task = getById(taskId);
+            try {
+                CopyUtils.copyProperties(task, taskContentDTO);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return taskContentDTO;
+        }
+
         //task
         TaskDiseaseDTO taskDiseaseDTO = taskDiseaseDTOS.get(0);
         try {

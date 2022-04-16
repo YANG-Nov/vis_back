@@ -48,6 +48,14 @@ public class TaskServiceTest {
     }
 
     @Test
+    public void getWaitReviewTask() {
+        log.info("#### 启动单元测试 getThisYearTaskList");
+        log.info("{}", taskService.getWaitReviewTask("20220414000005"));
+        log.info("#### 结束单元测试 getThisYearTaskList");
+    }
+
+
+    @Test
     public void getThisYearTaskListByMultiSql() {
         log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
         log.info("{}", taskService.getThisYearTaskListByMultiSql("2021-01-01 00:00:00", "2021-12-31 23:59:59"));
@@ -84,7 +92,6 @@ public class TaskServiceTest {
         taskQueryVO.setTaskType("1001000005");
         taskQueryVO.setTaskStatus("1002000004");
         log.info("#### 启动单元测试 getThisYearTaskListByMultiSql");
-        log.info("{}", taskService.getInspectorList());
         log.info("#### 结束单元测试 getThisYearTaskListByMultiSql");
     }
 
