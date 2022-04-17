@@ -43,13 +43,14 @@ public class TaskContentDTO<E> {
 
     private LocalDate startTime;
     private LocalDate endTime;
-    private LocalDate remindTime;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime remindTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime receiveTime;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime finishTime;
-
-    private LocalDate recallTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime recallTime;
     @JsonProperty("mapRoute")
     private String inspectionPosition;//待定
     private Set<String> scanPositions;
