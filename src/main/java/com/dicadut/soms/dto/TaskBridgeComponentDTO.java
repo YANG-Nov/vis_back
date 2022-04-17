@@ -3,6 +3,7 @@ package com.dicadut.soms.dto;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author fan_jennifer
@@ -20,8 +21,8 @@ public class TaskBridgeComponentDTO {
     private String inspector;
     private LocalDate startTime;
     private LocalDate endTime;
-    private LocalDate remindTime;
-    private LocalDate recallTime;
+    private LocalDateTime remindTime;
+    private LocalDateTime recallTime;
     private String location;
     private String xname;
     private String xpath;
