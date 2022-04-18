@@ -17,4 +17,20 @@ public interface UserService extends IService<User> {
     List<UserStatusDTO> getStatusInspectorList();
 
     void updateUserStatus(String userId, String userStatusGo);
+
+    /**
+     * // Jane_TODO add description
+     * @author FanJane
+     * @param mobile
+     * @return com.dicadut.soms.domain.User
+     */
+    User queryUserByMobile(String mobile);
+
+    /**
+     * // Jane_TODO add description
+     * @author FanJane
+     * @param username
+     * @return com.dicadut.soms.domain.User
+     */
+    User queryUserByName(String userName);
 }

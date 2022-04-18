@@ -28,8 +28,10 @@ public class User {
     private String phone;
     @ApiModelProperty(value = "邮箱", example = "12345678@163.com")
     private String email;
-    @ApiModelProperty(value = "密码", example = "b64f6@b*3d4b46!@1gd05#d4d4bgd04*2661bc@!3b010*56d!#gb61#5bdF1ga5")
+    @ApiModelProperty(value = "密码")
     private String password;
+    @ApiModelProperty(value = "密码")
+    private String userPass;
     @ApiModelProperty(value = "头像", example = "Base64二进制数据，未来考虑换成OSS")
     private String headImg;
     @ApiModelProperty(value = "所属部门", example = "检测公司")

@@ -90,4 +90,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void updateUserStatus(String userId, String userStatusGo) {
         baseMapper.updateUserStatus(userId, userStatusGo);
     }
+
+    @Override
+    public User queryUserByMobile(String mobile) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone",mobile);
+        User user = baseMapper.selectOne(queryWrapper);
+        return user;
+    }
+
+    @Override
+    public User queryUserByName(String userName) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_name",userName);
+        User user = baseMapper.selectOne(queryWrapper);
+        return user;
+    }
 }
