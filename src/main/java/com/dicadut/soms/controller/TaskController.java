@@ -72,7 +72,7 @@ public class TaskController {
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO>
      * @author FanJane
      */
-    @ApiOperation(value = "修改任务回显", tags = {"web", "任务列表页", "jane", "已通"}
+    @ApiOperation(value = "修改任务回显", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "点击修改任务任务回显")
     @PostMapping("/update_task/{taskId}")
     public ResponseViewModel<TaskContentDTO<SubTaskUpdateV0>> updateTask(@PathVariable String taskId) {
@@ -88,7 +88,7 @@ public class TaskController {
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<com.dicadut.soms.dto.TaskContentDTO < com.dicadut.soms.vo.SubTaskUpdateV0>>
      * @author FanJane
      */
-    @ApiOperation(value = "提交修改的任务", tags = {"web", "任务列表页", "jane", "未通"}
+    @ApiOperation(value = "提交修改的任务", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "任务回显，点提交传到后端")
     @PostMapping("/submit_update_task")
     public ResponseViewModel<TaskContentDTO<SubTaskUpdateV0>> submit_UpdateTask(@RequestBody TaskVO taskVO) {
@@ -190,7 +190,7 @@ public class TaskController {
      * @return com.dicadut.soms.viewmodel.ResponseViewModel
      * @author FanJane
      */
-    @ApiOperation(value = "删除任务", tags = {"web", "任务列表页", "jane", "未通"})
+    @ApiOperation(value = "删除任务", tags = {"web", "任务列表页", "jane", "已通"})
     @DeleteMapping("/remove_task/{taskId}")
     public ResponseViewModel removeTask(@PathVariable String taskId) {
         taskService.removeTask(taskId);
@@ -255,7 +255,7 @@ public class TaskController {
      * @return 带层级结构的人员列表，一级是人员信息，二级是对应的任务信息
      * @author fan_jane
      */
-    @ApiOperation(value = "任务分配获取所有巡检人员", tags = {"web", "任务列表页", "jane", "未通"}
+    @ApiOperation(value = "任务分配获取所有巡检人员", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
     @GetMapping("/get_inspector_list")
     public ResponseViewModel<List<InspectorTaskDTO>> getInspectorList() throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -273,7 +273,7 @@ public class TaskController {
      * @return 无
      * @author fan_jane
      */
-    @ApiOperation(value = "任务制定页点击人员分配分配任务", tags = {"web", "任务列表页", "jane", "已通"}
+    @ApiOperation(value = "任务制定页点击人员分配分配任务", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "添加完任务后，跳转到任务列表页面，进行任务人员分配")
     @GetMapping("distribute_task/{taskId}/{userId}")
     public ResponseViewModel distributeTask(@PathVariable String taskId, @PathVariable String userId) {
@@ -302,7 +302,7 @@ public class TaskController {
      * @param taskStatusVO 任务状态任务id
      * @return responseViewModel
      */
-    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App已通", "web", "未通"}
+    @ApiOperation(value = "更新任务状态", tags = {"App", "YANG", "App已通", "web", "已通"}
             , notes = "变更任务状态，taskId 20220119000001 , taskStatusIdGo 召回（主动）  1002000008  " +
             "1002000001待领取，1002000002正在巡检，1002000003待审核，1002000004待分配，1002000005待重传，1002000006巡检完成，1002000007自动召回，1002000008主动召回，1002000009待巡检，1002000010待重审")
     @PostMapping("/update_task_status")
@@ -333,7 +333,7 @@ public class TaskController {
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<java.util.List < com.dicadut.soms.dto.InspectorDTO>>
      * @author FanJane
      */
-    @ApiOperation(value = "获得待审核任务表单", tags = {"web", "任务列表页", "jane", "未通"}
+    @ApiOperation(value = "获得待审核任务表单", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "点审核获得任务和病害信息测试任务id20220401000001")
     @GetMapping("/get_wait_review_task/{taskId}")
 
@@ -348,7 +348,7 @@ public class TaskController {
      * @return com.dicadut.soms.viewmodel.ResponseViewModel<java.util.List < com.dicadut.soms.dto.InspectorDTO>>
      * @author FanJane
      */
-    @ApiOperation(value = "获得一条任务的病害信息", tags = {"web", "任务列表页", "jane", "未通"}
+    @ApiOperation(value = "获得一条任务的病害信息", tags = {"web", "任务记录页", "jane", "已通"}
             , notes = "任务：id20220320000004，记录id：2")
     @PostMapping("/get_disease_detail")
 
@@ -364,7 +364,7 @@ public class TaskController {
      * @return
      * @author FanJane
      */
-    @ApiOperation(value = "获得任务记录", tags = {"web", "巡检记录页", "jane", "未通"}
+    @ApiOperation(value = "获得任务记录", tags = {"web", "巡检记录页", "jane", "已通"}
             , notes = "巡检记录页点查看获得任务以及病害记录")
     @GetMapping("/get_task_record/{taskId}")
     public ResponseViewModel<TaskContentDTO> getTaskRecord(@PathVariable String taskId) {
@@ -397,7 +397,7 @@ public class TaskController {
         return ResponseViewModel.ok(taskDetailAppVO);
     }
 
-    @ApiOperation(value = "通过任务审核", tags = {"web", "任务列表页", "jane", "未通"}
+    @ApiOperation(value = "通过任务审核", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "没有返回建议通过任务审核")
     @GetMapping("/pass/{taskId}")
 
@@ -406,7 +406,7 @@ public class TaskController {
         return ResponseViewModel.ok();
     }
 
-    @ApiOperation(value = "召回任务", tags = {"web", "任务列表页", "jane", "未通"}
+    @ApiOperation(value = "召回任务", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "召回")
     @GetMapping("/recall/{taskId}")
 
@@ -415,7 +415,7 @@ public class TaskController {
         return ResponseViewModel.ok();
     }
 
-    @ApiOperation(value = "退回任务", tags = {"web", "任务列表页", "jane", "未通"}
+    @ApiOperation(value = "退回任务", tags = {"web", "任务列表页", "jane", "已通"}
             , notes = "没有返回建议通过任务审核")
     @PostMapping("/reject")
     public ResponseViewModel<TaskContentDTO> rejectTask(@RequestBody OpinionVO opinionVO) {
@@ -438,7 +438,7 @@ public class TaskController {
         return ResponseViewModel.ok(taskStatusDTO);
     }
 
-    @ApiOperation(value = "任务制定页终止任务", tags = {"web", "任务制定页", "jane", "未通"}
+    @ApiOperation(value = "任务制定页终止任务", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "终止召回和自动召回的任务id20220415000001")
     @GetMapping("/end_task/{taskId}")
 
@@ -447,7 +447,7 @@ public class TaskController {
         return ResponseViewModel.ok();
     }
 
-    @ApiOperation(value = "任务制定页再分配任务", tags = {"web", "任务制定页", "jane", "未通"}
+    @ApiOperation(value = "任务制定页再分配任务", tags = {"web", "任务制定页", "jane", "已通"}
             , notes = "终止召回和自动召回的任务id20220415000001")
     @GetMapping("/redistribute_task/{taskId}")
 
