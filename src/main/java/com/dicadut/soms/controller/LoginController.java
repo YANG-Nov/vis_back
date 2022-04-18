@@ -30,7 +30,8 @@ import java.util.Map;
 public class LoginController {
 
     private Logger log = LoggerFactory.getLogger(LoginController.class);
-    @ApiOperation("登录")
+    @ApiOperation(value = "登录", tags = {"web", "登录页", "jane", "未通"}
+            , notes = "用户名:手机号或者小写的姓名全拼，密码:DUT123")
     @PostMapping("/login")
     public Object login(UserVO userVO){
         Map<String, String> errorMsg = new HashMap<>();
@@ -62,7 +63,7 @@ public class LoginController {
 
 
     }
-    @ApiOperation("获得当前用户")
+    @ApiOperation(value = "获得当前用户", tags = {"web", "登录页", "jane", "未通"})
     @GetMapping("/getCurrentUser")
     public Object getCurrentUser(){
         Subject currentUser = SecurityUtils.getSubject();
@@ -72,7 +73,7 @@ public class LoginController {
 
     }
 
-    @ApiOperation("登出")
+    @ApiOperation(value = "登出", tags = {"web", "登录页", "jane", "未通"})
     @GetMapping("/logout")
     public Object logout(){
         Subject currentUser = SecurityUtils.getSubject();
