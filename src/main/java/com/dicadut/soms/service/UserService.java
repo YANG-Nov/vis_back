@@ -3,6 +3,7 @@ package com.dicadut.soms.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dicadut.soms.dto.UserStatusDTO;
 import com.dicadut.soms.domain.User;
+import com.dicadut.soms.vo.UserPermissionVO;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface UserService extends IService<User> {
      * @param mobile
      * @return com.dicadut.soms.domain.User
      */
-    User queryUserByMobile(String mobile);
+    UserPermissionVO queryUserByMobile(String mobile);
 
     /**
      * // Jane_TODO add description
@@ -32,5 +33,5 @@ public interface UserService extends IService<User> {
      * @param username
      * @return com.dicadut.soms.domain.User
      */
-    User queryUserByName(String userName);
+    UserPermissionVO queryUserPermissionByName(String userName);
 }

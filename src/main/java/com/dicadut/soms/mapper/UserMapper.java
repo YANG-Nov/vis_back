@@ -2,6 +2,9 @@ package com.dicadut.soms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dicadut.soms.domain.User;
+import com.dicadut.soms.dto.UserPermissionDTO;
+
+import java.util.List;
 
 /**
  * @author Yangø¬
@@ -10,4 +13,8 @@ import com.dicadut.soms.domain.User;
  */
 public interface UserMapper extends BaseMapper<User> {
     void updateUserStatus(String userId, String userStatusGo);
+
+    List<UserPermissionDTO> queryUserPermissionByName(String userName);
+
+    List<UserPermissionDTO> queryUserPermissionByMobile(String mobile);
 }

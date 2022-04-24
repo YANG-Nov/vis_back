@@ -58,16 +58,21 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager mySecurityManager){
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         factoryBean.setSecurityManager(mySecurityManager);
-
         //配置路径过滤器
         Map<String, String> filterMap = new HashMap<>();
         //key 是ant路径，value配置shiro的默认过滤器
-        filterMap.put("/api/**","authc,roles[1]");//过滤器是从上往下的perms[]
-        filterMap.put("/welcome/**","authc,roles[1]");//过滤器是从上往下的perms[]
+        filterMap.put("/task/**","authc,perms[task]");//过滤器是从上往下的perms[]
+        filterMap.put("/bridge/**","authc,perms[bridge]");//过滤器是从上往下的perms[]
+        filterMap.put("/component/**","authc,perms[component]");//过滤器是从上往下的perms[]
+        filterMap.put("/disease/**","authc,perms[disease]");//过滤器是从上往下的perms[]
+        filterMap.put("/disease_record/**","authc,perms[disease_record]");//过滤器是从上往下的perms[]
+        filterMap.put("/user/**","authc,perms[user]");//过滤器是从上往下的perms[]
+        filterMap.put("/dictionary/**","authc,perms[dictionary]");//过滤器是从上往下的perms[]
+
 
         //filterMap.put("/common/logout","logout");//也可以登录但是controller没有接口了
         factoryBean.setFilterChainDefinitionMap(filterMap);
-        //factoryBean.setLoginUrl("/index.html");//问前端
+        factoryBean.setLoginUrl("/common/failed");//问前端
         factoryBean.setUnauthorizedUrl("/common/unauthorized");
 
 

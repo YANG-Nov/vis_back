@@ -2,6 +2,7 @@ package com.dicadut.soms.controller;
 
 
 
+import com.dicadut.soms.vo.UserPermissionVO;
 import com.dicadut.soms.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -68,7 +69,9 @@ public class LoginController {
     public Object getCurrentUser(){
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
-        return session.getAttribute("currentUser");
+        UserPermissionVO user = (UserPermissionVO) session.getAttribute("currentUser");
+        user.setUserPass(null);
+        return  user;
 
 
     }
@@ -85,5 +88,11 @@ public class LoginController {
     @RequestMapping("/unauthorized")
     public Object unauthorized(){
         return "未经授权，无法显示";
+    }
+
+    @ApiIgnore
+    @RequestMapping("/failed")
+    public Object failed(){
+        return "没有登录，访问失败";
     }
 }

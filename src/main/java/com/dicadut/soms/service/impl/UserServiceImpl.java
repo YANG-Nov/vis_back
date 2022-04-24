@@ -5,11 +5,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dicadut.soms.dto.UserStatusDTO;
 import com.dicadut.soms.domain.User;
 import com.dicadut.soms.mapper.UserMapper;
+import com.dicadut.soms.dto.UserPermissionDTO;
 import com.dicadut.soms.service.UserService;
+import com.dicadut.soms.vo.UserPermissionVO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Yang
@@ -92,18 +95,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public User queryUserByMobile(String mobile) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("phone",mobile);
-        User user = baseMapper.selectOne(queryWrapper);
-        return user;
+    public UserPermissionVO queryUserByMobile(String mobile) {
+        List<UserPermissionDTO> userPermissionDTOS = baseMapper.queryUserPermissionByMobile(mobile);
+        if (userPermissionDTOS == null){
+            return null;
+        }
+        UserPermissionVO userPermissionVO = new UserPermissionVO();
+        org.springframework.beans.BeanUtils.copyProperties(userPermissionVO,userPermissionDTOS.get(0));
+        List<String> permissions = userPermissionDTOS.stream().map(UserPermissionDTO::getPermissionCode).distinct().collect(Collectors.toList());
+        userPermissionVO.setPermissions(permissions);
+        List<String> path = userPermissionDTOS.stream().map(UserPermissionDTO::getPath).distinct().collect(Collectors.toList());
+        userPermissionVO.setPath(path);
+        return userPermissionVO;
     }
 
     @Override
-    public User queryUserByName(String userName) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_name",userName);
-        User user = baseMapper.selectOne(queryWrapper);
-        return user;
+    public UserPermissionVO queryUserPermissionByName(String userName) {
+        List<UserPermissionDTO> userPermissionDTOS = baseMapper.queryUserPermissionByName(userName);
+        if (userPermissionDTOS == null){
+            return null;
+        }
+        UserPermissionVO userPermissionVO = new UserPermissionVO();
+        org.springframework.beans.BeanUtils.copyProperties(userPermissionDTOS.get(0),userPermissionVO);
+        List<String> permissions = userPermissionDTOS.stream().map(UserPermissionDTO::getPermissionCode).distinct().collect(Collectors.toList());
+        userPermissionVO.setPermissions(permissions);
+        List<String> path = userPermissionDTOS.stream().map(UserPermissionDTO::getPath).distinct().collect(Collectors.toList());
+        userPermissionVO.setPath(path);
+        return userPermissionVO;
     }
 }

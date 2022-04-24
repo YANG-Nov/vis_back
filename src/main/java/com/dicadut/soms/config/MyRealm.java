@@ -3,6 +3,7 @@ package com.dicadut.soms.config;
 
 import com.dicadut.soms.domain.User;
 import com.dicadut.soms.service.UserService;
+import com.dicadut.soms.vo.UserPermissionVO;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -29,10 +30,12 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         logger.info("entered MyRealm doGetAuthorizationInfo method");
         //获得当前用户
-        User user = (User) principals.asList().get(0);
+        UserPermissionVO user = (UserPermissionVO) principals.asList().get(0);
         //需要绑定当前资
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.addRole(user.getDuty()+"");
+        authorizationInfo.addRole(user.getRoleId()+"");
+        authorizationInfo.addStringPermissions(user.getPermissions());
+
         //authorizationInfo.addStringPermissions(user.getUserPerms());
 
         return authorizationInfo;
@@ -46,14 +49,17 @@ public class MyRealm extends AuthorizingRealm {
         UsernamePasswordToken userToken = (UsernamePasswordToken) token;
         String username = userToken.getUsername();
         //获得数据库中的用户，来个当前用户进行比对
-        User user = userService.queryUserByName(username);
+        UserPermissionVO userPermissionVO = userService.queryUserPermissionByName(username);
+
+
         //国弱没有查到
-        if (null == user){
+        if (null == userPermissionVO){
             return null;//会抛出unkownaccountEXCEPTION
         }
+
         ByteSource salt = ByteSource.Util.bytes("salt");
         //返回authentication完成认证
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user,user.getUserPass(),salt,"myRealm");
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo( userPermissionVO,userPermissionVO.getUserPass(),salt,"myRealm");
         return simpleAuthenticationInfo;
     }
 }
