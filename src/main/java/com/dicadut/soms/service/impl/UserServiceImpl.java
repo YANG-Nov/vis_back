@@ -101,7 +101,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return null;
         }
         UserPermissionVO userPermissionVO = new UserPermissionVO();
-        org.springframework.beans.BeanUtils.copyProperties(userPermissionVO,userPermissionDTOS.get(0));
+        org.springframework.beans.BeanUtils.copyProperties(userPermissionDTOS.get(0),userPermissionVO);
         List<String> permissions = userPermissionDTOS.stream().map(UserPermissionDTO::getPermissionCode).distinct().collect(Collectors.toList());
         userPermissionVO.setPermissions(permissions);
         List<String> path = userPermissionDTOS.stream().map(UserPermissionDTO::getPath).distinct().collect(Collectors.toList());

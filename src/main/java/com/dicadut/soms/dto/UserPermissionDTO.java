@@ -27,6 +27,8 @@ public class UserPermissionDTO {
 
     private String roleName;
 
+    private String phone;
+
     private String permissionCode;
 
     private String Path;

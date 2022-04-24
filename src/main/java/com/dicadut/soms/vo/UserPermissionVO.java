@@ -20,6 +20,8 @@ public class UserPermissionVO {
 
     private String headImg;
 
+    private String phone;
+
     private Integer roleId;
 
     private String roleName;

@@ -38,12 +38,12 @@
     </select>
 
     <select id="queryUserPermissionByMobile" resultType="com.dicadut.soms.dto.UserPermissionDTO">
-        SELECT u.id,u.user_name,u.user_pass,u.head_img,r.role_id,r.role_name,p.permission_code,p.path
+        SELECT u.id,u.user_name,u.phone,u.user_pass,u.head_img,r.role_id,r.role_name,p.permission_code,p.path
         FROM `t_user`u
                      LEFT JOIN t_user_role ur ON u.id = ur.user_id
                      LEFT JOIN t_role r ON r.role_id = ur.role_id
                      LEFT JOIN t_role_permission rp ON r.role_id = rp.role_id
                      LEFT JOIN t_permission p ON p.permission_id = rp.permission_id
-        WHERE u.user_name = #{phone};
+        WHERE u.phone = #{mobile};
     </select>
 </mapper>
