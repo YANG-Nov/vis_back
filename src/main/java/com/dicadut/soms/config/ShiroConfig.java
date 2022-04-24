@@ -68,6 +68,8 @@ public class ShiroConfig {
         filterMap.put("/disease_record/**","authc,perms[disease_record]");//过滤器是从上往下的perms[]
         filterMap.put("/user/**","authc,perms[user]");//过滤器是从上往下的perms[]
         filterMap.put("/dictionary/**","authc,perms[dictionary]");//过滤器是从上往下的perms[]
+        filterMap.put("/api/**","authc,roles[3]");//过滤器是从上往下的perms[]
+        filterMap.put("/welcome/**","authc,roles[3]");//过滤器是从上往下的perms[]
 
 
         //filterMap.put("/common/logout","logout");//也可以登录但是controller没有接口了
