@@ -46,7 +46,7 @@ public class LoginController {
                 currentUser.getSession().setAttribute("currentUser",currentUser.getPrincipal());
                 Session session = currentUser.getSession();
                 UserPermissionVO user = (UserPermissionVO) session.getAttribute("currentUser");
-                return user.getId();
+                return ResponseViewModel.ok(user.getId());
             } catch (UnknownAccountException une){
                 log.info("There is no user with username of " + token.getPrincipal());
                 errorMsg.put("errorMsg","用户不存在");
