@@ -2,6 +2,7 @@ package com.dicadut.soms.controller;
 
 
 
+import com.dicadut.soms.viewmodel.ResponseViewModel;
 import com.dicadut.soms.vo.UserPermissionVO;
 import com.dicadut.soms.vo.UserVO;
 import io.swagger.annotations.Api;
@@ -43,7 +44,9 @@ public class LoginController {
             try {
                 currentUser.login(token);
                 currentUser.getSession().setAttribute("currentUser",currentUser.getPrincipal());
-                return "login Succeed";
+                Session session = currentUser.getSession();
+                UserPermissionVO user = (UserPermissionVO) session.getAttribute("currentUser");
+                return user.getId();
             } catch (UnknownAccountException une){
                 log.info("There is no user with username of " + token.getPrincipal());
                 errorMsg.put("errorMsg","用户不存在");
