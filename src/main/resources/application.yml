@@ -1,12 +1,12 @@
 server:
-  port: 8089
+  port: 8001
 
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://116.63.185.111:3306/soms?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/visualization_platform?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     username: root
-    password: DUT-SHM-DB1
+    password: 12345678
     platform: mysql
     druid:
       initialSize: 1 #初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时

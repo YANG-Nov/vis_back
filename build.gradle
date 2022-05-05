@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.dicadut'
+group = 'com.dut'
 version = '1.0.0'
 sourceCompatibility = '1.8'
 
@@ -27,7 +27,6 @@ dependencies {
     implementation 'org.testng:testng:7.5'
     implementation 'org.apache.velocity:velocity-engine-core:2.3'
     implementation 'com.baomidou:mybatis-plus-generator:3.0.5'
-    implementation 'org.apache.shiro:shiro-spring-boot-starter:1.6.0'
     implementation 'log4j:log4j:1.2.17'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
