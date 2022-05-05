@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("disease")
+@RequestMapping("/tunnel")
 public class TunnelController {
 
 
@@ -30,8 +30,8 @@ public class TunnelController {
     private TunnelService tunnelService;
 
     @ApiOperation(value = "getTunnelBasicInformation", tags = {"首页","未通"})
-    @GetMapping("get_tunnel_basic_information")
-    public ResponseViewModel<TunnelBasicInformationDTO> getTunnelBasicInformation(@RequestParam String tunnelId) {
+    @GetMapping("/get_tunnel_basic_information/{tunnelId}")
+    public ResponseViewModel<TunnelBasicInformationDTO> getTunnelBasicInformation(@PathVariable String tunnelId) {
         TunnelBasicInformationDTO tunnelBasicInformationDTO = tunnelService.getTunnelBasicInformation(tunnelId);
         return ResponseViewModel.ok(tunnelBasicInformationDTO);
     }
