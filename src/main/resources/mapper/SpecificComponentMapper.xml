@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dut.visualization.mapper.SpecificComponentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dut.visualization.domain.SpecificComponent">
+        <id column="id" property="id"/>
+        <result column="section_id" property="sectionId"/>
+        <result column="station_id" property="stationId"/>
+        <result column="component_id" property="componentId"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="install_time" property="installTime"/>
+        <result column="install_department" property="installDepartment"/>
+        <result column="document" property="document"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="selectComponentInformation" resultType="com.dut.visualization.dto.ComponentInformationDTO">
+        select
+                c.name,
+                c.material,
+                sc.install_time,
+                sc.install_department,
+                sc.document
+        from vis_specific_component sc
+                     left join vis_component c on sc.component_id = c.id
+        where sc.id = #{specificComponentId}
+    </select>
+</mapper>
