@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 public class TunnelBasicInformationDTO {
-    @ApiModelProperty(value = "隧道编号")
+    @ApiModelProperty(value = "隧道名称")
     private String name;
 
     @ApiModelProperty(value = "业主单位")
