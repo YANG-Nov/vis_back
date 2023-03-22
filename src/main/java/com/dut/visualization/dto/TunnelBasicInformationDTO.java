@@ -26,6 +26,9 @@ public class TunnelBasicInformationDTO {
     @ApiModelProperty(value = "隧道类型")
     private String type;
 
+    @ApiModelProperty(value = "养护等级")
+    private String maintenanceGrade;
+
     @ApiModelProperty(value = "业主单位")
     private String ownerUnit;
 

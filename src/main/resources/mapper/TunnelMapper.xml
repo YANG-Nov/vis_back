@@ -23,6 +23,7 @@
             finish_time,
             code,
             type,
+            maintenance_grade,
             maintenance_unit,
             road_name,
             road_grade,

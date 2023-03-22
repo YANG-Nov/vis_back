@@ -34,6 +34,9 @@ public class Tunnel {
     @ApiModelProperty(value = "隧道长度")
     private String length;
 
+    @ApiModelProperty(value = "养护等级")
+    private String maintenanceGrade;
+
     @ApiModelProperty(value = "建成时间")
     private String finishTime;
 
