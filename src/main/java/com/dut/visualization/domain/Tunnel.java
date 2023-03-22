@@ -31,6 +31,18 @@ public class Tunnel {
     @ApiModelProperty(value = "隧道名称")
     private String name;
 
+    @ApiModelProperty(value = "隧道长度")
+    private String length;
+
+    @ApiModelProperty(value = "建成时间")
+    private String finishTime;
+
+    @ApiModelProperty(value = "隧道编码")
+    private String code;
+
+    @ApiModelProperty(value = "隧道类型")
+    private String type;
+
     @ApiModelProperty(value = "业主单位")
     private String ownerUnit;
 
@@ -43,7 +55,16 @@ public class Tunnel {
     @ApiModelProperty(value = "监理单位")
     private String supervisionUnit;
 
-    @ApiModelProperty(value = "简介")
+    @ApiModelProperty(value = "养护单位")
+    private String maintenanceUnit;
+
+    @ApiModelProperty(value = "道路名称")
+    private String roadName;
+
+    @ApiModelProperty(value = "道路等级")
+    private String roadGrade;
+
+    @ApiModelProperty(value = "工程概况")
     private String introduction;
 
     @ApiModelProperty(value = "逻辑删除 1删0未删")

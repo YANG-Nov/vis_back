@@ -19,6 +19,13 @@
     <select id="selectTunnelBasicInformation" resultType="com.dut.visualization.dto.TunnelBasicInformationDTO">
         select
             name,
+            length,
+            finish_time,
+            code,
+            type,
+            maintenance_unit,
+            road_name,
+            road_grade,
             owner_unit,
             design_unit,
             construction_unit,
