@@ -1,6 +1,6 @@
 package com.dut.visualization.controller;
 
-import com.dut.visualization.dto.ComponentInformationDTO;
+import com.dut.visualization.dto.SpecificComponentInformationDTO;
 import com.dut.visualization.service.SpecificComponentService;
 import com.dut.visualization.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
@@ -25,10 +25,10 @@ public class SpecificComponentController {
     @Resource
     private SpecificComponentService specificComponentService;
 
-    @ApiOperation(value = "getComponentInformation", tags = {"首页","未通"})
-    @GetMapping("/get_component_information/{specificComponentId}")
-    public ResponseViewModel<ComponentInformationDTO> getComponentInformation(@PathVariable String specificComponentId) {
-        ComponentInformationDTO componentInformationDTO = specificComponentService.getComponentInformation(specificComponentId);
-        return ResponseViewModel.ok(componentInformationDTO);
+    @ApiOperation(value = "getSpecificComponentInformation", tags = {"首页","已通"})
+    @GetMapping("/get_specific_component_information/{componentCode}")
+    public ResponseViewModel<SpecificComponentInformationDTO> getSpecificComponentInformation(@PathVariable String componentCode) {
+        SpecificComponentInformationDTO specificComponentInformationDTO = specificComponentService.getSpecificComponentInformation(componentCode);
+        return ResponseViewModel.ok(specificComponentInformationDTO);
     }
 }

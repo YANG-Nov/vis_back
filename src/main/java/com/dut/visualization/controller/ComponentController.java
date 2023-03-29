@@ -1,13 +1,8 @@
 package com.dut.visualization.controller;
 
-import com.dut.visualization.service.ComponentService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ Author     ：Yang
@@ -21,5 +16,4 @@ import javax.annotation.Resource;
 @CrossOrigin
 @RequestMapping("/component")
 public class ComponentController {
-
 }

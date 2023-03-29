@@ -37,14 +37,20 @@ public class SpecificComponent {
     @ApiModelProperty(value = "构件id")
     private String componentId;
 
+    @ApiModelProperty(value = "构件名称")
+    private String componentName;
+
+    @ApiModelProperty(value = "构件编码")
+    private String componentCode;
+
+    @ApiModelProperty(value = "建成时间")
+    private String time;
+
+    @ApiModelProperty(value = "施工单位")
+    private String constructionUnit;
+
     @ApiModelProperty(value = "构件顺序值")
     private String orderNumber;
-
-    @ApiModelProperty(value = "安装时间")
-    private String installTime;
-
-    @ApiModelProperty(value = "安装单位")
-    private String installDepartment;
 
     @ApiModelProperty(value = "构件细部图纸等")
     private String document;

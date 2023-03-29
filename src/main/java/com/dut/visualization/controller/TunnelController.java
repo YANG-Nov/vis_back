@@ -29,7 +29,7 @@ public class TunnelController {
     @Resource
     private TunnelService tunnelService;
 
-    @ApiOperation(value = "getTunnelBasicInformation", tags = {"首页","未通"})
+    @ApiOperation(value = "getTunnelBasicInformation", tags = {"首页","已通"})
     @GetMapping("/get_tunnel_basic_information/{tunnelId}")
     public ResponseViewModel<TunnelBasicInformationDTO> getTunnelBasicInformation(@PathVariable String tunnelId) {
         TunnelBasicInformationDTO tunnelBasicInformationDTO = tunnelService.getTunnelBasicInformation(tunnelId);
