@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dut.visualization.mapper.MonitoringMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dut.visualization.domain.MonitoringData">
+        <result column="sensor_id" property="sensorId"/>
+        <result column="x" property="x"/>
+        <result column="y" property="y"/>
+    </resultMap>
+
+    <select id="selectMonitoringData" resultType="com.dut.visualization.dto.MonitoringDataDTO">
+        select
+            m.sensor_id,
+            m.x,
+            m.y
+        from vis_monitoring m
+        where m.sensor_id = #{sensorCode}
+    </select>
+</mapper>
