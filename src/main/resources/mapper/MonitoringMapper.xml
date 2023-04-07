@@ -9,7 +9,7 @@
         <result column="y" property="y"/>
     </resultMap>
 
-    <select id="selectMonitoringData" resultType="com.dut.visualization.dto.MonitoringDataDTO">
+    <select id="selectMonitoringDataList" resultType="com.dut.visualization.dto.MonitoringDataDTO">
         select
             m.sensor_id,
             m.x,

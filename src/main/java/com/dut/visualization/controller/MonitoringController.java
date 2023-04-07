@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ Author     ：Yang
@@ -27,8 +28,8 @@ public class MonitoringController {
 
     @ApiOperation(value = "getMonitoringData", tags = {"首页","未通"})
     @GetMapping("/get_monitoring_data/{sensorCode}")
-    public ResponseViewModel<MonitoringDataDTO> getMonitoringData(@PathVariable String sensorCode) {
-        MonitoringDataDTO monitoringDataDTO = monitoringServiceImpl.getMonitoringData(sensorCode);
-        return ResponseViewModel.ok(monitoringDataDTO);
+    public ResponseViewModel<List<MonitoringDataDTO>> getMonitoringData(@PathVariable String sensorCode) {
+        List<MonitoringDataDTO> monitoringDataDTOList = monitoringServiceImpl.getMonitoringDataList(sensorCode);
+        return ResponseViewModel.ok(monitoringDataDTOList);
     }
 }

@@ -2,9 +2,9 @@ package com.dut.visualization.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dut.visualization.domain.MonitoringData;
-import com.dut.visualization.domain.SpecificComponent;
 import com.dut.visualization.dto.MonitoringDataDTO;
-import com.dut.visualization.dto.SpecificComponentInformationDTO;
+
+import java.util.List;
 
 /**
  * @ Author     ：Yang
@@ -13,7 +13,5 @@ import com.dut.visualization.dto.SpecificComponentInformationDTO;
  * @Version: $
  */
 public interface MonitoringService  extends IService<MonitoringData> {
-    MonitoringDataDTO getMonitoringData(String sensorCode);
-
-//    MonitoringDataDTO getMonitoringDataDTO(String sensorCode);
+    List<MonitoringDataDTO> getMonitoringDataList(String sensorCode);
 }

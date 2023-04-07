@@ -8,6 +8,8 @@ import com.dut.visualization.service.MonitoringService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ Author     ：Yang
  * @ Date       ：Created in 4:12 下午 2023/4/6
@@ -17,8 +19,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class MonitoringServiceImpl  extends ServiceImpl<MonitoringMapper, MonitoringData> implements MonitoringService {
+    //查看传感器数据
     @Override
-    public MonitoringDataDTO getMonitoringData(String sensorCode) {
-        return baseMapper.selectMonitoringData(sensorCode);
+    public List<MonitoringDataDTO> getMonitoringDataList(String sensorCode) {
+        return baseMapper.selectMonitoringDataList(sensorCode);
     }
 }
