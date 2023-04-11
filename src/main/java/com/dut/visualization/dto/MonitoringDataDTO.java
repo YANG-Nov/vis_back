@@ -11,8 +11,8 @@ import lombok.Data;
  */
 @Data
 public class MonitoringDataDTO {
-    @ApiModelProperty(value = "传感器id")
-    private String sensorId;
+    @ApiModelProperty(value = "传感器名称")
+    private String componentName;
 
     @ApiModelProperty(value = "X轴坐标值")
     private String x;

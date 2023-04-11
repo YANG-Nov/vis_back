@@ -4,6 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.dut.visualization.domain.MonitoringData">
+        <id column="id" property="id"/>
         <result column="sensor_id" property="sensorId"/>
         <result column="x" property="x"/>
         <result column="y" property="y"/>
@@ -11,10 +12,40 @@
 
     <select id="selectMonitoringDataList" resultType="com.dut.visualization.dto.MonitoringDataDTO">
         select
-            m.sensor_id,
+            sc.component_name,
             m.x,
             m.y
         from vis_monitoring m
-        where m.sensor_id = #{sensorCode}
+            left join vis_specific_component sc on m.sensor_id = sc.id
+        where sc.model_code = #{sensorModelCode}
+    </select>
+
+    <select id="selectSensorStatusChartList" resultType="com.dut.visualization.dto.SensorStatusDTO">
+        select
+            s.online as onlineName,
+            count(s.id) as onlineNum
+        from vis_sensor s
+        where s.is_deleted = 0
+        group by s.online
+    </select>
+
+    <select id="selectSensorNumChartList" resultType="com.dut.visualization.dto.SensorNumDTO">
+        select
+            c.name as sensorType,
+            count(sc.id) as sensorNum
+        from vis_specific_component sc
+            left join vis_component c on sc.component_id = c.id
+        where sc.is_deleted = 0
+            and sc.is_sensor = 1
+        group by c.name
+    </select>
+
+    <select id="selectSensorAlarmChartList" resultType="com.dut.visualization.dto.SensorAlarmDTO">
+        select
+            s.alarm as sensorAlarm,
+            count(s.id) as sensorAlarmNum
+        from vis_sensor s
+        where s.is_deleted = 0
+        group by s.alarm
     </select>
 </mapper>

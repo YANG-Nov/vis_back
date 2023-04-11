@@ -25,10 +25,15 @@ public class SpecificComponentController {
     @Resource
     private SpecificComponentService specificComponentService;
 
-    @ApiOperation(value = "getSpecificComponentInformation", tags = {"首页","已通"})
-    @GetMapping("/get_specific_component_information/{componentCode}")
-    public ResponseViewModel<SpecificComponentInformationDTO> getSpecificComponentInformation(@PathVariable String componentCode) {
-        SpecificComponentInformationDTO specificComponentInformationDTO = specificComponentService.getSpecificComponentInformation(componentCode);
+    /**
+     * 根据构件模型编码查构件基本信息
+     * @param componentModelCode 构件模型编码
+     * @return 构件基本信息
+     */
+    @ApiOperation(value = "根据构件模型编码查构件基本信息", tags = {"首页","已通"})
+    @GetMapping("/get_specific_component_information/{componentModelCode}")
+    public ResponseViewModel<SpecificComponentInformationDTO> getSpecificComponentInformation(@PathVariable String componentModelCode) {
+        SpecificComponentInformationDTO specificComponentInformationDTO = specificComponentService.getSpecificComponentInformation(componentModelCode);
         return ResponseViewModel.ok(specificComponentInformationDTO);
     }
 }

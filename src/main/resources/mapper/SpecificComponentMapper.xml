@@ -9,7 +9,8 @@
         <result column="station_id" property="stationId"/>
         <result column="component_id" property="componentId"/>
         <result column="component_name" property="componentName"/>
-        <result column="component_code" property="componentCode"/>
+        <result column="component_code" property="modelCode"/>
+        <result column="function" property="function"/>
         <result column="order_number" property="orderNumber"/>
         <result column="document" property="document"/>
         <result column="is_deleted" property="isDeleted"/>
@@ -21,8 +22,9 @@
         select
                 sc.component_name,
                 sc.time,
-                sc.construction_unit
+                sc.construction_unit,
+                sc.function
         from vis_specific_component sc
-        where sc.component_code = #{componentCode}
+        where sc.model_code = #{componentModelCode}
     </select>
 </mapper>

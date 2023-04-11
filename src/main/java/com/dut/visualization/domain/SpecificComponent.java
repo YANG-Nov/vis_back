@@ -40,8 +40,11 @@ public class SpecificComponent {
     @ApiModelProperty(value = "构件名称")
     private String componentName;
 
-    @ApiModelProperty(value = "构件编码")
-    private String componentCode;
+    @ApiModelProperty(value = "模型编码")
+    private String modelCode;
+
+    @ApiModelProperty(value = "构件功能")
+    private String function;
 
     @ApiModelProperty(value = "建成时间")
     private String time;

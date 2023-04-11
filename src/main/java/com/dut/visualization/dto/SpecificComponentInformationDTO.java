@@ -19,4 +19,7 @@ public class SpecificComponentInformationDTO {
 
     @ApiModelProperty(value = "施工单位")
     private String constructionUnit;
+
+    @ApiModelProperty(value = "构件功能")
+    private String function;
 }

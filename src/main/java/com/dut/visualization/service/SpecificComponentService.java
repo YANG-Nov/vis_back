@@ -6,5 +6,5 @@ import com.dut.visualization.dto.SpecificComponentInformationDTO;
 
 
 public interface SpecificComponentService  extends IService<SpecificComponent> {
-    SpecificComponentInformationDTO getSpecificComponentInformation(String componentCode);
+    SpecificComponentInformationDTO getSpecificComponentInformation(String componentModelCode);
 }

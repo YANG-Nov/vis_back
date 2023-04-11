@@ -5,5 +5,5 @@ import com.dut.visualization.domain.SpecificComponent;
 import com.dut.visualization.dto.SpecificComponentInformationDTO;
 
 public interface SpecificComponentMapper extends BaseMapper<SpecificComponent> {
-    SpecificComponentInformationDTO selectSpecificComponentInformation(String specificComponentId);
+    SpecificComponentInformationDTO selectSpecificComponentInformation(String componentModelCode);
 }

@@ -1,5 +1,7 @@
 package com.dut.visualization.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,10 @@ import lombok.NoArgsConstructor;
 public class MonitoringData {
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "id")
+    @TableId(value = "id", type = IdType.INPUT)
+    private String id;
+    
     @ApiModelProperty(value = "传感器id")
     private String sensorId;
 
