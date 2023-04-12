@@ -13,9 +13,9 @@ import lombok.Data;
 public class SensorStatusDTO {
 
     @ApiModelProperty(value = "是否在线：0在线，1离线")
-    private String onlineName;
+    private String name;
 
     @ApiModelProperty(value = "数量")
-    private String onlineNum;
+    private String value;
 
 }

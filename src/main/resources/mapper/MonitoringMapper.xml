@@ -22,8 +22,8 @@
 
     <select id="selectSensorStatusChartList" resultType="com.dut.visualization.dto.SensorStatusDTO">
         select
-            s.online as onlineName,
-            count(s.id) as onlineNum
+            s.online as name,
+            count(s.id) as value
         from vis_sensor s
         where s.is_deleted = 0
         group by s.online
@@ -31,8 +31,8 @@
 
     <select id="selectSensorNumChartList" resultType="com.dut.visualization.dto.SensorNumDTO">
         select
-            c.name as sensorType,
-            count(sc.id) as sensorNum
+            c.name as name,
+            count(sc.id) as value
         from vis_specific_component sc
             left join vis_component c on sc.component_id = c.id
         where sc.is_deleted = 0
@@ -42,8 +42,8 @@
 
     <select id="selectSensorAlarmChartList" resultType="com.dut.visualization.dto.SensorAlarmDTO">
         select
-            s.alarm as sensorAlarm,
-            count(s.id) as sensorAlarmNum
+            s.alarm as name,
+            count(s.id) as value
         from vis_sensor s
         where s.is_deleted = 0
         group by s.alarm

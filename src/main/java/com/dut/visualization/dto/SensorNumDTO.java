@@ -12,8 +12,8 @@ import lombok.Data;
 @Data
 public class SensorNumDTO {
     @ApiModelProperty(value = "传感器类型")
-    private String sensorType;
+    private String name;
 
     @ApiModelProperty(value = "传感器数量")
-    private String sensorNum;
+    private String value;
 }

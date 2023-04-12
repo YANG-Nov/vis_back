@@ -45,7 +45,7 @@ public class MonitoringController {
      * 查询传感器状态扇形图
      * @return 传感器状态及不同状态所对应的数量
      */
-    @ApiOperation(value = "查询传感器状态扇形图", tags = {"监测信息页","未通"})
+    @ApiOperation(value = "查询传感器状态扇形图", tags = {"监测信息页","已通"})
     @GetMapping("/get_sensor_status_chart")
     public ResponseViewModel<List<SensorStatusDTO>> getSensorStatusChart(){
         List<SensorStatusDTO> sensorStatusList = monitoringServiceImpl.getSensorStatusChartList();
@@ -56,8 +56,8 @@ public class MonitoringController {
      * 查询传感器不同类型数量扇形图
      * @return 传感器类型及不同类型所对应的数量
      */
-    @ApiOperation(value = "查询传感器不同类型数量扇形图", tags = {"监测信息页","未通"})
-    @GetMapping("/get_sensor_Num_chart")
+    @ApiOperation(value = "查询传感器不同类型数量扇形图", tags = {"监测信息页","已通"})
+    @GetMapping("/get_sensor_num_chart")
     public ResponseViewModel<List<SensorNumDTO>> getSensorNumChart(){
         List<SensorNumDTO> sensorNumList = monitoringServiceImpl.getSensorNumChartList();
         return ResponseViewModel.ok(sensorNumList);
@@ -67,8 +67,8 @@ public class MonitoringController {
      * 查询传感器报警数量扇形图
      * @return 传感器报警类型及不同类型所对应的数量
      */
-    @ApiOperation(value = "查询传感器报警数量扇形图", tags = {"监测信息页","未通"})
-    @GetMapping("/get_sensor_Alarm_chart")
+    @ApiOperation(value = "查询传感器报警数量扇形图", tags = {"监测信息页","已通"})
+    @GetMapping("/get_sensor_alarm_chart")
     public ResponseViewModel<List<SensorAlarmDTO>> getSensorAlarmChart(){
         List<SensorAlarmDTO> sensorAlarmList = monitoringServiceImpl.getSensorAlarmChartList();
         return ResponseViewModel.ok(sensorAlarmList);
