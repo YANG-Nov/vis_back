@@ -14,22 +14,26 @@
         <result column="y" property="y"/>
         <result column="z" property="z"/>
         <result column="degree" property="degree"/>
+        <result column="is_repair" property="isRepair"/>
         <result column="is_deleted" property="isDeleted"/>
         <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <select id="selectDiseaseLocationList" resultType="com.dut.visualization.dto.DiseaseLocationDTO">
         SELECT
-                sd.x,
-                sd.y,
-                sd.z,
-                sd.degree,
-                sd.model_code,
-                sd.disease_code
-        FROM vis_specific_disease sd
-        WHERE sd.is_deleted = 0 AND
-                sd.update_time between #{startTime} and #{endTime}
+                sdi1.disease_code,
+                ANY_VALUE(sdi1.create_time) as create_time,
+                ANY_VALUE(sdi1.x) as x,
+                ANY_VALUE(sdi1.y) as y,
+                ANY_VALUE(sdi1.z) as z,
+                ANY_VALUE(sdi1.degree) as degree,
+                ANY_VALUE(sdi1.model_code) as model_code,
+                ANY_VALUE(sdi1.is_repair) as is_repair
+        FROM vis_specific_disease_info sdi1
+                     INNER JOIN(SELECT sdi2.disease_code, max(sdi2.create_time) AS create_time FROM vis_specific_disease_info sdi2 WHERE sdi2.is_deleted = 0 AND sdi2.create_time between #{startTime} and #{endTime} GROUP BY sdi2.disease_code) AS sdi3
+                ON sdi1.disease_code = sdi3.disease_code AND sdi1.create_time = sdi3.create_time
+
+        GROUP BY sdi1.disease_code
     </select>
 
 </mapper>

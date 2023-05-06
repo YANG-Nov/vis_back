@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
  * @Version: 1.0.0$
  */
 @Data
-@TableName("vis_specific_disease")
+@TableName("vis_specific_disease_info")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Disease {
@@ -51,12 +51,14 @@ public class Disease {
     @ApiModelProperty(value = "病害程度 0轻微 1一般 2严重")
     private int degree;
 
+    @ApiModelProperty(value = "是否修复 0未修 1已修复")
+    private int isRepair;
+
     @ApiModelProperty(value = "逻辑删除 0未删 1删")
     private String isDeleted;
 
     @ApiModelProperty(value = "创建时间")
     private String createTime;
 
-    @ApiModelProperty(value = "更新时间")
-    private String updateTime;
+
 }

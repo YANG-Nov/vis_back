@@ -23,6 +23,9 @@ public class DiseaseLocationDTO {
     @ApiModelProperty(value = "病害程度 0轻微 1一般 2严重")
     private int degree;
 
+    @ApiModelProperty(value = "是否修复 0未修 1已修复")
+    private int isRepair;
+
     @ApiModelProperty(value = "模型编码")
     private String modelCode;
 
