@@ -3,6 +3,7 @@ package com.dut.visualization.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dut.visualization.domain.Disease;
 import com.dut.visualization.dto.DiseaseLocationDTO;
+import com.dut.visualization.dto.DiseaseTypeDTO;
 import com.dut.visualization.mapper.DiseaseMapper;
 import com.dut.visualization.service.DiseaseService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,5 +24,11 @@ public class DiseaseServiceImpl   extends ServiceImpl<DiseaseMapper, Disease> im
     @Override
     public List<DiseaseLocationDTO> getDiseaseLocationList(String startTime,String endTime){
         return baseMapper.selectDiseaseLocationList(startTime,endTime);
+    }
+
+    //病害信息页 数据分类统计柱状图
+    @Override
+    public List<DiseaseTypeDTO> getDiseaseTypeList(String startTime, String endTime){
+        return baseMapper.selectDiseaseTypeList(startTime,endTime);
     }
 }

@@ -36,4 +36,13 @@
         GROUP BY sdi1.disease_code
     </select>
 
+    <select id="selectDiseaseTypeList" resultType="com.dut.visualization.dto.DiseaseTypeDTO">
+        SELECT
+                t.parent_name as name,
+                ANY_VALUE(COUNT(t.parent_name)) as value
+        FROM
+                (SELECT sdi.disease_code, ANY_VALUE(d.parent_name) as parent_name FROM vis_specific_disease_info sdi LEFT JOIN vis_disease d on sdi.disease_id = d.id WHERE sdi.create_time between #{startTime} and #{endTime}
+                GROUP BY sdi.disease_code)t
+        GROUP BY t.parent_name
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.dut.visualization.controller;
 
 import com.dut.visualization.dto.DiseaseLocationDTO;
+import com.dut.visualization.dto.DiseaseTypeDTO;
 import com.dut.visualization.service.impl.DiseaseServiceImpl;
 import com.dut.visualization.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
@@ -31,5 +32,12 @@ public class DiseaseController {
     public ResponseViewModel<List<DiseaseLocationDTO>> getDiseaseLocation(@RequestParam String startTime, @RequestParam String endTime){
         List<DiseaseLocationDTO> diseaseLocationDTOS = diseaseServiceImpl.getDiseaseLocationList(startTime,endTime);
         return ResponseViewModel.ok(diseaseLocationDTOS);
+    }
+
+    @ApiOperation(value = "病害分类数量统计", tags = {"病害信息页","已通"})
+    @GetMapping("/get_disease_type")
+    public ResponseViewModel<List<DiseaseTypeDTO>> getDiseaseType(@RequestParam String startTime, @RequestParam String endTime){
+        List<DiseaseTypeDTO> diseaseTypeDTOS = diseaseServiceImpl.getDiseaseTypeList(startTime, endTime);
+        return ResponseViewModel.ok(diseaseTypeDTOS);
     }
 }
