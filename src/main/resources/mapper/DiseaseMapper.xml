@@ -38,11 +38,13 @@
 
     <select id="selectDiseaseTypeList" resultType="com.dut.visualization.dto.DiseaseTypeDTO">
         SELECT
-                t.parent_name as name,
-                ANY_VALUE(COUNT(t.parent_name)) as value
-        FROM
-                (SELECT sdi.disease_code, ANY_VALUE(d.parent_name) as parent_name FROM vis_specific_disease_info sdi LEFT JOIN vis_disease d on sdi.disease_id = d.id WHERE sdi.create_time between #{startTime} and #{endTime}
-                GROUP BY sdi.disease_code)t
-        GROUP BY t.parent_name
+                d.parent_name as name,
+                ANY_VALUE(COUNT(d.parent_name)) as value
+        FROM vis_specific_disease_info sdi1
+                INNER JOIN(SELECT sdi2.disease_code, max(sdi2.create_time) AS create_time FROM vis_specific_disease_info sdi2 WHERE sdi2.is_deleted = 0 AND sdi2.create_time between #{startTime} and #{endTime} GROUP BY sdi2.disease_code) AS sdi3
+        ON sdi1.disease_code = sdi3.disease_code AND sdi1.create_time = sdi3.create_time
+                LEFT JOIN vis_disease d on sdi1.disease_id = d.id
+        where sdi1.is_repair = 0
+        GROUP BY d.parent_name
     </select>
 </mapper>
