@@ -47,4 +47,21 @@
         where sdi1.is_repair = 0
         GROUP BY d.parent_name
     </select>
+
+    <select id="selectDiseaseZtTimeList" resultType="com.dut.visualization.dto.DiseaseZtTimeDTO1">
+        SELECT
+                sdi.disease_code,
+                sdi.is_repair,
+                sdi.create_time
+        FROM
+                vis_specific_disease_info sdi
+                        LEFT JOIN vis_disease d on sdi.disease_id = d.id
+        WHERE
+                d.parent_id = '20001'
+          AND
+                sdi.create_time BETWEEN #{startTime} and #{endTime}
+          AND
+                sdi.is_deleted = 0
+        ORDER BY ANY_VALUE(sdi.create_time)
+    </select>
 </mapper>
