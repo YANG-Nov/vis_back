@@ -42,7 +42,7 @@ public class DiseaseController {
         return ResponseViewModel.ok(diseaseTypeDTOS);
     }
     @ApiOperation(value = "主体结构病害发生时间统计", tags = {"病害信息页","已通"})
-    @GetMapping("/get_disease_Zt_time")
+    @GetMapping("/get_disease_zt_time")
     public ResponseViewModel<List<DiseaseZtTimeDTO>> getDiseaseZtTime(@RequestParam String startTime, @RequestParam String endTime){
         List<DiseaseZtTimeDTO> diseaseZtTimeDTOS = diseaseServiceImpl.getDiseaseZtTimeList(startTime, endTime);
         return ResponseViewModel.ok(diseaseZtTimeDTOS);
