@@ -2,10 +2,7 @@ package com.dut.visualization.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dut.visualization.domain.Disease;
-import com.dut.visualization.dto.DiseaseLocationDTO;
-import com.dut.visualization.dto.DiseaseTypeDTO;
-import com.dut.visualization.dto.DiseaseZtTimeDTO;
-import com.dut.visualization.dto.DiseaseZtTimeDTO1;
+import com.dut.visualization.dto.*;
 import com.dut.visualization.mapper.DiseaseMapper;
 import com.dut.visualization.service.DiseaseService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +26,10 @@ public class DiseaseServiceImpl   extends ServiceImpl<DiseaseMapper, Disease> im
         return baseMapper.selectDiseaseLocationList(startTime,endTime);
     }
 
-    //病害信息页 数据分类统计柱状图
+    //病害信息页 病害部位-数量统计（主体、接头、附属）
     @Override
-    public List<DiseaseTypeDTO> getDiseaseTypeList(String startTime, String endTime){
-        return baseMapper.selectDiseaseTypeList(startTime,endTime);
+    public List<DiseasePlaceNumDTO> getDiseasePlaceNumList(String startTime, String endTime){
+        return baseMapper.selectDiseasePlaceNumList(startTime,endTime);
     }
 
     //主体结构病害发生时间统计
@@ -56,5 +53,13 @@ public class DiseaseServiceImpl   extends ServiceImpl<DiseaseMapper, Disease> im
             }
         }
         return list1;
+    }
+    //查询主体、接头、附属分别有哪些病害类型
+    public List<DiseaseTypeDTO> getDiseaseTypeList(String diseaseTypeId) {
+        return baseMapper.selectDiseaseTypeList(diseaseTypeId);
+    }
+    //病害信息页 病害类型-数量统计
+    public List<DiseaseTypeNumDTO> getDiseaseTypeNumList(String diseaseParentId,String startTime,String endTime) {
+        return baseMapper.selectDiseaseTypeNumList(diseaseParentId,startTime,endTime);
     }
 }

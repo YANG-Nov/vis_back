@@ -36,7 +36,7 @@
         GROUP BY sdi1.disease_code
     </select>
 
-    <select id="selectDiseaseTypeList" resultType="com.dut.visualization.dto.DiseaseTypeDTO">
+    <select id="selectDiseasePlaceNumList" resultType="com.dut.visualization.dto.DiseasePlaceNumDTO">
         SELECT
                 d.parent_name as name,
                 ANY_VALUE(COUNT(d.parent_name)) as value
@@ -63,5 +63,27 @@
           AND
                 sdi.is_deleted = 0
         ORDER BY ANY_VALUE(sdi.create_time)
+    </select>
+
+    <select id="selectDiseaseTypeList" resultType="com.dut.visualization.dto.DiseaseTypeDTO">
+        SELECT
+                d.id,
+                d.`name`
+        FROM
+                vis_disease d
+        WHERE
+                d.parent_id = #{diseaseTypeId}
+    </select>
+
+    <select id="selectDiseaseTypeNumList" resultType="com.dut.visualization.dto.DiseaseTypeNumDTO">
+        SELECT
+                d.name as name,
+                ANY_VALUE(COUNT(d.name)) as value
+        FROM vis_specific_disease_info sdi1
+                INNER JOIN(SELECT sdi2.disease_code, max(sdi2.create_time) AS create_time FROM vis_specific_disease_info sdi2 WHERE sdi2.is_deleted = 0 AND sdi2.create_time between #{startTime} and #{endTime} GROUP BY sdi2.disease_code) AS sdi3
+        ON sdi1.disease_code = sdi3.disease_code AND sdi1.create_time = sdi3.create_time
+                LEFT JOIN vis_disease d on sdi1.disease_id = d.id
+        where sdi1.is_repair = 0 and d.parent_id = #{diseaseParentId}
+        GROUP BY d.name
     </select>
 </mapper>
