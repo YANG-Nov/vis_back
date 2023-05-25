@@ -19,10 +19,10 @@ JAVA_HOME="/data/jdk"
 RUNNING_USER=root
 
 #Java程序所在的目录（classes的上一级目录）
-APP_HOME=/data/deploy/soms-1.0.0.jar
+APP_HOME=/data/deploy/visualization-1.0.0.jar
 
 #需要启动的Java主程序（main方法类）
-APP_MAINCLASS=com.dicadut.soms.SomsApplication
+APP_MAINCLASS=com.dut.visualization.VisApplication
 
 #java虚拟机启动参数
 #JAVA_OPTS="-ms512m -mx512m -Xmn256m -Djava.awt.headless=true -XX:MaxPermSize=128m"
@@ -70,7 +70,7 @@ start() {
       echo "================================"
    else
       echo -n "Starting $APP_HOME $APP_MAINCLASS ..."
-      JAVA_CMD="nohup $JAVA_HOME/bin/java -jar $JAVA_OPTS $APP_HOME $APP_MAINCLASS >> /data/deploy/soms.log 2>&1 &"
+      JAVA_CMD="nohup $JAVA_HOME/bin/java -jar $JAVA_OPTS $APP_HOME $APP_MAINCLASS >> /data/deploy/vis_back.log 2>&1 &"
       su - $RUNNING_USER -c "$JAVA_CMD"
       checkpid
       if [ $psid -ne 0 ]; then
