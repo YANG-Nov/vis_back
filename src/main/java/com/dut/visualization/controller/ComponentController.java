@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/component")
+@RequestMapping("/api/component")
 public class ComponentController {
 }

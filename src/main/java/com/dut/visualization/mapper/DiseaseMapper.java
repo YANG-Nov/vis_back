@@ -18,4 +18,8 @@ public interface DiseaseMapper  extends BaseMapper<Disease> {
     List<DiseaseZtTimeDTO1> selectDiseaseZtTimeList(String startTime, String endTime);
     //病害信息页 病害类型-数量统计
     List<DiseaseTypeNumDTO> selectDiseaseTypeNumList(String diseaseParentId,String startTime,String endTime);
+    //病害发生位置-数量统计图
+    List<DiseasePositionNumDTO> selectDiseasePositionNum(String startTime, String endTime);
+    //病害严重程度-数量统计
+    List<DiseaseDegreeNumDTO> selectDiseaseDegreeNum(String startTime, String endTime);
 }

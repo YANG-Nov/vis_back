@@ -20,6 +20,9 @@ public class DiseaseLocationDTO {
     @ApiModelProperty(value = "z")
     private double z;
 
+    @ApiModelProperty(value = "病害类型")
+    private String diseaseId;
+
     @ApiModelProperty(value = "病害程度 0轻微 1一般 2严重")
     private int degree;
 
@@ -31,4 +34,7 @@ public class DiseaseLocationDTO {
 
     @ApiModelProperty(value = "病害编码")
     private String diseaseCode;
+
+    @ApiModelProperty(value = "病害父id")
+    private String parentId;
 }

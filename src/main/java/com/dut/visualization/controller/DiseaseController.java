@@ -21,12 +21,12 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/disease")
+@RequestMapping("/api/disease")
 public class DiseaseController {
     @Resource
     private DiseaseServiceImpl diseaseServiceImpl;
 
-    @ApiOperation(value = "查询病害坐标及严重程度", tags = {"病害信息页","已通"})
+    @ApiOperation(value = "查询病害坐标、类型及严重程度", tags = {"病害信息页","已通"})
     @GetMapping("/get_disease_location")
     public ResponseViewModel<List<DiseaseLocationDTO>> getDiseaseLocation(@RequestParam String startTime, @RequestParam String endTime){
         List<DiseaseLocationDTO> diseaseLocationDTOS = diseaseServiceImpl.getDiseaseLocationList(startTime,endTime);
@@ -61,5 +61,19 @@ public class DiseaseController {
     public ResponseViewModel<List<DiseaseZtTimeDTO>> getDiseaseZtTime(@RequestParam String startTime, @RequestParam String endTime){
         List<DiseaseZtTimeDTO> diseaseZtTimeDTOS = diseaseServiceImpl.getDiseaseZtTimeList(startTime, endTime);
         return ResponseViewModel.ok(diseaseZtTimeDTOS);
+    }
+
+    @ApiOperation(value = "病害发生位置-数量统计", tags = {"病害信息页","已通"})
+    @GetMapping("/get_disease_position_num")
+    public ResponseViewModel<List<DiseasePositionNumDTO>> getDiseasePositionNum(@RequestParam String startTime, @RequestParam String endTime){
+        List<DiseasePositionNumDTO> diseasePositionNumDTOS = diseaseServiceImpl.getDiseasePositionNum(startTime, endTime);
+        return ResponseViewModel.ok(diseasePositionNumDTOS);
+    }
+
+    @ApiOperation(value = "病害严重程度-数量统计", tags = {"病害信息页","已通"})
+    @GetMapping("/get_disease_degree_num")
+    public ResponseViewModel<List<DiseaseDegreeNumDTO>> getDiseaseDegreeNum(@RequestParam String startTime, @RequestParam String endTime){
+        List<DiseaseDegreeNumDTO> diseaseDegreeNumDTOS = diseaseServiceImpl.getDiseaseDegreeNum(startTime, endTime);
+        return ResponseViewModel.ok(diseaseDegreeNumDTOS);
     }
 }

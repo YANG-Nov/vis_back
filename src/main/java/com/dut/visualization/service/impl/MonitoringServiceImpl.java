@@ -2,10 +2,7 @@ package com.dut.visualization.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dut.visualization.domain.MonitoringData;
-import com.dut.visualization.dto.MonitoringDataDTO;
-import com.dut.visualization.dto.SensorAlarmDTO;
-import com.dut.visualization.dto.SensorNumDTO;
-import com.dut.visualization.dto.SensorStatusDTO;
+import com.dut.visualization.dto.*;
 import com.dut.visualization.mapper.MonitoringMapper;
 import com.dut.visualization.service.MonitoringService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,11 +30,7 @@ public class MonitoringServiceImpl  extends ServiceImpl<MonitoringMapper, Monito
     public List<SensorStatusDTO> getSensorStatusChartList(){
         return baseMapper.selectSensorStatusChartList();
     }
-    //传感器数量扇形图
-    @Override
-    public List<SensorNumDTO> getSensorNumChartList() {
-        return baseMapper.selectSensorNumChartList();
-    }
+
     //传感器报警信息扇形图
     @Override
     public List<SensorAlarmDTO> getSensorAlarmChartList() {

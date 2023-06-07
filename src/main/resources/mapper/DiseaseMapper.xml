@@ -26,13 +26,16 @@
                 ANY_VALUE(sdi1.x) as x,
                 ANY_VALUE(sdi1.y) as y,
                 ANY_VALUE(sdi1.z) as z,
+                ANY_Value(sdi1.disease_id) as disease_id,
                 ANY_VALUE(sdi1.degree) as degree,
                 ANY_VALUE(sdi1.model_code) as model_code,
-                ANY_VALUE(sdi1.is_repair) as is_repair
+                ANY_VALUE(sdi1.is_repair) as is_repair,
+                ANY_VALUE(d.parent_id) as parent_id
         FROM vis_specific_disease_info sdi1
                      INNER JOIN(SELECT sdi2.disease_code, max(sdi2.create_time) AS create_time FROM vis_specific_disease_info sdi2 WHERE sdi2.is_deleted = 0 AND sdi2.create_time between #{startTime} and #{endTime} GROUP BY sdi2.disease_code) AS sdi3
                 ON sdi1.disease_code = sdi3.disease_code AND sdi1.create_time = sdi3.create_time
-
+                     LEFT JOIN vis_disease d
+                ON d.id = sdi1.disease_id
         GROUP BY sdi1.disease_code
     </select>
 
@@ -85,5 +88,34 @@
                 LEFT JOIN vis_disease d on sdi1.disease_id = d.id
         where sdi1.is_repair = 0 and d.parent_id = #{diseaseParentId}
         GROUP BY d.name
+    </select>
+
+    <select id="selectDiseasePositionNum" resultType="com.dut.visualization.dto.DiseasePositionNumDTO">
+        SELECT
+                sc.component_name as name,
+                ANY_VALUE(COUNT(sc.component_name)) as value
+        FROM vis_specific_disease_info sdi1
+                INNER JOIN(SELECT sdi2.disease_code, max(sdi2.create_time) AS create_time
+                FROM vis_specific_disease_info sdi2
+                WHERE sdi2.is_deleted = 0 AND sdi2.create_time between #{startTime} and #{endTime}
+                GROUP BY sdi2.disease_code) AS sdi3
+        ON sdi1.disease_code = sdi3.disease_code AND sdi1.create_time = sdi3.create_time
+                LEFT JOIN vis_specific_component sc on sdi1.specific_component_id = sc.id
+        where sdi1.is_repair = 0
+        GROUP BY sc.component_name
+    </select>
+
+    <select id="selectDiseaseDegreeNum" resultType="com.dut.visualization.dto.DiseaseDegreeNumDTO">
+        SELECT
+                sdi1.degree as name,
+                ANY_Value(COUNT(sdi1.degree)) as value
+        FROM vis_specific_disease_info sdi1
+                INNER JOIN(SELECT sdi2.disease_code, max(sdi2.create_time) AS create_time
+                FROM vis_specific_disease_info sdi2
+                WHERE sdi2.is_deleted = 0 AND sdi2.create_time between #{startTime} and #{endTime}
+                GROUP BY sdi2.disease_code) AS sdi3
+        ON sdi1.disease_code = sdi3.disease_code AND sdi1.create_time = sdi3.create_time
+        where sdi1.is_repair = 0
+        GROUP BY sdi1.degree
     </select>
 </mapper>

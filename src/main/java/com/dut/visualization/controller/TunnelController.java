@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/tunnel")
+@RequestMapping("/api/tunnel")
 public class TunnelController {
 
 

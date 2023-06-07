@@ -62,4 +62,14 @@ public class DiseaseServiceImpl   extends ServiceImpl<DiseaseMapper, Disease> im
     public List<DiseaseTypeNumDTO> getDiseaseTypeNumList(String diseaseParentId,String startTime,String endTime) {
         return baseMapper.selectDiseaseTypeNumList(diseaseParentId,startTime,endTime);
     }
+    //病害信息页 病害位置-数量统计
+    @Override
+    public List<DiseasePositionNumDTO> getDiseasePositionNum(String startTime, String endTime){
+        return baseMapper.selectDiseasePositionNum(startTime,endTime);
+    }
+    //病害信息页 病害严重程度-数量统计
+    @Override
+    public List<DiseaseDegreeNumDTO> getDiseaseDegreeNum(String startTime, String endTime){
+        return baseMapper.selectDiseaseDegreeNum(startTime,endTime);
+    }
 }

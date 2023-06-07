@@ -1,9 +1,6 @@
 package com.dut.visualization.controller;
 
-import com.dut.visualization.dto.MonitoringDataDTO;
-import com.dut.visualization.dto.SensorAlarmDTO;
-import com.dut.visualization.dto.SensorNumDTO;
-import com.dut.visualization.dto.SensorStatusDTO;
+import com.dut.visualization.dto.*;
 import com.dut.visualization.service.impl.MonitoringServiceImpl;
 import com.dut.visualization.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
@@ -24,7 +21,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/monitoring")
+@RequestMapping("/api/monitoring")
 public class MonitoringController {
     @Resource
     private MonitoringServiceImpl monitoringServiceImpl;
@@ -52,25 +49,18 @@ public class MonitoringController {
         return ResponseViewModel.ok(sensorStatusList);
     }
 
-    /**
-     * 查询传感器不同类型数量扇形图
-     * @return 传感器类型及不同类型所对应的数量
-     */
-    @ApiOperation(value = "查询传感器不同类型数量扇形图", tags = {"监测信息页","已通"})
-    @GetMapping("/get_sensor_num_chart")
-    public ResponseViewModel<List<SensorNumDTO>> getSensorNumChart(){
-        List<SensorNumDTO> sensorNumList = monitoringServiceImpl.getSensorNumChartList();
-        return ResponseViewModel.ok(sensorNumList);
-    }
+
 
     /**
      * 查询传感器报警数量扇形图
      * @return 传感器报警类型及不同类型所对应的数量
      */
-    @ApiOperation(value = "查询传感器报警数量扇形图", tags = {"监测信息页","已通"})
+    @ApiOperation(value = "查询传感器报警数量", tags = {"监测信息页","已通"})
     @GetMapping("/get_sensor_alarm_chart")
     public ResponseViewModel<List<SensorAlarmDTO>> getSensorAlarmChart(){
         List<SensorAlarmDTO> sensorAlarmList = monitoringServiceImpl.getSensorAlarmChartList();
         return ResponseViewModel.ok(sensorAlarmList);
     }
+
+
 }

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/specific_component")
+@RequestMapping("/api/specific_component")
 public class SpecificComponentController {
     @Resource
     private SpecificComponentService specificComponentService;

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dut.visualization.mapper.SensorMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dut.visualization.domain.Sensor">
+        <id column="id" property="id"/>
+        <result column="sensor_id" property="sensorId"/>
+        <result column="online" property="online"/>
+        <result column="alarm" property="alarm"/>
+        <result column="threshold" property="threshold"/>
+        <result column="model_code" property="modelCode"/>
+        <result column="function" property="function"/>
+        <result column="manufacturer" property="manufacturer"/>
+        <result column="monitoring_point" property="monitoringPoint"/>
+        <result column="x" property="x"/>
+        <result column="y" property="y"/>
+        <result column="z" property="z"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="selectSensorPosition" resultType="com.dut.visualization.dto.SensorPositionDTO">
+        SELECT
+                s.x,
+                s.y,
+                s.z,
+                s.alarm,
+                s.online,
+                s.monitoring_point,
+                s.model_code
+        FROM
+                vis_sensor s
+        WHERE
+                s.is_deleted = 0
+    </select>
+
+
+    <select id="selectSensorNumChartList" resultType="com.dut.visualization.dto.SensorNumDTO">
+        select
+                c.name as name,
+                count(s.id) as value
+        from vis_sensor s
+                left join vis_component c on s.sensor_id = c.id
+        where s.is_deleted = 0
+        group by c.name
+    </select>
+</mapper>
