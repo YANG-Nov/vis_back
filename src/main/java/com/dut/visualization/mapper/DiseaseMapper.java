@@ -22,4 +22,6 @@ public interface DiseaseMapper  extends BaseMapper<Disease> {
     List<DiseasePositionNumDTO> selectDiseasePositionNum(String startTime, String endTime);
     //病害严重程度-数量统计
     List<DiseaseDegreeNumDTO> selectDiseaseDegreeNum(String startTime, String endTime);
+    //通过Code和Repair筛选出的结果
+    List<DiseaseSelectByCodeAndRepair> selectByCodeAndRepair(String startDate, String endDate, String diseaseId);
 }

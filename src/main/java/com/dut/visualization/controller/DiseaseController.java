@@ -76,4 +76,11 @@ public class DiseaseController {
         List<DiseaseDegreeNumDTO> diseaseDegreeNumDTOS = diseaseServiceImpl.getDiseaseDegreeNum(startTime, endTime);
         return ResponseViewModel.ok(diseaseDegreeNumDTOS);
     }
+
+    @ApiOperation(value = "病害发生时间-数量统计", tags = {"病害信息页","已通"})
+    @GetMapping("/get_disease_time_num")
+    public ResponseViewModel<List<DiseaseTimeNumDTO>> getDiseaseTimeNum(@RequestParam String startDate, @RequestParam String endDate, @RequestParam String diseaseId){
+        List<DiseaseTimeNumDTO> diseaseTimeNumDTOS = diseaseServiceImpl.getDiseaseTimeNum(startDate, endDate, diseaseId);
+        return ResponseViewModel.ok(diseaseTimeNumDTOS);
+    }
 }
