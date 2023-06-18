@@ -1,11 +1,21 @@
 package com.dut.visualization.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dut.visualization.domain.Disease;
-import com.dut.visualization.dto.*;
+import com.dut.visualization.dto.DiseaseDegreeNumDTO;
+import com.dut.visualization.dto.DiseaseLocationDTO;
+import com.dut.visualization.dto.DiseasePlaceNumDTO;
+import com.dut.visualization.dto.DiseasePositionNumDTO;
+import com.dut.visualization.dto.DiseaseSelectByCodeAndRepair;
+import com.dut.visualization.dto.DiseaseTimeNumDTO;
+import com.dut.visualization.dto.DiseaseTypeDTO;
+import com.dut.visualization.dto.DiseaseTypeNumDTO;
+import com.dut.visualization.dto.DiseaseZtTimeDTO;
+import com.dut.visualization.dto.DiseaseZtTimeDTO1;
 import com.dut.visualization.mapper.DiseaseMapper;
 import com.dut.visualization.service.DiseaseService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +24,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -88,22 +100,51 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
     public List<DiseaseTimeNumDTO> getDiseaseTimeNum(String startDate, String endDate, String diseaseId) {
         List<DiseaseSelectByCodeAndRepair> diseaseSelectByCodeAndRepairList = baseMapper.selectByCodeAndRepair(startDate, endDate, diseaseId);
         List<DiseaseTimeNumDTO> list = new ArrayList<>();
+
         if (CollUtil.isNotEmpty(diseaseSelectByCodeAndRepairList)) {
-            DateTime start = DateUtil.parseDate(startDate); // i
-            DateTime end = DateUtil.parseDate(endDate); // c
+            DateTime start = DateUtil.parseDate(startDate); // i 入参
+            DateTime end = DateUtil.parseDate(endDate); // c 入参
 
             Map<String, List<DiseaseSelectByCodeAndRepair>> codeMap = diseaseSelectByCodeAndRepairList.stream().collect(Collectors.groupingBy(DiseaseSelectByCodeAndRepair::getDiseaseCode));
-
+            ConcurrentHashMap<String, AtomicInteger> countByDayMap = new ConcurrentHashMap<>();
             for (String diseaseCode : codeMap.keySet()) {
+                List<DiseaseSelectByCodeAndRepair> diseaseSelectByCodeAndRepairs = codeMap.get(diseaseCode);
+                DateTime sDate = DateUtil.parseDate(diseaseSelectByCodeAndRepairs.get(0).getTriggerDate()); // 病害发生日期，肯定不为空
+                DateTime eDate = diseaseSelectByCodeAndRepairs.size() >= 2 ? DateUtil.parseDate(diseaseSelectByCodeAndRepairs.get(1).getTriggerDate()) : null; // 病害修复日期，为空时说明病害未修复
 
+                DateTime s = new DateTime((sDate.isBefore(start) ? start : sDate).getTime());   // s要新new一个，因为在calculateCount中会改变s的值，导致sDate的值也会改变
+                DateTime e = new DateTime((eDate == null || eDate.isAfter(end) ? end : eDate).getTime());   // e要新new一个，因为在calculateCount中会改变e的值，导致eDate的值也会改变
+                calculateCount(s, e, countByDayMap);
             }
-            for (DiseaseSelectByCodeAndRepair diseaseSelectByCodeAndRepair : diseaseSelectByCodeAndRepairList) {
-                DateTime trigger = DateUtil.parseDate(diseaseSelectByCodeAndRepair.getTriggerDate());
-                String code = diseaseSelectByCodeAndRepair.getDiseaseCode();
-                String isRepair = diseaseSelectByCodeAndRepair.getIsRepair();
+
+            // 将map转换为list
+            for (Map.Entry<String, AtomicInteger> entry : countByDayMap.entrySet()) {
+                DiseaseTimeNumDTO diseaseTimeNumDTO = new DiseaseTimeNumDTO();
+                diseaseTimeNumDTO.setName(entry.getKey());
+                diseaseTimeNumDTO.setValue(String.valueOf(entry.getValue().get()));
+                list.add(diseaseTimeNumDTO);
             }
         }
 
         return list;
+    }
+
+    /**
+     * 计算每天的数量
+     *
+     * @param start         开始日期
+     * @param end           结束日期
+     * @param countByDayMap 每天的数量
+     */
+    private void calculateCount(DateTime start, DateTime end, ConcurrentHashMap<String, AtomicInteger> countByDayMap) {
+        while (start.isBefore(end)) {
+            String key = start.toString("yyyy-MM-dd");
+            if (countByDayMap.containsKey(key)) {
+                countByDayMap.get(key).incrementAndGet();
+            } else {
+                countByDayMap.put(key, new AtomicInteger(1));
+            }
+            start = start.offset(DateField.DAY_OF_YEAR, 1);
+        }
     }
 }
