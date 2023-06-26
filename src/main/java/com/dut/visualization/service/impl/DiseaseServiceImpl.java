@@ -98,7 +98,9 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
     //病害信息页 病害发生时间-数量统计
     @Override
     public List<DiseaseTimeNumDTO> getDiseaseTimeNum(String startTime, String endTime, String diseaseId) {
+        log.info("startTime:{},endTime:{},diseaseId:{}", startTime, endTime, diseaseId);
         List<DiseaseSelectByCodeAndRepair> diseaseSelectByCodeAndRepairList = baseMapper.selectByCodeAndRepair(startTime, endTime, diseaseId);
+        log.info("diseaseSelectByCodeAndRepairList:{}", diseaseSelectByCodeAndRepairList);
         List<DiseaseTimeNumDTO> list = new ArrayList<>();
 
         if (CollUtil.isNotEmpty(diseaseSelectByCodeAndRepairList)) {
@@ -115,6 +117,7 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
                 DateTime s = new DateTime((sDate.isBefore(start) ? start : sDate).getTime());   // s要新new一个，因为在calculateCount中会改变s的值，导致sDate的值也会改变
                 DateTime e = new DateTime((eDate == null || eDate.isAfter(end) ? end : eDate).getTime());   // e要新new一个，因为在calculateCount中会改变e的值，导致eDate的值也会改变
                 calculateCount(s, e, countByDayMap);
+                log.info("s:{},e:{},countByDayMap:{}", s, e, countByDayMap);
             }
 
             // 将map转换为list
