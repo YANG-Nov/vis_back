@@ -120,6 +120,15 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
                 log.info("s:{},e:{},countByDayMap:{}", s, e, countByDayMap);
             }
 
+            // 处理空值，将空值补为0，注意这里start已经被改掉了，后续不能再使用，如要继续使用start，这里需要做deep copy
+            while (start.isBefore(end)) {
+                String key = start.toString("yyyy-MM-dd");
+                if (!countByDayMap.containsKey(key)) {
+                    countByDayMap.put(key, new AtomicInteger(0));
+                }
+                start = start.offset(DateField.DAY_OF_YEAR, 1);
+            }
+
             // 将map转换为list
             for (Map.Entry<String, AtomicInteger> entry : countByDayMap.entrySet()) {
                 DiseaseTimeNumDTO diseaseTimeNumDTO = new DiseaseTimeNumDTO();
