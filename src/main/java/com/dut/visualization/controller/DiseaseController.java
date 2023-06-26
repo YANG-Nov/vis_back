@@ -81,6 +81,7 @@ public class DiseaseController {
     @GetMapping("/get_disease_time_num")
     public ResponseViewModel<List<DiseaseTimeNumDTO>> getDiseaseTimeNum(@RequestParam String startTime, @RequestParam String endTime, @RequestParam String diseaseId){
         List<DiseaseTimeNumDTO> diseaseTimeNumDTOS = diseaseServiceImpl.getDiseaseTimeNum(startTime, endTime, diseaseId);
+        log.info("返回给前端的数据 diseaseTimeNumDTOS:{}",diseaseTimeNumDTOS);
         return ResponseViewModel.ok(diseaseTimeNumDTOS);
     }
 }
