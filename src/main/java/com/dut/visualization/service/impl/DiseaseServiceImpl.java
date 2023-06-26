@@ -103,12 +103,11 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
         log.info("diseaseSelectByCodeAndRepairList:{}", diseaseSelectByCodeAndRepairList);
         List<DiseaseTimeNumDTO> list = new ArrayList<>();
 
+        ConcurrentHashMap<String, AtomicInteger> countByDayMap = new ConcurrentHashMap<>();
+        DateTime start = DateUtil.parseDate(startTime); // i 入参
+        DateTime end = DateUtil.parseDate(endTime); // c 入参
         if (CollUtil.isNotEmpty(diseaseSelectByCodeAndRepairList)) {
-            DateTime start = DateUtil.parseDate(startTime); // i 入参
-            DateTime end = DateUtil.parseDate(endTime); // c 入参
-
             Map<String, List<DiseaseSelectByCodeAndRepair>> codeMap = diseaseSelectByCodeAndRepairList.stream().collect(Collectors.groupingBy(DiseaseSelectByCodeAndRepair::getDiseaseCode));
-            ConcurrentHashMap<String, AtomicInteger> countByDayMap = new ConcurrentHashMap<>();
             for (String diseaseCode : codeMap.keySet()) {
                 List<DiseaseSelectByCodeAndRepair> diseaseSelectByCodeAndRepairs = codeMap.get(diseaseCode);
                 DateTime sDate = DateUtil.parseDate(diseaseSelectByCodeAndRepairs.get(0).getTriggerDate()); // 病害发生日期，肯定不为空
@@ -119,24 +118,24 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
                 calculateCount(s, e, countByDayMap);
                 log.info("s:{},e:{},countByDayMap:{}", s, e, countByDayMap);
             }
+        }
 
-            // 处理空值，将空值补为0，注意这里start已经被改掉了，后续不能再使用，如要继续使用start，这里需要做deep copy
-            while (start.isBefore(end)) {
-                String key = start.toString("yyyy-MM-dd");
-                if (!countByDayMap.containsKey(key)) {
-                    countByDayMap.put(key, new AtomicInteger(0));
-                }
-                start = start.offset(DateField.DAY_OF_YEAR, 1);
+        // 处理空值，将空值补为0，注意这里start已经被改掉了，后续不能再使用，如要继续使用start，这里需要做deep copy
+        while (start.isBefore(end)) {
+            String key = start.toString("yyyy-MM-dd");
+            if (!countByDayMap.containsKey(key)) {
+                countByDayMap.put(key, new AtomicInteger(0));
             }
+            start = start.offset(DateField.DAY_OF_YEAR, 1);
+        }
 
-            // 将map转换为list
-            for (Map.Entry<String, AtomicInteger> entry : countByDayMap.entrySet()) {
-                DiseaseTimeNumDTO diseaseTimeNumDTO = new DiseaseTimeNumDTO();
-                diseaseTimeNumDTO.setName(entry.getKey());
+        // 将map转换为list
+        for (Map.Entry<String, AtomicInteger> entry : countByDayMap.entrySet()) {
+            DiseaseTimeNumDTO diseaseTimeNumDTO = new DiseaseTimeNumDTO();
+            diseaseTimeNumDTO.setName(entry.getKey());
 //                diseaseTimeNumDTO.setValue(String.valueOf(entry.getValue().get()));
-                diseaseTimeNumDTO.setValue(entry.getValue().get());
-                list.add(diseaseTimeNumDTO);
-            }
+            diseaseTimeNumDTO.setValue(entry.getValue().get());
+            list.add(diseaseTimeNumDTO);
         }
 
         return list;
