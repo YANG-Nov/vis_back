@@ -97,13 +97,13 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
 
     //病害信息页 病害发生时间-数量统计
     @Override
-    public List<DiseaseTimeNumDTO> getDiseaseTimeNum(String startDate, String endDate, String diseaseId) {
-        List<DiseaseSelectByCodeAndRepair> diseaseSelectByCodeAndRepairList = baseMapper.selectByCodeAndRepair(startDate, endDate, diseaseId);
+    public List<DiseaseTimeNumDTO> getDiseaseTimeNum(String startTime, String endTime, String diseaseId) {
+        List<DiseaseSelectByCodeAndRepair> diseaseSelectByCodeAndRepairList = baseMapper.selectByCodeAndRepair(startTime, endTime, diseaseId);
         List<DiseaseTimeNumDTO> list = new ArrayList<>();
 
         if (CollUtil.isNotEmpty(diseaseSelectByCodeAndRepairList)) {
-            DateTime start = DateUtil.parseDate(startDate); // i 入参
-            DateTime end = DateUtil.parseDate(endDate); // c 入参
+            DateTime start = DateUtil.parseDate(startTime); // i 入参
+            DateTime end = DateUtil.parseDate(endTime); // c 入参
 
             Map<String, List<DiseaseSelectByCodeAndRepair>> codeMap = diseaseSelectByCodeAndRepairList.stream().collect(Collectors.groupingBy(DiseaseSelectByCodeAndRepair::getDiseaseCode));
             ConcurrentHashMap<String, AtomicInteger> countByDayMap = new ConcurrentHashMap<>();
@@ -121,7 +121,8 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
             for (Map.Entry<String, AtomicInteger> entry : countByDayMap.entrySet()) {
                 DiseaseTimeNumDTO diseaseTimeNumDTO = new DiseaseTimeNumDTO();
                 diseaseTimeNumDTO.setName(entry.getKey());
-                diseaseTimeNumDTO.setValue(String.valueOf(entry.getValue().get()));
+//                diseaseTimeNumDTO.setValue(String.valueOf(entry.getValue().get()));
+                diseaseTimeNumDTO.setValue(entry.getValue().get());
                 list.add(diseaseTimeNumDTO);
             }
         }

@@ -14,5 +14,5 @@ public class DiseaseTimeNumDTO {
     @ApiModelProperty(value = "时间")
     private String name;
     @ApiModelProperty(value = "数量")
-    private String value;
+    private Integer value;
 }

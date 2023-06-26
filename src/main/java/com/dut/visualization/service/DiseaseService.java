@@ -22,5 +22,5 @@ public interface DiseaseService  extends IService<Disease> {
     //病害严重程度-数量统计
     List<DiseaseDegreeNumDTO> getDiseaseDegreeNum(String startTime, String endTime);
     //病害发生时间-数量统计
-    List<DiseaseTimeNumDTO> getDiseaseTimeNum(String startDate, String endDate, String diseaseId);
+    List<DiseaseTimeNumDTO> getDiseaseTimeNum(String startTime, String endTime, String diseaseId);
 }

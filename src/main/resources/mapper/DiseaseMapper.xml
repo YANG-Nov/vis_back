@@ -126,11 +126,11 @@
                 date_format(min(a.create_time),'%Y-%m-%d') trigger_date
         from vis_specific_disease_info a
         where a.is_deleted = 0
-          and a.create_time between #{startDate} and #{endDate}
+          and a.create_time between #{startTime} and #{endTime}
           and a.disease_id in (
                 select id
                 from vis_disease a
-                where a.xpath like '%/${diseaseId}/%'
+                where a.xpath like '%/${diseaseId}%'
                 )
         group by a.disease_code, a.is_repair
     </select>
