@@ -126,7 +126,7 @@
                 date_format(min(a.create_time),'%Y-%m-%d') trigger_date
         from vis_specific_disease_info a
         where a.is_deleted = 0
-          and a.create_time between #{startTime} and #{endTime}
+          and a.create_time between concat(#{startTime}, ' 00:00:00') and concat(#{endTime}, ' 23:59:59')
           and a.disease_id in (
                 select id
                 from vis_disease a
