@@ -46,4 +46,18 @@
         where s.is_deleted = 0
         group by c.name
     </select>
+
+    <select id="selectSensorInfo" resultType="com.dut.visualization.dto.SensorInfoDTO">
+        SELECT
+                s.name,
+                s.code,
+                s.manufactor,
+                DATE_FORMAT(s.install_time,'%Y-%m-%d') installTime,
+                s.install_unit installUnit
+        FROM
+                vis_sensor s
+        WHERE
+                s.is_deleted = 0 AND
+                s.model_code = #{sensorModelCode}
+    </select>
 </mapper>

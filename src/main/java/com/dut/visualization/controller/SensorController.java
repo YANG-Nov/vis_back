@@ -1,5 +1,6 @@
 package com.dut.visualization.controller;
 
+import com.dut.visualization.dto.SensorInfoDTO;
 import com.dut.visualization.dto.SensorNumDTO;
 import com.dut.visualization.dto.SensorPositionDTO;
 import com.dut.visualization.service.impl.MonitoringServiceImpl;
@@ -8,10 +9,7 @@ import com.dut.visualization.viewmodel.ResponseViewModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -49,5 +47,11 @@ public class SensorController {
     public ResponseViewModel<List<SensorNumDTO>> getSensorNumChart(){
         List<SensorNumDTO> sensorNumList = sensorServiceImpl.getSensorNumChartList();
         return ResponseViewModel.ok(sensorNumList);
+    }
+    @ApiOperation(value = "查询传感器信息", tags= {"监测信息页", "已通"})
+    @GetMapping("/get_sensor_info/{sensorModelCode}")
+    public ResponseViewModel<SensorInfoDTO> getSensorInfo(@PathVariable String sensorModelCode){
+        SensorInfoDTO sensorInfoDTO = sensorServiceImpl.getSensorInfo(sensorModelCode);
+        return ResponseViewModel.ok(sensorInfoDTO);
     }
 }

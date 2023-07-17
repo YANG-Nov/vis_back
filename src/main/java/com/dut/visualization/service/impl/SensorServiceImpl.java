@@ -2,6 +2,7 @@ package com.dut.visualization.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dut.visualization.domain.Sensor;
+import com.dut.visualization.dto.SensorInfoDTO;
 import com.dut.visualization.dto.SensorNumDTO;
 import com.dut.visualization.dto.SensorPositionDTO;
 import com.dut.visualization.mapper.SensorMapper;
@@ -30,4 +31,7 @@ public class SensorServiceImpl   extends ServiceImpl<SensorMapper, Sensor> imple
     public List<SensorNumDTO> getSensorNumChartList() {
         return baseMapper.selectSensorNumChartList();
     }
+    //传感器信息
+    @Override
+    public SensorInfoDTO getSensorInfo(String sensorModelCode) { return baseMapper.selectSensorInfo(sensorModelCode); }
 }
