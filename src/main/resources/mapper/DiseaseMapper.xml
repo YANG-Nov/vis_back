@@ -134,4 +134,18 @@
                 )
         group by a.disease_code, a.is_repair
     </select>
+
+    <select id="selectDiseaseInfoHistory" resultType="com.dut.visualization.dto.DiseaseInfoHistoryDTO">
+        SELECT
+                sc.model_code,
+                d.name disease_name,
+                da.name disease_attribute,
+                sc.data,
+                date_format(sc.create_time, '%Y-%m-%d') create_time
+        FROM
+                vis_specific_disease sc
+                        LEFT JOIN vis_disease_attribute da ON sc.disease_attribute = da.id
+                        LEFT JOIN vis_disease d ON sc.disease_id = d.id
+        WHERE sc.model_code = #{modelCode} AND sc.is_deleted = 0
+    </select>
 </mapper>

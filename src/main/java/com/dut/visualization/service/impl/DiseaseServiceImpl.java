@@ -6,16 +6,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dut.visualization.domain.Disease;
-import com.dut.visualization.dto.DiseaseDegreeNumDTO;
-import com.dut.visualization.dto.DiseaseLocationDTO;
-import com.dut.visualization.dto.DiseasePlaceNumDTO;
-import com.dut.visualization.dto.DiseasePositionNumDTO;
-import com.dut.visualization.dto.DiseaseSelectByCodeAndRepair;
-import com.dut.visualization.dto.DiseaseTimeNumDTO;
-import com.dut.visualization.dto.DiseaseTypeDTO;
-import com.dut.visualization.dto.DiseaseTypeNumDTO;
-import com.dut.visualization.dto.DiseaseZtTimeDTO;
-import com.dut.visualization.dto.DiseaseZtTimeDTO1;
+import com.dut.visualization.dto.*;
 import com.dut.visualization.mapper.DiseaseMapper;
 import com.dut.visualization.service.DiseaseService;
 import lombok.extern.slf4j.Slf4j;
@@ -158,5 +149,13 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
             }
             start = start.offset(DateField.DAY_OF_YEAR, 1);
         }
+    }
+
+    //病害信息页 单个病害详情（病害历史）
+    @Override
+    public List<DiseaseInfoHistoryDTO> getDiseaseInfoHistory(String modelCode) {
+        List<DiseaseInfoHistoryDTO> list= baseMapper.selectDiseaseInfoHistory(modelCode);
+
+        return baseMapper.selectDiseaseInfoHistory(modelCode);
     }
 }

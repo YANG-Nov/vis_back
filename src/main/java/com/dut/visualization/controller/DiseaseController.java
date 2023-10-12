@@ -84,4 +84,11 @@ public class DiseaseController {
         log.info("返回给前端的数据 diseaseTimeNumDTOS:{}",diseaseTimeNumDTOS);
         return ResponseViewModel.ok(diseaseTimeNumDTOS);
     }
+
+    @ApiOperation(value = "单个病害详情（病害历史）", tags = {"病害信息页","未通"})
+    @GetMapping("/get_disease_info_history")
+    public ResponseViewModel<List<DiseaseInfoHistoryDTO>> getDiseaseInfoHistory(@RequestParam String modelCode){
+        List<DiseaseInfoHistoryDTO> diseaseInfoHistoryDTOS = diseaseServiceImpl.getDiseaseInfoHistory(modelCode);
+        return ResponseViewModel.ok(diseaseInfoHistoryDTOS);
+    }
 }
