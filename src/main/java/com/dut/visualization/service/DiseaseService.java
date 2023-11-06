@@ -24,5 +24,7 @@ public interface DiseaseService  extends IService<Disease> {
     //病害发生时间-数量统计
     List<DiseaseTimeNumDTO> getDiseaseTimeNum(String startTime, String endTime, String diseaseId);
     //单个病害详情（病害历史）
-    List<DiseaseInfoHistoryDTO> getDiseaseInfoHistory(String modelCode);
+    List<DiseaseInfoHistoryDTO> getDiseaseInfoHistory(String diseaseModelCode);
+    //首页 查询各类病害数量
+    List<DiseaseNumDTO> getDiseaseNum();
 }

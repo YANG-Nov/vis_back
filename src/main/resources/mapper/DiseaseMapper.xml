@@ -146,6 +146,26 @@
                 vis_specific_disease sc
                         LEFT JOIN vis_disease_attribute da ON sc.disease_attribute = da.id
                         LEFT JOIN vis_disease d ON sc.disease_id = d.id
-        WHERE sc.model_code = #{modelCode} AND sc.is_deleted = 0
+        WHERE sc.model_code = #{diseaseModelCode} AND sc.is_deleted = 0
+    </select>
+
+    <select id="selectDiseaseNum" resultType="com.dut.visualization.dto.DiseaseNumDTO">
+        SELECT
+                count( CASE WHEN d.parent_id = '20001' THEN 1 ELSE NULL END ) AS diseaseZtNum,
+                count( CASE WHEN d.parent_id = '20002' THEN 1 ELSE NULL END ) AS diseaseJtNum,
+                count( CASE WHEN d.parent_id = '20003' THEN 1 ELSE NULL END ) AS diseaseFsNum,
+                count( * ) AS diseaseTotalNum
+        FROM
+                vis_specific_disease_info sdi1
+                        INNER JOIN(
+                        SELECT sdi2.disease_code, max(sdi2.create_time) AS create_time
+                        FROM vis_specific_disease_info sdi2
+                        WHERE sdi2.is_deleted = 0
+                        GROUP BY sdi2.disease_code) AS sdi3
+                        ON sdi1.disease_code = sdi3.disease_code AND sdi1.create_time = sdi3.create_time
+                        LEFT JOIN vis_disease d ON sdi1.disease_id = d.id
+        WHERE
+                sdi1.is_repair = 0 AND sdi1.is_deleted = 0
+        GROUP BY sdi1.disease_code
     </select>
 </mapper>

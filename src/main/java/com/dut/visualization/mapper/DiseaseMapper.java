@@ -25,5 +25,7 @@ public interface DiseaseMapper  extends BaseMapper<Disease> {
     //通过Code和Repair筛选出的结果
     List<DiseaseSelectByCodeAndRepair> selectByCodeAndRepair(String startTime, String endTime, String diseaseId);
     //单个病害详情（病害历史）
-    List<DiseaseInfoHistoryDTO> selectDiseaseInfoHistory(String modelCode);
+    List<DiseaseInfoHistoryDTO> selectDiseaseInfoHistory(String diseaseModelCode);
+    //查询病害数量
+    List<DiseaseNumDTO> selectDiseaseNum();
 }

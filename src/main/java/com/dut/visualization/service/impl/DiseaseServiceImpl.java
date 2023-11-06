@@ -153,9 +153,13 @@ public class DiseaseServiceImpl extends ServiceImpl<DiseaseMapper, Disease> impl
 
     //病害信息页 单个病害详情（病害历史）
     @Override
-    public List<DiseaseInfoHistoryDTO> getDiseaseInfoHistory(String modelCode) {
-        List<DiseaseInfoHistoryDTO> list= baseMapper.selectDiseaseInfoHistory(modelCode);
+    public List<DiseaseInfoHistoryDTO> getDiseaseInfoHistory(String diseaseModelCode) {
+        return baseMapper.selectDiseaseInfoHistory(diseaseModelCode);
+    }
 
-        return baseMapper.selectDiseaseInfoHistory(modelCode);
+    //首页 病害数量
+    @Override
+    public List<DiseaseNumDTO> getDiseaseNum() {
+        return baseMapper.selectDiseaseNum();
     }
 }

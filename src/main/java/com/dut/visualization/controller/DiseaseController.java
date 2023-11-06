@@ -17,7 +17,7 @@ import java.util.List;
  * @ Description：病害信息接口
  * @Version: 1.0.0$
  */
-@Api(tags = "监测信息接口")
+@Api(tags = "病害信息接口")
 @Slf4j
 @RestController
 @CrossOrigin
@@ -87,9 +87,16 @@ public class DiseaseController {
 
     @ApiOperation(value = "单个病害详情（病害历史）", tags = {"病害信息页", "未通"})
     @GetMapping("/get_disease_info_history")
-    public ResponseViewModel<List<DiseaseInfoHistoryListDTO>> getDiseaseInfoHistory(@RequestParam String modelCode) {
-        List<DiseaseInfoHistoryDTO> diseaseInfoHistoryDTOS = diseaseServiceImpl.getDiseaseInfoHistory(modelCode);
+    public ResponseViewModel<List<DiseaseInfoHistoryListDTO>> getDiseaseInfoHistory(@RequestParam String diseaseModelCode) {
+        List<DiseaseInfoHistoryDTO> diseaseInfoHistoryDTOS = diseaseServiceImpl.getDiseaseInfoHistory(diseaseModelCode);
         List<DiseaseInfoHistoryListDTO> list = DiseaseInfoHistoryListDTO.convert(diseaseInfoHistoryDTOS);
         return ResponseViewModel.ok(list);
+    }
+
+    @ApiOperation(value = "病害首页，病害数量", tags = {"首页", "未通"})
+    @GetMapping("/get_disease_num")
+    public ResponseViewModel<List<DiseaseNumDTO>> getDiseaseNum() {
+        List<DiseaseNumDTO> diseaseNumDTOS = diseaseServiceImpl.getDiseaseNum();
+        return ResponseViewModel.ok(diseaseNumDTOS);
     }
 }
