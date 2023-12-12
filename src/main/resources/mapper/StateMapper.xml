@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dut.visualization.mapper.StateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dut.visualization.domain.State">
+        <id column="id" property="id"/>
+        <result column="tube" property="tube"/>
+        <result column="proportion1" property="proportion1"/>
+        <result column="proportion2" property="proportion2"/>
+        <result column="proportion3" property="proportion3"/>
+        <result column="proportion41" property="proportion41"/>
+        <result column="proportion42" property="proportion42"/>
+        <result column="proportion43" property="proportion43"/>
+        <result column="proportion44" property="proportion44"/>
+        <result column="proportion45" property="proportion45"/>
+        <result column="proportion46" property="proportion46"/>
+        <result column="proportion47" property="proportion47"/>
+        <result column="proportion48" property="proportion48"/>
+        <result column="sit11" property="sit11"/>
+        <result column="sit12" property="sit12"/>
+        <result column="sit13" property="sit13"/>
+        <result column="sit14" property="sit14"/>
+        <result column="sit15" property="sit15"/>
+        <result column="sit16" property="sit16"/>
+        <result column="sit17" property="sit17"/>
+        <result column="sit21" property="sit21"/>
+        <result column="sit22" property="sit22"/>
+        <result column="sit23" property="sit23"/>
+        <result column="sit24" property="sit24"/>
+        <result column="sit25" property="sit25"/>
+        <result column="sit26" property="sit26"/>
+        <result column="sit27" property="sit27"/>
+        <result column="sit41" property="sit41"/>
+        <result column="sit42" property="sit42"/>
+        <result column="sit43" property="sit43"/>
+        <result column="sit44" property="sit44"/>
+        <result column="sit45" property="sit45"/>
+        <result column="sit46" property="sit46"/>
+        <result column="sit47" property="sit47"/>
+        <result column="sit48" property="sit48"/>
+        <result column="sit31" property="sit31"/>
+        <result column="sit32" property="sit32"/>
+        <result column="sit33" property="sit33"/>
+        <result column="sit34" property="sit34"/>
+        <result column="sit35" property="sit35"/>
+        <result column="sit36" property="sit36"/>
+        <result column="checked1" property="checked1"/>
+        <result column="checked2" property="checked2"/>
+        <result column="checked3" property="checked3"/>
+        <result column="checked4" property="checked4"/>
+        <result column="checked5" property="checked5"/>
+        <result column="checked6" property="checked6"/>
+        <result column="checked7" property="checked7"/>
+        <result column="result" property="result"/>
+    </resultMap>
+
+    <select id="selectStateInputIdMax" resultType="com.dut.visualization.dto.StateInputIdMaxDTO">
+        SELECT
+                MAX(s.id) id_max
+        FROM
+                vis_state s
+    </select>
+
+    <insert id="insertState" parameterType="com.dut.visualization.dto.StateInputDTO">
+        INSERT INTO vis_state
+            (id,tube,proportion1,proportion2,proportion3,proportion41,proportion42,proportion43,proportion44,proportion45,proportion46,
+             proportion47,proportion48,sit11,sit12,sit13,sit14,sit15,sit16,sit17,sit21,sit22,sit23,sit24,sit25,sit26,sit27,
+             sit41,sit42,sit43,sit44,sit45,sit46,sit47,sit48,sit31,sit32,sit33,sit34,sit35,sit36,
+                    checked1,checked2,checked3,checked4,checked5,checked6,checked7,result)
+        values
+        (#{id},#{tube},#{proportion1},#{proportion2},#{proportion3},#{proportion41},
+         #{proportion42},#{proportion43},#{proportion44},#{proportion45},#{proportion46},#{proportion47},
+         #{proportion48},#{sit11},#{sit12},#{sit13},#{sit14},#{sit15},
+         #{sit16},#{sit17},#{sit21},#{sit22},#{sit23},#{sit24},
+         #{sit25},#{sit26},#{sit27},#{sit41},#{sit42},#{sit43},
+         #{sit44},#{sit45},#{sit46},#{sit47},#{sit48},#{sit31},
+         #{sit32},#{sit33},#{sit34},#{sit35},#{sit36},#{checked1},
+         #{checked2},#{checked3},#{checked4},#{checked5},#{checked6},#{checked7},
+                #{result})
+    </insert>
+
+    <select id="selectState" resultType="com.dut.visualization.dto.StateInputDTO">
+        SELECT
+                *
+        FROM
+                vis_state
+        WHERE
+            tube = #{tube} and
+                create_time = (SELECT MAX(create_time) FROM vis_state)
+    </select>
+</mapper>
