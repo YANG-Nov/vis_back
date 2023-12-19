@@ -2,12 +2,15 @@ package com.dut.visualization.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dut.visualization.domain.SpecificComponent;
-import com.dut.visualization.dto.SensorStatusDTO;
+import com.dut.visualization.dto.CameraPositionDTO;
 import com.dut.visualization.dto.SpecificComponentInformationDTO;
+import com.dut.visualization.dto.SpecificTubeDTO;
 import com.dut.visualization.mapper.SpecificComponentMapper;
 import com.dut.visualization.service.SpecificComponentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @ Author     ：Yang
@@ -23,5 +26,13 @@ public class SpecificComponentServiceImpl extends ServiceImpl<SpecificComponentM
         return baseMapper.selectSpecificComponentInformation(componentModelCode);
     }
 
+    @Override
+    public List<SpecificTubeDTO> getSpecificTube(){
+        return baseMapper.selectSpecificTube();
+    }
 
+    @Override
+    public CameraPositionDTO getView(String specificComponentId){
+        return baseMapper.selectView(specificComponentId);
+    }
 }
