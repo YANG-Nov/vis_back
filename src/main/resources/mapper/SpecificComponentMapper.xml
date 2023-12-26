@@ -36,6 +36,7 @@
                 vis_specific_component
         WHERE
                 is_tube = 1
+        order by id
     </select>
 
     <select id="selectView" resultType="com.dut.visualization.dto.CameraPositionDTO">
