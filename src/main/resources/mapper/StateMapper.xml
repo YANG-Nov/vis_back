@@ -87,6 +87,6 @@
                 vis_state
         WHERE
             tube = #{tube} and
-                create_time = (SELECT MAX(create_time) FROM vis_state)
+                create_time = (SELECT MAX(create_time) FROM vis_state WHERE tube = #{tube})
     </select>
 </mapper>
